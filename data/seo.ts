@@ -57,7 +57,7 @@ export const seoMetadata: Metadata = {
     creator: "@brainstack",
     images: ["https://brainstack.com/og-image.png"],
   },
-  appLinks: [],
+  // appLinks: [],
   alternates: {
     canonical: "https://brainstack.com",
   },
