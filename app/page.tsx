@@ -1,19 +1,31 @@
-import { Button } from "@/components/ui/button"
+import { Footer } from "@/components/layout/Footer"
+import Header from "@/components/layout/Header"
+import CapabilitiesSection from "@/components/sections/CapabilitiesSection"
+import CTASection from "@/components/sections/CTASection"
+import FAQSection from "@/components/sections/FaqSection"
+import HeroSection from "@/components/sections/HeroSection"
+import MissionSection from "@/components/sections/MissionSection"
+import ProcessSection from "@/components/sections/ProcessSection"
+import ServicesSection from "@/components/sections/ServicesSection"
+import TestimonialsSection from "@/components/sections/TestimonialSection"
+import WhyChooseSection from "@/components/sections/WhyChooseUs"
 
-export default function Page() {
+export default function HomePage() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium text-2xl">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>c</kbd> to toggle dark mode)
-        </div>
-      </div>
-    </div>
+    <>
+      <Header />
+      <main className="pt-16">
+        <HeroSection />
+        <ServicesSection />
+        <MissionSection />
+        <WhyChooseSection />
+        <ProcessSection />
+        <CapabilitiesSection />
+        <TestimonialsSection />
+        <FAQSection />
+        <CTASection />
+      </main>
+      <Footer />
+    </>
   )
 }
