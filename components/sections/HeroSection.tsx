@@ -1,75 +1,211 @@
 "use client"
 
-import { portfolioData } from '@/data/portfolio-data'
-import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import "@/lib/GSAPAnimations"
+import { caseStudies } from "@/lib/caseStudies"
+import { useGSAP } from "@gsap/react"
+import Autoplay from "embla-carousel-autoplay"
+import gsap from "gsap"
+import { ScrollTrigger, SplitText } from "gsap/all"
+import { Sparkles } from "lucide-react"
+import Image from "next/image"
+import { useRef } from "react"
+import { SectionHeading } from "../shared/SectionHeading"
+import { Marquee } from "../shared/marquee"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel"
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger)
 
 export default function HeroSection() {
-  const { hero } = portfolioData
+  const heroRef = useRef<HTMLDivElement>(null)
+  const caseStudiesRef = useRef(null)
+
+  useGSAP(() => {
+    const headingElement = heroRef?.current?.querySelector("h1")
+    if (headingElement) {
+      SplitText.create(headingElement, {
+        type: "lines, words",
+        mask: "lines",
+        autoSplit: true,
+        onSplit(self) {
+          return gsap.from(self.words, {
+            duration: 0.6,
+            y: 10,
+            opacity: 0.5,
+            filter: "blur(6px)",
+            autoAlpha: 0,
+            stagger: 0.06,
+          })
+        },
+      })
+    }
+
+    if (heroRef?.current && caseStudiesRef?.current) {
+      gsap.effects.fadeUpOnScroll(caseStudiesRef.current, {
+        start: "top 80%",
+        duration: 0.8,
+        markers: false,
+      })
+    }
+
+    // Cleanup function
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+    }
+  }, [])
 
   return (
-    <section className="mx-auto max-w-7xl px-4 pt-32 pb-20 sm:px-6 lg:px-8">
-      <div className="space-y-8 text-center">
-        <motion.div
-          className="space-y-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="text-5xl font-bold tracking-tight text-foreground md:text-7xl">
-            {hero.headline}
-          </h1>
-          <p className="mx-auto max-w-3xl text-xl leading-relaxed text-foreground/60 md:text-2xl">
-            {hero.subheadline}
-          </p>
-        </motion.div>
+    <div className="item-center flex flex-col flex-nowrap p-5">
+      <div
+        ref={heroRef}
+        className="hero space-y-4 pt-30 pb-12 md:pt-32 md:pb-32 md:text-center lg:pt-36 lg:pb-24"
+      >
+        <SectionHeading
+          badge="AI Strategy & Development"
+          heading="Cutting-edge Software, Engineered End to End"
+          description="We design and build scalable digital products — mobile, web, and AI — that help businesses grow faster, innovate effectively, and stay competitive across the US, UK and Europe."
+          icon={Sparkles}
+          size="lg"
+          align="center"
+          as="h1"
+          className="heading mx-auto max-w-4/5"
+          headingClassName="md:mx-auto md:w-2/3 leading-tight"
+          showDescriptionToScreenReaders={true}
+        />
 
-        <motion.div
-          className="flex flex-col justify-center gap-4 pt-8 sm:flex-row"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <div
+          aria-label="Call to action buttons"
+          className="mt-8 flex flex-col gap-3 md:flex-row md:items-center md:justify-center"
         >
-          <motion.button
-            className="rounded-lg bg-primary px-8 py-4 font-semibold text-primary-foreground transition-all hover:bg-primary/90"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <Button
+            aria-describedby="founder-cta-description"
+            type="button"
+            className="cursor-pointer"
           >
-            {hero.cta}
-          </motion.button>
-          <motion.button
-            className="rounded-lg border-2 border-primary px-8 py-4 font-semibold text-primary transition-all hover:bg-primary/5"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            Talk to our founder
+          </Button>
+          <Button
+            aria-describedby="case-studies-cta-description"
+            type="button"
+            className="cursor-pointer"
+            variant={"outline"}
           >
-            {hero.secondaryCta}
-          </motion.button>
-        </motion.div>
+            View Case Studios
+          </Button>
+        </div>
 
-        <motion.div
-          className="border-t border-border pt-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+        <div
+          className="relative"
+          role="region"
+          aria-label="Our trusted clients"
         >
-          <p className="mb-8 text-sm text-foreground/50">
-            Trusted by innovative companies worldwide
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            {portfolioData.companies.map((company, idx) => (
-              <motion.div
-                key={idx}
-                className={`${company.color} rounded-lg px-6 py-3 text-sm font-medium text-foreground`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.5 + idx * 0.08 }}
-                whileHover={{ scale: 1.05 }}
+          <h2 className="sr-only!">{`Companies We've Helped Transform`}</h2>
+          <div className="pointer-events-none absolute top-0 left-0 z-10 h-full w-12 bg-linear-to-r from-gray-50 via-gray-50/90 to-transparent md:w-48"></div>
+
+          {/* Right fade gradient */}
+          <div className="pointer-events-none absolute top-0 right-0 z-10 h-full w-12 bg-linear-to-l from-gray-50 via-gray-50/90 to-transparent md:w-48"></div>
+
+          <Marquee pauseOnHover className="mt-14">
+            {caseStudies.map((caseStudy, index) => (
+              <div
+                key={`${caseStudy.name}-${index}`}
+                className="group mx-1 shrink-0 cursor-pointer md:mx-4"
               >
-                {company.name}
-              </motion.div>
+                <div className="relative flex h-16 items-center justify-center p-4 transition-all duration-300 ease-in-out">
+                  <Image
+                    src={caseStudy.logo_src}
+                    alt={`${caseStudy.project_title} logo`}
+                    className={`max-h-full max-w-full object-contain opacity-80 grayscale filter transition-all duration-300 ease-in-out hover:opacity-100 hover:brightness-110 hover:grayscale-0`}
+                    loading="lazy"
+                    decoding="async"
+                    width={100}
+                    height={80}
+                  />
+                </div>
+              </div>
             ))}
-          </div>
-        </motion.div>
+          </Marquee>
+        </div>
+
+        <Carousel
+          ref={caseStudiesRef}
+          opts={{
+            align: "start",
+          }}
+          plugins={[
+            Autoplay({
+              delay: 4000,
+            }),
+          ]}
+          aria-label="case-studies"
+          aria-labelledby="featured-case-studies-heading"
+          id="case-studies-section"
+          className="relative mt-14 w-full"
+        >
+          <h2 id="featured-case-studies-heading" className="sr-only!">
+            Featured Case Studies
+          </h2>
+          <div className="pointer-events-none absolute top-0 left-0 z-5 h-full w-12 bg-linear-to-r from-gray-50/80 via-gray-50/20 to-transparent md:w-36"></div>
+
+          <div className="pointer-events-none absolute top-0 right-0 z-5 h-full w-12 bg-linear-to-l from-gray-50/90 via-gray-50/20 to-transparent md:w-36"></div>
+
+          <CarouselContent>
+            {caseStudies.map((caseStudy, index) => (
+              <CarouselItem
+                key={`${caseStudy.name}-carousel-${index}`}
+                className="md:basis-1/2 lg:basis-1/4"
+                data-carousel-item
+                aria-roledescription="slide"
+                aria-label={`${index + 1} of ${caseStudies.length}: ${caseStudy.name}`}
+              >
+                <div
+                  key={`case-study-${index}`}
+                  className="w-full max-w-sm space-y-3 text-left"
+                >
+                  <div className="flex aspect-square items-center justify-center rounded-md bg-tag-bg p-4">
+                    <Image
+                      src={caseStudy["main_image_src"]}
+                      className="max-h-full max-w-full object-contain"
+                      alt={`${caseStudy.name} project preview - ${caseStudy.project_title}`}
+                      loading={index < 4 ? "eager" : "lazy"}
+                      decoding={index < 4 ? "sync" : "async"}
+                      width={100}
+                      height={80}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-md leading-snug text-heading">
+                      {caseStudy["project_title"]}
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <p className="text-sm font-medium text-heading">
+                        Standard Draft
+                      </p>
+                      <p className="text-sm text-heading">[AI DOCUMENT]</p>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+
+          <CarouselPrevious
+            aria-label="Previous case study"
+            className="left-0 z-50 size-9 translate-x-0 border-0 bg-gray-500/50"
+          />
+          <CarouselNext
+            aria-label="Next case study"
+            className="right-0 z-50 size-9 translate-x-0 border-0 bg-gray-500/50"
+          />
+        </Carousel>
       </div>
-    </section>
+    </div>
   )
 }

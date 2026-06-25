@@ -1,5 +1,3 @@
-import { Footer } from "@/components/layout/Footer"
-import Header from "@/components/layout/Header"
 import CapabilitiesSection from "@/components/sections/CapabilitiesSection"
 import CTASection from "@/components/sections/CTASection"
 import FAQSection from "@/components/sections/FaqSection"
@@ -12,9 +10,8 @@ import WhyChooseSection from "@/components/sections/WhyChooseUs"
 
 export default function HomePage() {
   return (
-    <>
-      <Header />
-      <main className="pt-16">
+    <main id="main-content" role="main">
+      <div className="mx-auto max-w-6xl">
         <HeroSection />
         <ServicesSection />
         <MissionSection />
@@ -24,8 +21,7 @@ export default function HomePage() {
         <TestimonialsSection />
         <FAQSection />
         <CTASection />
-      </main>
-      <Footer />
-    </>
+      </div>
+    </main>
   )
 }
