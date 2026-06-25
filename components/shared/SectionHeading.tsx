@@ -74,7 +74,7 @@ const sizeVariants = {
   },
   lg: {
     badge: "text-sm px-4 py-1 sm:px-6",
-    heading: "text-3xl sm:text-4xl md:text-5xl leading-tight",
+    heading: "text-3xl sm:text-5xl md:text-6xl leading-tight",
     description: "text-base sm:text-md leading-snug",
     spacing: "space-y-4 sm:space-y-6",
   },
