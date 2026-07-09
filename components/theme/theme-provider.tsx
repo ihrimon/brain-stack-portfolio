@@ -16,9 +16,29 @@ function ThemeProvider({
       {...props}
     >
       <ThemeHotkey />
+      <FaviconSync />
       {children}
     </NextThemesProvider>
   )
+}
+
+function FaviconSync() {
+  const { resolvedTheme } = useTheme()
+
+  React.useEffect(() => {
+    const href = resolvedTheme === "dark" ? "/favicon-white.ico" : "/favicon-dark.ico"
+    let link = document.querySelector<HTMLLinkElement>("link[rel='icon']")
+
+    if (!link) {
+      link = document.createElement("link")
+      link.rel = "icon"
+      document.head.appendChild(link)
+    }
+
+    link.href = href
+  }, [resolvedTheme])
+
+  return null
 }
 
 function isTypingTarget(target: EventTarget | null) {

@@ -316,4 +316,10 @@ export const defaultMetadata: Metadata = {
   verification: siteConfig.verification,
   alternates: siteConfig.alternates,
   category: siteConfig.category,
+  icons: {
+    icon: [
+      { url: "/favicon-dark.ico", media: "(prefers-color-scheme: light)" },
+      { url: "/favicon-white.ico", media: "(prefers-color-scheme: dark)" },
+    ],
+  },
 };

@@ -1,5 +1,6 @@
 "use client"
 
+import { Logo } from "@/components/common/Logo"
 import { SettingsDrawer } from "@/components/layout/SettingsDrawer"
 import { navItems } from "@/lib/data/hero"
 import { cn } from "@/lib/utils"
@@ -64,13 +65,7 @@ export function Navbar() {
           role="navigation"
           aria-label="Primary navigation"
         >
-          <Link
-            href="/"
-            className="text-lg font-bold tracking-tight text-heading"
-            aria-label="Brain Stack - Return to homepage"
-          >
-            Brain Stack
-          </Link>
+          <Logo />
 
           <ul
             className="hidden items-center gap-8 md:flex"

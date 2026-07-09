@@ -4,10 +4,12 @@ import gsap from "gsap"
 import { useEffect, useRef } from "react"
 
 /**
- * Hover targets opt in with `data-cursor="magnetic" | "view" | "text"` and an
- * optional `data-cursor-text="Label"`. Hidden on coarse pointers / reduced
- * motion via the `cursor-root` CSS rules in globals.css — kept out of React
- * state so mount doesn't trigger a synchronous re-render.
+ * Decorative dot+ring that follows the pointer alongside the normal OS
+ * cursor (not a replacement for it). Hover targets opt in with
+ * `data-cursor="magnetic" | "view" | "text"` and an optional
+ * `data-cursor-text="Label"`. Hidden on coarse pointers / reduced motion via
+ * the `cursor-root` CSS rules in globals.css — kept out of React state so
+ * mount doesn't trigger a synchronous re-render.
  */
 export function Cursor() {
   const dotRef = useRef<HTMLDivElement>(null)
@@ -21,8 +23,6 @@ export function Cursor() {
     ).matches
 
     if (!isFinePointer || prefersReducedMotion) return
-
-    document.documentElement.classList.add("has-custom-cursor")
 
     const dot = dotRef.current
     const ring = ringRef.current
@@ -75,7 +75,6 @@ export function Cursor() {
     document.addEventListener("mouseout", onMouseOut)
 
     return () => {
-      document.documentElement.classList.remove("has-custom-cursor")
       window.removeEventListener("mousemove", onMouseMove)
       document.removeEventListener("mouseover", onMouseOver)
       document.removeEventListener("mouseout", onMouseOut)

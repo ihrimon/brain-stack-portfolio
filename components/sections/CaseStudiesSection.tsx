@@ -1,6 +1,7 @@
 "use client"
 
 import { caseStudies } from "@/lib/caseStudies"
+import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
 import { useRef } from "react"
 import {

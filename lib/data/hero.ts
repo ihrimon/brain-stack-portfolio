@@ -11,7 +11,7 @@ export const navItems = [
 export const heroData = {
   badge: "Creative Design Agency",
 
-  title: "Cutting-edge software, engineered end to end.",
+  title: "Cutting edge software, engineered end to end.",
 
   description:
     "We design and build scalable digital products — mobile, web, and AI — that help businesses grow faster, innovate effectively, and stay competitive across the US, UK and Europe.",
@@ -28,8 +28,8 @@ export const heroData = {
 
   stats: [
     {
-      value: "60+",
-      highlight: "",
+      value: "60",
+      highlight: "+",
       title: "Products shipped",
       description: "Products shipped using modern, AI-assisted engineering",
     },
@@ -40,8 +40,8 @@ export const heroData = {
       description: "Combined craft across mobile, web, cloud and AI",
     },
     {
-      value: "40+",
-      highlight: "",
+      value: "40",
+      highlight: "+",
       title: "Experts",
       description: "Top-tier engineers, designers and product experts",
     },

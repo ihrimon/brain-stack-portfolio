@@ -1,6 +1,7 @@
 "use client"
 
 import { ColorPaletteSwitcher } from "@/components/common/ColorPaletteSwitcher"
+import { Logo } from "@/components/common/Logo"
 import { ThemeToggle } from "@/components/common/ThemeToggle"
 import {
   Drawer,
@@ -23,11 +24,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
       <DrawerContent className="rounded-none! p-0">
         <div className="flex h-full flex-col overflow-y-auto bg-background text-foreground p-6">
           <DrawerHeader className="flex flex-row items-center justify-between border-b border-border pb-4">
-            <div>
-              <p className="text-lg font-bold tracking-tight text-heading">
-                Brain Stack
-              </p>
-            </div>
+            <Logo href={false} />
             <DrawerClose asChild>
               <button
                 type="button"

@@ -1,121 +1,150 @@
-export const servicesData = [
-  {
-    slug: "full-stack-development",
-    icon: "Layers",
-    title: "Full Stack Development",
-    description:
-      "End-to-end web engineering — from database schema to pixel-perfect UI — built on modern, maintainable architecture.",
-    features: [
-      "React, Next.js & Node.js",
-      "API design & integration",
-      "Scalable database architecture",
-      "Performance-first engineering",
-    ],
-  },
-  {
-    slug: "mobile-app-development",
-    icon: "Smartphone",
-    title: "Mobile App Development",
-    description:
-      "Native-feeling iOS and Android apps from a single React Native codebase, shipped to both stores with confidence.",
-    features: [
-      "React Native & Flutter",
-      "Offline-first architecture",
-      "App Store & Play Store launch",
-      "Push notifications & analytics",
-    ],
-  },
-  {
-    slug: "ai-integration-automation",
-    icon: "Sparkles",
-    title: "AI Integration & Automation",
-    description:
-      "LLM-powered features, intelligent agents, and workflow automation that remove manual work from your business.",
-    features: [
-      "LLM & RAG implementation",
-      "Custom AI agents",
-      "Chatbots & copilots",
-      "Workflow & business automation",
-    ],
-  },
-  {
-    slug: "saas-development",
-    icon: "Cloud",
-    title: "SaaS Development",
-    description:
-      "Multi-tenant SaaS platforms engineered for subscription billing, scale, and rapid iteration from day one.",
-    features: [
-      "Multi-tenant architecture",
-      "Subscription & billing systems",
-      "Role-based access control",
-      "Usage analytics & dashboards",
-    ],
-  },
-  {
-    slug: "ui-ux-design",
-    icon: "PenTool",
-    title: "UI/UX Design",
-    description:
-      "Interfaces designed around real user behavior — wireframes, prototypes, and design systems that hold up at scale.",
-    features: [
-      "User research & wireframing",
-      "Interactive prototyping",
-      "Design systems",
-      "Accessibility-first design",
-    ],
-  },
-  {
-    slug: "product-engineering",
-    icon: "Wrench",
-    title: "Product Engineering",
-    description:
-      "Embedded product teams that own architecture decisions and ship features alongside your in-house team.",
-    features: [
-      "Technical architecture",
-      "Sprint-based delivery",
-      "Code quality & review culture",
-      "Long-term roadmap support",
-    ],
-  },
-  {
-    slug: "cloud-devops",
-    icon: "Server",
-    title: "Cloud & DevOps",
-    description:
-      "Infrastructure that scales quietly in the background — CI/CD, monitoring, and cloud architecture done right.",
-    features: [
-      "AWS, GCP & Azure",
-      "CI/CD pipelines",
-      "Containerization & orchestration",
-      "Monitoring & observability",
-    ],
-  },
-  {
-    slug: "mvp-development",
-    icon: "Rocket",
-    title: "MVP Development",
-    description:
-      "Validated product built fast — the smallest version of your idea that still proves the business case to users and investors.",
-    features: [
-      "Rapid prototyping",
-      "Lean, scope-controlled builds",
-      "Investor-ready demos",
-      "Clear path to v2",
-    ],
-  },
-  {
-    slug: "digital-transformation",
-    icon: "RefreshCw",
-    title: "Digital Transformation",
-    description:
-      "Modernizing legacy systems and workflows with contemporary architecture, automation, and cloud-native tooling.",
-    features: [
-      "Legacy system modernization",
-      "Process automation",
-      "Data migration",
-      "Change management support",
-    ],
-  },
-] as const
+export const servicesData = {
+  badge: "Our Services",
 
-export type Service = (typeof servicesData)[number]
+  title: "Advanced digital solutions, enhanced by AI.",
+
+  description:
+    "From scalable web platforms and mobile applications to AI-powered solutions, we design and develop modern digital products that help businesses innovate, automate, and grow with confidence.",
+
+  items: [
+    {
+      id: "01",
+      title: "Mobile Development",
+      category: "Development",
+      image: "/images/services/services-1.png",
+      metric: {
+        value: "4.8★",
+        label: "avg. store rating",
+      },
+      eyebrow: ["iOS", "Android", "Cross-Platform"],
+      description:
+        "Mobile is a core specialization, not a side service. We craft fast, secure, beautifully detailed applications engineered to scale from launch to millions of users.",
+
+      features: [
+        "Native iOS & Android",
+        "Offline-first sync",
+        "App Store launch",
+        "Analytics & growth",
+      ],
+
+      technologies: ["Swift", "Kotlin", "React Native", "Flutter"],
+
+      cta: {
+        label: "Start a mobile project",
+        href: "/contact",
+      },
+    },
+
+    {
+      id: "02",
+      title: "Web & Cloud Development",
+      category: "Development",
+      image: "/images/services/services-2.png",
+      metric: {
+        value: "99.9%",
+        label: "uptime delivered",
+      },
+      eyebrow: ["Platforms", "Dashboards", "APIs"],
+      description:
+        "Modern web platforms and cloud-native systems built for speed, security, and scalability—from marketing websites to enterprise-grade business platforms.",
+
+      features: [
+        "Web Apps & Portals",
+        "Headless Commerce",
+        "Cloud Architecture",
+        "CI/CD & DevOps",
+      ],
+
+      technologies: ["Next.js", "React", "Node.js", "AWS"],
+
+      cta: {
+        label: "Start a web project",
+        href: "/contact",
+      },
+    },
+
+    {
+      id: "03",
+      title: "AI & Machine Learning",
+      category: "Intelligence",
+      image: "/images/services/services-3.png",
+      metric: {
+        value: "6h",
+        label: "saved / user / week",
+      },
+      eyebrow: ["Assistants", "Agents", "Automation"],
+      description:
+        "Practical AI solutions that integrate directly into business workflows—from intelligent assistants to automation pipelines and custom AI applications.",
+
+      features: [
+        "AI Copilots",
+        "RAG Pipelines",
+        "Workflow Automation",
+        "Model Integration",
+      ],
+
+      technologies: ["LLM Apps", "RAG", "Agents", "Vision"],
+
+      cta: {
+        label: "Start an AI project",
+        href: "/contact",
+      },
+    },
+
+    {
+      id: "04",
+      title: "Wearable & Devices",
+      category: "Development",
+      image: "/images/services/services-4.png",
+      metric: {
+        value: "<2%",
+        label: "battery / hour",
+      },
+      eyebrow: ["WatchOS", "Wear OS", "IoT"],
+      description:
+        "Low-power wearable applications and IoT experiences built with seamless connectivity, real-time communication, and intuitive user interfaces.",
+
+      features: [
+        "Companion Apps",
+        "Real-time Sensors",
+        "Health & Fitness",
+        "Device Sync",
+      ],
+
+      technologies: ["WatchOS", "Wear OS", "BLE", "IoT"],
+
+      cta: {
+        label: "Start a wearable project",
+        href: "/contact",
+      },
+    },
+
+    // {
+    //   id: "05",
+    //   title: "Business → App & Web",
+    //   category: "Transformation",
+    //   image: "/images/services/business-transformation.webp",
+    //   metric: {
+    //     value: "11wk",
+    //     label: "idea → launch",
+    //   },
+    //   eyebrow: ["Discovery", "MVP", "Launch"],
+    //   description:
+    //     "Transform your business idea into a scalable digital product through strategy, UX, development, launch, and continuous growth support.",
+
+    //   features: [
+    //     "Product Strategy",
+    //     "MVP Build",
+    //     "Go-to-market",
+    //     "Scale & Support",
+    //   ],
+
+    //   technologies: ["Discovery", "UX", "MVP", "Growth"],
+
+    //   cta: {
+    //     label: "Start a business project",
+    //     href: "/contact",
+    //   },
+    // },
+  ],
+}

@@ -1,6 +1,6 @@
 import { defaultMetadata } from "@/lib/metadata"
 import { Metadata } from "next"
-import { Geist } from "next/font/google"
+import { Inter, Sora } from "next/font/google"
 import "./globals.css"
 import { Navbar } from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -10,8 +10,13 @@ import { Cursor } from '@/components/animations/Cursor'
 import { ThemeProvider } from '@/components/theme/theme-provider'
 import "@/lib/GSAPAnimations"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const sora = Sora({
+  variable: "--font-heading",
+  subsets: ["latin"],
+})
+
+const inter = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
 })
 
@@ -25,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} bg-background text-foreground antialiased`}
+        className={`${sora.variable} ${inter.variable} bg-background text-foreground antialiased`}
       >
         <ThemeProvider>
           <Loader />

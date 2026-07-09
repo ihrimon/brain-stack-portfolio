@@ -20,7 +20,7 @@
   --brand-accent: #22d3ee;
   --brand-dark: #0b0b0f;
 
-  --background: #161616;
+  --background: #ffffff;
   --foreground: #111111;
   --card: #ffffff;
   --card-foreground: #111111;
@@ -53,8 +53,9 @@
   --sidebar-accent-foreground: #111111;
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: var(--brand-primary);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-sans);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-body);
   --radius: 1rem;
   --shadow-2xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
   --shadow-xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
@@ -113,8 +114,9 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: oklch(0.274 0.006 286.033);
   --sidebar-ring: var(--brand-primary);
-  --font-sans: var(--font-geist-sans);
---font-mono: var(--font-geist-sans);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-body);
   --text-heading: #ffffff;
   --text-label: oklch(0.712 0.013 286.067);
   --text-tag: var(--brand-accent);
@@ -136,8 +138,9 @@
 }
 
 @theme inline {
-   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-body);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -175,8 +178,6 @@
   --color-brand-secondary: var(--brand-secondary);
   --color-brand-accent: var(--brand-accent);
   --color-brand-dark: var(--brand-dark);
-  --font-sans: var(--font-geist-sans);
---font-mono: var(--font-geist-sans);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -229,12 +230,14 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-.has-custom-cursor,
-.has-custom-cursor a,
-.has-custom-cursor button {
-  cursor: none;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
 }
 
 .cursor-root {
@@ -255,7 +258,7 @@
 
 body {
   letter-spacing: var(--tracking-normal);
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-sans);
 }
 
 @layer components {

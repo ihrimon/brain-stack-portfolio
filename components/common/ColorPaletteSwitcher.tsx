@@ -2,9 +2,23 @@
 
 import { colorPalettes } from "@/lib/data/colorPalettes"
 import { cn } from "@/lib/utils"
-import { useEffect, useState } from "react"
+import { useEffect, useSyncExternalStore } from "react"
 
 const STORAGE_KEY = "bs-palette"
+const CHANGE_EVENT = "bs-palette-change"
+
+function subscribe(callback: () => void) {
+  window.addEventListener(CHANGE_EVENT, callback)
+  return () => window.removeEventListener(CHANGE_EVENT, callback)
+}
+
+function getSnapshot() {
+  return localStorage.getItem(STORAGE_KEY) ?? colorPalettes[0].name
+}
+
+function getServerSnapshot() {
+  return colorPalettes[0].name
+}
 
 function applyPalette(name: string) {
   const palette = colorPalettes.find((p) => p.name === name)
@@ -17,20 +31,15 @@ function applyPalette(name: string) {
 }
 
 export function ColorPaletteSwitcher() {
-  const [active, setActive] = useState<string>(colorPalettes[0].name)
+  const active = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) {
-      setActive(stored)
-      applyPalette(stored)
-    }
-  }, [])
+    applyPalette(active)
+  }, [active])
 
   const handleSelect = (name: string) => {
-    setActive(name)
-    applyPalette(name)
     localStorage.setItem(STORAGE_KEY, name)
+    window.dispatchEvent(new Event(CHANGE_EVENT))
   }
 
   return (

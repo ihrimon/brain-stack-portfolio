@@ -1,30 +1,17 @@
 "use client"
 
-import { cn } from "@/lib/utils"
 import { Moon, SunMedium } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
 
 export function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => setMounted(true), [])
-
-  const isDark = mounted && resolvedTheme === "dark"
+  const { setTheme } = useTheme()
 
   return (
     <div className="inline-flex items-center gap-1 rounded-full border border-border bg-muted p-1">
       <button
         type="button"
         onClick={() => setTheme("light")}
-        className={cn(
-          "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
-          mounted && !isDark
-            ? "bg-background text-heading shadow-sm"
-            : "text-label hover:text-heading"
-        )}
-        aria-pressed={mounted ? !isDark : undefined}
+        className="flex items-center gap-1.5 rounded-full bg-background px-3 py-1.5 text-sm font-medium text-heading shadow-sm transition-colors dark:bg-transparent dark:text-label dark:shadow-none"
       >
         <SunMedium className="size-4" />
         Light
@@ -32,13 +19,7 @@ export function ThemeToggle() {
       <button
         type="button"
         onClick={() => setTheme("dark")}
-        className={cn(
-          "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
-          isDark
-            ? "bg-background text-heading shadow-sm"
-            : "text-label hover:text-heading"
-        )}
-        aria-pressed={isDark}
+        className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-label transition-colors dark:bg-background dark:text-heading dark:shadow-sm"
       >
         <Moon className="size-4" />
         Dark
