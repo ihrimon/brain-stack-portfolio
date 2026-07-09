@@ -8,7 +8,7 @@ export interface SectionHeadingProps {
   /**
    * The badge text displayed above the heading
    */
-  badge: string;
+  badge?: string;
   /**
    * The main heading text
    */
@@ -48,6 +48,11 @@ export interface SectionHeadingProps {
    * @default "h2"
    */
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  /**
+   * Renders the heading text with the brand gradient instead of the solid heading color
+   * @default false
+   */
+  gradient?: boolean;
   /**
    * ID for the heading element (useful for anchor links)
    */
@@ -105,6 +110,7 @@ const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
       headingClassName,
       badgeClassName,
       as: Component = "h2",
+      gradient = false,
       id,
       showDescriptionToScreenReaders = false,
       ...props
@@ -145,7 +151,8 @@ const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
         <Component
           id={id}
           className={cn(
-            "text-heading font-semibold",
+            "font-bold tracking-tight",
+            gradient ? "text-gradient-brand" : "text-heading",
             variant.heading,
             align === "center" && "md:mx-auto",
             headingClassName

@@ -2,28 +2,31 @@ import type { Metadata } from "next";
 
 export const siteConfig = {
   name: "Brain Stack",
-  description: "AI innovation company driven by people and powered by technology to deliver impactful AI solutions",
-  url: "https://ionio.com",
+  description:
+    "Brain Stack is a full-stack software studio building web, mobile, and AI-powered products for ambitious teams — from MVP to scale.",
+  url: "https://brainstack.dev",
   ogImage: "https://res.cloudinary.com/dieth2xb3/image/upload/v1755799085/ssimage_bxr8i6.png",
   logo: "/logo.jpeg",
   keywords: [
-    "AI innovation",
-    "artificial intelligence",
-    "machine learning",
-    "technology solutions",
-    "AI consulting",
-    "machine learning engineering",
-    "LLM development",
-    "AI strategy"
+    "software development agency",
+    "full stack development",
+    "mobile app development",
+    "AI integration and automation",
+    "SaaS development",
+    "UI UX design",
+    "product engineering",
+    "cloud and devops",
+    "MVP development",
+    "digital transformation",
   ],
   authors: [
     {
-      name: "Ionio Team",
-      url: "https://ionio.com",
+      name: "Brain Stack",
+      url: "https://brainstack.dev",
     },
   ],
-  creator: "Ionio",
-  publisher: "Ionio",
+  creator: "Brain Stack",
+  publisher: "Brain Stack",
   robots: {
     index: true,
     follow: true,
@@ -38,31 +41,33 @@ export const siteConfig = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://ionio.com",
-    siteName: "Ionio",
-    title: "Ionio - AI Innovation & Technology Solutions",
-    description: "AI innovation company driven by people and powered by technology to deliver impactful AI solutions",
+    url: "https://brainstack.dev",
+    siteName: "Brain Stack",
+    title: "Brain Stack - We Build Digital Products People Love",
+    description:
+      "Brain Stack is a full-stack software studio building web, mobile, and AI-powered products for ambitious teams — from MVP to scale.",
     images: [
       {
         url: "https://res.cloudinary.com/dieth2xb3/image/upload/v1755799085/ssimage_bxr8i6.png",
         width: 1200,
         height: 630,
-        alt: "Ionio - AI Innovation & Technology Solutions",
+        alt: "Brain Stack - We Build Digital Products People Love",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ionio - AI Innovation & Technology Solutions",
-    description: "AI innovation company driven by people and powered by technology to deliver impactful AI solutions",
+    title: "Brain Stack - We Build Digital Products People Love",
+    description:
+      "Brain Stack is a full-stack software studio building web, mobile, and AI-powered products for ambitious teams — from MVP to scale.",
     images: ["https://res.cloudinary.com/dieth2xb3/image/upload/v1755799085/ssimage_bxr8i6.png"],
-    creator: "@ionio",
+    creator: "@brainstack",
   },
   verification: {
-    google: "your-google-verification-code", 
+    google: "your-google-verification-code",
   },
   alternates: {
-    canonical: "https://ionio.com",
+    canonical: "https://brainstack.dev",
   },
   category: "technology",
 };
@@ -70,107 +75,116 @@ export const siteConfig = {
 
 export const pageMetadata = {
   home: {
-    title: "Ionio - AI Innovation & Technology Solutions",
-    description: "Transform your business with cutting-edge AI solutions. Ionio delivers innovative artificial intelligence technologies that drive growth and efficiency.",
+    title: "Brain Stack - We Build Digital Products People Love",
+    description:
+      "Full stack development, mobile apps, AI integration, and SaaS engineering for startups and enterprises. See how Brain Stack ships digital products that scale.",
     keywords: [
-      "AI solutions",
-      "artificial intelligence consulting",
-      "machine learning services",
-      "AI innovation",
-      "technology transformation",
-      "business AI",
-      "AI strategy"
+      "software development agency",
+      "full stack development",
+      "mobile app development",
+      "AI integration",
+      "SaaS development",
+      "product engineering",
+      "digital transformation",
     ],
     openGraph: {
-      title: "Ionio - AI Innovation & Technology Solutions",
-      description: "Transform your business with cutting-edge AI solutions. Ionio delivers innovative artificial intelligence technologies that drive growth and efficiency.",
-      url: "https://ionio.com",
+      title: "Brain Stack - We Build Digital Products People Love",
+      description:
+        "Full stack development, mobile apps, AI integration, and SaaS engineering for startups and enterprises. See how Brain Stack ships digital products that scale.",
+      url: "https://brainstack.dev",
       type: "website",
     },
     twitter: {
-      title: "Ionio - AI Innovation & Technology Solutions",
-      description: "Transform your business with cutting-edge AI solutions. Ionio delivers innovative artificial intelligence technologies that drive growth and efficiency.",
+      title: "Brain Stack - We Build Digital Products People Love",
+      description:
+        "Full stack development, mobile apps, AI integration, and SaaS engineering for startups and enterprises. See how Brain Stack ships digital products that scale.",
     },
     alternates: {
-      canonical: "https://ionio.com",
+      canonical: "https://brainstack.dev",
     },
   },
   about: {
-    title: "About Ionio - AI Innovation & Technology Solutions",
-    description: "Learn about Ionio's story, culture, and expertise in AI innovation. We are driven by people and powered by AI technology to deliver impactful solutions.",
+    title: "About Brain Stack - Full Stack & AI Software Studio",
+    description:
+      "Learn about Brain Stack's mission, process, and the team behind our full stack, mobile, and AI engineering work for clients across the US, UK, and Europe.",
     keywords: [
-      "Ionio",
-      "AI innovation",
-      "technology solutions",
-      "artificial intelligence",
-      "machine learning",
+      "Brain Stack",
+      "software studio",
+      "product engineering team",
+      "AI development company",
+      "digital transformation partner",
       "company culture",
-      "team expertise",
-      "AI company story"
+      "engineering process",
     ],
     openGraph: {
-      title: "About Ionio - AI Innovation & Technology Solutions",
-      description: "Learn about Ionio's story, culture, and expertise in AI innovation. We are driven by people and powered by AI technology to deliver impactful solutions.",
-      url: "https://ionio.com/about",
+      title: "About Brain Stack - Full Stack & AI Software Studio",
+      description:
+        "Learn about Brain Stack's mission, process, and the team behind our full stack, mobile, and AI engineering work for clients across the US, UK, and Europe.",
+      url: "https://brainstack.dev/about",
       type: "website",
     },
     twitter: {
-      title: "About Ionio - AI Innovation & Technology Solutions",
-      description: "Learn about Ionio's story, culture, and expertise in AI innovation. We are driven by people and powered by AI technology to deliver impactful solutions.",
+      title: "About Brain Stack - Full Stack & AI Software Studio",
+      description:
+        "Learn about Brain Stack's mission, process, and the team behind our full stack, mobile, and AI engineering work for clients across the US, UK, and Europe.",
     },
     alternates: {
-      canonical: "https://ionio.com/about",
+      canonical: "https://brainstack.dev/about",
     },
     structuredData: {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "Ionio",
-      "description": "AI innovation company driven by people and powered by technology to deliver impactful AI solutions",
-      "url": "https://ionio.com",
-      "logo": "https://ionio.com/logo.png",
-      "foundingDate": "2016",
-      "numberOfEmployees": "50-100",
+      "name": "Brain Stack",
+      "description":
+        "Brain Stack is a full-stack software studio building web, mobile, and AI-powered products for ambitious teams — from MVP to scale.",
+      "url": "https://brainstack.dev",
+      "logo": "https://brainstack.dev/logo.png",
+      "foundingDate": "2020",
+      "numberOfEmployees": "10-50",
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "US"
       },
       "sameAs": [
-        "https://linkedin.com/company/ionio",
-        "https://twitter.com/ionio"
+        "https://linkedin.com/company/brainstack",
+        "https://twitter.com/brainstack"
       ],
       "knowsAbout": [
+        "Full Stack Development",
+        "Mobile App Development",
         "Artificial Intelligence",
-        "Machine Learning",
-        "AI Solutions",
-        "Technology Innovation"
+        "SaaS Engineering",
+        "Cloud & DevOps",
+        "Product Engineering"
       ]
     }
   },
   blog: {
-    title: "AI Insights & Research - Ionio Blog",
-    description: "Stay updated with the latest trends, research, and insights in artificial intelligence, machine learning, and emerging technologies that are shaping the future of business.",
+    title: "Insights - Brain Stack Blog",
+    description:
+      "Engineering notes, product strategy, and AI insights from the Brain Stack team — for founders and product leaders building modern software.",
     keywords: [
-      "AI blog",
-      "artificial intelligence insights",
-      "machine learning research",
-      "AI trends",
+      "software engineering blog",
+      "AI insights",
+      "product engineering",
+      "digital transformation",
+      "SaaS development articles",
       "technology insights",
-      "AI articles",
-      "ML engineering",
-      "LLM development"
     ],
     openGraph: {
-      title: "AI Insights & Research - Ionio Blog",
-      description: "Stay updated with the latest trends, research, and insights in artificial intelligence, machine learning, and emerging technologies that are shaping the future of business.",
-      url: "https://ionio.com/blog",
+      title: "Insights - Brain Stack Blog",
+      description:
+        "Engineering notes, product strategy, and AI insights from the Brain Stack team — for founders and product leaders building modern software.",
+      url: "https://brainstack.dev/blog",
       type: "website",
     },
     twitter: {
-      title: "AI Insights & Research - Ionio Blog",
-      description: "Stay updated with the latest trends, research, and insights in artificial intelligence, machine learning, and emerging technologies that are shaping the future of business.",
+      title: "Insights - Brain Stack Blog",
+      description:
+        "Engineering notes, product strategy, and AI insights from the Brain Stack team — for founders and product leaders building modern software.",
     },
     alternates: {
-      canonical: "https://ionio.com/blog",
+      canonical: "https://brainstack.dev/blog",
     },
   },
 };
@@ -180,7 +194,7 @@ export function generatePageMetadata(
   customMetadata?: Partial<Metadata>
 ): Metadata {
   const baseMetadata = pageMetadata[page];
-  
+
   return {
     title: baseMetadata.title,
     description: baseMetadata.description,
@@ -208,21 +222,21 @@ export function generateBlogPostMetadata(
   slug: string,
   image?: string
 ): Metadata {
-  const blogUrl = `https://ionio.com/blog/${slug}`;
+  const blogUrl = `https://brainstack.dev/blog/${slug}`;
   const ogImage = image || siteConfig.ogImage;
 
   return {
-    title: `${title} - Ionio Blog`,
+    title: `${title} - Brain Stack Blog`,
     description,
     keywords: [
       ...siteConfig.keywords,
-      "AI blog post",
-      "artificial intelligence article",
-      "machine learning insights"
+      "engineering blog post",
+      "AI insights article",
+      "product engineering notes"
     ],
     openGraph: {
       ...siteConfig.openGraph,
-      title: `${title} - Ionio Blog`,
+      title: `${title} - Brain Stack Blog`,
       description,
       url: blogUrl,
       type: "article",
@@ -238,7 +252,7 @@ export function generateBlogPostMetadata(
     },
     twitter: {
       ...siteConfig.twitter,
-      title: `${title} - Ionio Blog`,
+      title: `${title} - Brain Stack Blog`,
       description,
       images: [ogImage],
     },
@@ -264,14 +278,14 @@ export function generateBlogPostStructuredData(
     datePublished: publishedTime,
     dateModified: publishedTime,
     description,
-    url: `https://ionio.com/blog/${slug}`,
+    url: `https://brainstack.dev/blog/${slug}`,
     author: {
       "@type": "Person",
-      name: author || "Ionio Team",
+      name: author || "Brain Stack Team",
     },
     publisher: {
       "@type": "Organization",
-      name: "Ionio",
+      name: "Brain Stack",
       logo: {
         "@type": "ImageObject",
         url: siteConfig.logo,
@@ -279,7 +293,7 @@ export function generateBlogPostStructuredData(
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://ionio.com/blog/${slug}`,
+      "@id": `https://brainstack.dev/blog/${slug}`,
     },
   };
 }
