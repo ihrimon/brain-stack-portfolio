@@ -66,24 +66,21 @@ export default function TestimonialSection() {
   const visiblePair = [items[activeIndex], items[(activeIndex + 1) % items.length]]
 
   return (
-    <section id="testimonials" ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
+    <section
+      id="testimonials"
+      ref={sectionRef}
+      className="bg-brand-dark py-20 sm:py-28"
+    >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="max-w-xl">
+        <div className="max-w-4xl">
           <SectionBadge>{testimonialsData.badge}</SectionBadge>
 
           <h2
             ref={titleRef}
-            className="mt-6 text-3xl font-medium tracking-tight text-white sm:text-4xl md:text-5xl"
+            className="mt-8 max-w-2xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
           >
             {testimonialsData.title}
           </h2>
-
-          <p
-            ref={descRef}
-            className="mt-4 text-sm leading-relaxed text-white/60 sm:text-base"
-          >
-            {testimonialsData.description}
-          </p>
         </div>
 
         <div ref={trackRef} className="mt-16 grid gap-6 sm:grid-cols-2">
@@ -125,7 +122,7 @@ export default function TestimonialSection() {
 
               <div className="mt-auto flex items-end justify-between gap-4 pt-8">
                 <div>
-                  <p className="font-semibold text-lg text-white">
+                  <p className="text-lg font-semibold text-white">
                     {testimonial.author}
                   </p>
                   <p className="text-sm text-white/50">

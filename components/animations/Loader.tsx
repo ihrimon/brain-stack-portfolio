@@ -3,6 +3,7 @@
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef, useState } from "react"
+import { Logo } from '../common/Logo'
 
 gsap.registerPlugin(useGSAP)
 
@@ -58,7 +59,7 @@ export function Loader() {
       aria-hidden="true"
     >
       <span className="text-h4 font-semibold tracking-tight text-heading">
-        Brain Stack
+       <Logo />
       </span>
       <div className="h-px w-40 overflow-hidden bg-border">
         <div

@@ -1,6 +1,6 @@
 export const blogsData = {
-  badge: "07. Our Blog",
-  title: "Learn from our engineering journal.",
+  badge: "Our Blogs",
+  title: "Explore Our Thoughts on Technology & Innovation",
 
   posts: [
     {

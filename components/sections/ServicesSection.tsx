@@ -56,7 +56,11 @@ export default function ServicesSection() {
   )
 
   return (
-    <section id="services" ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
+    <section
+      id="services"
+      ref={sectionRef}
+      className="bg-brand-dark py-20 sm:py-28"
+    >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="mb-16 flex flex-wrap items-center justify-between gap-8">
           <div>
@@ -64,17 +68,17 @@ export default function ServicesSection() {
 
             <h2
               ref={titleRef}
-              className="mt-6 max-w-3xl leading-tight font-light tracking-tight text-white uppercase md:text-5xl"
+              className="mt-8 max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
             >
               {servicesData.title}
             </h2>
 
-            <p
+            {/* <p
               ref={descRef}
               className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base"
             >
               {servicesData.description}
-            </p>
+            </p> */}
           </div>
 
           <Link

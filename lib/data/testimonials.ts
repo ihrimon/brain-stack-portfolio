@@ -1,6 +1,6 @@
 export const testimonialsData = {
   badge: "Testimonial",
-  title: "What Our Clients Say",
+  title: "What Our Clients Say About Working With Us",
   description: "Transforming ideas into memorable digital experiences.",
 
   reviewPlatforms: [

@@ -32,14 +32,18 @@ export default function BlogSection() {
   )
 
   return (
-    <section id="blog" ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
+    <section
+      id="blog"
+      ref={sectionRef}
+      className="bg-brand-dark py-20 sm:py-28"
+    >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="flex flex-col gap-6">
           <SectionBadge>{blogsData.badge}</SectionBadge>
 
           <h2
             ref={titleRef}
-            className="max-w-2xl text-4xl leading-tight font-light tracking-tight text-white sm:text-5xl md:text-6xl"
+            className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
           >
             {blogsData.title}
           </h2>
@@ -60,7 +64,7 @@ export default function BlogSection() {
                   sizes="(min-width: 640px) 40vw, 90vw"
                 />
 
-                <div className="absolute right-0 bottom-0 w-3.5/5 rounded-tl-2xl bg-brand-dark p-5 sm:w-110 sm:p-6">
+                <div className="w-3.5/5 absolute right-0 bottom-0 rounded-tl-2xl bg-brand-dark p-5 sm:w-110 sm:p-6">
                   <p className="text-xs text-white/50">
                     <span>{post.category}</span>
                     <span className="mx-2">—</span>

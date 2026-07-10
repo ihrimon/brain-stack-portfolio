@@ -115,17 +115,10 @@ export default function EngineeringProcess() {
 
             <h2
               ref={titleRef}
-              className="mt-6 text-3xl font-medium tracking-tight text-white sm:text-4xl md:text-5xl"
+              className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
             >
               {processData.title}
             </h2>
-
-            <p
-              ref={descRef}
-              className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base"
-            >
-              {processData.description}
-            </p>
           </div>
 
           <Link

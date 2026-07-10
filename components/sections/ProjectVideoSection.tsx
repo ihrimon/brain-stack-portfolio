@@ -2,9 +2,13 @@
 
 import { getLenis } from "@/lib/lenis"
 import { cn } from "@/lib/utils"
+import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
+import { ScrollTrigger } from "gsap/all"
 import { Pause, Play, X } from "lucide-react"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface OriginRect {
   top: number
@@ -12,7 +16,8 @@ interface OriginRect {
   width: number
 }
 
-export default function ProjectVideo() {
+export default function ProjectVideoSection() {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const boxRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
@@ -23,18 +28,56 @@ export default function ProjectVideo() {
 
   // The close button is a fixed-position sibling (not a child of box) so its
   // own size stays constant regardless of box's grow tween. Its top/left is
-  // synced imperatively from box's real bounding rect, offset just past the
-  // top-right corner, so it always reads as sitting outside the video —
-  // whether box is mid-grow, fully expanded, or shrinking back on close.
+  // synced imperatively from box's real bounding rect. On desktop there's
+  // room to float it clearly outside the corner; on mobile the modal spans
+  // nearly the full width, so it sits on top of the corner instead — floating
+  // it outside there would risk pushing it off-screen.
   const syncCloseButtonPosition = () => {
     const box = boxRef.current
     const button = closeButtonRef.current
     if (!box || !button) return
 
     const rect = box.getBoundingClientRect()
-    button.style.top = `${rect.top - 12}px`
-    button.style.left = `${rect.right + 12}px`
+    const isMobile = window.innerWidth < 640
+
+    if (isMobile) {
+      button.style.top = `${rect.top + 16}px`
+      button.style.left = `${rect.right - 16}px`
+    } else {
+      button.style.top = `${rect.top - 28}px`
+      button.style.left = `${rect.right + 28}px`
+    }
   }
+
+  // Grows from half width up to its natural full size as the section
+  // scrolls into view. This tweens `width` (never `scale`) specifically so
+  // it can never compound with openFullscreen/closeFullscreen below, which
+  // also drive `width` directly — one property, one source of truth.
+  useGSAP(
+    () => {
+      if (!sectionRef.current || !boxRef.current) return
+
+      gsap.fromTo(
+        boxRef.current,
+        { width: "50%" },
+        {
+          width: "100%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 85%",
+            end: "top 40%",
+            scrub: true,
+          },
+        }
+      )
+
+      return () => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+      }
+    },
+    { scope: sectionRef }
+  )
 
   // Block interaction with the rest of the page while the modal is open.
   // Lenis drives scroll itself (independent of native scroll/overflow), so
@@ -92,7 +135,7 @@ export default function ProjectVideo() {
       yPercent: 0,
     })
 
-    const targetWidth = Math.min(window.innerWidth * 0.92, 1000)
+    const targetWidth = Math.min(window.innerWidth * 0.92, 1100)
 
     setIsFullscreen(true)
 
@@ -132,10 +175,13 @@ export default function ProjectVideo() {
     })
   }
 
-  const toggleVideo = (event: React.MouseEvent) => {
-    // Stop this click from bubbling up to the box's own onClick, which opens
-    // the fullscreen modal — this button is only meant to play/pause.
-    event.stopPropagation()
+  // Before the modal is open, the button's job is to open it. Once open, the
+  // same button (still the only control on the video) toggles play/pause.
+  const handleButtonClick = () => {
+    if (!isFullscreen) {
+      openFullscreen()
+      return
+    }
 
     const video = videoRef.current
     if (!video) return
@@ -148,44 +194,63 @@ export default function ProjectVideo() {
   }
 
   return (
-    <>
-      <div
-        ref={boxRef}
-        onClick={openFullscreen}
-        className="group relative z-20 aspect-video w-full cursor-pointer overflow-hidden rounded-3xl border border-border bg-card shadow-2xl"
-        data-cursor="magnetic"
-      >
-        <video
-          ref={videoRef}
+    <section
+      id="project-video"
+      ref={sectionRef}
+      className="bg-brand-dark py-20 sm:py-28"
+    >
+      <div className="mx-auto max-w-400 px-5 sm:px-8">
+        <div
+          ref={boxRef}
           className={cn(
-            "h-full w-full",
-            isFullscreen ? "bg-black object-contain" : "object-cover"
+            "group relative mx-auto aspect-video max-w-5xl overflow-hidden rounded-3xl border border-border bg-card shadow-2xl",
+            // Above the backdrop while open, so the backdrop's blur only
+            // affects the page behind it — not the enlarged video itself.
+            isFullscreen ? "z-100" : "z-20"
           )}
-          muted
-          loop
-          playsInline
-          autoPlay
-          onPlay={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
         >
-          <source src="/short.mp4" type="video/mp4" />
-        </video>
-
-        <button
-          type="button"
-          onClick={toggleVideo}
-          aria-label={isPlaying ? "Pause video" : "Play video"}
-          className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          data-cursor="magnetic"
-        >
-          <span className="flex size-16 cursor-pointer items-center justify-center rounded-full bg-white/90 text-black shadow-2xl backdrop-blur transition-transform duration-300 hover:scale-110">
-            {isPlaying ? (
-              <Pause className="size-6 fill-current" />
-            ) : (
-              <Play className="ml-1 size-6 fill-current" />
+          <video
+            ref={videoRef}
+            className={cn(
+              "h-full w-full",
+              isFullscreen ? "bg-black object-contain" : "object-cover"
             )}
-          </span>
-        </button>
+            muted
+            loop
+            playsInline
+            autoPlay
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+          >
+            <source src="/short.mp4" type="video/mp4" />
+          </video>
+
+          <button
+            type="button"
+            onClick={handleButtonClick}
+            aria-label={
+              isFullscreen ? (isPlaying ? "Pause video" : "Play video") : "Play video"
+            }
+            className="group/btn absolute inset-0 flex cursor-pointer items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            data-cursor="magnetic"
+          >
+            <span className="relative flex size-20 items-center justify-center rounded-full bg-white/90 text-black shadow-2xl backdrop-blur-md transition-transform duration-300 group-hover/btn:scale-110">
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 rounded-full bg-linear-to-br from-white via-white/40 to-transparent opacity-70 transition-opacity duration-300 group-hover/btn:opacity-100"
+              />
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 scale-100 rounded-full border border-black/10 opacity-0 transition-all duration-500 group-hover/btn:scale-125 group-hover/btn:opacity-100"
+              />
+              {isFullscreen && isPlaying ? (
+                <Pause className="relative size-7 fill-current" />
+              ) : (
+                <Play className="relative ml-1 size-7 fill-current" />
+              )}
+            </span>
+          </button>
+        </div>
       </div>
 
       {isFullscreen && (
@@ -215,6 +280,6 @@ export default function ProjectVideo() {
           </button>
         </>
       )}
-    </>
+    </section>
   )
 }

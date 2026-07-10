@@ -79,7 +79,7 @@ export default function AboutSection() {
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <SectionBadge className="mb-12">{aboutData.eyebrow}</SectionBadge>
 
-        <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,400px)_1fr]">
+        <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,400px)_1fr]">
           <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900">
             <div className="space-y-6 p-8">
               <h3 className="text-2xl font-medium text-white sm:text-4xl">
@@ -111,14 +111,14 @@ export default function AboutSection() {
           <div>
             <h2
               ref={titleRef}
-              className="max-w-3xl text-3xl leading-tight font-light tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
+              className="max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
             >
               {aboutData.title}
             </h2>
 
             <p
               ref={descRef}
-              className="mt-6 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base"
+              className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70"
             >
               {aboutData.description}
             </p>

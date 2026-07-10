@@ -1,7 +1,7 @@
 export const servicesData = {
   badge: "Our Services",
 
-  title: "Advanced digital solutions, enhanced by AI.",
+  title: "Solutions Designed for Modern Businesses",
 
   description:
     "From scalable web platforms and mobile applications to AI-powered solutions, we design and develop modern digital products that help businesses innovate, automate, and grow with confidence.",
