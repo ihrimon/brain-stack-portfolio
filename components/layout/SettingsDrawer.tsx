@@ -29,9 +29,9 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
               <button
                 type="button"
                 aria-label="Close settings"
-                className="flex size-9 items-center justify-center rounded-full border border-border text-heading hover:bg-muted"
+                className="flex size-12 items-center justify-center rounded-full border border-border text-heading hover:bg-muted cursor-pointer"
               >
-                <X className="size-4" />
+                <X className="size-6" />
               </button>
             </DrawerClose>
           </DrawerHeader>

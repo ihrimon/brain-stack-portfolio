@@ -1,5 +1,5 @@
 export const colorPalettes = [
-  { name: "Indigo", primary: "#5b5fff", secondary: "#8b5cf6", accent: "#22d3ee" },
+  // { name: "Indigo", primary: "#5b5fff", secondary: "#8b5cf6", accent: "#22d3ee" },
   { name: "Blue", primary: "#2563eb", secondary: "#3b82f6", accent: "#38bdf8" },
   { name: "Purple", primary: "#7c3aed", secondary: "#a855f7", accent: "#e879f9" },
   { name: "Emerald", primary: "#059669", secondary: "#10b981", accent: "#34d399" },
