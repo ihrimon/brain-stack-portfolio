@@ -98,7 +98,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="relative z-10 mt-20 overflow-hidden">
+      <div className="relative z-10 mt-10 overflow-hidden">
         <p
           aria-hidden="true"
           className="bg-linear-to-b from-white/20 to-transparent bg-clip-text px-2 text-[15vw] leading-none font-bold whitespace-nowrap text-transparent select-none"

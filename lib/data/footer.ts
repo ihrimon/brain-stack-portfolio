@@ -1,4 +1,4 @@
 export const footerData = {
-  heading: "Helping ambitious teams build, ship and scale.",
+  heading: "Engineering the software behind ambitious products.",
   wordmark: "BRAIN STACK.",
 } as const

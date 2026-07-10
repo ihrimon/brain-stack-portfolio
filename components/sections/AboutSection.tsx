@@ -1,15 +1,16 @@
 "use client"
 
+import { SectionBadge } from "@/components/common/SectionBadge"
 import { aboutData } from "@/lib/data/about"
 import "@/lib/GSAPAnimations"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { ScrollTrigger, SplitText } from "gsap/all"
+import { ScrollTrigger } from "gsap/all"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
 
-gsap.registerPlugin(ScrollTrigger, SplitText)
+gsap.registerPlugin(ScrollTrigger)
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -22,40 +23,16 @@ export default function AboutSection() {
     () => {
       // Title/description start muted and reveal word-by-word as the
       // section is scrolled through, rather than fading in all at once.
-      ;[titleRef.current, descRef.current].forEach((el) => {
-        if (!el) return
-        const split = SplitText.create(el, { type: "words" })
+      gsap.effects.textRevealOnScroll([titleRef.current, descRef.current])
 
-        gsap.set(split.words, { opacity: 0.25 })
-        gsap.to(split.words, {
-          opacity: 1,
-          stagger: 0.05,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            end: "bottom 55%",
-            scrub: 0.5,
-          },
-        })
-      })
-
-      // Globe drifts sideways as the card scrolls through the viewport.
+      // Globe spins continuously so it reads as a living, rotating object.
       if (globeRef.current) {
-        gsap.fromTo(
-          globeRef.current,
-          { xPercent: -8 },
-          {
-            xPercent: 8,
-            ease: "none",
-            scrollTrigger: {
-              trigger: globeRef.current,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          }
-        )
+        gsap.to(globeRef.current, {
+          rotate: 360,
+          duration: 24,
+          ease: "none",
+          repeat: -1,
+        })
       }
 
       // Count the stats up once the stats card enters view.
@@ -100,9 +77,7 @@ export default function AboutSection() {
       className="bg-brand-dark py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <span className="mb-10 w-fit rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white sm:text-sm">
-          {aboutData.eyebrow}
-        </span>
+        <SectionBadge className="mb-12">{aboutData.eyebrow}</SectionBadge>
 
         <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,400px)_1fr]">
           <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900">
@@ -150,26 +125,26 @@ export default function AboutSection() {
 
             <div
               ref={statsCardRef}
-              className="mt-10 rounded-3xl border border-white/10 bg-neutral-900 p-8 sm:p-10"
+              className="mt-10 border-t border-white/10 pt-10"
             >
-
-              <div className="flex flex-wrap items-end justify-between gap-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                  {aboutData.stats.map((stat) => (
-                    <div key={stat.title}>
-                      <div className='flex items-center gap-4'>
-                        <p className="text-2xl font-medium text-white sm:text-4xl">
-                          <span data-stat-value={stat.value}>0</span>
-                          {stat.highlight}
-                        </p>
-                        <p className="mt-2 text-lg text-white/50 uppercase tracking-wide">
-                          {stat.title}
-                        </p>
-                      </div>
-                      <p className='mt-4 text-white/70'>{stat.description}</p>
-                    </div>
-                  ))}
-                </div>
+              <div className="grid grid-cols-1 divide-y divide-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                {aboutData.stats.map((stat) => (
+                  <div
+                    key={stat.title}
+                    className="group py-6 first:pt-0 sm:px-8 sm:py-0 sm:first:pl-0 sm:last:pr-0"
+                  >
+                    <p className="text-2xl font-medium text-white sm:text-4xl">
+                      <span data-stat-value={stat.value}>0</span>
+                      {stat.highlight}
+                    </p>
+                    <p className="mt-2 text-sm text-white/50 uppercase tracking-wide transition-colors duration-300 group-hover:text-white sm:text-lg">
+                      {stat.title}
+                    </p>
+                    <p className="mt-4 text-white/70 transition-colors duration-300 group-hover:text-white">
+                      {stat.description}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

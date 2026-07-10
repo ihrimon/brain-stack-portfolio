@@ -1,5 +1,6 @@
 "use client"
 
+import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/GSAPAnimations"
 import { servicesData } from "@/lib/data/services"
 import { useGSAP } from "@gsap/react"
@@ -13,45 +14,67 @@ import { useRef } from "react"
 gsap.registerPlugin(ScrollTrigger)
 
 export default function ServicesSection() {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const descRef = useRef<HTMLParagraphElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
 
-  useGSAP(() => {
-    if (!cardsRef.current) return
+  useGSAP(
+    () => {
+      gsap.effects.textRevealOnScroll([titleRef.current, descRef.current])
 
-    const cards = gsap.utils.toArray<HTMLElement>(
-      "[data-service-card]",
-      cardsRef.current
-    )
+      if (!cardsRef.current) return
 
-    cards.forEach((card, index) => {
-      const isLast = index === cards.length - 1
+      const cards = gsap.utils.toArray<HTMLElement>(
+        "[data-service-card]",
+        cardsRef.current
+      )
+      const lastCard = cards[cards.length - 1]
 
-      ScrollTrigger.create({
-        trigger: card,
-        start: "top top+=96",
-        end: isLast ? "bottom top" : () => `+=${window.innerHeight * 0.85}`,
-        pin: true,
-        pinSpacing: isLast,
+      // Each earlier card stays pinned (stacked, covered by the next ones)
+      // all the way until the LAST card reaches its own reveal point —
+      // not just until the next card arrives — so nothing flies off early.
+      // Only the last card releases naturally, letting the page continue.
+      cards.forEach((card, index) => {
+        const isLast = index === cards.length - 1
+
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top top+=96",
+          endTrigger: isLast ? card : lastCard,
+          end: isLast ? "bottom top" : "top top+=96",
+          pin: true,
+          pinSpacing: isLast,
+        })
       })
-    })
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
-  }, [])
+      return () => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+      }
+    },
+    { scope: sectionRef }
+  )
 
   return (
-    <section id="services" className="bg-brand-dark py-20 sm:py-28">
+    <section id="services" ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="mb-16 flex flex-wrap items-start justify-between gap-8">
-          <div className="">
-            <span className="w-fit rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white sm:text-sm">
-              {servicesData.badge}
-            </span>
+        <div className="mb-16 flex flex-wrap items-center justify-between gap-8">
+          <div>
+            <SectionBadge>{servicesData.badge}</SectionBadge>
 
-            <h2 className="mt-6 max-w-3xl leading-tight font-light tracking-tight text-white uppercase md:text-5xl">
+            <h2
+              ref={titleRef}
+              className="mt-6 max-w-3xl leading-tight font-light tracking-tight text-white uppercase md:text-5xl"
+            >
               {servicesData.title}
             </h2>
+
+            <p
+              ref={descRef}
+              className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base"
+            >
+              {servicesData.description}
+            </p>
           </div>
 
           <Link

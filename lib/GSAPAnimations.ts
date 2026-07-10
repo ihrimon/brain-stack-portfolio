@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import { ScrollTrigger, SplitText } from "gsap/all";
 
 // Register plugins
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 interface FadeUpScrollConfig {
   start?: string;
@@ -179,5 +179,53 @@ gsap.registerEffect({
     delay: 0,
     stagger: 0.12,
     childSelector: undefined,
+  },
+});
+
+interface TextRevealOnScrollConfig {
+  start?: string;
+  end?: string;
+  scrub?: number | boolean;
+  mutedOpacity?: number;
+  stagger?: number;
+}
+
+// Splits each target into words that start muted and reveal (opacity ->
+// full) word-by-word as the element is scrolled through, rather than
+// fading in all at once. Used to keep every section's title/description
+// reveal feeling consistent across the site.
+gsap.registerEffect({
+  name: "textRevealOnScroll",
+  effect: (targets: gsap.TweenTarget, config: TextRevealOnScrollConfig) => {
+    const elements = gsap.utils.toArray<HTMLElement>(targets);
+    const triggers: ScrollTrigger[] = [];
+
+    elements.forEach((el) => {
+      const split = SplitText.create(el, { type: "words" });
+      gsap.set(split.words, { opacity: config.mutedOpacity });
+
+      const tween = gsap.to(split.words, {
+        opacity: 1,
+        stagger: config.stagger,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el,
+          start: config.start,
+          end: config.end,
+          scrub: config.scrub,
+        },
+      });
+
+      if (tween.scrollTrigger) triggers.push(tween.scrollTrigger);
+    });
+
+    return triggers;
+  },
+  defaults: {
+    start: "top 85%",
+    end: "bottom 55%",
+    scrub: 0.5,
+    mutedOpacity: 0.25,
+    stagger: 0.05,
   },
 });

@@ -1,12 +1,99 @@
+"use client"
+
+// import { SectionBadge } from "@/components/common/SectionBadge"
+import "@/lib/GSAPAnimations"
 import { processData } from "@/lib/data/process"
 import { cn } from "@/lib/utils"
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/all"
 import Link from "next/link"
+import { useRef } from "react"
+import { SectionBadge } from '../common/SectionBadge'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const accentClasses = ["bg-brand-secondary", "bg-brand-accent", "bg-brand-primary"]
 
 export default function EngineeringProcess() {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const descRef = useRef<HTMLParagraphElement>(null)
+  const cardsRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(
+    () => {
+      gsap.effects.textRevealOnScroll([titleRef.current, descRef.current])
+
+      if (!cardsRef.current) return
+
+      const cards = gsap.utils.toArray<HTMLElement>(
+        "[data-process-card]",
+        cardsRef.current
+      )
+      const isDesktop = window.innerWidth >= 1024
+      const cleanups: (() => void)[] = []
+
+      // Cards fade/slide in from three different directions — left, bottom,
+      // right — as they scroll into view. The middle card settles slightly
+      // higher than the other two on desktop, matching the staggered layout.
+      const fromOffsets = [
+        { x: -80, y: 0 },
+        { x: 0, y: 80 },
+        { x: 80, y: 0 },
+      ]
+
+      cards.forEach((card, index) => {
+        const restY = index === 1 && isDesktop ? -40 : 0
+        const from = fromOffsets[index % fromOffsets.length]
+
+        gsap.fromTo(
+          card,
+          { opacity: 0, x: from.x, y: from.y + restY },
+          {
+            opacity: 1,
+            x: 0,
+            y: restY,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        )
+
+        // Same GSAP-driven, smoothly-animated position shift as
+        // PrimaryButton's hover swap — the card itself moves on hover
+        // instead of relying on a plain CSS transition.
+        const onEnter = () =>
+          gsap.to(card, { y: restY - 10, duration: 0.45, ease: "power3.out" })
+        const onLeave = () =>
+          gsap.to(card, { y: restY, duration: 0.45, ease: "power3.out" })
+
+        card.addEventListener("mouseenter", onEnter)
+        card.addEventListener("mouseleave", onLeave)
+        cleanups.push(() => {
+          card.removeEventListener("mouseenter", onEnter)
+          card.removeEventListener("mouseleave", onLeave)
+        })
+      })
+
+      return () => {
+        cleanups.forEach((fn) => fn())
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+      }
+    },
+    { scope: sectionRef }
+  )
+
   return (
-    <section id="process" className="relative overflow-hidden bg-brand-dark py-20 sm:py-28">
+    <section
+      id="process"
+      ref={sectionRef}
+      className="relative overflow-hidden bg-brand-dark py-20 sm:py-28"
+    >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 hidden h-64 w-64 opacity-40 sm:block"
@@ -16,30 +103,34 @@ export default function EngineeringProcess() {
           backgroundSize: "24px 24px",
         }}
       />
-      <span
+      {/* <span
         aria-hidden="true"
         className="pointer-events-none absolute top-24 left-13 hidden size-2 rounded-full bg-brand-accent sm:block"
-      />
+      /> */}
 
       <div className="relative mx-auto max-w-400 px-5 sm:px-8">
-        <div className="flex flex-wrap items-start justify-between gap-8">
+        <div className="flex flex-wrap items-center justify-between gap-8">
           <div className="max-w-2xl">
-            <span className="w-fit rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white sm:text-sm">
-              {processData.badge}
-            </span>
+            <SectionBadge>{processData.badge}</SectionBadge>
 
-            <h2 className="mt-6 text-3xl font-medium tracking-tight text-white sm:text-4xl md:text-5xl">
+            <h2
+              ref={titleRef}
+              className="mt-6 text-3xl font-medium tracking-tight text-white sm:text-4xl md:text-5xl"
+            >
               {processData.title}
             </h2>
 
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base">
+            <p
+              ref={descRef}
+              className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base"
+            >
               {processData.description}
             </p>
           </div>
 
           <Link
             href="/contact"
-            className="mt-2 flex items-center gap-3 text-sm font-medium text-white hover:text-white/80"
+            className="flex items-center gap-3 text-sm font-medium text-white hover:text-white/80"
             data-cursor="magnetic"
           >
             <span className="h-px w-10 bg-white/40" />
@@ -56,14 +147,12 @@ export default function EngineeringProcess() {
             <span className="absolute top-0 left-2/3 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500" />
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
+          <div ref={cardsRef} className="grid gap-6 lg:grid-cols-3 lg:gap-8">
             {processData.items.map((item, index) => (
               <div
                 key={item.title}
-                className={cn(
-                  "relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 p-8",
-                  index === 1 && "lg:-translate-y-10"
-                )}
+                data-process-card
+                className="relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 p-8"
               >
                 <div
                   aria-hidden="true"

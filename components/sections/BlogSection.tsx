@@ -1,8 +1,15 @@
+"use client"
+
+import { SectionBadge } from "@/components/common/SectionBadge"
+import "@/lib/GSAPAnimations"
 import { blogsData } from "@/lib/data/blogs"
 import { cn } from "@/lib/utils"
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRef } from "react"
 
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -13,17 +20,27 @@ function formatDate(date: string) {
 }
 
 export default function BlogSection() {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
   const posts = blogsData.posts.slice(0, 2)
 
-  return (
-    <section id="blog" className="bg-brand-dark py-20 sm:py-28">
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,240px)_1fr] lg:gap-16">
-          <span className="text-xs font-medium tracking-widest text-white/60 uppercase">
-            {blogsData.badge}
-          </span>
+  useGSAP(
+    () => {
+      gsap.effects.textRevealOnScroll(titleRef.current)
+    },
+    { scope: sectionRef }
+  )
 
-          <h2 className="max-w-2xl text-4xl leading-tight font-light tracking-tight text-white sm:text-5xl md:text-6xl">
+  return (
+    <section id="blog" ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
+      <div className="mx-auto max-w-400 px-5 sm:px-8">
+        <div className="flex flex-col gap-6">
+          <SectionBadge>{blogsData.badge}</SectionBadge>
+
+          <h2
+            ref={titleRef}
+            className="max-w-2xl text-4xl leading-tight font-light tracking-tight text-white sm:text-5xl md:text-6xl"
+          >
             {blogsData.title}
           </h2>
         </div>
@@ -42,28 +59,28 @@ export default function BlogSection() {
                   className="object-cover"
                   sizes="(min-width: 640px) 40vw, 90vw"
                 />
-              </div>
 
-              <div className="relative z-10 -mt-20 ml-auto w-4/5 rounded-2xl bg-brand-dark p-6 sm:-mt-24 sm:w-3/4 sm:p-8">
-                <p className="text-xs text-white/50">
-                  <span>{post.category}</span>
-                  <span className="mx-2">—</span>
-                  <span>{formatDate(post.date)}</span>
-                </p>
+                <div className="absolute right-0 bottom-0 w-3.5/5 rounded-tl-2xl bg-brand-dark p-5 sm:w-110 sm:p-6">
+                  <p className="text-xs text-white/50">
+                    <span>{post.category}</span>
+                    <span className="mx-2">—</span>
+                    <span>{formatDate(post.date)}</span>
+                  </p>
 
-                <h3 className="mt-4 text-xl font-medium text-white sm:text-2xl">
-                  {post.title}
-                </h3>
+                  <h3 className="mt-3 text-2xl font-medium text-white sm:text-xl">
+                    {post.title}
+                  </h3>
 
-                <div className="mt-6 border-t border-white/10 pt-4">
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="group inline-flex items-center gap-2 text-sm font-medium text-white"
-                    data-cursor="magnetic"
-                  >
-                    Read More
-                    <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
+                  <div className="mt-4 border-t border-white/10 pt-4">
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="group inline-flex items-center gap-2 text-sm font-medium text-white"
+                      data-cursor="magnetic"
+                    >
+                      Read More
+                      <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
