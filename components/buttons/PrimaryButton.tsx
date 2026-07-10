@@ -44,7 +44,7 @@ export function PrimaryButton({
   const pill = (
     <span
       className={cn(
-        "relative inline-flex h-16 items-center overflow-hidden rounded-full bg-primary py-2 hover:bg-background px-6 text-xl font-medium text-primary-foreground transition-all duration-500 group",
+        "relative inline-flex h-16 items-center overflow-hidden rounded-full bg-background py-2 hover:bg-background px-6 text-xl font-medium text-primary-foreground transition-all duration-500 group",
         className
       )}
       onMouseEnter={handleEnter}

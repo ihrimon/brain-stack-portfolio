@@ -62,19 +62,21 @@ export default function HeroSection() {
                 {heroData.title}{" "}
               </h1>
 
-              <PrimaryButton href="/#projects">Explore Portfolio</PrimaryButton>
+              <div className="flex flex-wrap items-center gap-6">
+                <PrimaryButton href="/#projects">Explore Portfolio</PrimaryButton>
+
+                <p className="max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+                  {heroData.description}
+                </p>
+              </div>
             </div>
 
-            <div className="lg:w-90 lg:shrink-0">
-              <p className="text-base leading-relaxed text-white/70 sm:text-xl">
-                {heroData.description}
-              </p>
+            <div className="lg:w-130 lg:shrink-0">
+              <ProjectVideo />
             </div>
           </div>
         </div>
       </div>
-
-      <ProjectVideo />
     </div>
   )
 }

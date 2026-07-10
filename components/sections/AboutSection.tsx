@@ -28,7 +28,7 @@ export default function AboutSection() {
       // Globe spins continuously so it reads as a living, rotating object.
       if (globeRef.current) {
         gsap.to(globeRef.current, {
-          rotate: 360,
+          // rotate: 360,
           duration: 24,
           ease: "none",
           repeat: -1,
