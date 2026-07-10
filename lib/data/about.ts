@@ -1,26 +1,25 @@
+import { heroData } from "@/lib/data/hero"
+
 export const aboutData = {
-  badge: "About Brain Stack",
-  heading: "A Software Studio Built for Ambitious Teams",
+  eyebrow: "Who We Are",
+
+  title:
+    "We are a team of driven engineers and designers dedicated to bringing your ideas to life.",
+
   description:
-    "Brain Stack is a full-stack engineering studio. We partner with founders and product teams to design, build, and scale software that ships fast without cutting corners.",
-  mission: {
-    title: "Our Mission",
-    description:
-      "To turn ambitious product ideas into reliable, scalable software — engineered end to end, with no hand-offs left half finished.",
+    "We're a team of senior engineers and product designers working globally with ambitious founders. We believe progress only happens when you refuse to play it safe — we combine sharp product thinking, modern tooling and AI-assisted engineering to ship software that lasts.",
+
+  card: {
+    title: "End-to-End Software Delivery",
+    cta: { text: "Discover More", href: "/#services" },
+    image: "/images/globe.png",
   },
-  vision: {
-    title: "Our Vision",
-    description:
-      "A world where any team, regardless of size, can build software that competes with the best-engineered products on the market.",
+
+  statsCard: {
+    trustLine:
+      "Trusted by 40+ clients across 3 continents — shipping products from idea to production in weeks, not quarters.",
+    review: heroData.review,
   },
-  whyWeExist: {
-    title: "Why We Exist",
-    description:
-      "Too many great products stall between idea and execution. We exist to close that gap with senior engineering, modern tooling, and AI-accelerated delivery.",
-  },
-  experience: [
-    { label: "Years Building Software", value: 6, suffix: "+" },
-    { label: "Engineers & Designers", value: 25, suffix: "+" },
-    { label: "Products Shipped", value: 150, suffix: "+" },
-  ],
+
+  stats: heroData.stats,
 } as const

@@ -4,21 +4,12 @@ import { Logo } from "@/components/common/Logo"
 import { SettingsDrawer } from "@/components/layout/SettingsDrawer"
 import { navItems } from "@/lib/data/hero"
 import { cn } from "@/lib/utils"
-import { Gamepad2 } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
   const [activeHash, setActiveHash] = useState<string>("")
   const [drawerOpen, setDrawerOpen] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
 
   useEffect(() => {
     const sections = navItems
@@ -52,23 +43,18 @@ export function Navbar() {
       </a>
 
       <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-40 transition-colors duration-300",
-          scrolled
-            ? "border-b border-border bg-background/80 backdrop-blur-lg"
-            : "border-b border-transparent bg-transparent"
-        )}
+        className="fixed inset-x-0 top-0 z-40 w-full bg-transparent"
         role="banner"
       >
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8"
+          className="mx-auto flex w-full max-w-400 items-center justify-between px-5 py-4 sm:px-8"
           role="navigation"
           aria-label="Primary navigation"
         >
-          <Logo />
+          <Logo variant="on-dark" className="text-white" />
 
           <ul
-            className="hidden items-center gap-8 md:flex"
+            className="hidden items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2 backdrop-blur-sm lg:flex"
             role="menubar"
             aria-label="Main navigation menu"
           >
@@ -80,15 +66,12 @@ export function Navbar() {
                     href={item.href}
                     role="menuitem"
                     className={cn(
-                      "relative text-sm font-medium transition-colors hover:text-heading",
-                      isActive ? "text-heading" : "text-label"
+                      "block rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                      isActive ? "text-white" : "text-white/80 hover:text-white"
                     )}
                     data-cursor="magnetic"
                   >
                     {item.name}
-                    {isActive && (
-                      <span className="absolute -bottom-1.5 left-0 h-px w-full bg-gradient-brand" />
-                    )}
                   </Link>
                 </li>
               )
@@ -98,11 +81,13 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="flex size-10 items-center justify-center rounded-full border border-border text-heading transition-colors hover:bg-muted"
-            aria-label="Open settings"
+            className="group flex size-14 shrink-0 flex-col items-center justify-center gap-1.25 rounded-full border border-white/15 bg-white/5 backdrop-blur transition-colors hover:bg-white/10 cursor-pointer"
+            aria-label="Open menu"
             data-cursor="magnetic"
           >
-            <Gamepad2 className="size-5" />
+            <span className="h-px w-7 bg-white transition-all duration-300 group-hover:w-3.5 group-hover:translate-x-0.5" />
+            <span className="h-px w-7 bg-white transition-all duration-300 group-hover:w-5 group-hover:-translate-x-0.5" />
+            <span className="h-px w-7 bg-white transition-all duration-300 group-hover:w-2.5 group-hover:translate-x-1" />
           </button>
         </nav>
       </header>

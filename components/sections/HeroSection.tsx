@@ -1,20 +1,19 @@
 "use client"
 
-import { PrimaryButton } from "@/components/buttons/PrimaryButton"
-import "@/lib/GSAPAnimations"
 import { heroData } from "@/lib/data/hero"
+import "@/lib/GSAPAnimations"
 import { cn } from "@/lib/utils"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger, SplitText } from "gsap/all"
-import { Pause, Play, X } from "lucide-react"
+import { ArrowDown, ChevronRight, Pause, Play, X } from "lucide-react"
+import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null)
-  const statsRef = useRef<HTMLDivElement>(null)
   const videoSectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -39,13 +38,6 @@ export default function HeroSection() {
             stagger: 0.06,
           })
         },
-      })
-    }
-
-    if (statsRef.current) {
-      gsap.effects.staggerFadeUpOnScroll(statsRef.current, {
-        start: "top 85%",
-        duration: 0.6,
       })
     }
 
@@ -118,54 +110,53 @@ export default function HeroSection() {
     <div className="flex flex-col flex-nowrap">
       <div
         ref={heroRef}
-        className="hero space-y-10 px-5 pt-36 pb-8 text-center md:pt-44 md:pb-14"
+        className="relative flex min-h-screen w-full flex-col overflow-hidden bg-brand-dark"
       >
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-6">
-          <span className="bg-tag-bg w-fit rounded-full px-4 py-1.5 text-xs font-medium text-tag sm:text-sm">
-            {heroData.badge}
-          </span>
-
-          <h1 className="mx-auto max-w-4xl text-4xl leading-[1.20] font-medium tracking-tight text-heading sm:text-6xl capitalize md:text-7xl">
-            {heroData.title}
-          </h1>
-
-          <p className="mx-auto max-w-3xl text-base leading-relaxed text-label sm:text-lg">
-            {heroData.description}
-          </p>
-
-          <PrimaryButton
-            href={heroData.primaryButton.href}
-            className="px-12 py-6 text-base sm:text-lg"
-          >
-            {heroData.primaryButton.text}
-          </PrimaryButton>
-        </div>
-
-        {/* <div
-          ref={statsRef}
-          className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-y divide-border/50 md:grid-cols-4 md:divide-y-0"
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
         >
-          {heroData.stats.map((stat) => (
-            <div key={stat.title} className="p-5 text-left sm:p-6">
-              <div className='flex items-center gap-3'>
-              <p className="text-3xl font-bold tracking-tight text-heading sm:text-4xl">
-                {stat.value}
-                {stat.highlight && (
-                  <span className="text-gradient-brand">{stat.highlight}</span>
-                )}
-              </p>
-              <p className="mt-2 text-sm font-semibold text-heading">
-                {stat.title}
-              </p>
+          <source src="/bg-video.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
 
-              </div>
-              <p className="mt-1 text-xs text-label sm:text-sm">
-                {stat.description}
+        <div className="relative z-10 mx-auto flex w-full max-w-400 flex-1 flex-col justify-center px-5 pt-32 pb-20 sm:px-8">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
+            <h1 className="max-w-4xl text-5xl leading-[1] tracking-tight text-white uppercase sm:text-7xl lg:text-8xl">
+              {heroData.title}{" "}
+              <Link
+                href={heroData.primaryButton.href}
+                aria-label={heroData.primaryButton.text}
+                className="group inline-flex align-middle"
+                data-cursor="magnetic"
+              >
+                <ChevronRight className="inline size-12 transition-transform duration-300 group-hover:translate-x-2 sm:size-16 lg:size-20" />
+              </Link>
+            </h1>
+
+            <div className="lg:w-72 lg:shrink-0">
+              <p className="max-w-xs text-base leading-relaxed text-white/70 sm:text-lg">
+                {heroData.description}
               </p>
             </div>
-          ))}
-        </div> */}
+          </div>
+        </div>
 
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 pb-8 sm:px-8">
+          <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-white uppercase">
+            Scroll Down
+            <ArrowDown className="size-4" />
+          </div>
+          <p className="text-xs font-bold tracking-widest text-white uppercase">
+            London · New York · Berlin
+          </p>
+        </div>
+      </div>
+
+      <div className="px-5">
         <div
           ref={videoSectionRef}
           className="relative flex items-start justify-center"
@@ -209,7 +200,7 @@ export default function HeroSection() {
               className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               data-cursor="magnetic"
             >
-              <span className="flex size-16 items-center justify-center rounded-full bg-white/90 text-black shadow-2xl backdrop-blur transition-transform duration-300 hover:scale-110">
+              <span className="flex size-16 items-center justify-center rounded-full bg-white/90 text-black shadow-2xl backdrop-blur transition-transform duration-300 cursor-pointer hover:scale-110">
                 {isPlaying ? (
                   <Pause className="size-6 fill-current" />
                 ) : (
@@ -223,7 +214,7 @@ export default function HeroSection() {
                 type="button"
                 onClick={closeFullscreen}
                 aria-label="Close video"
-                className="absolute top-4 right-4 z-10 flex size-12 items-center justify-center rounded-full bg-black/70 cursor-pointer text-white backdrop-blur hover:bg-white/20"
+                className="absolute top-4 right-4 z-10 flex size-12 items-center justify-center rounded-full bg-black/70 cursor-pointer text-white backdrop-blur hover:bg-white/20 hover:text-background hover:border"
                 data-cursor="magnetic"
               >
                 <X className="size-6" />
