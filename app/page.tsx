@@ -1,4 +1,5 @@
 import AboutSection from "@/components/sections/AboutSection"
+import BlogSection from "@/components/sections/BlogSection"
 import EngineeringProcess from "@/components/sections/EngineeringProcess"
 import HeroSection from "@/components/sections/HeroSection"
 import PortfolioSection from "@/components/sections/PortfolioSection"
@@ -14,6 +15,7 @@ export default function HomePage() {
       <ServicesSection />
       <EngineeringProcess />
       <TestimonialSection />
+      <BlogSection />
     </main>
   )
 }

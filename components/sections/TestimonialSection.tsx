@@ -49,9 +49,9 @@ export default function TestimonialSection() {
               {testimonialsData.title}
             </h2>
 
-            <p className="mt-4 text-sm leading-relaxed text-white/60 sm:text-base">
+            {/* <p className="mt-4 text-sm leading-relaxed text-white/60 sm:text-base">
               {testimonialsData.description}
-            </p>
+            </p> */}
           </div>
 
           {/* <div className="flex items-center divide-x divide-white/15">
@@ -97,7 +97,7 @@ export default function TestimonialSection() {
                 {slide.map((testimonial) => (
                   <div
                     key={testimonial.author}
-                    className="relative flex flex-col rounded-3xl border border-white/10 bg-neutral-900 p-8"
+                    className="relative flex flex-col rounded-3xl border border-white/10  p-8"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
