@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer'
 import { Loader } from '@/components/animations/Loader'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import { Cursor } from '@/components/animations/Cursor'
+import { ScrollButton } from '@/components/common/ScrollButton'
 import { ThemeProvider } from '@/components/theme/theme-provider'
 import "@/lib/GSAPAnimations"
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Loader />
           <Cursor />
+          <ScrollButton />
           <SmoothScroll>
             <div className="min-h-screen w-full">
               <Navbar />

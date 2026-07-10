@@ -6,7 +6,7 @@ import "@/lib/GSAPAnimations"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { SplitText } from "gsap/all"
-import { ArrowDown, ChevronRight } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { useRef } from "react"
 
@@ -38,10 +38,6 @@ export default function HeroSection() {
     },
     { scope: heroRef }
   )
-
-  const scrollToNext = () => {
-    window.scrollBy({ top: window.innerHeight, behavior: "smooth" })
-  }
 
   return (
     <div className="flex flex-col flex-nowrap">
@@ -80,19 +76,6 @@ export default function HeroSection() {
               </p>
             </div>
           </div>
-        </div>
-
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl justify-end px-5 pb-8 sm:px-8">
-          <button
-            type="button"
-            onClick={scrollToNext}
-            aria-label="Scroll down to next section"
-            className="group flex items-center gap-3 text-base font-bold tracking-widest text-white uppercase animate-pulse cursor-pointer hover:animate-none sm:text-lg"
-            data-cursor="magnetic"
-          >
-            Scroll Down
-            <ArrowDown className="size-6 animate-bounce transition-transform duration-300 group-hover:translate-y-1 sm:size-7" />
-          </button>
         </div>
       </div>
 

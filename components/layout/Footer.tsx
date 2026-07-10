@@ -1,124 +1,115 @@
-"use client"
-
 import { Logo } from "@/components/common/Logo"
-import { Button } from "@/components/ui/button"
-import { ArrowUpRight } from 'lucide-react'
+import { contactData } from "@/lib/data/contact"
+import { footerData } from "@/lib/data/footer"
+import { navItems } from "@/lib/data/hero"
+import Image from "next/image"
+import Link from "next/link"
 
 export default function Footer() {
-  const resourceLinks = [
-    { name: "Blogs", href: "blog" },
-    { name: "About", href: "about" },
-  ]
-
-  const socialLinks = [
-    { name: "X", href: "/" },
-    { name: "LinkedIn", href: "/" },
-    { name: "Github", href: "/" },
-  ]
-
   return (
-    <footer
-      className="mt-10 border-t border-border bg-background"
-      role="contentinfo"
-      itemScope
-    >
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-14">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-12 lg:gap-12">
-          <div className="space-y-8 md:col-span-5 lg:col-span-4">
-            <div className="space-y-6">
-              <div className="space-y-2 text-label" itemScope>
-                <p itemProp="name">
-                  <Logo className="text-2xl" />
-                </p>
-                <p className="text-sm">
-                  Copyrights © All Rights Reserved by brainstack.com
-                </p>
-                <p className="text-sm">
-                  <span className="sr-only">Phone:</span>
-                  <a
-                    href="tel:+19103150746"
-                    itemProp="telephone"
-                    className="hover:underline"
-                  >
-                    +1-123455751
-                  </a>
-                </p>
-                <p
-                  className="text-sm"
-                  itemProp="address"
-                  itemScope
-                  itemType="https://schema.org/PostalAddress"
-                >
-                  <span itemProp="streetAddress">
-                    2055 Limestone Rd STE 200C IN Wilmington
-                  </span>
-                </p>
-                <p className="text-sm">
-                  <span itemProp="addressLocality">Wilmington</span>,{" "}
-                  <span itemProp="addressRegion">DE</span>{" "}
-                  <span itemProp="postalCode">19808</span>
-                </p>
-              </div>
+    <footer className="relative overflow-hidden bg-brand-dark" role="contentinfo">
+      <Image
+        src="/images/bg-footer.webp"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover object-top opacity-70"
+      />
+      <div
+        className="absolute inset-0 bg-linear-to-b from-transparent via-brand-dark/50 to-brand-dark"
+        aria-hidden="true"
+      />
 
-              <div className="flex">
-                <a href="#work-with-us">
-                  <Button variant="outline" className="cursor-pointer">
-                    Work with us
-                    <ArrowUpRight size={16} />
-                  </Button>
+      <div className="relative z-10 mx-auto max-w-400 px-5 pt-20 sm:px-8 sm:pt-28">
+        <div className="grid gap-12 lg:grid-cols-[1fr_auto_auto] lg:gap-16">
+          <div className="space-y-8">
+            <h2 className="max-w-md text-4xl leading-[1.05] font-bold tracking-tight text-white uppercase sm:text-5xl">
+              {footerData.heading}
+            </h2>
+
+            <div className="flex items-center gap-3">
+              {contactData.socials.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  aria-label={`Follow us on ${social.label}`}
+                  className="flex size-11 items-center justify-center rounded-full bg-white/10 text-xs font-bold text-white uppercase transition-colors hover:bg-white/20"
+                  data-cursor="magnetic"
+                >
+                  {social.glyph}
                 </a>
-              </div>
+              ))}
             </div>
           </div>
 
-          <div className="hidden md:col-span-1 md:block lg:col-span-2"></div>
-
-          <div className="md:col-span-3 lg:col-span-3">
-            <h3
-              className="mb-6 text-sm font-medium tracking-wider text-label uppercase"
-              id="footer-resources-heading"
-            >
-              Resources
+          <div>
+            <h3 className="mb-6 text-sm font-medium tracking-wider text-white/60 uppercase">
+              Quick Links:
             </h3>
-            <nav
-              className="space-y-4"
-              aria-labelledby="footer-resources-heading"
-            >
-              {resourceLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="block text-label transition-colors duration-200 hover:text-heading"
-                  aria-label={`Resource: ${link.name}`}
+            <div className="flex max-w-xs flex-wrap gap-3">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="rounded-full bg-white/10 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/20"
+                  data-cursor="magnetic"
                 >
-                  {link.name}
-                </a>
+                  {item.name}
+                </Link>
               ))}
-            </nav>
+            </div>
           </div>
 
-          <div className="md:col-span-3 lg:col-span-3">
-            <h3
-              className="mb-6 text-sm font-medium tracking-wider text-label uppercase"
-              id="footer-connect-heading"
-            >
-              Connect
-            </h3>
-            <nav className="space-y-4" aria-labelledby="footer-connect-heading">
-              {socialLinks.map((link) => (
+          <div className="space-y-8">
+            <div>
+              <h3 className="mb-3 text-sm font-medium tracking-wider text-white/60 uppercase">
+                Location:
+              </h3>
+              <p className="text-white">
+                {contactData.address.line1}
+                <br />
+                {contactData.address.line2}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-sm font-medium tracking-wider text-white/60 uppercase">
+                Contact Us:
+              </h3>
+              <p className="text-white">
                 <a
-                  key={link.name}
-                  href={link.href}
-                  className="block text-label transition-colors duration-200 hover:text-heading"
-                  rel="me noopener"
-                  aria-label={`Follow us on ${link.name}`}
+                  href={`mailto:${contactData.email}`}
+                  className="hover:underline"
                 >
-                  {link.name}
+                  {contactData.email}
                 </a>
-              ))}
-            </nav>
+                <br />
+                <a
+                  href={`tel:${contactData.phone.replace(/[^+\d]/g, "")}`}
+                  className="hover:underline"
+                >
+                  {contactData.phone}
+                </a>
+              </p>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div className="relative z-10 mt-20 overflow-hidden">
+        <p
+          aria-hidden="true"
+          className="bg-linear-to-b from-white/20 to-transparent bg-clip-text px-2 text-[15vw] leading-none font-bold whitespace-nowrap text-transparent select-none"
+        >
+          {footerData.wordmark}
+        </p>
+      </div>
+
+      <div className="relative z-10 mx-auto flex max-w-400 flex-col items-center justify-between gap-4 border-t border-white/10 px-5 py-6 text-xs text-white/40 sm:flex-row sm:px-8">
+        <Logo variant="on-dark" />
+        <p className='text-base'>© {new Date().getFullYear()} Brain Stack. All rights reserved.</p>
       </div>
     </footer>
   )
