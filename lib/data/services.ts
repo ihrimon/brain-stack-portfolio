@@ -128,7 +128,7 @@ export const servicesData = {
       id: "05",
       title: "Business → App & Web",
       category: "Transformation",
-      image: "/images/services/business-transformation.webp",
+      image: "/images/services/services-5.png",
       metric: {
         value: "11wk",
         label: "idea → launch",
