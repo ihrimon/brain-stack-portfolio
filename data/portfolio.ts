@@ -88,7 +88,7 @@ export const portfolioData = {
       id: 9,
       title: "YachtEase",
       category: "Luxury Travel",
-      image: "/images/portfolio/portfolio-10.webp",
+      image: "/images/portfolio/portfolio-9.webp",
       href: "https://yachtease.co/",
       description:
         "A premium yacht booking platform delivering an elegant user experience for luxury travel and charter services.",
