@@ -54,7 +54,7 @@ export function Navbar() {
           <Logo variant="on-dark" className="text-white" />
 
           <ul
-            className="hidden items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-2 backdrop-blur-sm lg:flex"
+            className="hidden h-14 items-center gap-1 rounded-full border border-white/10 bg-neutral-900/90 px-2 py-2 backdrop-blur-sm lg:flex dark:border-white/15 dark:bg-white/5"
             role="menubar"
             aria-label="Main navigation menu"
           >
@@ -81,7 +81,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="group flex size-14 shrink-0 flex-col items-center justify-center gap-1.25 rounded-full border border-white/15 bg-white/5 backdrop-blur transition-colors hover:bg-white/10 cursor-pointer"
+            className="group flex size-14 shrink-0 cursor-pointer flex-col items-center justify-center gap-1.25 rounded-full border border-white/15 bg-neutral-900/90 dark:bg-white/5 backdrop-blur transition-colors hover:dark:bg-white/10"
             aria-label="Open menu"
             data-cursor="magnetic"
           >

@@ -1,5 +1,6 @@
 "use client"
 
+import { setLenis } from "@/lib/lenis"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
 import Lenis from "lenis"
@@ -26,6 +27,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     })
 
     lenis.on("scroll", ScrollTrigger.update)
+    setLenis(lenis)
 
     const update = (time: number) => {
       lenis.raf(time * 1000)
@@ -36,6 +38,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     return () => {
       lenis.destroy()
       gsap.ticker.remove(update)
+      setLenis(undefined)
     }
   }, [])
 

@@ -25,31 +25,4 @@ export const heroData = {
     label: "Review on Clutch",
     rating: 5,
   },
-
-  stats: [
-    {
-      value: "60",
-      highlight: "+",
-      title: "Products shipped",
-      description: "Products shipped using modern, AI-assisted engineering",
-    },
-    {
-      value: "12",
-      highlight: "y",
-      title: "Years",
-      description: "Combined craft across mobile, web, cloud and AI",
-    },
-    {
-      value: "40",
-      highlight: "+",
-      title: "Experts",
-      description: "Top-tier engineers, designers and product experts",
-    },
-    {
-      value: "3",
-      highlight: "",
-      title: "Continents",
-      description: "Clients served across London, New York and Berlin",
-    },
-  ],
 }

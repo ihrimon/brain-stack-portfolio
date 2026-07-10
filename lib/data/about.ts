@@ -21,5 +21,24 @@ export const aboutData = {
     review: heroData.review,
   },
 
-  stats: heroData.stats,
+  stats: [
+    {
+      value: "60",
+      highlight: "+",
+      title: "Products shipped",
+      description: "Products shipped using modern, AI-assisted engineering",
+    },
+    {
+      value: "12",
+      highlight: "y",
+      title: "Years",
+      description: "Combined craft across mobile, web, cloud and AI",
+    },
+    {
+      value: "40",
+      highlight: "+",
+      title: "Experts",
+      description: "Top-tier engineers, designers and product experts",
+    },
+  ],
 } as const

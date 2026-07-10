@@ -6,6 +6,11 @@ export const servicesData = {
   description:
     "From scalable web platforms and mobile applications to AI-powered solutions, we design and develop modern digital products that help businesses innovate, automate, and grow with confidence.",
 
+  stat: {
+    value: "100%",
+    label: "Client Satisfaction Rate",
+  },
+
   items: [
     {
       id: "01",
@@ -119,32 +124,32 @@ export const servicesData = {
       },
     },
 
-    // {
-    //   id: "05",
-    //   title: "Business → App & Web",
-    //   category: "Transformation",
-    //   image: "/images/services/business-transformation.webp",
-    //   metric: {
-    //     value: "11wk",
-    //     label: "idea → launch",
-    //   },
-    //   eyebrow: ["Discovery", "MVP", "Launch"],
-    //   description:
-    //     "Transform your business idea into a scalable digital product through strategy, UX, development, launch, and continuous growth support.",
+    {
+      id: "05",
+      title: "Business → App & Web",
+      category: "Transformation",
+      image: "/images/services/business-transformation.webp",
+      metric: {
+        value: "11wk",
+        label: "idea → launch",
+      },
+      eyebrow: ["Discovery", "MVP", "Launch"],
+      description:
+        "Transform your business idea into a scalable digital product through strategy, UX, development, launch, and continuous growth support.",
 
-    //   features: [
-    //     "Product Strategy",
-    //     "MVP Build",
-    //     "Go-to-market",
-    //     "Scale & Support",
-    //   ],
+      features: [
+        "Product Strategy",
+        "MVP Build",
+        "Go-to-market",
+        "Scale & Support",
+      ],
 
-    //   technologies: ["Discovery", "UX", "MVP", "Growth"],
+      technologies: ["Discovery", "UX", "MVP", "Growth"],
 
-    //   cta: {
-    //     label: "Start a business project",
-    //     href: "/contact",
-    //   },
-    // },
+      cta: {
+        label: "Start a business project",
+        href: "/contact",
+      },
+    },
   ],
 }

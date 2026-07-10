@@ -1,29 +1,25 @@
 "use client"
 
+import ProjectVideo from "@/components/sections/ProjectVideo"
 import { heroData } from "@/lib/data/hero"
 import "@/lib/GSAPAnimations"
-import { cn } from "@/lib/utils"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { ScrollTrigger, SplitText } from "gsap/all"
-import { ArrowDown, ChevronRight, Pause, Play, X } from "lucide-react"
+import { SplitText } from "gsap/all"
+import { ArrowDown, ChevronRight } from "lucide-react"
 import Link from "next/link"
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 
-gsap.registerPlugin(ScrollTrigger, SplitText)
+gsap.registerPlugin(SplitText)
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null)
-  const videoSectionRef = useRef<HTMLDivElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
 
-  const [isFullscreen, setIsFullscreen] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(true)
-  const userClosedRef = useRef(false)
+  useGSAP(
+    () => {
+      const headingElement = heroRef.current?.querySelector("h1")
+      if (!headingElement) return
 
-  useGSAP(() => {
-    const headingElement = heroRef?.current?.querySelector("h1")
-    if (headingElement) {
       SplitText.create(headingElement, {
         type: "lines, words",
         mask: "lines",
@@ -39,71 +35,12 @@ export default function HeroSection() {
           })
         },
       })
-    }
+    },
+    { scope: heroRef }
+  )
 
-    if (videoSectionRef.current && videoRef.current) {
-      const video = videoRef.current
-
-      // Autoplay once the video section enters the viewport.
-      ScrollTrigger.create({
-        trigger: videoSectionRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        onEnter: () => video.play().catch(() => {}),
-        onEnterBack: () => video.play().catch(() => {}),
-        onLeave: () => video.pause(),
-        onLeaveBack: () => video.pause(),
-      })
-
-      // Open as a blocking modal once the section crosses viewport center.
-      // Only the close button dismisses it — scrolling further doesn't.
-      ScrollTrigger.create({
-        trigger: videoSectionRef.current,
-        start: "center 60%",
-        onEnter: () => {
-          if (!userClosedRef.current) setIsFullscreen(true)
-        },
-        onLeaveBack: () => {
-          userClosedRef.current = false
-          setIsFullscreen(false)
-        },
-      })
-    }
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
-  }, [])
-
-  // Block interaction with the rest of the page while the modal is open.
-  useEffect(() => {
-    document.body.style.overflow = isFullscreen ? "hidden" : ""
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [isFullscreen])
-
-  // Unmute once the video opens as a modal; mute again in the small inline preview.
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-    video.muted = !isFullscreen
-  }, [isFullscreen])
-
-  const closeFullscreen = () => {
-    userClosedRef.current = true
-    setIsFullscreen(false)
-  }
-
-  const toggleVideo = () => {
-    const video = videoRef.current
-    if (!video) return
-
-    if (video.paused) {
-      video.play().catch(() => {})
-    } else {
-      video.pause()
-    }
+  const scrollToNext = () => {
+    window.scrollBy({ top: window.innerHeight, behavior: "smooth" })
   }
 
   return (
@@ -124,8 +61,8 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
 
         <div className="relative z-10 mx-auto flex w-full max-w-400 flex-1 flex-col justify-center px-5 pt-32 pb-20 sm:px-8">
-          <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
-            <h1 className="max-w-4xl text-5xl leading-[1] tracking-tight text-white uppercase sm:text-7xl lg:text-8xl">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+            <h1 className="max-w-4xl text-5xl tracking-tight text-white uppercase sm:text-7xl lg:text-8xl">
               {heroData.title}{" "}
               <Link
                 href={heroData.primaryButton.href}
@@ -137,92 +74,29 @@ export default function HeroSection() {
               </Link>
             </h1>
 
-            <div className="lg:w-72 lg:shrink-0">
-              <p className="max-w-xs text-base leading-relaxed text-white/70 sm:text-lg">
+            <div className="lg:w-90 lg:shrink-0">
+              <p className="text-base leading-relaxed text-white/70 sm:text-xl">
                 {heroData.description}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 pb-8 sm:px-8">
-          <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-white uppercase">
-            Scroll Down
-            <ArrowDown className="size-4" />
-          </div>
-          <p className="text-xs font-bold tracking-widest text-white uppercase">
-            London · New York · Berlin
-          </p>
-        </div>
-      </div>
-
-      <div className="px-5">
-        <div
-          ref={videoSectionRef}
-          className="relative flex items-start justify-center"
-          style={{ height: "160vh" }}
-        >
-          {isFullscreen && (
-            <div
-              className="fixed inset-0 z-90 bg-black/80 backdrop-blur-sm"
-              aria-hidden="true"
-            />
-          )}
-
-          <div
-            className={cn(
-              "group overflow-hidden border border-border bg-card shadow-2xl transition-all duration-500 ease-in-out",
-              isFullscreen
-                ? "fixed inset-0 z-100 m-auto md:h-[80vh] md:w-[99vw] md:max-w-7xl rounded-3xl"
-                : "relative mx-auto aspect-video w-full max-w-4xl rounded-3xl"
-            )}
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl justify-end px-5 pb-8 sm:px-8">
+          <button
+            type="button"
+            onClick={scrollToNext}
+            aria-label="Scroll down to next section"
+            className="group flex items-center gap-3 text-base font-bold tracking-widest text-white uppercase animate-pulse cursor-pointer hover:animate-none sm:text-lg"
+            data-cursor="magnetic"
           >
-            <video
-              ref={videoRef}
-              className={cn(
-                "h-full w-full",
-                isFullscreen ? "bg-black object-contain" : "object-cover"
-              )}
-              muted
-              loop
-              playsInline
-              autoPlay
-              onPlay={() => setIsPlaying(true)}
-              onPause={() => setIsPlaying(false)}
-            >
-              <source src="/short.mp4" type="video/mp4" />
-            </video>
-
-            <button
-              type="button"
-              onClick={toggleVideo}
-              aria-label={isPlaying ? "Pause video" : "Play video"}
-              className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              data-cursor="magnetic"
-            >
-              <span className="flex size-16 items-center justify-center rounded-full bg-white/90 text-black shadow-2xl backdrop-blur transition-transform duration-300 cursor-pointer hover:scale-110">
-                {isPlaying ? (
-                  <Pause className="size-6 fill-current" />
-                ) : (
-                  <Play className="ml-1 size-6 fill-current" />
-                )}
-              </span>
-            </button>
-
-            {isFullscreen && (
-              <button
-                type="button"
-                onClick={closeFullscreen}
-                aria-label="Close video"
-                className="absolute top-4 right-4 z-10 flex size-12 items-center justify-center rounded-full bg-black/70 cursor-pointer text-white backdrop-blur hover:bg-white/20 hover:text-background hover:border"
-                data-cursor="magnetic"
-              >
-                <X className="size-6" />
-              </button>
-            )}
-          </div>
+            Scroll Down
+            <ArrowDown className="size-6 animate-bounce transition-transform duration-300 group-hover:translate-y-1 sm:size-7" />
+          </button>
         </div>
       </div>
+
+      <ProjectVideo />
     </div>
   )
 }

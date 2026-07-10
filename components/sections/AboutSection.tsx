@@ -5,7 +5,6 @@ import "@/lib/GSAPAnimations"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger, SplitText } from "gsap/all"
-import { Star } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
@@ -95,33 +94,39 @@ export default function AboutSection() {
   )
 
   return (
-    <section id="company" ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="mb-10 flex items-center gap-2 text-xs font-medium tracking-widest text-white/60 uppercase">
-          <span className="size-1.5 rounded-full bg-white" />
+    <section
+      id="company"
+      ref={sectionRef}
+      className="bg-brand-dark py-20 sm:py-28"
+    >
+      <div className="mx-auto max-w-400 px-5 sm:px-8">
+        <span className="mb-10 w-fit rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white sm:text-sm">
           {aboutData.eyebrow}
-        </div>
+        </span>
 
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-16">
-          <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 p-8">
-            <h3 className="text-xl font-medium text-white sm:text-2xl">
-              {aboutData.card.title}
-            </h3>
+        <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,400px)_1fr]">
+          <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900">
+            <div className="space-y-6 p-8">
+              <h3 className="text-2xl font-medium text-white sm:text-4xl">
+                {aboutData.card.title}
+              </h3>
 
-            <Link
-              href={aboutData.card.cta.href}
-              className="mt-6 w-fit rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
-              data-cursor="magnetic"
-            >
-              {aboutData.card.cta.text}
-            </Link>
+              <Link
+                href={aboutData.card.cta.href}
+                className="mt-6 w-fit rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
+                data-cursor="magnetic"
+              >
+                {aboutData.card.cta.text}
+              </Link>
+            </div>
 
-            <div className="relative mt-10 aspect-square overflow-hidden rounded-2xl">
+            <div className="relative mt-10 aspect-square overflow-hidden rounded-2xl p-0">
               <div ref={globeRef} className="absolute -inset-x-10 inset-y-0">
                 <Image
                   src={aboutData.card.image}
                   alt=""
                   fill
+                  sizes="(min-width: 1024px) 420px, 100vw"
                   className="object-cover object-bottom"
                 />
               </div>
@@ -147,36 +152,23 @@ export default function AboutSection() {
               ref={statsCardRef}
               className="mt-10 rounded-3xl border border-white/10 bg-neutral-900 p-8 sm:p-10"
             >
-              <p className="max-w-md text-sm leading-relaxed text-white/70 sm:text-base">
-                {aboutData.statsCard.trustLine}
-              </p>
 
-              <div className="mt-10 flex flex-wrap items-end justify-between gap-10">
-                <div className="flex flex-wrap gap-10">
+              <div className="flex flex-wrap items-end justify-between gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                   {aboutData.stats.map((stat) => (
                     <div key={stat.title}>
-                      <p className="text-4xl font-medium text-white sm:text-5xl">
-                        <span data-stat-value={stat.value}>0</span>
-                        {stat.highlight}
-                      </p>
-                      <p className="mt-2 text-xs text-white/50 sm:text-sm">
-                        {stat.title}
-                      </p>
+                      <div className='flex items-center gap-4'>
+                        <p className="text-2xl font-medium text-white sm:text-4xl">
+                          <span data-stat-value={stat.value}>0</span>
+                          {stat.highlight}
+                        </p>
+                        <p className="mt-2 text-lg text-white/50 uppercase tracking-wide">
+                          {stat.title}
+                        </p>
+                      </div>
+                      <p className='mt-4 text-white/70'>{stat.description}</p>
                     </div>
                   ))}
-                </div>
-
-                <div className="flex items-center gap-2 text-white/80">
-                  <div className="flex" aria-hidden="true">
-                    {Array.from({
-                      length: aboutData.statsCard.review.rating,
-                    }).map((_, i) => (
-                      <Star key={i} className="size-4 fill-current" />
-                    ))}
-                  </div>
-                  <span className="text-sm font-medium">
-                    {aboutData.statsCard.review.label}
-                  </span>
                 </div>
               </div>
             </div>
