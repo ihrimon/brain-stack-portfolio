@@ -79,7 +79,7 @@ export default function AboutSection() {
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <SectionBadge className="mb-12">{aboutData.eyebrow}</SectionBadge>
 
-        <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,400px)_1fr]">
+        <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,430px)_1fr]">
           <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900">
             <div className="space-y-6 p-8">
               <h3 className="text-2xl font-medium text-white sm:text-4xl">
@@ -88,7 +88,7 @@ export default function AboutSection() {
 
               <Link
                 href={aboutData.card.cta.href}
-                className="mt-6 w-fit rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
+                className="mt-8 w-fit rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
                 data-cursor="magnetic"
               >
                 {aboutData.card.cta.text}

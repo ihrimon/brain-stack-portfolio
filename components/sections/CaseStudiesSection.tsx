@@ -1,90 +1,167 @@
 "use client"
 
-import { caseStudies } from "@/lib/caseStudies"
-import Autoplay from "embla-carousel-autoplay"
+import { SectionBadge } from "@/components/common/SectionBadge"
+import "@/lib/GSAPAnimations"
+import { caseStudiesData } from "@/lib/data/caseStudies"
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/all"
+import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import { useRef } from "react"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../ui/carousel"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function CaseStudiesSection() {
-  const caseStudiesRef = useRef(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const descRef = useRef<HTMLParagraphElement>(null)
+  const cardsRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(
+    () => {
+      gsap.effects.textRevealOnScroll([titleRef.current, descRef.current])
+
+      if (!cardsRef.current) return
+
+      const cards = gsap.utils.toArray<HTMLElement>(
+        "[data-case-study-card]",
+        cardsRef.current
+      )
+      const lastCard = cards[cards.length - 1]
+
+      // Each earlier card stays pinned (stacked, covered by the next ones)
+      // all the way until the LAST card reaches its own reveal point —
+      // not just until the next card arrives — so nothing flies off early.
+      // Only the last card releases naturally, letting the page continue.
+      cards.forEach((card, index) => {
+        const isLast = index === cards.length - 1
+
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top top+=96",
+          endTrigger: isLast ? card : lastCard,
+          end: isLast ? "bottom top" : "top top+=96",
+          pin: true,
+          pinSpacing: isLast,
+        })
+      })
+
+      return () => {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+      }
+    },
+    { scope: sectionRef }
+  )
+
   return (
-    <Carousel
-      ref={caseStudiesRef}
-      opts={{
-        align: "start",
-      }}
-      plugins={[
-        Autoplay({
-          delay: 4000,
-        }),
-      ]}
-      aria-label="case-studies"
-      aria-labelledby="featured-case-studies-heading"
-      id="case-studies-section"
-      className="relative mt-14 w-full"
+    <section
+      id="case-studies"
+      ref={sectionRef}
+      className="bg-brand-dark py-20 sm:py-28"
     >
-      <h2 id="featured-case-studies-heading" className="sr-only!">
-        Featured Case Studies
-      </h2>
-      <div className="pointer-events-none absolute top-0 left-0 z-5 h-full w-12 bg-linear-to-r from-gray-50/80 via-gray-50/20 to-transparent md:w-36"></div>
+      <div className="mx-auto max-w-400 px-5 sm:px-8">
+        <div className="mb-16 flex flex-wrap items-center justify-between gap-8">
+          <div>
+            <SectionBadge>{caseStudiesData.badge}</SectionBadge>
 
-      <div className="pointer-events-none absolute top-0 right-0 z-5 h-full w-12 bg-linear-to-l from-gray-50/90 via-gray-50/20 to-transparent md:w-36"></div>
-
-      <CarouselContent>
-        {caseStudies.map((caseStudy, index) => (
-          <CarouselItem
-            key={`${caseStudy.name}-carousel-${index}`}
-            className="md:basis-1/2 lg:basis-1/4"
-            data-carousel-item
-            aria-roledescription="slide"
-            aria-label={`${index + 1} of ${caseStudies.length}: ${caseStudy.name}`}
-          >
-            <div
-              key={`case-study-${index}`}
-              className="w-full max-w-sm space-y-3 text-left"
+            <h2
+              ref={titleRef}
+              className="mt-8 max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
             >
-              <div className="flex aspect-square items-center justify-center rounded-md bg-tag-bg p-4">
-                <Image
-                  src={caseStudy["main_image_src"]}
-                  className="max-h-full max-w-full object-contain"
-                  alt={`${caseStudy.name} project preview - ${caseStudy.project_title}`}
-                  loading={index < 4 ? "eager" : "lazy"}
-                  decoding={index < 4 ? "sync" : "async"}
-                  width={100}
-                  height={80}
-                />
-              </div>
-              <div className="space-y-1">
-                <p className="text-md leading-snug text-heading">
-                  {caseStudy["project_title"]}
-                </p>
-                <div className="flex items-center gap-3">
-                  <p className="text-sm font-medium text-heading">
-                    Standard Draft
-                  </p>
-                  <p className="text-sm text-heading">[AI DOCUMENT]</p>
+              {caseStudiesData.title}
+            </h2>
+
+            <p
+              ref={descRef}
+              className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base"
+            >
+              {caseStudiesData.description}
+            </p>
+          </div>
+
+          <Link
+            href="/contact"
+            className="mt-2 flex items-center gap-3 text-sm font-medium text-white hover:text-white/80"
+            data-cursor="magnetic"
+          >
+            <span className="h-px w-10 bg-white/40" />
+            View All
+          </Link>
+        </div>
+
+        <div ref={cardsRef} className="relative">
+          {caseStudiesData.items.map((item, index) => (
+            <div
+              key={item.id}
+              data-case-study-card
+              className="overflow-hidden rounded-3xl border border-white/10 bg-neutral-900"
+              style={{ zIndex: index + 1 }}
+            >
+              <div className="grid min-h-[70vh] md:grid-cols-2">
+                <div className="flex flex-col justify-between p-8 md:p-12 lg:p-16">
+                  <div>
+                    <span className="text-xs font-medium tracking-widest text-white/40 uppercase">
+                      {item.category}
+                    </span>
+
+                    <h3 className="mt-4 text-2xl font-medium tracking-tight text-white sm:text-3xl">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base">
+                      {item.description}
+                    </p>
+
+                    <ul className="mt-4 space-y-2">
+                      {item.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className="flex items-center gap-2 text-sm text-white/70 sm:text-base"
+                        >
+                          <span className="size-1 shrink-0 rounded-full bg-white/40" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      {item.eyebrow.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white sm:text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Link
+                    href={item.cta.href}
+                    className="group mt-10 flex w-fit items-center gap-2 font-medium text-white"
+                    data-cursor="magnetic"
+                  >
+                    {item.cta.label}
+                    <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                </div>
+
+                <div className="relative min-h-64 md:min-h-0">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                  />
                 </div>
               </div>
             </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-
-      <CarouselPrevious
-        aria-label="Previous case study"
-        className="left-0 z-50 size-9 translate-x-0 border-0 bg-gray-500/50"
-      />
-      <CarouselNext
-        aria-label="Next case study"
-        className="right-0 z-50 size-9 translate-x-0 border-0 bg-gray-500/50"
-      />
-    </Carousel>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }

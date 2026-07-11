@@ -3,10 +3,9 @@
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/GSAPAnimations"
 import { blogsData } from "@/lib/data/blogs"
-import { cn } from "@/lib/utils"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { ArrowRight } from "lucide-react"
+import { CircleUserRound, Tag } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
@@ -22,7 +21,7 @@ function formatDate(date: string) {
 export default function BlogSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
-  const posts = blogsData.posts.slice(0, 2)
+  const posts = blogsData.posts
 
   useGSAP(
     () => {
@@ -32,62 +31,63 @@ export default function BlogSection() {
   )
 
   return (
-    <section
-      id="blog"
-      ref={sectionRef}
-      className="bg-brand-dark py-20 sm:py-28"
-    >
+    <section id="blog" ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="flex flex-col gap-6">
+        <div className="max-w-4xl">
           <SectionBadge>{blogsData.badge}</SectionBadge>
 
           <h2
             ref={titleRef}
-            className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
+            className="mt-8 max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
           >
             {blogsData.title}
           </h2>
         </div>
 
-        <div className="mt-20 grid gap-x-8 gap-y-20 sm:grid-cols-2">
-          {posts.map((post, index) => (
-            <div
-              key={post.slug}
-              className={cn("relative", index === 1 && "sm:mt-16")}
-            >
-              <div className="relative aspect-4/4 w-full overflow-hidden rounded-2xl sm:aspect-3/3">
+        <div className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+          {posts.map((post) => (
+            <article key={post.slug} className="group flex flex-col">
+              <Link
+                href={`/blog/${post.slug}`}
+                className="relative aspect-4/5 w-full overflow-hidden rounded-2xl"
+                data-cursor="magnetic"
+              >
                 <Image
                   src={post.image}
                   alt={post.title}
                   fill
-                  className="object-cover"
-                  sizes="(min-width: 640px) 40vw, 90vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 90vw"
                 />
+              </Link>
 
-                <div className="w-3.5/5 absolute right-0 bottom-0 rounded-tl-2xl bg-brand-dark p-5 sm:w-110 sm:p-6">
-                  <p className="text-xs text-white/50">
-                    <span>{post.category}</span>
-                    <span className="mx-2">—</span>
-                    <span>{formatDate(post.date)}</span>
-                  </p>
-
-                  <h3 className="mt-3 text-2xl font-medium text-white sm:text-xl">
-                    {post.title}
-                  </h3>
-
-                  <div className="mt-4 border-t border-white/10 pt-4">
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="group inline-flex items-center gap-2 text-sm font-medium text-white"
-                      data-cursor="magnetic"
-                    >
-                      Read More
-                      <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                    </Link>
-                  </div>
-                </div>
+              <div className="mt-5 flex flex-wrap items-center gap-4 text-xs text-white/50">
+                <span className="flex items-center gap-1.5">
+                  <CircleUserRound className="size-4" />
+                  {post.author}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Tag className="size-3.5" />
+                  {post.category}
+                </span>
               </div>
-            </div>
+
+              <h3 className="mt-3 text-lg font-semibold text-white">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="transition-colors duration-300 hover:text-white/80"
+                  data-cursor="magnetic"
+                >
+                  {post.title}
+                </Link>
+              </h3>
+
+              <p className="mt-3 flex items-center gap-2 text-xs text-white/40">
+                <span>{formatDate(post.date)}</span>
+                <span className="size-1 rounded-full bg-white/30" />
+                <span>{post.comments.toString().padStart(2, "0")} Comments</span>
+              </p>
+            </article>
           ))}
         </div>
       </div>

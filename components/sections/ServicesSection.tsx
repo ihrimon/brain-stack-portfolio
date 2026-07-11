@@ -1,165 +1,81 @@
 "use client"
 
-import { SectionBadge } from "@/components/common/SectionBadge"
-import "@/lib/GSAPAnimations"
 import { servicesData } from "@/lib/data/services"
-import { useGSAP } from "@gsap/react"
+import { cn } from "@/lib/utils"
 import gsap from "gsap"
-import { ScrollTrigger } from "gsap/all"
-import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
-import { useRef } from "react"
-
-gsap.registerPlugin(ScrollTrigger)
+import { useEffect, useRef, useState } from "react"
+import { SectionBadge } from "../common/SectionBadge"
 
 export default function ServicesSection() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const descRef = useRef<HTMLParagraphElement>(null)
-  const cardsRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const imageRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  useGSAP(
-    () => {
-      gsap.effects.textRevealOnScroll([titleRef.current, descRef.current])
+  // Crossfades the right-side image whenever a different title is hovered.
+  // The title's own hover feedback (color/underline/shift) stays pure CSS —
+  // this state only exists to drive which image is currently showing, and
+  // it stays on the last-hovered item rather than resetting on mouse-out.
+  useEffect(() => {
+    imageRefs.current.forEach((el, index) => {
+      if (!el) return
 
-      if (!cardsRef.current) return
-
-      const cards = gsap.utils.toArray<HTMLElement>(
-        "[data-service-card]",
-        cardsRef.current
-      )
-      const lastCard = cards[cards.length - 1]
-
-      // Each earlier card stays pinned (stacked, covered by the next ones)
-      // all the way until the LAST card reaches its own reveal point —
-      // not just until the next card arrives — so nothing flies off early.
-      // Only the last card releases naturally, letting the page continue.
-      cards.forEach((card, index) => {
-        const isLast = index === cards.length - 1
-
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top top+=96",
-          endTrigger: isLast ? card : lastCard,
-          end: isLast ? "bottom top" : "top top+=96",
-          pin: true,
-          pinSpacing: isLast,
-        })
+      const isActive = index === activeIndex
+      gsap.to(el, {
+        opacity: isActive ? 1 : 0,
+        scale: isActive ? 1 : 1.06,
+        duration: 0.6,
+        ease: "power2.out",
       })
-
-      return () => {
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-      }
-    },
-    { scope: sectionRef }
-  )
+    })
+  }, [activeIndex])
 
   return (
-    <section
-      id="services"
-      ref={sectionRef}
-      className="bg-brand-dark py-20 sm:py-28"
-    >
+    <section id="services" className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="mb-16 flex flex-wrap items-center justify-between gap-8">
-          <div>
-            <SectionBadge>{servicesData.badge}</SectionBadge>
-
-            <h2
-              ref={titleRef}
-              className="mt-8 max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
-            >
-              {servicesData.title}
-            </h2>
-
-            {/* <p
-              ref={descRef}
-              className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base"
-            >
-              {servicesData.description}
-            </p> */}
+          <SectionBadge>{servicesData.badge}</SectionBadge>
+        <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_minmax(0,580px)] lg:items-center lg:gap-16">
+          <div className="flex flex-col">
+            {servicesData.items.map((item, index) => (
+              <button
+                key={item.id}
+                type="button"
+                onMouseEnter={() => setActiveIndex(index)}
+                className="group/title w-fit cursor-pointer py-2 text-left sm:py-3"
+                data-cursor="magnetic"
+              >
+                <span className="relative inline-block text-3xl leading-tight font-extrabold tracking-tight text-white/30 uppercase transition-colors duration-300 group-hover/title:text-white sm:text-4xl md:text-5xl">
+                  <span className="inline-block transition-transform duration-300 ease-out group-hover/title:translate-x-3">
+                    {item.title}
+                  </span>
+                  <span className="absolute -bottom-1 left-0 h-0.75 w-full origin-left scale-x-0 bg-white transition-transform duration-500 ease-out group-hover/title:scale-x-100" />
+                </span>
+              </button>
+            ))}
           </div>
 
-          <Link
-            href="/contact"
-            className="mt-2 flex items-center gap-3 text-sm font-medium text-white hover:text-white/80"
-            data-cursor="magnetic"
-          >
-            <span className="h-px w-10 bg-white/40" />
-            View All
-          </Link>
-        </div>
-
-        <div ref={cardsRef} className="relative">
-          {servicesData.items.map((item, index) => (
-            <div
-              key={item.id}
-              data-service-card
-              className="overflow-hidden rounded-3xl border border-white/10 bg-neutral-900"
-              style={{ zIndex: index + 1 }}
-            >
-              <div className="grid min-h-[70vh] md:grid-cols-2">
-                <div className="flex flex-col justify-between p-8 md:p-12 lg:p-16">
-                  <div>
-                    <span className="text-xs font-medium tracking-widest text-white/40 uppercase">
-                      {item.category}
-                    </span>
-
-                    <h3 className="mt-4 text-2xl font-medium tracking-tight text-white sm:text-3xl">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base">
-                      {item.description}
-                    </p>
-
-                    <ul className="mt-4 space-y-2">
-                      {item.features.map((feature) => (
-                        <li
-                          key={feature}
-                          className="flex items-center gap-2 text-sm text-white/70 sm:text-base"
-                        >
-                          <span className="size-1 shrink-0 rounded-full bg-white/40" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="mt-6 flex flex-wrap gap-3">
-                      {item.eyebrow.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white sm:text-sm"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <Link
-                    href={item.cta.href}
-                    className="group mt-10 flex w-fit items-center gap-2 font-medium text-white"
-                    data-cursor="magnetic"
-                  >
-                    {item.cta.label}
-                    <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Link>
-                </div>
-
-                <div className="relative min-h-64 md:min-h-0">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover"
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                  />
-                </div>
+          <div className="relative aspect-4/3 w-full overflow-hidden rounded-3xl bg-neutral-900">
+            {servicesData.items.map((item, index) => (
+              <div
+                key={item.id}
+                ref={(el) => {
+                  imageRefs.current[index] = el
+                }}
+                className={cn(
+                  "absolute inset-0",
+                  index === 0 ? "opacity-100" : "opacity-0"
+                )}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 380px, 90vw"
+                  priority={index === 0}
+                />
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

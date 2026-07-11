@@ -57,7 +57,6 @@ function PortfolioCard({ project, wide }: { project: Project; wide: boolean }) {
 export default function PortfolioSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
-  const descRef = useRef<HTMLParagraphElement>(null)
 
   const { projects } = portfolioData
   const midpoint = Math.ceil(projects.length / 2)
@@ -66,7 +65,7 @@ export default function PortfolioSection() {
 
   useGSAP(
     () => {
-      gsap.effects.textRevealOnScroll([titleRef.current, descRef.current])
+      gsap.effects.textRevealOnScroll(titleRef.current)
     },
     { scope: sectionRef }
   )
