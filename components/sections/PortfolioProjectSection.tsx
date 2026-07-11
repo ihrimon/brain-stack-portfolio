@@ -31,9 +31,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <Link
-        href={project.href}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={`/portfolio/${project.slug}`}
         className="group/card block h-full overflow-hidden  bg-neutral-900 transition-transform duration-300 hover:-translate-y-1"
         data-cursor="magnetic"
       >
