@@ -76,7 +76,7 @@ export function ScrollButton() {
       type="button"
       onClick={handleClick}
       aria-label={scrolled ? "Scroll back to top" : "Scroll down to next section"}
-      className="group fixed right-5 bottom-5 z-50 flex size-14 cursor-pointer items-center justify-center rounded-full bg-neutral-900/90 text-white shadow-lg backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-neutral-800 sm:right-8 sm:bottom-8 dark:bg-white/10 dark:hover:bg-white/20"
+      className="group fixed right-5 bottom-24 z-50 flex size-14 cursor-pointer items-center justify-center rounded-full bg-neutral-900/90 text-white shadow-lg backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-neutral-800 sm:right-8 lg:bottom-8 dark:bg-white/10 dark:hover:bg-white/20"
       data-cursor="magnetic"
     >
       <svg

@@ -2,36 +2,15 @@
 
 import { Logo } from "@/components/common/Logo"
 import { SettingsDrawer } from "@/components/layout/SettingsDrawer"
-import { navItems } from "@/lib/data/hero"
+import { navigationData } from "@/lib/data/navigation"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
+import { useState } from "react"
 
 export function Navbar() {
-  const [activeHash, setActiveHash] = useState<string>("")
+  const pathname = usePathname()
   const [drawerOpen, setDrawerOpen] = useState(false)
-
-  useEffect(() => {
-    const sections = navItems
-      .map((item) => document.getElementById(item.href.replace("/#", "")))
-      .filter((el): el is HTMLElement => el !== null)
-
-    if (sections.length === 0) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveHash(`/#${entry.target.id}`)
-          }
-        })
-      },
-      { rootMargin: "-45% 0px -50% 0px" }
-    )
-
-    sections.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <>
@@ -58,15 +37,16 @@ export function Navbar() {
             role="menubar"
             aria-label="Main navigation menu"
           >
-            {navItems.map((item) => {
-              const isActive = activeHash === item.href
+            {navigationData.map((item) => {
+              const isActive =
+                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
               return (
                 <li key={item.name} role="none">
                   <Link
                     href={item.href}
                     role="menuitem"
                     className={cn(
-                      "block rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                      "block rounded-full px-3 py-2 text-sm font-medium transition-colors",
                       isActive ? "text-white" : "text-white/80 hover:text-white"
                     )}
                     data-cursor="magnetic"

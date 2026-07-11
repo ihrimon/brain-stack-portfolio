@@ -1,42 +1,54 @@
-'use client'
+"use client"
 
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import Container from "@/components/layout/Container"
+import { PrimaryButton } from "@/components/buttons/PrimaryButton"
+import { SectionBadge } from "@/components/common/SectionBadge"
+import "@/lib/GSAPAnimations"
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { useRef } from "react"
 
 export default function NotFound() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(
+    () => {
+      gsap.effects.fadeUp("[data-reveal]", { stagger: 0.12 })
+    },
+    { scope: containerRef }
+  )
+
   return (
-    <Container className="flex min-h-[70vh] items-center justify-center">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-center"
+    <section
+      ref={containerRef}
+      className="relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-brand-dark py-24"
+    >
+      <span
+        aria-hidden="true"
+        className="footer-slang font-heading pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center leading-none font-black text-white/5 select-none"
       >
-        {/* 404 Text */}
-        <h1 className="text-7xl font-black tracking-tight text-primary md:text-8xl">
-          404
+        404
+      </span>
+
+      <div className="relative mx-auto flex max-w-400 flex-col items-center px-5 text-center sm:px-8">
+        <div data-reveal>
+          <SectionBadge>404 Error</SectionBadge>
+        </div>
+
+        <h1
+          data-reveal
+          className="mt-8 max-w-2xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
+        >
+          Page Not Found
         </h1>
 
-        {/* Message */}
-        <h2 className="mt-4 text-2xl font-bold md:text-3xl">Page Not Found</h2>
-
-        <p className="mx-auto mt-3 max-w-md text-muted-foreground">
-          The page you are looking for doesn’t exist or has been moved.
+        <p data-reveal className="mt-4 max-w-md text-white/60">
+          The page you are looking for does not exist or may have been moved.
         </p>
 
-        {/* Actions */}
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <Button>
-            <Link href="/">Go Home</Link>
-          </Button>
-
-          <Button variant="outline">
-            <Link href="/products">Browse Products</Link>
-          </Button>
+        <div data-reveal className="mt-10">
+          <PrimaryButton href="/">Back to Home</PrimaryButton>
         </div>
-      </motion.div>
-    </Container>
+      </div>
+    </section>
   )
 }

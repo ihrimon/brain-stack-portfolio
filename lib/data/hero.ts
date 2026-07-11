@@ -1,13 +1,5 @@
 // lib/data/hero.ts
 
-export const navItems = [
-  { name: "Services", href: "/#services" },
-  { name: "Projects", href: "/#projects" },
-  { name: "Company", href: "/#company" },
-  { name: "Blog", href: "/#blog" },
-  { name: "Contacts", href: "/#contacts" },
-] as const
-
 export const heroData = {
   badge: "Creative Design Agency",
 

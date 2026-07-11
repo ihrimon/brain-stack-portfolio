@@ -3,6 +3,7 @@ import { Metadata } from "next"
 import { Inter, Sora } from "next/font/google"
 import "./globals.css"
 import { Navbar } from '@/components/layout/Navbar'
+import { MobileNav } from '@/components/layout/MobileNav'
 import Footer from '@/components/layout/Footer'
 import { Loader } from '@/components/animations/Loader'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
@@ -38,12 +39,13 @@ export default function RootLayout({
           <Cursor />
           <ScrollButton />
           <SmoothScroll>
-            <div className="min-h-screen w-full">
+            <div className="min-h-screen w-full pb-20 lg:pb-0">
               <Navbar />
               {children}
               <Footer />
             </div>
           </SmoothScroll>
+          <MobileNav />
         </ThemeProvider>
       </body>
     </html>

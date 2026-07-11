@@ -1,7 +1,7 @@
 import { Logo } from "@/components/common/Logo"
 import { contactData } from "@/lib/data/contact"
 import { footerData } from "@/lib/data/footer"
-import { navItems } from "@/lib/data/hero"
+import { navigationData } from "@/lib/data/navigation"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -52,7 +52,7 @@ export default function Footer() {
               Quick Links:
             </h3>
             <div className="flex max-w-xs flex-wrap gap-3">
-              {navItems.map((item) => (
+              {navigationData.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}

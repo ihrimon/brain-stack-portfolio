@@ -1,14 +1,21 @@
 export const navigationData = [
-  { name: "Home", href: "/#home" },
-  { name: "Services", href: "/#services" },
-  { name: "Works", href: "/#works" },
-  { name: "Process", href: "/#process" },
-  { name: "About", href: "/#about" },
-  { name: "Insights", href: "/#insights" },
-  { name: "Contact", href: "/#contact" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Services", href: "/services" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contact", href: "/contact" },
+] as const
+
+export const mobileNavigationData = [
+  { name: "Home", href: "/" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Services", href: "/services" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contact", href: "/contact" },
 ] as const
 
 export const navigationCta = {
   label: "Book a Call",
-  href: "/#contact",
+  href: "/contact",
 } as const
