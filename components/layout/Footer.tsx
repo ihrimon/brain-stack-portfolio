@@ -7,7 +7,10 @@ import Link from "next/link"
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-brand-dark" role="contentinfo">
+    <footer
+      className="relative overflow-hidden bg-brand-dark"
+      role="contentinfo"
+    >
       <Image
         src="/images/bg-footer.webp"
         alt=""
@@ -107,9 +110,13 @@ export default function Footer() {
         </p>
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-400 flex-col items-center justify-between gap-4 border-t border-white/10 px-5 py-6 text-xs text-white/40 sm:flex-row sm:px-8">
-        <Logo variant="on-dark" />
-        <p className='text-base'>© {new Date().getFullYear()} Brain Stack. All rights reserved.</p>
+      <div className="relative z-10 max-w-full border-t border-white/10">
+        <div className="mx-auto flex max-w-400 flex-col items-center justify-between gap-4 px-5 py-6 text-xs text-white/40 sm:flex-row sm:px-8">
+          <Logo variant="on-dark" />
+          <p className="text-base">
+            © {new Date().getFullYear()} Brain Stack. All rights reserved.
+          </p>
+        </div>
       </div>
     </footer>
   )

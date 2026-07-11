@@ -443,3 +443,42 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
     margin-top: 0;
   }
 }
+
+/* ===== FANCY SCROLLBAR ===== */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-primary) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(
+    180deg,
+    var(--brand-primary) 0%,
+    var(--brand-secondary) 100%
+  );
+  border-radius: 999px;
+  border: 1px solid var(--background);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-image: linear-gradient(
+    180deg,
+    var(--brand-secondary) 0%,
+    var(--brand-accent) 100%
+  );
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
