@@ -1,5 +1,6 @@
 "use client"
 
+import { CircleViewButton } from "@/components/buttons/CircleViewButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import { Marquee } from "@/components/shared/marquee"
 import { portfolioData } from "@/data/portfolio"
@@ -7,7 +8,6 @@ import "@/lib/GSAPAnimations"
 import { cn } from "@/lib/utils"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
@@ -21,7 +21,7 @@ function PortfolioCard({ project, wide }: { project: Project; wide: boolean }) {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "group/card relative block h-80 shrink-0 overflow-hidden rounded-lg sm:h-96",
+        "group/card relative block h-80 shrink-0 overflow-hidden  sm:h-96",
         wide ? "w-64 sm:w-130" : "w-56 sm:w-130"
       )}
       data-cursor="magnetic"
@@ -37,19 +37,12 @@ function PortfolioCard({ project, wide }: { project: Project; wide: boolean }) {
 
       <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
 
-      <div className="absolute inset-x-0 bottom-0 flex translate-y-4 flex-wrap items-center justify-between gap-4 p-6 opacity-0 transition-all duration-300 group-hover/card:translate-y-0 group-hover/card:opacity-100">
-        <div>
-          <h3 className="text-lg font-medium text-white">{project.title}</h3>
-          <p className="text-sm text-white/60">{project.category}</p>
-        </div>
-
-        <span className="flex shrink-0 scale-90 items-center gap-3 rounded-full bg-white p-1.5 pl-6 text-sm font-semibold text-black shadow-2xl transition-transform duration-300 group-hover/card:scale-100">
-          View Work
-          <span className="flex size-9 items-center justify-center rounded-full bg-black text-white">
-            <ArrowUpRight className="size-4" />
-          </span>
-        </span>
+      <div className="absolute inset-x-0 bottom-0 translate-y-4 p-6 opacity-0 transition-all duration-300 group-hover/card:translate-y-0 group-hover/card:opacity-100">
+        <p className="text-sm text-white/60">{project.category}</p>
+        <h3 className="text-2xl font-medium text-white hover:underline transition-all duration-300">{project.title}</h3>
       </div>
+
+      <CircleViewButton />
     </Link>
   )
 }

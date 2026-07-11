@@ -74,7 +74,7 @@ export default function TeamSection() {
         >
           {teamData.members.map((member) => (
             <div key={member.name} data-team-card>
-              <div className="relative aspect-4/5 origin-bottom overflow-hidden rounded-2xl border border-white/10 bg-neutral-900 transition-transform duration-500 ease-out hover:translate-x-1 hover:-skew-x-1">
+              <div className="relative aspect-4/5 origin-bottom overflow-hidden border border-white/10 bg-neutral-900 transition-transform duration-500 ease-out hover:translate-x-1 hover:-skew-x-1">
                 <Image
                   src={member.image}
                   alt={member.name}

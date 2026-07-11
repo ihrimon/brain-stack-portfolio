@@ -69,7 +69,7 @@ export default function AboutSection() {
         <SectionBadge className="mb-12">{aboutData.eyebrow}</SectionBadge>
 
         <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,430px)_1fr]">
-          <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900">
+          <div className="relative flex flex-col overflow-hidden border border-white/10 bg-neutral-900">
             <div className="space-y-6 p-8">
               <h3 className="text-2xl font-medium text-white sm:text-4xl">
                 {aboutData.card.title}

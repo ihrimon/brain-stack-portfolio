@@ -87,7 +87,7 @@ export default function TestimonialSection() {
           {visiblePair.map((testimonial) => (
             <div
               key={testimonial.author}
-              className="relative flex flex-col rounded-3xl  border-white/10 bg-neutral-900 p-8"
+              className="relative flex flex-col border-white/10 bg-neutral-900 p-8"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -105,7 +105,7 @@ export default function TestimonialSection() {
                   </h3>
                 </div>
 
-                <div className="relative size-24 shrink-0 overflow-hidden rounded-2xl">
+                <div className="relative size-24 shrink-0 overflow-hidden rounded-xs">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.author}

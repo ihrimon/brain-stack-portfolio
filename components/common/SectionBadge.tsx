@@ -22,7 +22,7 @@ export function SectionBadge({
           className
         )}
       >
-        {dot && <span className="size-1.5 rounded-full bg-white" />}
+        {dot && <span className="size-1.5 bg-white" />}
         {children}
       </div>
     )
@@ -31,7 +31,7 @@ export function SectionBadge({
   return (
     <span
       className={cn(
-        "w-fit rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white sm:text-sm",
+        "w-fit  px-4 py-1.5 text-xs font-medium text-white sm:text-sm",
         className
       )}
     >

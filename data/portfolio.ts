@@ -17,7 +17,7 @@ export const portfolioData = {
     {
       id: 2,
       title: "LUXEB2B",
-      category: "B2B Marketplace",
+      category: "Business",
       image: "/images/portfolio/portfolio-2.webp",
       href: "https://luxeb2b.com/",
       description:
@@ -27,7 +27,7 @@ export const portfolioData = {
     {
       id: 3,
       title: "ACH Gold Estates",
-      category: "Real Estate",
+      category: "Business",
       image: "/images/portfolio/portfolio-3.webp",
       href: "https://achgoldestates.com/",
       description:
@@ -37,7 +37,7 @@ export const portfolioData = {
     {
       id: 4,
       title: "C Smith",
-      category: "Personal Portfolio",
+      category: "Portfolio",
       image: "/images/portfolio/portfolio-4.webp",
       href: "https://csmith-rho.vercel.app/",
       description:
@@ -47,7 +47,7 @@ export const portfolioData = {
     {
       id: 5,
       title: "Big Fish",
-      category: "Creative Portfolio",
+      category: "Portfolio",
       image: "/images/portfolio/portfolio-5.webp",
       href: "https://bigfish-omega.vercel.app/",
       description:
@@ -57,7 +57,7 @@ export const portfolioData = {
     {
       id: 6,
       title: "James Orpin",
-      category: "Portfolio Website",
+      category: "Portfolio",
       image: "/images/portfolio/portfolio-6.webp",
       href: "https://james-orpin-beta.vercel.app/",
       description:
@@ -67,7 +67,7 @@ export const portfolioData = {
     {
       id: 7,
       title: "PowerNest",
-      category: "Business Website",
+      category: "Business",
       image: "/images/portfolio/portfolio-7.webp",
       href: "https://powernest-nu.vercel.app/",
       description:
@@ -77,7 +77,7 @@ export const portfolioData = {
     {
       id: 8,
       title: "Briataor Paint",
-      category: "Brand Website",
+      category: "Business",
       image: "/images/portfolio/portfolio-8.webp",
       href: "https://briataor-paint.vercel.app/",
       description:
@@ -87,7 +87,7 @@ export const portfolioData = {
     {
       id: 9,
       title: "YachtEase",
-      category: "Luxury Travel",
+      category: "Travel",
       image: "/images/portfolio/portfolio-9.webp",
       href: "https://yachtease.co/",
       description:
@@ -97,7 +97,7 @@ export const portfolioData = {
     {
       id: 10,
       title: "Davorron Martis",
-      category: "Creative Portfolio",
+      category: "Portfolio",
       image: "/images/portfolio/portfolio-10.webp",
       href: "https://davorron-martisnew.vercel.app/",
       description:
