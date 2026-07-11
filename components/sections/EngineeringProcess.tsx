@@ -94,7 +94,7 @@ export default function EngineeringProcess() {
       ref={sectionRef}
       className="relative overflow-hidden bg-brand-dark py-20 sm:py-28"
     >
-      <div
+      {/* <div
         aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 hidden h-64 w-64 opacity-40 sm:block"
         style={{
@@ -102,7 +102,7 @@ export default function EngineeringProcess() {
             "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
-      />
+      /> */}
       {/* <span
         aria-hidden="true"
         className="pointer-events-none absolute top-24 left-13 hidden size-2 rounded-full bg-brand-accent sm:block"
@@ -145,7 +145,7 @@ export default function EngineeringProcess() {
               <div
                 key={item.title}
                 data-process-card
-                className="relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 p-8"
+                className="relative overflow-hidden rounded-3xl  bg-neutral-900 p-8"
               >
                 <div
                   aria-hidden="true"
@@ -177,7 +177,7 @@ export default function EngineeringProcess() {
                   />
                 </div>
 
-                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 px-3 py-1 text-xs font-medium tracking-wide text-white">
+                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white">
                   <item.icon className="size-3.5" />
                   STEP : {String(index + 1).padStart(2, "0")}
                 </span>

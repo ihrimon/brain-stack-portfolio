@@ -1,12 +1,12 @@
 "use client"
 
+import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/GSAPAnimations"
 import { caseStudiesData } from "@/lib/data/caseStudies"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
-import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
@@ -73,12 +73,6 @@ export default function CaseStudiesSection() {
               {caseStudiesData.title}
             </h2>
 
-            <p
-              ref={descRef}
-              className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base"
-            >
-              {caseStudiesData.description}
-            </p>
           </div>
 
           <Link
@@ -96,7 +90,7 @@ export default function CaseStudiesSection() {
             <div
               key={item.id}
               data-case-study-card
-              className="overflow-hidden rounded-3xl border border-white/10 bg-neutral-900"
+              className="overflow-hidden rounded-3xl border-t border-white/10 bg-neutral-900"
               style={{ zIndex: index + 1 }}
             >
               <div className="grid min-h-[70vh] md:grid-cols-2">
@@ -138,14 +132,9 @@ export default function CaseStudiesSection() {
                     </div>
                   </div>
 
-                  <Link
-                    href={item.cta.href}
-                    className="group mt-10 flex w-fit items-center gap-2 font-medium text-white"
-                    data-cursor="magnetic"
-                  >
+                  <PrimaryButton href={item.cta.href} className="mt-10">
                     {item.cta.label}
-                    <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Link>
+                  </PrimaryButton>
                 </div>
 
                 <div className="relative min-h-64 md:min-h-0">

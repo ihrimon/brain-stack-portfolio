@@ -23,7 +23,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
       <DrawerContent className="rounded-none! p-0">
         <div className="flex h-full flex-col overflow-y-auto bg-background text-foreground p-6">
-          <DrawerHeader className="flex flex-row items-center justify-between border-b border-border pb-4">
+          <DrawerHeader className="flex flex-row items-center justify-between border-b border-border px-0 pb-4">
             <Logo href={false} />
             <DrawerClose asChild>
               <button
@@ -92,7 +92,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
             </section>
           </div>
 
-          <DrawerFooter className="mt-auto border-t border-border">
+          <DrawerFooter className="mt-auto border-t border-border px-0">
             <p className="mb-3 text-xs font-semibold tracking-wider text-label uppercase">
               Follow Us
             </p>

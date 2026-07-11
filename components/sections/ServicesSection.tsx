@@ -43,7 +43,7 @@ export default function ServicesSection() {
                 className="group/title w-fit cursor-pointer py-2 text-left sm:py-3"
                 data-cursor="magnetic"
               >
-                <span className="relative inline-block text-3xl leading-tight font-extrabold tracking-tight text-white/30 uppercase transition-colors duration-300 group-hover/title:text-white sm:text-4xl md:text-5xl">
+                <span className="relative inline-block text-3xl leading-tight font-bold tracking-tight text-white/30 uppercase transition-colors duration-300 group-hover/title:text-white sm:text-4xl md:text-5xl">
                   <span className="inline-block transition-transform duration-300 ease-out group-hover/title:translate-x-3">
                     {item.title}
                   </span>

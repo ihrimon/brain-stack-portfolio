@@ -1,12 +1,12 @@
 "use client"
 
 import { SectionBadge } from "@/components/common/SectionBadge"
+import { BrainWireframe } from "@/components/three/BrainWireframe"
 import { aboutData } from "@/lib/data/about"
 import "@/lib/GSAPAnimations"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
-import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
 
@@ -16,7 +16,6 @@ export default function AboutSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const descRef = useRef<HTMLParagraphElement>(null)
-  const globeRef = useRef<HTMLDivElement>(null)
   const statsCardRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
@@ -24,16 +23,6 @@ export default function AboutSection() {
       // Title/description start muted and reveal word-by-word as the
       // section is scrolled through, rather than fading in all at once.
       gsap.effects.textRevealOnScroll([titleRef.current, descRef.current])
-
-      // Globe spins continuously so it reads as a living, rotating object.
-      if (globeRef.current) {
-        gsap.to(globeRef.current, {
-          // rotate: 360,
-          duration: 24,
-          ease: "none",
-          repeat: -1,
-        })
-      }
 
       // Count the stats up once the stats card enters view.
       if (statsCardRef.current) {
@@ -96,15 +85,7 @@ export default function AboutSection() {
             </div>
 
             <div className="relative mt-10 aspect-square overflow-hidden rounded-2xl p-0">
-              <div ref={globeRef} className="absolute -inset-x-10 inset-y-0">
-                <Image
-                  src={aboutData.card.image}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 420px, 100vw"
-                  className="object-cover object-bottom"
-                />
-              </div>
+              <BrainWireframe />
             </div>
           </div>
 

@@ -83,11 +83,11 @@ export default function TestimonialSection() {
           </h2>
         </div>
 
-        <div ref={trackRef} className="mt-16 grid gap-6 sm:grid-cols-2">
+        <div ref={trackRef} className="mt-16 grid gap-12 sm:grid-cols-2">
           {visiblePair.map((testimonial) => (
             <div
               key={testimonial.author}
-              className="relative flex flex-col rounded-3xl border border-white/10 p-8"
+              className="relative flex flex-col rounded-3xl  border-white/10 bg-neutral-900 p-8"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -147,7 +147,9 @@ export default function TestimonialSection() {
                   "size-2.5 shrink-0 cursor-pointer rounded-full transition-all duration-300",
                   index === activeIndex
                     ? "scale-125 bg-brand-accent"
-                    : "bg-white/30 hover:bg-white/50"
+                    : index < activeIndex
+                      ? "bg-brand-accent"
+                      : "bg-white/30 hover:bg-white/50"
                 )}
               />
               {index < items.length - 1 && (

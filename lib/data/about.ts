@@ -12,7 +12,6 @@ export const aboutData = {
   card: {
     title: "Build Digital Products, Delivered End-to-End",
     cta: { text: "Discover More", href: "/#services" },
-    image: "/images/globe.png",
   },
 
   statsCard: {
