@@ -47,12 +47,12 @@ export default function MissionHero() {
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <h1
           ref={headingRef}
-          className="text-5xl leading-[0.95] font-semibold tracking-tight text-white sm:text-7xl md:text-[84px]"
+          className="text-5xl leading-[0.95] font-medium tracking-tight text-white sm:text-7xl md:text-6xl uppercase"
         >
           {mission.heading}
         </h1>
 
-        <div className="mt-16 border-t border-white/10 sm:mt-20" />
+        <div className="mt-12 border-t border-white/10 sm:mt-20" />
 
         <div className="grid gap-10 pt-16 lg:grid-cols-[1fr_1px_1fr_1px_380px] lg:gap-16">
           <div>

@@ -30,7 +30,7 @@ export default function ServicesSection() {
   }, [activeIndex])
 
   return (
-    <section id="services" className="bg-brand-dark py-20 sm:py-28">
+    <section id="services" className="py-20 sm:py-28 bg-neutral-900">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
           <SectionBadge>{servicesData.badge}</SectionBadge>
         <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_minmax(0,580px)] lg:items-center lg:gap-16">

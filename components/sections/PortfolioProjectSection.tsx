@@ -1,5 +1,6 @@
 "use client"
 
+import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { CircleViewButton } from "@/components/buttons/CircleViewButton"
 import { portfolioData } from "@/data/portfolio"
 import { cn } from "@/lib/utils"
@@ -35,18 +36,27 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         className="group/card block h-full overflow-hidden  bg-neutral-900 transition-transform duration-300 hover:-translate-y-1"
         data-cursor="magnetic"
       >
-        <div className="relative aspect-4/3 overflow-hidden">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover/card:scale-105"
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          />
+        <div className="relative pb-4">
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 top-4 bottom-0 -z-10 overflow-hidden bg-neutral-900"
+          >
+            <DiagonalPattern className="opacity-60" />
+          </div>
 
-          <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
+          <div className="relative aspect-4/3 overflow-hidden">
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover/card:scale-105"
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            />
 
-          <CircleViewButton />
+            <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
+
+            <CircleViewButton />
+          </div>
         </div>
 
         <div className="p-6">
@@ -155,7 +165,7 @@ export default function PortfolioProjectSection() {
               data-cursor="magnetic"
               className="rounded-full border border-white/20 px-8 py-3 text-sm font-medium text-white transition-colors duration-300 hover:border-white/40 hover:bg-white/5 cursor-pointer"
             >
-              See More
+              See More...
             </button>
           </div>
         )}

@@ -1,11 +1,17 @@
 "use client"
 
+import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
+import { PrimaryButton } from "@/components/buttons/PrimaryButton"
+import { SectionBadge } from "@/components/common/SectionBadge"
 import { getLenis } from "@/lib/lenis"
+import { projectVideoData } from "@/lib/data/projectVideo"
 import { cn } from "@/lib/utils"
+import "@/lib/GSAPAnimations"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
-import { Pause, Play, X } from "lucide-react"
+import { ChevronRight, Pause, Play, X } from "lucide-react"
+import Link from "next/link"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -18,6 +24,7 @@ interface OriginRect {
 
 export default function ProjectVideoSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
   const boxRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
@@ -56,6 +63,8 @@ export default function ProjectVideoSection() {
   useGSAP(
     () => {
       if (!sectionRef.current || !boxRef.current) return
+
+      gsap.effects.textRevealOnScroll(headingRef.current)
 
       gsap.fromTo(
         boxRef.current,
@@ -197,59 +206,100 @@ export default function ProjectVideoSection() {
     <section
       id="project-video"
       ref={sectionRef}
-      className="bg-brand-dark py-20 sm:py-28"
+      className="overflow-hidden py-20 sm:py-28 bg-neutral-900"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div
-          ref={boxRef}
-          className={cn(
-            "group relative mx-auto aspect-video max-w-5xl overflow-hidden rounded-3xl border border-border bg-card shadow-2xl",
-            // Above the backdrop while open, so the backdrop's blur only
-            // affects the page behind it — not the enlarged video itself.
-            isFullscreen ? "z-100" : "z-20"
-          )}
-        >
-          <video
-            ref={videoRef}
-            className={cn(
-              "h-full w-full",
-              isFullscreen ? "bg-black object-contain" : "object-cover"
-            )}
-            muted
-            loop
-            playsInline
-            autoPlay
-            onPlay={() => setIsPlaying(true)}
-            onPause={() => setIsPlaying(false)}
-          >
-            <source src="/short.mp4" type="video/mp4" />
-          </video>
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
+          <div className="lg:col-span-4">
+            <SectionBadge>{projectVideoData.badge}</SectionBadge>
 
-          <button
-            type="button"
-            onClick={handleButtonClick}
-            aria-label={
-              isFullscreen ? (isPlaying ? "Pause video" : "Play video") : "Play video"
-            }
-            className="group/btn absolute inset-0 flex cursor-pointer items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-            data-cursor="magnetic"
-          >
-            <span className="relative flex size-20 items-center justify-center rounded-full bg-white/90 text-black shadow-2xl backdrop-blur-md transition-transform duration-300 group-hover/btn:scale-110">
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 rounded-full bg-linear-to-br from-white via-white/40 to-transparent opacity-70 transition-opacity duration-300 group-hover/btn:opacity-100"
-              />
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 scale-100 rounded-full border border-black/10 opacity-0 transition-all duration-500 group-hover/btn:scale-125 group-hover/btn:opacity-100"
-              />
-              {isFullscreen && isPlaying ? (
-                <Pause className="relative size-7 fill-current" />
-              ) : (
-                <Play className="relative ml-1 size-7 fill-current" />
+            <h2
+              ref={headingRef}
+              className="mt-6 text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl md:text-6xl"
+            >
+              {projectVideoData.heading}
+            </h2>
+
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
+              {projectVideoData.description}
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-8">
+              <PrimaryButton href={projectVideoData.primaryButton.href}>
+                {projectVideoData.primaryButton.text}
+              </PrimaryButton>
+
+              <Link
+                href={projectVideoData.secondaryLink.href}
+                data-cursor="magnetic"
+                className="group inline-flex items-center gap-1 text-sm font-semibold tracking-widest text-white uppercase transition-colors duration-300 hover:text-white/60"
+              >
+                {projectVideoData.secondaryLink.text}
+                <ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative pb-6 sm:pb-10 lg:col-span-8 lg:pb-16">
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 top-6 bottom-0 -z-10 overflow-hidden bg-neutral-900 sm:top-10 lg:top-16"
+            >
+              <DiagonalPattern className="opacity-60" />
+            </div>
+
+            <div
+              ref={boxRef}
+              className={cn(
+                "group relative mx-auto aspect-video max-w-5xl overflow-hidden rounded-3xl border border-border bg-card shadow-2xl",
+                // Above the backdrop while open, so the backdrop's blur only
+                // affects the page behind it — not the enlarged video itself.
+                isFullscreen ? "z-100" : "z-20"
               )}
-            </span>
-          </button>
+            >
+              <video
+                ref={videoRef}
+                className={cn(
+                  "h-full w-full",
+                  isFullscreen ? "bg-black object-contain" : "object-cover"
+                )}
+                muted
+                loop
+                playsInline
+                autoPlay
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+              >
+                <source src="/short.mp4" type="video/mp4" />
+              </video>
+
+              <button
+                type="button"
+                onClick={handleButtonClick}
+                aria-label={
+                  isFullscreen ? (isPlaying ? "Pause video" : "Play video") : "Play video"
+                }
+                className="group/btn absolute inset-0 flex cursor-pointer items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                data-cursor="magnetic"
+              >
+                <span className="relative flex size-20 items-center justify-center rounded-full bg-white/90 text-black shadow-2xl backdrop-blur-md transition-transform duration-300 group-hover/btn:scale-110">
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 rounded-full bg-linear-to-br from-white via-white/40 to-transparent opacity-70 transition-opacity duration-300 group-hover/btn:opacity-100"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 scale-100 rounded-full border border-black/10 opacity-0 transition-all duration-500 group-hover/btn:scale-125 group-hover/btn:opacity-100"
+                  />
+                  {isFullscreen && isPlaying ? (
+                    <Pause className="relative size-7 fill-current" />
+                  ) : (
+                    <Play className="relative ml-1 size-7 fill-current" />
+                  )}
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
