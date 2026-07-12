@@ -27,7 +27,7 @@ export default function ContactSection() {
         <div className="flex items-end justify-between">
           <h2
             ref={titleRef}
-            className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-[84px]"
+            className="mt-8 max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-6xl"
           >
             Ready to build something great together
           </h2>

@@ -15,7 +15,7 @@ const images = [
 
 export const blogsData = {
   badge: "Blog Insights",
-  title: "Explore Our Thoughts on Technology & Innovation",
+  title: "Explore Our Thoughts on Technology and Innovation",
 
   posts: [
     {

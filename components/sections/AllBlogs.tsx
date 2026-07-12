@@ -86,9 +86,7 @@ export default function AllBlogs() {
       className="bg-brand-dark pt-32 pb-20 sm:pt-40 sm:pb-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <SectionBadge>{blogsData.badge}</SectionBadge>
-
-        <h1 className="mt-8 max-w-3xl text-4xl leading-tight font-medium tracking-tight text-white sm:text-6xl md:text-7xl">
+        <h1 className="max-w-6xl text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl md:text-6xl uppercase">
           {blogsData.title}
         </h1>
 
@@ -109,7 +107,7 @@ export default function AllBlogs() {
                 >
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-neutral-900"
+                    className="relative aspect-4/3 w-full overflow-hidden bg-neutral-900"
                     data-cursor="magnetic"
                   >
                     <Image

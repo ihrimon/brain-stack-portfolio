@@ -159,7 +159,7 @@ export default function ContactForm() {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="flex gap-4 rounded-2xl border border-white/10 p-6">
+            <div className="flex gap-4 border border-white/10 p-6">
               <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
                 <Mail className="size-5 text-white" />
               </div>
@@ -176,7 +176,7 @@ export default function ContactForm() {
               </div>
             </div>
 
-            <div className="flex gap-4 rounded-2xl border border-white/10 p-6">
+            <div className="flex gap-4 border border-white/10 p-6">
               <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
                 <Phone className="size-5 text-white" />
               </div>
@@ -193,7 +193,7 @@ export default function ContactForm() {
               </div>
             </div>
 
-            <div className="flex gap-4 rounded-2xl border border-white/10 p-6">
+            <div className="flex gap-4 border border-white/10 p-6">
               <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
                 <MapPin className="size-5 text-white" />
               </div>
