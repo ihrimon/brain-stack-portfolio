@@ -1,9 +1,9 @@
-import BlogSection from "@/components/sections/BlogSection"
+import AllBlogs from "@/components/sections/AllBlogs"
 
 export default function BlogPage() {
   return (
     <main id="main-content" role="main">
-      <BlogSection />
+      <AllBlogs />
     </main>
   )
 }
