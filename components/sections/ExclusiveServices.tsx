@@ -43,7 +43,7 @@ export default function ExclusiveServices() {
               data-service-card
               className="py-8 first:pt-0 sm:px-8 sm:py-0 sm:first:pl-0 sm:last:pr-0"
             >
-              <category.icon className="size-8 text-white" strokeWidth={1.5} />
+              <category.icon className="size-16 text-white" strokeWidth={1.5} />
 
               <h3 className="mt-6 text-xl leading-tight font-medium text-white sm:text-2xl">
                 {category.title}
