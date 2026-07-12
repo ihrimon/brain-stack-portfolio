@@ -54,7 +54,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
           alt={project.title}
           priority
           sizes="100vw"
-          wrapperClassName="aspect-video w-full max-w-full bg-neutral-900"
+          wrapperClassName="aspect-[16/7] w-full max-w-full bg-neutral-900"
         />
       </section>
 
