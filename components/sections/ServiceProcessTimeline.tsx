@@ -5,6 +5,7 @@ import { servicesPageData } from "@/lib/data/servicesPage"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
+import { SectionBadge } from '../common/SectionBadge'
 
 const { process } = servicesPageData
 
@@ -23,9 +24,10 @@ export default function ServiceProcessTimeline() {
   return (
     <section ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
+          <SectionBadge className="mb-12">Services Timeline</SectionBadge>
           <h2
             ref={titleRef}
-            className="max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-5xl uppercase"
+            className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-5xl uppercase"
           >
             {process.title}
           </h2>

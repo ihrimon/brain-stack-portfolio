@@ -5,6 +5,7 @@ import { servicesPageData } from "@/lib/data/servicesPage"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
+import { SectionBadge } from '../common/SectionBadge'
 
 const { exclusiveServices } = servicesPageData
 
@@ -26,9 +27,10 @@ export default function ExclusiveServices() {
   return (
     <section ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
+         <SectionBadge className="mb-12">Exclusive Services</SectionBadge>
           <h2
             ref={titleRef}
-            className="max-w-lg text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl uppercase"
+            className="mt-8 max-w-2xl text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl uppercase"
           >
             {exclusiveServices.title}
           </h2>
