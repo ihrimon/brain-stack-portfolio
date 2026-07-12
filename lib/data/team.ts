@@ -26,5 +26,25 @@ export const teamData = {
       role: "Marketing Manager",
       image: "/images/team/team-4.webp",
     },
+    {
+      name: "Priya Sharma",
+      role: "Product Designer",
+      image: "/images/team/team-1.webp",
+    },
+    {
+      name: "Daniel Kim",
+      role: "Software Engineer",
+      image: "/images/team/team-2.webp",
+    },
+    {
+      name: "Olivia Bennett",
+      role: "UX Researcher",
+      image: "/images/team/team-3.webp",
+    },
+    {
+      name: "Ahmed Hassan",
+      role: "Brand Strategist",
+      image: "/images/team/team-4.webp",
+    },
   ],
 } as const

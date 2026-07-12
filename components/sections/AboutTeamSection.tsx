@@ -1,3 +1,4 @@
+import { SectionBadge } from "@/components/common/SectionBadge"
 import { teamData } from "@/lib/data/team"
 import Image from "next/image"
 
@@ -5,20 +6,19 @@ export default function AboutTeamSection() {
   return (
     <section className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:items-end lg:gap-16">
-          <p className="max-w-xs text-sm leading-relaxed text-white/50">
-            {teamData.description}
-          </p>
+        <div className="max-w-2xl">
+          <SectionBadge>Creative Members</SectionBadge>
 
-          <h2 className="text-4xl leading-tight font-bold tracking-tight text-white uppercase sm:text-5xl md:text-6xl lg:text-right">
+          <h2 className="mt-8 text-4xl leading-tight font-bold tracking-tight text-white uppercase sm:text-5xl md:text-6xl">
             {teamData.title}
           </h2>
+
         </div>
 
         <div className="mt-16 grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">
           {teamData.members.map((member) => (
             <div key={member.name}>
-              <div className="relative aspect-4/5 overflow-hidden rounded-2xl border border-white/10 bg-neutral-900">
+              <div className="relative aspect-4/5 overflow-hidden  bg-neutral-900">
                 <Image
                   src={member.image}
                   alt={member.name}

@@ -46,24 +46,26 @@ export default function AboutStats() {
   )
 
   return (
-    <section ref={sectionRef} className="bg-brand-dark">
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="grid grid-cols-2 divide-x divide-y divide-white/10 border-y border-white/10 sm:grid-cols-4 sm:divide-y-0">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="flex flex-col items-center justify-center gap-3 px-6 py-12 text-center sm:py-16"
-            >
-              <p className="text-4xl font-semibold text-white sm:text-5xl">
-                <span data-stat-value={stat.value}>0</span>
-                {stat.suffix}
-              </p>
+    <section ref={sectionRef} className="w-full bg-brand-dark">
+      <div className="w-full border-y border-white/10">
+        <div className="mx-auto max-w-400 px-5 sm:px-8">
+          <div className="grid grid-cols-2 divide-x divide-y divide-white/10 sm:grid-cols-4 sm:divide-y-0">
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex flex-col items-center justify-center gap-3 px-6 py-12 text-center sm:py-16"
+              >
+                <p className="text-4xl font-semibold text-white sm:text-5xl">
+                  <span data-stat-value={stat.value}>0</span>
+                  {stat.suffix}
+                </p>
 
-              <p className="text-xs tracking-widest text-white/50 uppercase">
-                {stat.label}
-              </p>
-            </div>
-          ))}
+                <p className="text-xs tracking-widest text-white/50 uppercase">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

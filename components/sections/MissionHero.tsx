@@ -45,8 +45,52 @@ export default function MissionHero() {
       className="bg-brand-dark pt-32 pb-20 sm:pt-40 sm:pb-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="grid gap-10 lg:grid-cols-[380px_1fr] lg:items-center lg:gap-16">
-          <div className="relative aspect-4/5 overflow-hidden rounded-3xl bg-neutral-900 lg:aspect-square">
+        <h1
+          ref={headingRef}
+          className="text-5xl leading-[0.95] font-semibold tracking-tight text-white sm:text-7xl md:text-[84px]"
+        >
+          {mission.heading}
+        </h1>
+
+        <div className="mt-16 border-t border-white/10 sm:mt-20" />
+
+        <div className="grid gap-10 pt-16 lg:grid-cols-[1fr_1px_1fr_1px_380px] lg:gap-16">
+          <div>
+            <h2 className="text-xl font-semibold text-white sm:text-2xl">
+              {mission.mission.title}
+            </h2>
+
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
+              {renderHighlighted(
+                mission.mission.description,
+                mission.mission.highlights
+              )}
+            </p>
+          </div>
+
+          <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
+
+          <div>
+            <h2 className="text-xl font-semibold text-white sm:text-2xl">
+              {mission.approach.title}
+            </h2>
+
+            <ul className="mt-6 space-y-3">
+              {mission.approach.items.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-3 text-base text-white/70 sm:text-lg"
+                >
+                  <span className="size-1.5 shrink-0 rounded-full bg-white/50" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
+
+          <div className="relative aspect-4/3 overflow-hidden bg-neutral-900">
             <Image
               src={mission.image}
               alt="Brain Stack"
@@ -65,57 +109,6 @@ export default function MissionHero() {
                 className="object-contain"
               />
             </span>
-          </div>
-
-          <h1
-            ref={headingRef}
-            className="text-5xl leading-[0.95] font-semibold tracking-tight text-white sm:text-7xl md:text-[84px]"
-          >
-            {mission.heading.map((part, index) => (
-              <span
-                key={index}
-                className={part.muted ? "text-white/30" : "text-white"}
-              >
-                {part.text}
-              </span>
-            ))}
-          </h1>
-        </div>
-
-        <div className="mt-16 border-t border-white/10 sm:mt-20" />
-
-        <div className="grid gap-10 pt-16 sm:grid-cols-[1fr_1px_1fr] sm:gap-16">
-          <div>
-            <h2 className="text-xl font-semibold text-white sm:text-2xl">
-              {mission.mission.title}
-            </h2>
-
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
-              {renderHighlighted(
-                mission.mission.description,
-                mission.mission.highlights
-              )}
-            </p>
-          </div>
-
-          <div aria-hidden="true" className="hidden bg-white/10 sm:block" />
-
-          <div>
-            <h2 className="text-xl font-semibold text-white sm:text-2xl">
-              {mission.approach.title}
-            </h2>
-
-            <ul className="mt-6 space-y-3">
-              {mission.approach.items.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-3 text-base text-white/70 sm:text-lg"
-                >
-                  <span className="size-1.5 shrink-0 rounded-full bg-white/50" />
-                  {item}
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </div>

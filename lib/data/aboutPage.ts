@@ -1,11 +1,7 @@
 export const aboutPageData = {
   mission: {
     image: "/images/services/services-1.png",
-    heading: [
-      { text: "Turning Vision", muted: false },
-      { text: "into ", muted: false },
-      { text: "reality", muted: true },
-    ],
+    heading: 'Turning Vission Into Reality',
     mission: {
       title: "Our Mission",
       description:
@@ -76,7 +72,7 @@ export const aboutPageData = {
   },
 
   approach: {
-    label: "Approach",
+    label: "Engineering Approach",
     title: "Method of making better results",
     steps: [
       {
@@ -110,6 +106,17 @@ export const aboutPageData = {
           "Various User Types",
           "Annotations",
           "Interactions",
+        ],
+      },
+      {
+        title: "Testing & Handover",
+        items: [
+          "QA Testing",
+          "Performance Audit",
+          "Documentation",
+          "Client Training",
+          "Launch Checklist",
+          "Post-Launch Support",
         ],
       },
     ],
