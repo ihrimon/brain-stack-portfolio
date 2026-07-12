@@ -26,8 +26,8 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             {project.title}
           </h1>
 
-          <div className="mt-16 grid gap-10 sm:mt-24 lg:grid-cols-2 lg:gap-16">
-            <div className="divide-y divide-white/10 border-t border-white/10">
+          <div className="mt-16 grid gap-10 sm:mt-24 lg:grid-cols-2 lg:gap-50">
+            <div className="divide-y divide-white/10 border-t border-white/10 ">
               {detailRows.map((row) => (
                 <div
                   key={row.label}

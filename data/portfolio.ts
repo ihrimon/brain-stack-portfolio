@@ -10,7 +10,7 @@ export const portfolioData = {
       title: "Karially",
       category: "AI Platform",
       image: "/images/portfolio/portfolio-1.webp",
-      thumbnailImage: "/images/projects/project-thumbnail.webp",
+      thumbnailImage: "/images/portfolio/portfolio-1.webp",
       images: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",
@@ -49,7 +49,7 @@ export const portfolioData = {
       title: "LUXEB2B",
       category: "Business",
       image: "/images/portfolio/portfolio-2.webp",
-      thumbnailImage: "/images/projects/main-image.webp",
+      thumbnailImage: "/images/portfolio/portfolio-2.webp",
       images: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",
@@ -86,7 +86,7 @@ export const portfolioData = {
       title: "ACH Gold Estates",
       category: "Business",
       image: "/images/portfolio/portfolio-3.webp",
-      thumbnailImage: "/images/projects/main-image.webp",
+      thumbnailImage: "/images/portfolio/portfolio-3.webp",
       images: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",
@@ -123,7 +123,7 @@ export const portfolioData = {
       title: "C Smith",
       category: "Portfolio",
       image: "/images/portfolio/portfolio-4.webp",
-      thumbnailImage: "/images/projects/main-image.webp",
+      thumbnailImage: "/images/portfolio/portfolio-4.webp",
       images: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",
@@ -159,7 +159,7 @@ export const portfolioData = {
       title: "Big Fish",
       category: "Portfolio",
       image: "/images/portfolio/portfolio-5.webp",
-      thumbnailImage: "/images/projects/main-image.webp",
+      thumbnailImage: "/images/portfolio/portfolio-5.webp",
       images: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",
@@ -196,7 +196,7 @@ export const portfolioData = {
       title: "James Orpin",
       category: "Portfolio",
       image: "/images/portfolio/portfolio-6.webp",
-      thumbnailImage: "/images/projects/main-image.webp",
+      thumbnailImage: "/images/portfolio/portfolio-6.webp",
       images: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",
@@ -228,7 +228,7 @@ export const portfolioData = {
       title: "PowerNest",
       category: "Business",
       image: "/images/portfolio/portfolio-7.webp",
-      thumbnailImage: "/images/projects/main-image.webp",
+      thumbnailImage: "/images/portfolio/portfolio-7.webp",
       images: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",
@@ -260,7 +260,7 @@ export const portfolioData = {
       title: "Briataor Paint",
       category: "Business",
       image: "/images/portfolio/portfolio-8.webp",
-      thumbnailImage: "/images/projects/main-image.webp",
+      thumbnailImage: "/images/portfolio/portfolio-8.webp",
       images: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",
@@ -296,7 +296,7 @@ export const portfolioData = {
       title: "YachtEase",
       category: "Travel",
       image: "/images/portfolio/portfolio-9.webp",
-      thumbnailImage: "/images/projects/main-image.webp",
+      thumbnailImage: "/images/portfolio/portfolio-9.webp",
       images: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",
@@ -332,7 +332,7 @@ export const portfolioData = {
       title: "Davorron Martis",
       category: "Portfolio",
       image: "/images/portfolio/portfolio-10.webp",
-      thumbnailImage: "/images/projects/main-image.webp",
+      thumbnailImage: "/images/portfolio/portfolio-10.webp",
       images: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",

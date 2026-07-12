@@ -115,8 +115,8 @@ export default function PortfolioProjectSection() {
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-8">
-          <div className="mt-12 max-w-4xl">
-            <h2 className="text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-[84px] cursor-default">
+          <div className="mt-12 max-w-3xl">
+            <h2 className="text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-6xl cursor-default">
               {portfolioData.title}
             </h2>
           </div>
