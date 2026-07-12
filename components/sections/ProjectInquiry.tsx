@@ -131,7 +131,7 @@ export default function ProjectInquiry() {
                     <option value="" disabled className="bg-neutral-900">
                       Select Your Service
                     </option>
-                    {inquiry.serviceOptions.map((option) => (
+                    {contactData.serviceOptions.map((option) => (
                       <option key={option} value={option} className="bg-neutral-900">
                         {option}
                       </option>
@@ -155,7 +155,7 @@ export default function ProjectInquiry() {
                     <option value="" disabled className="bg-neutral-900">
                       Select Your Range
                     </option>
-                    {inquiry.budgetOptions.map((option) => (
+                    {contactData.budgetOptions.map((option) => (
                       <option key={option} value={option} className="bg-neutral-900">
                         {option}
                       </option>

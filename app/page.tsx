@@ -1,6 +1,7 @@
 import AboutSection from "@/components/sections/AboutSection"
 import BlogSection from "@/components/sections/BlogSection"
 import CaseStudiesSection from "@/components/sections/CaseStudiesSection"
+import CTASection from "@/components/sections/CTASection"
 import EngineeringProcess from "@/components/sections/EngineeringProcess"
 import HeroSection from "@/components/sections/HeroSection"
 import PortfolioSection from "@/components/sections/PortfolioSection"
@@ -22,6 +23,7 @@ export default function HomePage() {
       <TestimonialSection />
       <TeamSection />
       <BlogSection />
+      <CTASection />
     </main>
   )
 }

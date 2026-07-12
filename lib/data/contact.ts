@@ -12,4 +12,12 @@ export const contactData = {
     { label: "GitHub", glyph: "gh", href: "https://github.com/brainstack" },
     { label: "Instagram", glyph: "ig", href: "https://instagram.com/brainstack" },
   ],
+  serviceOptions: [
+    "Branding",
+    "Mobile Design",
+    "Digital Marketing",
+    "Web Development",
+    "AI & Automation",
+  ],
+  budgetOptions: ["$5k - $15k", "$15k - $50k", "$50k - $100k", "$100k+"],
 } as const

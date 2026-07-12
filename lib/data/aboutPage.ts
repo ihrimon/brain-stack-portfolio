@@ -117,13 +117,5 @@ export const aboutPageData = {
 
   inquiry: {
     heading: "Have a project idea in mind? Let's get started",
-    serviceOptions: [
-      "Branding",
-      "Mobile Design",
-      "Digital Marketing",
-      "Web Development",
-      "AI & Automation",
-    ],
-    budgetOptions: ["$5k - $15k", "$15k - $50k", "$50k - $100k", "$100k+"],
   },
 } as const

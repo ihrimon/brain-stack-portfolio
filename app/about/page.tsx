@@ -12,8 +12,8 @@ export default function AboutPage() {
       <AboutStats />
       <WhyBrainStack />
       <AboutApproach />
-      <ProjectInquiry />
       <AboutTeamSection />
+      <ProjectInquiry />
     </main>
   )
 }

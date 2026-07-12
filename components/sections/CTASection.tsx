@@ -1,33 +1,28 @@
-"use client"
-
-import { portfolioData } from '@/data/portfolio-data'
-import { useScrollReveal } from "@/hooks/useScrollReveal"
+import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
+import { ctaData } from "@/lib/data/cta"
+import { ArrowUpRight } from "lucide-react"
+import Link from "next/link"
 
 export default function CTASection() {
-  const { cta } = portfolioData
-  const { ref, isVisible } = useScrollReveal()
-
   return (
-    <section id="contact" ref={ref} className="px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-4xl">
-        <div
-          className={`space-y-8 rounded-2xl border border-primary/20 bg-linear-to-br from-primary/10 via-primary/5 to-primary/10 p-12 text-center transition-all duration-700 md:p-16 ${
-            isVisible
-              ? "translate-y-0 scale-100 opacity-100"
-              : "translate-y-10 scale-95 opacity-0"
-          }`}
-        >
-          <div className="space-y-4">
-            <h2 className="text-4xl font-bold md:text-5xl">{cta.title}</h2>
-            <p className="mx-auto max-w-2xl text-lg text-foreground/60">
-              {cta.description}
-            </p>
-          </div>
+    <section className="bg-brand-dark px-5 py-16 sm:px-8 sm:py-20">
+      <div className="relative mx-auto flex max-w-400 flex-col items-center overflow-hidden rounded-3xl bg-neutral-900 px-8 py-20 text-center sm:py-28">
+        <DiagonalPattern className="opacity-60 [mask-image:linear-gradient(to_left,black,transparent_65%)]" />
 
-          <button className="inline-block rounded-lg bg-primary px-8 py-4 font-semibold text-primary-foreground transition-all hover:scale-105 hover:bg-primary/90">
-            {cta.button}
-          </button>
-        </div>
+        <h2 className="relative max-w-3xl text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl md:text-6xl">
+          {ctaData.heading}
+        </h2>
+
+        <Link
+          href="/contact"
+          data-cursor="magnetic"
+          className="group relative mt-6 inline-flex items-center gap-2 text-sm font-bold tracking-widest text-white uppercase"
+        >
+          <span className="border-b border-white pb-0.5 transition-colors duration-300 group-hover:border-white/50 group-hover:text-white/80">
+            Let&apos;s Get in Touch
+          </span>
+          <ArrowUpRight className="size-4 text-brand-accent transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </Link>
       </div>
     </section>
   )

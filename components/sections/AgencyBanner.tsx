@@ -1,3 +1,4 @@
+import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { ParallaxImage } from "@/components/animations/ParallaxImage"
 import { servicesPageData } from "@/lib/data/servicesPage"
 import Link from "next/link"
@@ -16,14 +17,7 @@ export default function AgencyBanner() {
         />
 
         <div className="relative flex flex-col justify-between gap-16 overflow-hidden bg-neutral-900 px-8 py-16 sm:px-12 lg:px-16 lg:py-20">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 opacity-50"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 14px)",
-            }}
-          />
+          <DiagonalPattern />
 
           <h2 className="relative max-w-md text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl">
             {banner.title}
