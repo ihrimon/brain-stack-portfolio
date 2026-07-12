@@ -45,7 +45,7 @@ export default function BlogSection() {
         </div>
 
         <div className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-          {posts.map((post) => (
+          {posts.slice(0,4).map((post) => (
             <article key={post.slug} className="group flex flex-col">
               <Link
                 href={`/blog/${post.slug}`}
