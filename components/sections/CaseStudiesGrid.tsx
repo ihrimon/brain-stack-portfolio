@@ -3,9 +3,10 @@
 import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { CircleViewButton } from "@/components/buttons/CircleViewButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
-import { caseStudiesData, type CaseStudy } from "@/lib/data/caseStudies"
+import type { CaseStudy } from "@/lib/data/caseStudies"
 import { caseStudiesPageData } from "@/lib/data/caseStudiesPage"
 import { motion, type Variants } from "framer-motion"
+import { ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -27,68 +28,89 @@ function CaseStudyCard({ caseStudy, index }: { caseStudy: CaseStudy; index: numb
       variants={columnVariants[index % 3]}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <Link
-        href={`/case-studies/${caseStudy.slug}`}
-        className="group/card block h-full overflow-hidden bg-neutral-900 transition-transform duration-300 hover:-translate-y-1"
-        data-cursor="magnetic"
-      >
-        <div className="relative pb-4">
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 top-4 bottom-0 -z-10 overflow-hidden bg-neutral-900"
-          >
-            <DiagonalPattern className="opacity-60" />
-          </div>
+      <div className="group/card relative h-full">
+        <Link
+          href={`/case-studies/${caseStudy.slug}`}
+          className="block h-full overflow-hidden bg-neutral-900 transition-transform duration-300 hover:-translate-y-1"
+          data-cursor="magnetic"
+        >
+          <div className="relative pb-4">
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 top-4 bottom-0 -z-10 overflow-hidden bg-neutral-900"
+            >
+              <DiagonalPattern className="opacity-60" />
+            </div>
 
-          <div className="relative aspect-4/3 overflow-hidden">
-            <Image
-              src={caseStudy.thumbnail}
-              alt={caseStudy.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover/card:scale-105"
-              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            />
+            <div className="relative aspect-4/3 overflow-hidden">
+              <Image
+                src={caseStudy.thumbnail}
+                alt={caseStudy.title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover/card:scale-105"
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              />
 
-            <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
+              <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
 
-            <CircleViewButton />
+              <CircleViewButton />
 
-            <span className="absolute top-4 left-4 rounded-full border border-white/20 bg-black/50 px-3 py-1 text-[11px] font-medium tracking-widest text-white uppercase backdrop-blur-sm">
-              {caseStudy.status}
-            </span>
-          </div>
-        </div>
-
-        <div className="p-6">
-          <span className="text-xs font-medium tracking-widest text-white/40 uppercase">
-            {caseStudy.category}
-          </span>
-
-          <h3 className="mt-2 text-2xl font-medium text-white transition-all duration-300 hover:underline">
-            {caseStudy.title}
-          </h3>
-
-          <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/60">
-            {caseStudy.overview}
-          </p>
-
-          <div className="mt-4 flex flex-wrap gap-2">
-            {caseStudy.technologies.slice(0, 4).map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full border border-white/10 px-3 py-1 text-xs font-medium text-white/70"
-              >
-                {tech}
+              <span className="absolute top-4 left-4 rounded-full border border-white/20 bg-black/50 px-3 py-1 text-[11px] font-medium tracking-widest text-white uppercase backdrop-blur-sm">
+                {caseStudy.status}
               </span>
-            ))}
+            </div>
           </div>
-        </div>
-      </Link>
+
+          <div className="p-6">
+            <span className="text-xs font-medium tracking-widest text-white/40 uppercase">
+              {caseStudy.category}
+            </span>
+
+            <h3 className="mt-2 text-2xl font-medium text-white transition-all duration-300 hover:underline">
+              {caseStudy.title}
+            </h3>
+
+            <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/60">
+              {caseStudy.overview}
+            </p>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {caseStudy.technologies.slice(0, 4).map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-white/10 px-3 py-1 text-xs font-medium text-white/70"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Link>
+
+        {caseStudy.liveUrl && (
+          <a
+            href={caseStudy.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(event) => event.stopPropagation()}
+            aria-label={`Visit ${caseStudy.title} live site`}
+            title="Visit live site"
+            data-cursor="magnetic"
+            className="absolute top-4 right-4 z-20 flex size-9 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover/card:opacity-100 hover:bg-white hover:text-black"
+          >
+            <ExternalLink className="size-4" />
+          </a>
+        )}
+      </div>
     </motion.div>
   )
 }
 
-export default function CaseStudiesGrid() {
+interface CaseStudiesGridProps {
+  caseStudies: CaseStudy[]
+}
+
+export default function CaseStudiesGrid({ caseStudies }: CaseStudiesGridProps) {
   return (
     <section
       id="case-studies-grid"
@@ -117,7 +139,7 @@ export default function CaseStudiesGrid() {
         </p>
 
         <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {caseStudiesData.map((caseStudy, index) => (
+          {caseStudies.map((caseStudy, index) => (
             <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} index={index} />
           ))}
         </div>

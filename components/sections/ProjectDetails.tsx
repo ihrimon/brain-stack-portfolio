@@ -1,4 +1,5 @@
 import { ParallaxImage } from "@/components/animations/ParallaxImage"
+import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { portfolioData } from "@/data/portfolio"
 
 type Project = (typeof portfolioData.projects)[number]
@@ -22,9 +23,13 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
     <>
       <section className="bg-brand-dark pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="mx-auto max-w-400 px-5 sm:px-8">
-          <h1 className="max-w-6xl text-4xl leading-[0.95] font-semibold tracking-tight text-white sm:text-6xl md:text-[84px]">
-            {project.title}
-          </h1>
+          <div className="flex flex-wrap items-end justify-between gap-8">
+            <h1 className="max-w-6xl text-4xl leading-[0.95] font-semibold tracking-tight text-white sm:text-6xl md:text-[84px]">
+              {project.title}
+            </h1>
+
+            <PrimaryButton href={project.href}>Visit Live Site</PrimaryButton>
+          </div>
 
           <div className="mt-16 grid gap-10 sm:mt-24 lg:grid-cols-2 lg:gap-50">
             <div className="divide-y divide-white/10 border-t border-white/10 ">

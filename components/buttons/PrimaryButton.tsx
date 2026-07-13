@@ -36,9 +36,16 @@ export function PrimaryButton({
   )
 
   if (href) {
+    const isExternal = /^https?:\/\//.test(href)
+
     return (
       <MagneticButton className="inline-block w-fit">
-        <Link href={href} className="inline-flex" data-cursor="magnetic">
+        <Link
+          href={href}
+          className="inline-flex"
+          data-cursor="magnetic"
+          {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
           {pill}
         </Link>
       </MagneticButton>

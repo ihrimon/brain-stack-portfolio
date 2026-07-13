@@ -1,10 +1,15 @@
 import CaseStudiesGrid from "@/components/sections/CaseStudiesGrid"
 import CTASection from "@/components/sections/CTASection"
+import { getCaseStudies } from "@/lib/sheets"
 
-export default function CaseStudiesPage() {
+export const revalidate = 300
+
+export default async function CaseStudiesPage() {
+  const caseStudies = await getCaseStudies()
+
   return (
     <main id="main-content" role="main">
-      <CaseStudiesGrid />
+      <CaseStudiesGrid caseStudies={caseStudies} />
       <CTASection />
     </main>
   )

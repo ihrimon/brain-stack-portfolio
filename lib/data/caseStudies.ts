@@ -1,4 +1,69 @@
-export const caseStudiesData = [
+export interface CaseStudy {
+  id: string
+  slug: string
+  title: string
+  shortTitle: string
+  category: string
+  industry: string
+  client: string
+  duration: string
+  status: string
+  liveUrl: string | null
+
+  thumbnail: string
+  heroImage: string
+  gallery: string[]
+
+  overview: string
+
+  challenge: {
+    title: string
+    description: string
+    painPoints: string[]
+    businessImpact: string[]
+  }
+
+  goals: string[]
+
+  solution: {
+    title: string
+    description: string
+    keySolutions: string[]
+  }
+
+  workflow: { title: string; description: string }[]
+
+  technologies: string[]
+  tools: string[]
+  architecture: string[]
+  features: string[]
+  uiHighlights: string[]
+  developmentProcess: string[]
+  challengesFaced: string[]
+  solutionsImplemented: string[]
+  results: string[]
+
+  metrics: {
+    performance: string
+    seo: string
+    accessibility: string
+    bestPractices: string
+  }
+
+  testimonial: {
+    name: string
+    designation: string
+    company: string
+    quote: string
+    avatar: string
+  }
+
+  lessonsLearned: string[]
+  nextSteps: string[]
+  relatedProjects: string[]
+}
+
+export const caseStudiesData: CaseStudy[] = [
   {
     id: "01",
     slug: "standard-insights",
@@ -9,6 +74,7 @@ export const caseStudiesData = [
     client: "Standard Insights",
     duration: "10 weeks",
     status: "Live",
+    liveUrl: "https://app.standard-insights.com",
 
     thumbnail: "/images/portfolio/portfolio-1.webp",
     heroImage: "/images/portfolio/portfolio-1.webp",
@@ -196,6 +262,7 @@ export const caseStudiesData = [
     client: "SyncSpace",
     duration: "7 weeks",
     status: "Live",
+    liveUrl: "https://syncspace-web.vercel.app",
 
     thumbnail: "/images/portfolio/portfolio-2.webp",
     heroImage: "/images/portfolio/portfolio-2.webp",
@@ -370,6 +437,7 @@ export const caseStudiesData = [
     client: "Focus Pilot",
     duration: "9 weeks",
     status: "Live",
+    liveUrl: "https://focuspilot.io",
 
     thumbnail: "/images/portfolio/portfolio-3.webp",
     heroImage: "/images/portfolio/portfolio-3.webp",
@@ -544,6 +612,7 @@ export const caseStudiesData = [
     client: "Career Dock",
     duration: "8 weeks",
     status: "Live",
+    liveUrl: "https://careerdock.app",
 
     thumbnail: "/images/portfolio/portfolio-4.webp",
     heroImage: "/images/portfolio/portfolio-4.webp",
@@ -717,6 +786,7 @@ export const caseStudiesData = [
     client: "Confidential Client",
     duration: "6 weeks",
     status: "Completed",
+    liveUrl: null,
 
     thumbnail: "/images/portfolio/portfolio-5.webp",
     heroImage: "/images/portfolio/portfolio-5.webp",
@@ -890,6 +960,7 @@ export const caseStudiesData = [
     client: "Confidential Client",
     duration: "6 weeks",
     status: "Completed",
+    liveUrl: null,
 
     thumbnail: "/images/portfolio/portfolio-6.webp",
     heroImage: "/images/portfolio/portfolio-6.webp",
@@ -1063,6 +1134,7 @@ export const caseStudiesData = [
     client: "Confidential Client",
     duration: "7 weeks",
     status: "Completed",
+    liveUrl: null,
 
     thumbnail: "/images/portfolio/portfolio-7.webp",
     heroImage: "/images/portfolio/portfolio-7.webp",
@@ -1236,6 +1308,7 @@ export const caseStudiesData = [
     client: "NFT Maria",
     duration: "4 weeks",
     status: "Completed",
+    liveUrl: null,
 
     thumbnail: "/images/portfolio/portfolio-8.webp",
     heroImage: "/images/portfolio/portfolio-8.webp",
@@ -1407,6 +1480,7 @@ export const caseStudiesData = [
     client: "E-learny",
     duration: "9 weeks",
     status: "Completed",
+    liveUrl: null,
 
     thumbnail: "/images/portfolio/portfolio-9.webp",
     heroImage: "/images/portfolio/portfolio-9.webp",
@@ -1580,6 +1654,7 @@ export const caseStudiesData = [
     client: "Teacher World",
     duration: "6 weeks",
     status: "Completed",
+    liveUrl: null,
 
     thumbnail: "/images/portfolio/portfolio-10.webp",
     heroImage: "/images/portfolio/portfolio-10.webp",
@@ -1742,6 +1817,4 @@ export const caseStudiesData = [
 
     relatedProjects: ["e-learny-platform", "apartment-selling-site"],
   },
-] as const
-
-export type CaseStudy = (typeof caseStudiesData)[number]
+]

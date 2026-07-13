@@ -9,8 +9,13 @@ import ProjectVideoSection from "@/components/sections/ProjectVideoSection"
 import ServicesSection from '@/components/sections/ServicesSection'
 import TeamSection from "@/components/sections/TeamSection"
 import TestimonialSection from "@/components/sections/TestimonialSection"
+import { getCaseStudies } from "@/lib/sheets"
 
-export default function HomePage() {
+export const revalidate = 300
+
+export default async function HomePage() {
+  const caseStudies = await getCaseStudies()
+
   return (
     <main id="main-content" role="main">
       <HeroSection />
@@ -18,7 +23,7 @@ export default function HomePage() {
       <AboutSection />
       <PortfolioSection />
       <ServicesSection />
-      <CaseStudiesSection />
+      <CaseStudiesSection caseStudies={caseStudies} />
       <EngineeringProcess />
       <TestimonialSection />
       <TeamSection />

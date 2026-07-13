@@ -5,6 +5,7 @@ import { CircleViewButton } from "@/components/buttons/CircleViewButton"
 import { portfolioData } from "@/data/portfolio"
 import { cn } from "@/lib/utils"
 import { motion, type Variants } from "framer-motion"
+import { ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useMemo, useState } from "react"
@@ -31,59 +32,74 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       variants={columnVariants[index % 3]}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <Link
-        href={`/portfolio/${project.slug}`}
-        className="group/card block h-full overflow-hidden  bg-neutral-900 transition-transform duration-300 hover:-translate-y-1"
-        data-cursor="magnetic"
-      >
-        <div className="relative pb-4">
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 top-4 bottom-0 -z-10 overflow-hidden bg-neutral-900"
-          >
-            <DiagonalPattern className="opacity-60" />
+      <div className="group/card relative h-full">
+        <Link
+          href={`/portfolio/${project.slug}`}
+          className="block h-full overflow-hidden  bg-neutral-900 transition-transform duration-300 hover:-translate-y-1"
+          data-cursor="magnetic"
+        >
+          <div className="relative pb-4">
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 top-4 bottom-0 -z-10 overflow-hidden bg-neutral-900"
+            >
+              <DiagonalPattern className="opacity-60" />
+            </div>
+
+            <div className="relative aspect-4/3 overflow-hidden">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover/card:scale-105"
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              />
+
+              <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
+
+              <CircleViewButton />
+            </div>
           </div>
 
-          <div className="relative aspect-4/3 overflow-hidden">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover/card:scale-105"
-              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            />
+          <div className="p-6">
+            <span className="text-xs font-medium tracking-widest text-white/40 uppercase">
+              {project.category}
+            </span>
 
-            <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
+            <h3 className="mt-2 text-2xl font-medium text-white hover:underline transition-all duration-300">
+              {project.title}
+            </h3>
 
-            <CircleViewButton />
+            {/* <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/60">
+              {project.description}
+            </p> */}
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.technologies.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-white/10 px-3 py-1 text-xs font-medium text-white/70"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
+        </Link>
 
-        <div className="p-6">
-          <span className="text-xs font-medium tracking-widest text-white/40 uppercase">
-            {project.category}
-          </span>
-
-          <h3 className="mt-2 text-2xl font-medium text-white hover:underline transition-all duration-300">
-            {project.title}
-          </h3>
-
-          {/* <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/60">
-            {project.description}
-          </p> */}
-
-          <div className="mt-4 flex flex-wrap gap-2">
-            {project.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full border border-white/10 px-3 py-1 text-xs font-medium text-white/70"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-      </Link>
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(event) => event.stopPropagation()}
+          aria-label={`Visit ${project.title} live site`}
+          title="Visit live site"
+          data-cursor="magnetic"
+          className="absolute top-4 right-4 z-20 flex size-9 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover/card:opacity-100 hover:bg-white hover:text-black"
+        >
+          <ExternalLink className="size-4" />
+        </a>
+      </div>
     </motion.div>
   )
 }

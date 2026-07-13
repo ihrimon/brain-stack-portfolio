@@ -3,7 +3,7 @@
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/GSAPAnimations"
-import { caseStudiesData } from "@/lib/data/caseStudies"
+import type { CaseStudy } from "@/lib/data/caseStudies"
 import { caseStudiesPageData } from "@/lib/data/caseStudiesPage"
 import { cn } from "@/lib/utils"
 import { useGSAP } from "@gsap/react"
@@ -18,11 +18,12 @@ gsap.registerPlugin(ScrollTrigger)
 const FEATURED_COUNT = 4
 
 interface CaseStudiesSectionProps {
+  caseStudies: CaseStudy[]
   className?: string
 }
 
-export default function CaseStudiesSection({ className }: CaseStudiesSectionProps) {
-  const featuredCaseStudies = caseStudiesData.slice(0, FEATURED_COUNT)
+export default function CaseStudiesSection({ caseStudies, className }: CaseStudiesSectionProps) {
+  const featuredCaseStudies = caseStudies.slice(0, FEATURED_COUNT)
 
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)

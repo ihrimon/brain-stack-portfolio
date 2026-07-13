@@ -1,12 +1,13 @@
 import { ParallaxImage } from "@/components/animations/ParallaxImage"
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
-import { caseStudiesData, type CaseStudy } from "@/lib/data/caseStudies"
+import type { CaseStudy } from "@/lib/data/caseStudies"
 import Image from "next/image"
 import Link from "next/link"
 
 interface CaseStudyDetailsProps {
   caseStudy: CaseStudy
+  related: CaseStudy[]
 }
 
 const metricLabels: Record<keyof CaseStudy["metrics"], string> = {
@@ -16,7 +17,7 @@ const metricLabels: Record<keyof CaseStudy["metrics"], string> = {
   bestPractices: "Best Practices",
 }
 
-export default function CaseStudyDetails({ caseStudy }: CaseStudyDetailsProps) {
+export default function CaseStudyDetails({ caseStudy, related }: CaseStudyDetailsProps) {
   const detailRows = [
     { label: "Client:", value: caseStudy.client },
     { label: "Industry:", value: caseStudy.industry },
@@ -25,15 +26,17 @@ export default function CaseStudyDetails({ caseStudy }: CaseStudyDetailsProps) {
     { label: "Status:", value: caseStudy.status },
   ]
 
-  const related = caseStudy.relatedProjects
-    .map((slug) => caseStudiesData.find((item) => item.slug === slug))
-    .filter((item): item is CaseStudy => Boolean(item))
-
   return (
     <>
       <section className="bg-brand-dark pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="mx-auto max-w-400 px-5 sm:px-8">
-          <SectionBadge>{caseStudy.category}</SectionBadge>
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            <SectionBadge>{caseStudy.category}</SectionBadge>
+
+            {caseStudy.liveUrl && (
+              <PrimaryButton href={caseStudy.liveUrl}>Visit Live Site</PrimaryButton>
+            )}
+          </div>
 
           <h1 className="mt-8 max-w-6xl text-4xl leading-[0.95] font-semibold tracking-tight text-white sm:text-6xl md:text-[76px]">
             {caseStudy.title}
