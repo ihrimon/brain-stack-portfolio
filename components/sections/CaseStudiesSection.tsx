@@ -4,6 +4,8 @@ import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/GSAPAnimations"
 import { caseStudiesData } from "@/lib/data/caseStudies"
+import { caseStudiesPageData } from "@/lib/data/caseStudiesPage"
+import { cn } from "@/lib/utils"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
@@ -13,7 +15,15 @@ import { useRef } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
 
-export default function CaseStudiesSection() {
+const FEATURED_COUNT = 4
+
+interface CaseStudiesSectionProps {
+  className?: string
+}
+
+export default function CaseStudiesSection({ className }: CaseStudiesSectionProps) {
+  const featuredCaseStudies = caseStudiesData.slice(0, FEATURED_COUNT)
+
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const descRef = useRef<HTMLParagraphElement>(null)
@@ -59,24 +69,39 @@ export default function CaseStudiesSection() {
     <section
       id="case-studies"
       ref={sectionRef}
-      className="bg-brand-dark py-20 sm:py-28"
+      className={cn("bg-brand-dark py-20 sm:py-28", className)}
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="mb-16 flex flex-wrap items-center justify-between gap-8">
+        <div className="mb-16 flex flex-wrap items-end justify-between gap-8">
           <div>
-            <SectionBadge>{caseStudiesData.badge}</SectionBadge>
+            <SectionBadge>{caseStudiesPageData.badge}</SectionBadge>
 
             <h2
               ref={titleRef}
               className="mt-8 max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
             >
-              {caseStudiesData.title}
+              {caseStudiesPageData.title}
             </h2>
 
+            <p
+              ref={descRef}
+              className="mt-6 max-w-2xl text-sm leading-relaxed text-white/60 sm:text-base"
+            >
+              {caseStudiesPageData.description}
+            </p>
+
+            <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-white/10 px-4 py-2">
+              <span className="text-lg font-semibold text-white">
+                {caseStudiesPageData.stat.value}
+              </span>
+              <span className="text-xs tracking-widest text-white/50 uppercase">
+                {caseStudiesPageData.stat.label}
+              </span>
+            </div>
           </div>
 
           <Link
-            href="/contact"
+            href="/case-studies"
             className="mt-2 flex items-center gap-3 text-sm font-medium text-white hover:text-white/80"
             data-cursor="magnetic"
           >
@@ -86,7 +111,7 @@ export default function CaseStudiesSection() {
         </div>
 
         <div ref={cardsRef} className="relative">
-          {caseStudiesData.items.map((item, index) => (
+          {featuredCaseStudies.map((item, index) => (
             <div
               key={item.id}
               data-case-study-card
@@ -105,23 +130,23 @@ export default function CaseStudiesSection() {
                     </h3>
 
                     <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60 sm:text-base">
-                      {item.description}
+                      {item.overview}
                     </p>
 
                     <ul className="mt-4 space-y-2">
-                      {item.features.map((feature) => (
+                      {item.solution.keySolutions.slice(0, 4).map((solution) => (
                         <li
-                          key={feature}
+                          key={solution}
                           className="flex items-center gap-2 text-sm text-white/70 sm:text-base"
                         >
                           <span className="size-1 shrink-0 rounded-full bg-white/40" />
-                          {feature}
+                          {solution}
                         </li>
                       ))}
                     </ul>
 
                     <div className="mt-6 flex flex-wrap gap-3">
-                      {item.eyebrow.map((tag) => (
+                      {item.technologies.slice(0, 4).map((tag) => (
                         <span
                           key={tag}
                           className="rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white sm:text-sm"
@@ -132,14 +157,14 @@ export default function CaseStudiesSection() {
                     </div>
                   </div>
 
-                  <PrimaryButton href={item.cta.href} className="mt-10">
-                    {item.cta.label}
+                  <PrimaryButton href={`/case-studies/${item.slug}`} className="mt-10">
+                    View case study
                   </PrimaryButton>
                 </div>
 
                 <div className="relative min-h-64 md:min-h-0">
                   <Image
-                    src={item.image}
+                    src={item.heroImage}
                     alt={item.title}
                     fill
                     className="object-cover"
