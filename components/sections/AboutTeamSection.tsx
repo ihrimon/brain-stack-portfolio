@@ -18,7 +18,7 @@ export default function AboutTeamSection() {
         <div className="mt-16 grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">
           {teamData.members.map((member) => (
             <div key={member.name}>
-              <div className="relative aspect-4/5 overflow-hidden  bg-neutral-900">
+              <div className="relative aspect-4/5 overflow-hidden rounded-3xl bg-neutral-900">
                 <Image
                   src={member.image}
                   alt={member.name}

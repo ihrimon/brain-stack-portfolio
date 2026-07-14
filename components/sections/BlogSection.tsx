@@ -49,7 +49,7 @@ export default function BlogSection() {
             <article key={post.slug} className="group flex flex-col">
               <Link
                 href={`/blog/${post.slug}`}
-                className="relative aspect-4/5 w-full overflow-hidden"
+                className="relative aspect-4/5 w-full overflow-hidden rounded-3xl"
                 data-cursor="magnetic"
               >
                 <Image

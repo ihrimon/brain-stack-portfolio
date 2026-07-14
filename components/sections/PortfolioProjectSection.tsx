@@ -35,7 +35,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       <div className="group/card relative h-full">
         <Link
           href={`/portfolio/${project.slug}`}
-          className="block h-full overflow-hidden  bg-neutral-900 transition-transform duration-300 hover:-translate-y-1"
+          className="block h-full overflow-hidden rounded-3xl bg-neutral-900 transition-transform duration-300 hover:-translate-y-1"
           data-cursor="magnetic"
         >
           <div className="relative pb-4">

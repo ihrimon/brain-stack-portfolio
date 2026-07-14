@@ -73,7 +73,7 @@ export default function ProjectInquiry() {
 
           <form
             onSubmit={handleSubmit}
-            className=" bg-white/5 p-8 sm:p-10"
+            className="rounded-3xl bg-white/5 p-8 sm:p-10"
           >
             <div>
               <label className="text-xs font-semibold tracking-widest text-white uppercase">

@@ -2,15 +2,7 @@
 
 import { mobileNavigationData } from "@/lib/data/navigation"
 import { cn } from "@/lib/utils"
-import {
-  Briefcase,
-  FileText,
-  Home,
-  Layers,
-  Mail,
-  Newspaper,
-  type LucideIcon,
-} from "lucide-react"
+import { Briefcase, Home, Layers, Mail, Newspaper, type LucideIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -18,7 +10,6 @@ const ICONS: Record<string, LucideIcon> = {
   Home,
   Portfolio: Briefcase,
   Services: Layers,
-  "Case Studies": FileText,
   Blog: Newspaper,
   Contact: Mail,
 }

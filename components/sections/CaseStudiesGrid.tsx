@@ -117,8 +117,6 @@ export default function CaseStudiesGrid({ caseStudies }: CaseStudiesGridProps) {
       className="overflow-hidden bg-brand-dark pt-32 pb-20 sm:pt-40 sm:pb-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <SectionBadge>{caseStudiesPageData.badge}</SectionBadge>
-
         <div className="mt-8 flex flex-wrap items-end justify-between gap-8">
           <h1 className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl">
             {caseStudiesPageData.title}

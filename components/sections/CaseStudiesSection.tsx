@@ -116,7 +116,7 @@ export default function CaseStudiesSection({ caseStudies, className }: CaseStudi
             <div
               key={item.id}
               data-case-study-card
-              className="overflow-hidden border-t border-white/10 bg-neutral-900"
+              className="overflow-hidden rounded-3xl border-t border-white/10 bg-neutral-900"
               style={{ zIndex: index + 1 }}
             >
               <div className="grid min-h-[70vh] md:grid-cols-2">

@@ -107,7 +107,7 @@ export default function AllBlogs() {
                 >
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="relative aspect-4/3 w-full overflow-hidden bg-neutral-900"
+                    className="relative aspect-4/3 w-full overflow-hidden rounded-3xl bg-neutral-900"
                     data-cursor="magnetic"
                   >
                     <Image

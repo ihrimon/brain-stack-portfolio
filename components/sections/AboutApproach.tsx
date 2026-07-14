@@ -37,7 +37,7 @@ export default function AboutApproach() {
           {approach.steps.map((step) => (
             <div
               key={step.title}
-              className="relative overflow-hidden bg-neutral-900 p-8"
+              className="relative overflow-hidden rounded-3xl bg-neutral-900 p-8"
             >
               <DiagonalPattern className="opacity-60 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
 

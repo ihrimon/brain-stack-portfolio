@@ -21,7 +21,7 @@ function PortfolioCard({ project, wide }: { project: Project; wide: boolean }) {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "group/card relative block h-80 shrink-0 overflow-hidden  sm:h-96",
+        "group/card relative block h-80 shrink-0 overflow-hidden rounded-3xl sm:h-96",
         wide ? "w-64 sm:w-130" : "w-56 sm:w-130"
       )}
       data-cursor="magnetic"

@@ -1,6 +1,5 @@
 "use client"
 
-import { MagneticButton } from "@/components/animations/MagneticButton"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
@@ -21,14 +20,14 @@ export function PrimaryButton({
   const pill = (
     <span
       className={cn(
-        "relative inline-flex h-16 items-center overflow-hidden rounded-full bg-background py-2 hover:bg-background px-6 text-xl font-medium text-primary-foreground transition-all duration-500 group",
+        "group inline-flex h-16 items-center rounded-full bg-neutral-900 px-6 text-xl font-medium text-white",
         className
       )}
     >
       <span className="whitespace-nowrap">{children}</span>
 
       {showArrow && (
-        <span className="ml-4 flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-foreground/15 group-hover:bg-white">
+        <span className="ml-4 flex size-10 shrink-0 items-center justify-center rounded-full bg-white/15 transition-colors group-hover:bg-white">
           <Image src="/icons/arrow-right.svg" alt="" width={16} height={16} />
         </span>
       )}
@@ -39,24 +38,25 @@ export function PrimaryButton({
     const isExternal = /^https?:\/\//.test(href)
 
     return (
-      <MagneticButton className="inline-block w-fit">
-        <Link
-          href={href}
-          className="inline-flex"
-          data-cursor="magnetic"
-          {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        >
-          {pill}
-        </Link>
-      </MagneticButton>
+      <Link
+        href={href}
+        className="inline-block w-fit"
+        data-cursor="magnetic"
+        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
+        {pill}
+      </Link>
     )
   }
 
   return (
-    <MagneticButton className="inline-block w-fit">
-      <button type="button" className="inline-flex cursor-pointer" data-cursor="magnetic" {...props}>
-        {pill}
-      </button>
-    </MagneticButton>
+    <button
+      type="button"
+      className="inline-flex w-fit cursor-pointer"
+      data-cursor="magnetic"
+      {...props}
+    >
+      {pill}
+    </button>
   )
 }
