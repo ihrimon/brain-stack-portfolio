@@ -8,7 +8,7 @@ interface AboutTeamSectionProps {
 
 export default function AboutTeamSection({ data }: AboutTeamSectionProps) {
   return (
-    <section className="bg-brand-dark py-20 sm:py-28">
+    <section id="team" className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="max-w-2xl">
           <SectionBadge>{data.badge}</SectionBadge>
@@ -16,7 +16,6 @@ export default function AboutTeamSection({ data }: AboutTeamSectionProps) {
           <h2 className="mt-8 text-4xl leading-tight font-bold tracking-tight text-white uppercase sm:text-5xl md:text-6xl">
             {data.title}
           </h2>
-
         </div>
 
         <div className="mt-16 grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">

@@ -57,7 +57,7 @@ export default function ServicesSection({ data }: ServicesSectionProps) {
             ))}
           </div>
 
-          <div className="relative aspect-4/3 w-full overflow-hidden rounded-3xl bg-neutral-900">
+          <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-neutral-900">
             {data.items.map((item, index) => (
               <div
                 key={item.id}

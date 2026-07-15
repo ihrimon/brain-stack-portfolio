@@ -154,65 +154,65 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
               const Icon = resolveIcon(item.icon)
 
               return (
-              <div
-                key={item.title}
-                data-process-card
-                className="relative overflow-hidden rounded-3xl bg-neutral-900 p-8"
-              >
                 <div
-                  aria-hidden="true"
-                  className="absolute top-6 right-6 grid grid-cols-3 grid-rows-2 gap-1 opacity-90"
+                  key={item.title}
+                  data-process-card
+                  className="relative overflow-hidden rounded-2xl bg-neutral-900 p-8"
                 >
-                  <span
-                    className={cn(
-                      "col-start-2 row-start-1 size-3 rounded-[3px]",
-                      accentClasses[index % accentClasses.length]
-                    )}
-                  />
-                  <span
-                    className={cn(
-                      "col-start-3 row-start-1 size-3 rounded-[3px]",
-                      accentClasses[index % accentClasses.length]
-                    )}
-                  />
-                  <span
-                    className={cn(
-                      "col-start-1 row-start-2 size-3 rounded-[3px]",
-                      accentClasses[index % accentClasses.length]
-                    )}
-                  />
-                  <span
-                    className={cn(
-                      "col-start-2 row-start-2 size-3 rounded-[3px]",
-                      accentClasses[index % accentClasses.length]
-                    )}
-                  />
-                </div>
-
-                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white">
-                  <Icon className="size-3.5" />
-                  STEP : {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <h3 className="mt-6 text-2xl font-medium text-white">
-                  {item.title}
-                </h3>
-
-                <p className="mt-4 text-sm leading-relaxed text-white/60 sm:text-base">
-                  {item.description}
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {item.tags.map((tag) => (
+                  <div
+                    aria-hidden="true"
+                    className="absolute top-6 right-6 grid grid-cols-3 grid-rows-2 gap-1 opacity-90"
+                  >
                     <span
-                      key={tag}
-                      className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/60"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                      className={cn(
+                        "col-start-2 row-start-1 size-3 rounded-[3px]",
+                        accentClasses[index % accentClasses.length]
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        "col-start-3 row-start-1 size-3 rounded-[3px]",
+                        accentClasses[index % accentClasses.length]
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        "col-start-1 row-start-2 size-3 rounded-[3px]",
+                        accentClasses[index % accentClasses.length]
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        "col-start-2 row-start-2 size-3 rounded-[3px]",
+                        accentClasses[index % accentClasses.length]
+                      )}
+                    />
+                  </div>
+
+                  <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white">
+                    <Icon className="size-3.5" />
+                    STEP : {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <h3 className="mt-6 text-2xl font-medium text-white">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-4 text-sm leading-relaxed text-white/60 sm:text-base">
+                    {item.description}
+                  </p>
+
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {item.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/60"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
               )
             })}
           </div>

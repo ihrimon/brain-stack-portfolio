@@ -48,14 +48,24 @@ export function Navbar() {
                     href={item.href}
                     role="menuitem"
                     className={cn(
-                      "block rounded-full px-3 py-2 text-sm font-medium transition-colors",
+                      "group block rounded-full px-3 py-2 text-sm font-medium transition-colors duration-300",
                       isActive
-                        ? "text-white underline underline-offset-4"
-                        : "text-white/80 hover:text-white"
+                        ? "bg-background text-foreground"
+                        : "text-white/80 hover:bg-background hover:text-foreground"
                     )}
                     data-cursor="magnetic"
                   >
-                    {item.name}
+                    <span className="relative inline-flex overflow-hidden">
+                      <span className="block transition-transform duration-300 ease-out group-hover:translate-y-full">
+                        {item.name}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-0 block -translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0"
+                      >
+                        {item.name}
+                      </span>
+                    </span>
                   </Link>
                 </li>
               )

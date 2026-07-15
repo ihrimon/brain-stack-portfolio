@@ -19,7 +19,7 @@ function ProjectMarqueeCard({ project, wide }: { project: Project; wide: boolean
   return (
     <div
       className={cn(
-        "group/card relative h-80 shrink-0 overflow-hidden rounded-3xl sm:h-96",
+        "group/card relative h-80 shrink-0 overflow-hidden rounded-2xl sm:h-96",
         wide ? "w-64 sm:w-130" : "w-56 sm:w-130"
       )}
     >

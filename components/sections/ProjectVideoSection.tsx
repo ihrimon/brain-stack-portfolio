@@ -1,6 +1,5 @@
 "use client"
 
-import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
@@ -26,7 +25,9 @@ interface ProjectVideoSectionProps {
   data: ProjectVideoData
 }
 
-export default function ProjectVideoSection({ data }: ProjectVideoSectionProps) {
+export default function ProjectVideoSection({
+  data,
+}: ProjectVideoSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const boxRef = useRef<HTMLDivElement>(null)
@@ -216,7 +217,7 @@ export default function ProjectVideoSection({ data }: ProjectVideoSectionProps) 
     <section
       id="project-video"
       ref={sectionRef}
-      className="overflow-hidden bg-neutral-900 py-20 sm:py-28"
+      className="overflow-hidden py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
@@ -242,7 +243,7 @@ export default function ProjectVideoSection({ data }: ProjectVideoSectionProps) 
               <Link
                 href={data.secondaryButton.href}
                 data-cursor="magnetic"
-                className="group inline-flex items-center gap-1 text-sm font-semibold tracking-widest text-white uppercase transition-colors duration-300 hover:text-white/60"
+                className="group inline-flex items-center gap-1 text-lg font-semibold text-white transition-colors duration-300 hover:text-white/60"
               >
                 {data.secondaryButton.label}
                 <ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -251,13 +252,6 @@ export default function ProjectVideoSection({ data }: ProjectVideoSectionProps) 
           </div>
 
           <div className="relative pb-6 sm:pb-10 lg:col-span-8 lg:pb-16">
-            <div
-              aria-hidden="true"
-              className="absolute inset-x-0 top-6 bottom-0 -z-10 overflow-hidden bg-neutral-900 sm:top-10 lg:top-16"
-            >
-              <DiagonalPattern className="opacity-60" />
-            </div>
-
             <div
               ref={boxRef}
               className={cn(

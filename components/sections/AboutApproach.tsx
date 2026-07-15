@@ -39,7 +39,7 @@ export default function AboutApproach({ approach }: AboutApproachProps) {
           {approach.steps.map((step) => (
             <div
               key={step.title}
-              className="relative overflow-hidden rounded-3xl bg-neutral-900 p-8"
+              className="relative overflow-hidden rounded-2xl bg-neutral-900 p-8"
             >
               <DiagonalPattern className="[mask-image:linear-gradient(to_bottom,black,transparent_70%)] opacity-60" />
 

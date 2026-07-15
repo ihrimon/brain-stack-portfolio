@@ -451,13 +451,15 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
 
               <div className="mt-8 flex items-center justify-center gap-4">
                 <div className="relative size-12 overflow-hidden rounded-full bg-neutral-800">
-                  <Image
-                    src={project.testimonial.image}
-                    alt={project.testimonial.name}
-                    fill
-                    className="object-cover"
-                    sizes="48px"
-                  />
+                  {project.testimonial.image && (
+                    <Image
+                      src={project.testimonial.image}
+                      alt={project.testimonial.name}
+                      fill
+                      className="object-cover"
+                      sizes="48px"
+                    />
+                  )}
                 </div>
 
                 <div className="text-left">

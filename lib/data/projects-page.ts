@@ -95,16 +95,19 @@ export const projectsData = {
       status: "Live",
       liveUrl: "https://app.standard-insights.com",
 
-      thumbnail: "/images/project-thumbnails/thumbnail-1.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-1.webp",
+      thumbnail: "https://i.ibb.co.com/vvvWHy2Y/standard-insights-thumbnail.png",
+      heroImage: "https://i.ibb.co.com/vvvWHy2Y/standard-insights-thumbnail.png",
       gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
+        "https://i.ibb.co.com/zKXHWcR/standard-insights-1.png",
+        "https://i.ibb.co.com/pBVzX87J/standard-insights-2.png",
+        "https://i.ibb.co.com/dsmmJPR0/standard-insights-3.png",
+        "https://i.ibb.co.com/Xx5tx7Dj/standard-insights-4.png",
+        "https://i.ibb.co.com/ZpCF7kv9/standard-insights-5.png",
+        "https://i.ibb.co.com/pvFCgtz8/standard-insights-6.png",
       ],
 
       overview:
-        "Standard Insights is a multi-tenant SaaS platform that lets businesses build surveys, collect customer feedback, and turn raw responses into decision-ready insight. We built the product end-to-end, from the survey builder and analytics dashboards to an AI layer that reads open-ended responses and surfaces themes automatically.",
+        "Standard Insights is a multi-tenant SaaS platform that takes consumer research from brief to board-ready report — a template-driven survey builder, panel-backed respondent recruitment, and an AI layer that reads open-ended responses to surface themes, sentiment, and auto-generated personas. We built the product end-to-end, from the survey builder and analytics dashboards to the AI insight pipeline that turns raw responses into decision-ready reporting.",
 
       challenge: {
         title: "Turning scattered feedback into a single source of truth",
@@ -134,10 +137,11 @@ export const projectsData = {
       solution: {
         title: "An AI-native survey and analytics platform, built for scale",
         description:
-          "We designed a multi-tenant architecture from day one, then layered a drag-and-drop survey builder, live analytics dashboards, and an AI/RAG pipeline that reads open text responses and generates theme summaries and sentiment scores automatically.",
+          "We designed a multi-tenant architecture from day one, then layered a drag-and-drop survey builder, live analytics dashboards, and an AI/RAG pipeline that reads open text responses and generates theme summaries, sentiment scores, and AI personas automatically — with a Strategic Library that indexes every study for cross-study analysis.",
         highlights: [
           "Dynamic, drag-and-drop survey builder with branching logic",
           "AI agents (OpenAI + Claude) for automatic theming and sentiment analysis",
+          "AI-generated personas and executive summaries",
           "Real-time analytics dashboards built on Chart.js",
           "Redis + BullMQ worker queues to process AI jobs asynchronously",
           "Role-based admin panel for workspace and team management",
@@ -183,6 +187,7 @@ export const projectsData = {
       features: [
         "Drag-and-drop survey builder with conditional logic",
         "AI-generated theme and sentiment summaries for open text",
+        "AI-generated personas and executive summaries",
         "Real-time analytics dashboards",
         "Role-based admin panel and workspace management",
         "Exportable reports and shareable dashboard links",
@@ -274,12 +279,15 @@ export const projectsData = {
       status: "Live",
       liveUrl: "https://syncspace-web.vercel.app",
 
-      thumbnail: "/images/project-thumbnails/thumbnail-2.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-2.webp",
+      thumbnail: "https://i.ibb.co.com/q37Gzwx4/sync-space-thumbnail.png",
+      heroImage: "https://i.ibb.co.com/q37Gzwx4/sync-space-thumbnail.png",
       gallery: [
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
+        "https://i.ibb.co.com/h1m2j0qx/sync-space-1-1.png",
+        "https://i.ibb.co.com/JwzF0N37/sync-space-2-1.png",
+        "https://i.ibb.co.com/Lz8Cc2b1/sync-space-3.png",
+        "https://i.ibb.co.com/27P70ks5/sync-space-4.png",
+        "https://i.ibb.co.com/3HHCYW1/sync-space-5.png",
+        "https://i.ibb.co.com/cK377KLv/sync-space-6.png",
       ],
 
       overview:
@@ -361,6 +369,7 @@ export const projectsData = {
         "Full offline support with automatic catch-up sync",
         "Conflict-free folder merges, even with simultaneous edits",
         "Extension profile sync alongside bookmarks and tabs",
+        "Freemium plan (2 devices, 500 bookmarks, manual sync) with a $4.99/mo Pro tier for unlimited auto-sync",
       ],
 
       uiHighlights: [
@@ -430,7 +439,7 @@ export const projectsData = {
         "Introduce end-to-end encryption for synced data",
       ],
 
-      relatedProjects: ["binder-app", "nft-maria"],
+      relatedProjects: ["standard-insights", "big-fish"],
     },
 
     {
@@ -457,16 +466,19 @@ export const projectsData = {
       status: "Live",
       liveUrl: "https://focuspilot.io",
 
-      thumbnail: "/images/project-thumbnails/thumbnail-3.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-3.webp",
+      thumbnail: "https://i.ibb.co.com/9k9VBXVk/focus-pilot-thumbnail.png",
+      heroImage: "https://i.ibb.co.com/9k9VBXVk/focus-pilot-thumbnail.png",
       gallery: [
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
+        "https://i.ibb.co.com/JW6JNWNd/focus-pilot-1.png",
+        "https://i.ibb.co.com/hxqQWYSh/focus-pilot-1-1.png",
+        "https://i.ibb.co.com/LDSqVt7j/focus-pilot-2.png",
+        "https://i.ibb.co.com/rfpy0ypd/focus-pilot-2-1.png",
+        "https://i.ibb.co.com/HfkcSG05/focus-pilot-3.png",
+        "https://i.ibb.co.com/66hbJt3/focus-pilot-3-1.png",
       ],
 
       overview:
-        "Focus Pilot is an AI-powered CRM built specifically for interior design studios — tracking clients, projects, and mood boards while using AI agents to automate the busywork of proposal drafting and client follow-ups.",
+        "Focus Pilot is an AI-powered studio operating system built specifically for interior design studios — project and procurement management, real-time budgets, an AI assistant, and a built-in CRM, replacing chaotic spreadsheets and email threads with live timelines and one-click client approvals. It's now live in public beta with tiered pricing for solo designers up through full studios.",
 
       challenge: {
         title: "Generic CRMs don't understand how design studios actually work",
@@ -498,6 +510,8 @@ export const projectsData = {
         highlights: [
           "Project-based CRM data model with rooms, mood boards, and vendor items",
           "AI agents for automated proposal and follow-up drafting",
+          "AI assistant for email drafting, task creation, and meeting summaries",
+          "Procurement and vendor management with AI-powered web clipping",
           "Owner-level analytics dashboard across all active projects",
           "Role-based admin panel for studio team management",
         ],
@@ -542,8 +556,10 @@ export const projectsData = {
       features: [
         "Project, room, and mood board tracking",
         "AI-drafted proposals and client follow-ups",
+        "AI assistant for email drafting, task creation, and meeting summaries",
         "Owner dashboard across all active studio projects",
         "Vendor and budget line-item tracking per project",
+        "Tiered pricing from a free public beta up to a 20-member Professional plan",
       ],
 
       uiHighlights: [
@@ -632,16 +648,19 @@ export const projectsData = {
       status: "Live",
       liveUrl: "https://careerdock.app",
 
-      thumbnail: "/images/project-thumbnails/thumbnail-4.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-4.webp",
+      thumbnail: "https://i.ibb.co.com/Hpd4GQwM/career-dock-thumbnail.png",
+      heroImage: "https://i.ibb.co.com/Hpd4GQwM/career-dock-thumbnail.png",
       gallery: [
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
-        "/images/projects/project-1.webp",
+        "https://i.ibb.co.com/TxNDMcnq/career-dock-1-1.png",
+        "https://i.ibb.co.com/KxgCSTSH/career-dock-2-1.png",
+        "https://i.ibb.co.com/wrwkkZJH/career-dock-2-2.png",
+        "https://i.ibb.co.com/JFcXtwy7/career-dock-2-3.png",
+        "https://i.ibb.co.com/HD1jsFYx/career-dock-5.png",
+        "https://i.ibb.co.com/Rkbvy8dR/career-dock-6.png",
       ],
 
       overview:
-        "Career Dock is a modern job-tracking application that helps job seekers organize applications, interviews, and follow-ups in one place, with AI assistance for matching roles against a candidate's resume and history.",
+        "Career Dock is a modern job-tracking application that helps job seekers organize applications, recruiter conversations, and interview follow-ups in one place, with a free plan plus a premium tier that unlocks AI-assisted resume matching, analytics, and reminders.",
 
       challenge: {
         title: "Job hunting scattered across tabs, spreadsheets, and inboxes",
@@ -716,8 +735,10 @@ export const projectsData = {
       features: [
         "Drag-and-drop application and interview tracking",
         "AI resume-to-role fit scoring",
+        "Recruiter-conversation tracking alongside application status",
         "Offline-first tracking with automatic sync on reconnect",
         "Interview and follow-up reminder notifications",
+        "Free plan plus a premium tier gating AI assistance, analytics, and reminders",
       ],
 
       uiHighlights: [
@@ -791,1048 +812,6 @@ export const projectsData = {
     },
 
     {
-      id: "05",
-      slug: "binder-app",
-      title: "Binder App",
-      shortTitle: "Binder",
-      category: "Social / Dating App",
-      industry: "Social Networking",
-      client: "Confidential Client",
-      service: null,
-      technologies: ["Next.js", "Tailwind CSS", "Express", "Node.js", "MongoDB", "Socket.io"],
-      tools: ["Cloudinary", "JWT Auth", "GitHub Actions"],
-      duration: "6 weeks",
-      date: null,
-      status: "Completed",
-      liveUrl: null,
-
-      thumbnail: "/images/project-thumbnails/thumbnail-5.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-5.webp",
-      gallery: [
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-      ],
-
-      overview:
-        "Binder App is a full-stack, Tinder-style matching platform built to validate a new dating concept quickly — combining a swipe-based discovery feed, a preference-based matching algorithm, and real-time chat.",
-
-      challenge: {
-        title: "Validating a matching concept before over-investing in scale",
-        description:
-          "The client needed a fully functional matching and chat product fast enough to test the core concept with real users, without cutting corners on the two features that make or break a dating app: match quality and chat reliability.",
-        painPoints: [
-          "No existing matching algorithm tuned to the client's specific preference criteria",
-          "Real-time chat needed to feel instant, not request-refresh based",
-          "Swipe-based discovery had to stay performant as the user base grew",
-          "Tight timeline left no room for a heavyweight, over-engineered backend",
-        ],
-        businessImpact: [
-          "Every week of delay was a week of lost user feedback on the core concept",
-          "A laggy chat experience would undermine trust before the product had a chance to prove itself",
-        ],
-      },
-
-      goals: [
-        "Ship a working matching algorithm based on mutual preferences and location",
-        "Deliver real-time chat with no perceptible lag",
-        "Build a swipe-based discovery feed that performs smoothly at scale",
-        "Keep the stack lean enough to iterate quickly post-launch",
-      ],
-
-      solution: {
-        title: "A lean, fast matching and chat product built to ship in weeks",
-        description:
-          "We built a preference and geo-based matching engine on MongoDB's geospatial queries, paired with a Socket.io-powered real-time chat layer and a swipe feed optimized for smooth, low-latency interaction.",
-        highlights: [
-          "Preference and location-based matching algorithm",
-          "Real-time chat built on Socket.io with delivery and read receipts",
-          "Swipe-based discovery feed with prefetching for smooth performance",
-          "JWT-based authentication with secure session handling",
-        ],
-      },
-
-      workflow: [
-        {
-          title: "Matching logic design",
-          description:
-            "Defined the matching criteria and scoring weights with the client, then modeled it as a queryable MongoDB geospatial index.",
-        },
-        {
-          title: "Core app build",
-          description:
-            "Built the swipe feed, profile system, and matching engine on Next.js, Express, and MongoDB.",
-        },
-        {
-          title: "Real-time chat",
-          description:
-            "Layered Socket.io on top for instant messaging, with delivery and read-receipt events.",
-        },
-        {
-          title: "Performance pass",
-          description:
-            "Added feed prefetching and image optimization to keep swiping smooth under real usage.",
-        },
-        {
-          title: "Beta launch",
-          description:
-            "Shipped to a closed beta group to validate match quality and chat engagement before wider rollout.",
-        },
-      ],
-
-      architecture: [
-        "Preference and geo-based matching engine using MongoDB geospatial queries",
-        "Socket.io real-time messaging layer with delivery/read receipts",
-        "JWT-based authentication and session management",
-        "Prefetching discovery feed for low-latency swiping",
-      ],
-
-      features: [
-        "Swipe-based discovery feed",
-        "Preference and location-based matching",
-        "Real-time chat with delivery and read receipts",
-        "Profile management with photo uploads",
-      ],
-
-      uiHighlights: [
-        "Smooth, gesture-driven swipe cards",
-        "Instant match animation on mutual likes",
-        "Typing indicators and read receipts in chat",
-      ],
-
-      developmentProcess: [
-        "Discovery",
-        "Research",
-        "Planning",
-        "Wireframing",
-        "UI Design",
-        "Development",
-        "Testing",
-        "Deployment",
-        "Optimization",
-      ],
-
-      challengesFaced: [
-        "Keeping the swipe feed smooth as profile volume grew",
-        "Delivering chat messages with no perceptible delay",
-        "Designing a matching algorithm that felt relevant, not random",
-        "Shipping a full matching + chat product on a compressed timeline",
-      ],
-
-      solutionsImplemented: [
-        "Added feed prefetching and image lazy-loading to keep swipe interactions smooth",
-        "Used Socket.io rooms per conversation to minimize message broadcast overhead",
-        "Weighted matching scores by mutual preferences and proximity, tuned against beta feedback",
-        "Prioritized a lean MVP feature set to hit the client's beta launch deadline",
-      ],
-
-      results: [
-        "Delivered a fully working matching and chat product within 6 weeks",
-        "Beta users reported chat felt instant with no noticeable lag",
-        "Matching algorithm produced meaningfully higher mutual-like rates than random pairing",
-        "Validated the core concept, informing the client's decision to move to full production",
-      ],
-
-      metrics: {
-        performance: "94/100",
-        seo: "N/A",
-        accessibility: "93/100",
-        bestPractices: "98/100",
-      },
-
-      testimonial: {
-        name: "Confidential",
-        role: "Founder",
-        company: "Binder App",
-        quote:
-          "Brain Stack took our concept from idea to a working, testable product in weeks. The chat felt instant and the matching just worked — exactly what we needed to validate before scaling.",
-        image: "/images/testimonials/customer-5.webp",
-      },
-
-      lessonsLearned: [
-        "Socket.io rooms scoped per conversation keep real-time chat lean as users grow",
-        "A tightly-scoped MVP beats a feature-complete app when validating a new concept",
-        "Prefetching is often a bigger perceived-performance win than raw backend speed",
-      ],
-
-      nextSteps: [
-        "Add video call support for matched users",
-        "Introduce icebreaker prompts to boost first-message rates",
-        "Layer in AI-assisted profile bio suggestions",
-      ],
-
-      relatedProjects: ["sync-space", "nft-maria"],
-    },
-
-    {
-      id: "06",
-      slug: "apartment-selling-site",
-      title: "Apartment Selling Site",
-      shortTitle: "Apartment Hub",
-      category: "Real Estate Platform",
-      industry: "Real Estate",
-      client: "Confidential Client",
-      service: null,
-      technologies: ["React.js", "Firebase", "Bootstrap", "Node.js", "Express"],
-      tools: ["Firebase Auth", "Firebase Firestore", "Cloudinary", "Netlify"],
-      duration: "6 weeks",
-      date: null,
-      status: "Completed",
-      liveUrl: null,
-
-      thumbnail: "/images/project-thumbnails/thumbnail-6.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-6.webp",
-      gallery: [
-        "/images/projects/project-6.webp",
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-      ],
-
-      overview:
-        "A full-stack real estate platform for listing, browsing, and managing apartment sales, with secure authentication and an admin dashboard that lets agents publish and moderate listings without developer help.",
-
-      challenge: {
-        title: "Manual listing management was slowing down every sale",
-        description:
-          "The client's agents were publishing listings through ad-hoc spreadsheets and static pages, making it slow to add new inventory, hard for buyers to search effectively, and impossible to track listing status in one place.",
-        painPoints: [
-          "No searchable, filterable listing experience for buyers",
-          "Publishing a new listing required manual page edits",
-          "No role separation between buyers, agents, and admins",
-          "Listing photos and details were inconsistent across pages",
-        ],
-        businessImpact: [
-          "Agents spent hours on manual publishing instead of client-facing work",
-          "Buyers dropped off when they couldn't filter listings by their own criteria",
-        ],
-      },
-
-      goals: [
-        "Let agents publish and update listings without developer involvement",
-        "Give buyers robust search and filtering across listings",
-        "Add secure, role-based authentication for buyers, agents, and admins",
-        "Present listings with a consistent, professional photo and detail layout",
-      ],
-
-      solution: {
-        title: "A self-serve listings platform with a real admin workflow",
-        description:
-          "We built a React front end backed by Firebase, giving agents a dashboard to publish and manage listings directly, while buyers get a fast, filterable browsing experience with consistent listing pages.",
-        highlights: [
-          "Self-serve agent dashboard for publishing and editing listings",
-          "Buyer-facing search and filter system across price, location, and size",
-          "Role-based access for buyers, agents, and admins",
-          "Cloudinary-backed image pipeline for consistent listing photos",
-        ],
-      },
-
-      workflow: [
-        {
-          title: "Listing data model",
-          description:
-            "Defined a structured listing schema in Firestore covering pricing, location, amenities, and media.",
-        },
-        {
-          title: "Agent dashboard",
-          description:
-            "Built the publishing and moderation dashboard first, so agents could start migrating listings early in the project.",
-        },
-        {
-          title: "Buyer search experience",
-          description:
-            "Implemented filterable search and listing detail pages with a consistent photo gallery layout.",
-        },
-        {
-          title: "Auth & roles",
-          description:
-            "Added Firebase Authentication with role separation for buyers, agents, and admins.",
-        },
-        {
-          title: "QA & handover",
-          description:
-            "Ran through real listing publishing workflows with the client's agents before go-live and documented the admin flow.",
-        },
-      ],
-
-      architecture: [
-        "Role-based access control for buyer, agent, and admin roles",
-        "Firestore-backed listings database with structured schema",
-        "Cloudinary image pipeline for consistent listing photos",
-        "REST endpoints for listing search and filtering",
-      ],
-
-      features: [
-        "Searchable, filterable apartment listings",
-        "Agent dashboard for publishing and editing listings",
-        "Role-based authentication for buyers, agents, and admins",
-        "Consistent listing detail pages with photo galleries",
-      ],
-
-      uiHighlights: [
-        "Clean, filterable listing grid with map-adjacent detail views",
-        "Consistent photo gallery layout across every listing",
-        "Simple, guided listing publish flow for agents",
-      ],
-
-      developmentProcess: [
-        "Discovery",
-        "Research",
-        "Planning",
-        "Wireframing",
-        "UI Design",
-        "Development",
-        "Testing",
-        "Deployment",
-        "Optimization",
-      ],
-
-      challengesFaced: [
-        "Designing a listing schema flexible enough for varied property types",
-        "Making search and filtering fast as listing volume grew",
-        "Giving agents a publishing workflow simple enough to use without training",
-        "Keeping listing photos consistent in quality and aspect ratio",
-      ],
-
-      solutionsImplemented: [
-        "Structured the Firestore schema around normalized amenity and pricing fields for reliable filtering",
-        "Indexed common filter fields and paginated search results",
-        "Designed a step-by-step publish wizard with inline validation for agents",
-        "Standardized image uploads through a Cloudinary transformation pipeline",
-      ],
-
-      results: [
-        "Cut new-listing publishing time from hours to minutes",
-        "Buyers could filter listings by price, location, and size instantly",
-        "Agents fully self-served listing management without developer support",
-        "Consistent listing presentation improved perceived platform quality",
-      ],
-
-      metrics: {
-        performance: "93/100",
-        seo: "95/100",
-        accessibility: "94/100",
-        bestPractices: "97/100",
-      },
-
-      testimonial: {
-        name: "Confidential",
-        role: "Operations Lead",
-        company: "Apartment Selling Site",
-        quote:
-          "Our agents publish listings themselves now — no more waiting on developers. Buyers can actually find what they're looking for, and it shows in how much faster listings move.",
-        image: "/images/testimonials/customer-1.webp",
-      },
-
-      lessonsLearned: [
-        "A well-normalized listing schema is what makes filtering actually useful",
-        "Self-serve publishing tools need guardrails, not just freedom, to stay consistent",
-        "Standardizing media pipelines early prevents inconsistent content later",
-      ],
-
-      nextSteps: [
-        "Add map-based search with drawable radius filters",
-        "Introduce saved searches and buyer alerts",
-        "Build an agent performance dashboard for listing engagement",
-      ],
-
-      relatedProjects: ["travel-agency-application", "teacher-world"],
-    },
-
-    {
-      id: "07",
-      slug: "travel-agency-application",
-      title: "Travel Agency Application",
-      shortTitle: "Travel Agency",
-      category: "Booking Platform",
-      industry: "Travel & Hospitality",
-      client: "Confidential Client",
-      service: null,
-      technologies: ["React.js", "Firebase", "Bootstrap", "Node.js", "Express"],
-      tools: ["Firebase Auth", "REST APIs", "Netlify"],
-      duration: "7 weeks",
-      date: null,
-      status: "Completed",
-      liveUrl: null,
-
-      thumbnail: "/images/project-thumbnails/thumbnail-7.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-7.webp",
-      gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-5.webp",
-      ],
-
-      overview:
-        "A high-performance travel booking platform covering destination discovery, package management, and end-to-end booking, built with an admin dashboard for the agency's team to manage inventory and reservations.",
-
-      challenge: {
-        title: "Slow booking flows were costing conversions",
-        description:
-          "The agency's previous booking process relied on manual back-and-forth to confirm availability and pricing, creating friction that lost bookings to faster competitors, while the internal team lacked a dashboard to manage packages efficiently.",
-        painPoints: [
-          "No real-time availability checks during the booking flow",
-          "Destination and package content was hard to update without developer help",
-          "Slow API responses on search made browsing feel sluggish",
-          "No centralized admin view of bookings and inventory",
-        ],
-        businessImpact: [
-          "Booking friction pushed prospective travelers to competitor platforms",
-          "The team spent excess time manually confirming availability by phone and email",
-        ],
-      },
-
-      goals: [
-        "Deliver a fast, self-serve booking flow with live availability",
-        "Let the agency manage destinations and packages without developer support",
-        "Optimize API response times for search-heavy browsing",
-        "Provide a centralized admin dashboard for bookings and inventory",
-      ],
-
-      solution: {
-        title: "A booking flow fast enough to convert on the first visit",
-        description:
-          "We rebuilt the booking flow around optimized REST APIs and a real-time availability engine, paired with an admin dashboard so the agency's team could manage destinations, packages, and reservations directly.",
-        highlights: [
-          "Real-time availability and pricing engine for the booking flow",
-          "Self-serve admin dashboard for destinations and packages",
-          "Optimized REST APIs and database queries for fast search",
-          "Role-based access for admins and booking agents",
-        ],
-      },
-
-      workflow: [
-        {
-          title: "Booking flow mapping",
-          description:
-            "Mapped the ideal booking journey from search to confirmation, identifying every step causing drop-off in the old flow.",
-        },
-        {
-          title: "Catalog & admin build",
-          description:
-            "Built the destination and package catalog with an admin dashboard so the team could manage content independently.",
-        },
-        {
-          title: "Booking engine",
-          description:
-            "Implemented the real-time availability and pricing engine backing the booking flow.",
-        },
-        {
-          title: "Performance optimization",
-          description:
-            "Profiled and optimized REST endpoints and database queries powering search and filtering.",
-        },
-        {
-          title: "Launch & monitoring",
-          description:
-            "Rolled out with monitoring on booking completion rates to catch any remaining friction points.",
-        },
-      ],
-
-      architecture: [
-        "Destination and package catalog service",
-        "Real-time booking and availability engine",
-        "Admin dashboard for itinerary and inventory management",
-        "Optimized REST endpoints for search and filtering",
-      ],
-
-      features: [
-        "Real-time destination and package search",
-        "End-to-end booking flow with live availability",
-        "Admin dashboard for managing packages and reservations",
-        "Role-based access for admins and booking agents",
-      ],
-
-      uiHighlights: [
-        "Visual destination browsing with rich imagery",
-        "Streamlined multi-step booking flow with progress indicators",
-        "Admin dashboard with at-a-glance booking status",
-      ],
-
-      developmentProcess: [
-        "Discovery",
-        "Research",
-        "Planning",
-        "Wireframing",
-        "UI Design",
-        "Development",
-        "Testing",
-        "Deployment",
-        "Optimization",
-      ],
-
-      challengesFaced: [
-        "Delivering real-time availability without slowing down search",
-        "Reducing booking-flow drop-off caused by unclear pricing steps",
-        "Optimizing backend performance for high-volume search and filtering",
-        "Giving the agency's team a dashboard simple enough for daily use",
-      ],
-
-      solutionsImplemented: [
-        "Cached frequently-queried availability data with short TTLs to keep search fast and accurate",
-        "Simplified the booking flow to three clear steps with upfront pricing",
-        "Indexed and optimized the most-used search and filter queries",
-        "Designed the admin dashboard around the agency's actual daily workflow, validated with their team",
-      ],
-
-      results: [
-        "Significantly improved API response times and reduced page load delays",
-        "Streamlined booking flow reduced steps needed to complete a reservation",
-        "Agency team fully self-served destination and package updates",
-        "Admin dashboard gave real-time visibility into bookings for the first time",
-      ],
-
-      metrics: {
-        performance: "95/100",
-        seo: "94/100",
-        accessibility: "93/100",
-        bestPractices: "98/100",
-      },
-
-      testimonial: {
-        name: "Confidential",
-        role: "Managing Director",
-        company: "Travel Agency Application",
-        quote:
-          "Bookings that used to take phone calls and emails now happen in minutes online. The admin dashboard alone has saved our team hours every week.",
-        image: "/images/testimonials/customer-2.webp",
-      },
-
-      lessonsLearned: [
-        "Short-TTL caching balances real-time accuracy with search performance well",
-        "Cutting a booking flow down to its essential steps has an outsized impact on conversion",
-        "Admin tools should be designed around existing team workflows, not idealized ones",
-      ],
-
-      nextSteps: [
-        "Add dynamic pricing based on demand and seasonality",
-        "Introduce multi-currency support for international travelers",
-        "Build a loyalty and repeat-booking rewards system",
-      ],
-
-      relatedProjects: ["apartment-selling-site", "e-learny-platform"],
-    },
-
-    {
-      id: "08",
-      slug: "nft-maria",
-      title: "NFT Maria",
-      shortTitle: "NFT Maria",
-      category: "Web3 Landing Page",
-      industry: "Blockchain Gaming",
-      client: "NFT Maria",
-      service: null,
-      technologies: ["Next.js", "Tailwind CSS", "Framer Motion", "GSAP"],
-      tools: ["Vercel", "Figma"],
-      duration: "4 weeks",
-      date: null,
-      status: "Completed",
-      liveUrl: null,
-
-      thumbnail: "/images/project-thumbnails/thumbnail-8.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-8.webp",
-      gallery: [
-        "/images/projects/project-2.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-6.webp",
-      ],
-
-      overview:
-        "NFT Maria is a Web3 landing page for an NFT-based blockchain game, built to generate pre-launch hype through bold visuals and scroll-driven motion design ahead of the project's token launch.",
-
-      challenge: {
-        title: "A generic template couldn't carry a Web3 launch",
-        description:
-          "The client needed a landing page that felt as ambitious as the game itself, capable of holding attention through a full narrative scroll and converting visitors into whitelist sign-ups before launch — something no off-the-shelf template could deliver.",
-        painPoints: [
-          "Generic Web3 templates looked identical to dozens of competing projects",
-          "No motion or storytelling to communicate the game's world and lore",
-          "Tight pre-launch timeline left little room for a heavyweight build",
-          "Needed to convert visitors into whitelist sign-ups, not just inform them",
-        ],
-        businessImpact: [
-          "A forgettable landing page would blend into a saturated NFT launch market",
-          "Delayed launch timing risked missing the window of community hype",
-        ],
-      },
-
-      goals: [
-        "Design a visually distinctive page that stands out in the NFT space",
-        "Use scroll-driven animation to tell the game's world and lore",
-        "Drive whitelist sign-ups with clear, motion-guided CTAs",
-        "Ship within a tight four-week pre-launch window",
-      ],
-
-      solution: {
-        title: "A scroll-driven launch page built to convert attention into sign-ups",
-        description:
-          "We designed a static-first, component-based landing page with GSAP and Framer Motion sequences that reveal the game's world section by section, keeping the build lightweight enough to ship fast without sacrificing visual ambition.",
-        highlights: [
-          "Scroll-driven animation sequences built with GSAP and Framer Motion",
-          "Component-based section architecture for rapid content iteration",
-          "Static-first build for fast load times and easy hosting",
-          "Motion-guided CTAs directing visitors to whitelist sign-up",
-        ],
-      },
-
-      workflow: [
-        {
-          title: "Concept & moodboarding",
-          description:
-            "Aligned on visual direction and narrative beats with the client in Figma before any development began.",
-        },
-        {
-          title: "Section architecture",
-          description:
-            "Broke the page into independent, reusable sections so content and ordering could change quickly without rework.",
-        },
-        {
-          title: "Motion design",
-          description:
-            "Built scroll-triggered GSAP and Framer Motion sequences for each section to reveal the game's world progressively.",
-        },
-        {
-          title: "Performance pass",
-          description:
-            "Optimized asset loading and animation performance to keep the page fast despite heavy visual content.",
-        },
-        {
-          title: "Launch",
-          description:
-            "Deployed on Vercel ahead of the client's announced launch date, with analytics on sign-up conversion.",
-        },
-      ],
-
-      architecture: [
-        "Static-first marketing site architecture",
-        "Component-based, independently reusable page sections",
-        "Scroll-triggered animation sequences",
-      ],
-
-      features: [
-        "Scroll-driven narrative reveal of the game's world",
-        "Bold, animated hero and section transitions",
-        "Whitelist sign-up flow with motion-guided CTAs",
-      ],
-
-      uiHighlights: [
-        "Full-bleed, animated hero sequence",
-        "Parallax and reveal effects synced to scroll position",
-        "Consistent dark, high-contrast Web3 visual identity",
-      ],
-
-      developmentProcess: [
-        "Discovery",
-        "Research",
-        "Planning",
-        "Wireframing",
-        "UI Design",
-        "Development",
-        "Testing",
-        "Deployment",
-        "Optimization",
-      ],
-
-      challengesFaced: [
-        "Balancing heavy motion design with fast page load times",
-        "Standing out visually in a crowded, template-heavy NFT landing page market",
-        "Delivering a polished, animation-rich build in a four-week window",
-        "Keeping animation performant across a range of devices",
-      ],
-
-      solutionsImplemented: [
-        "Used GPU-accelerated transforms and lazy-loaded heavy assets to protect load time",
-        "Designed a custom visual language instead of adapting an existing Web3 template",
-        "Built sections as independent components to parallelize design and development work",
-        "Tested animation performance across low- and high-end devices, tuning easing and complexity accordingly",
-      ],
-
-      results: [
-        "Shipped a fully animated, launch-ready page within the four-week deadline",
-        "Page load stayed fast despite heavy scroll-driven animation",
-        "Whitelist sign-up CTAs saw strong click-through during the pre-launch campaign",
-        "Distinctive visual identity helped the project stand out ahead of launch",
-      ],
-
-      metrics: {
-        performance: "92/100",
-        seo: "96/100",
-        accessibility: "91/100",
-        bestPractices: "97/100",
-      },
-
-      testimonial: {
-        name: "Confidential",
-        role: "Project Lead",
-        company: "NFT Maria",
-        quote:
-          "Brain Stack gave our launch a page that actually felt like the game we were building. It stood out immediately from every other NFT landing page out there.",
-        image: "/images/testimonials/customer-3.webp",
-      },
-
-      lessonsLearned: [
-        "A custom visual identity outperforms adapted templates in saturated markets",
-        "Scroll-driven storytelling needs disciplined performance budgeting to stay smooth",
-        "Component-based sections make last-minute content changes painless before launch",
-      ],
-
-      nextSteps: [
-        "Add a live mint counter synced to on-chain data",
-        "Introduce a community leaderboard section",
-        "Build a post-launch dashboard for holder benefits",
-      ],
-
-      relatedProjects: ["sync-space", "binder-app"],
-    },
-
-    {
-      id: "09",
-      slug: "e-learny-platform",
-      title: "E-learny Platform",
-      shortTitle: "E-learny",
-      category: "Learning Management System",
-      industry: "EdTech",
-      client: "E-learny",
-      service: null,
-      technologies: ["React.js", "Node.js", "Express", "Bootstrap", "REST API"],
-      tools: ["Firebase Auth", "MongoDB Atlas", "Netlify"],
-      duration: "9 weeks",
-      date: null,
-      status: "Completed",
-      liveUrl: null,
-
-      thumbnail: "/images/project-thumbnails/thumbnail-9.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-9.webp",
-      gallery: [
-        "/images/projects/project-5.webp",
-        "/images/projects/project-1.webp",
-        "/images/projects/project-3.webp",
-      ],
-
-      overview:
-        "E-learny is a full-stack learning management system in the spirit of Udemy, built for instructors to publish courses and for students to learn and track progress through a clean, structured experience.",
-
-      challenge: {
-        title: "Course creators needed a real platform, not a video hosting hack",
-        description:
-          "The client had been distributing course content through disconnected video hosts and PDFs, with no way to structure curricula, track student progress, or manage enrollment — undermining both the learning experience and the business model.",
-        painPoints: [
-          "No structured course and lesson hierarchy for instructors to build around",
-          "No progress tracking, so students and instructors couldn't see completion",
-          "Enrollment and access control were handled manually",
-          "Admin had no visibility into platform-wide course performance",
-        ],
-        businessImpact: [
-          "Fragmented content delivery hurt course completion and student satisfaction",
-          "Manual enrollment management didn't scale past a handful of courses",
-        ],
-      },
-
-      goals: [
-        "Give instructors a structured course and lesson authoring experience",
-        "Track student progress per lesson and per course",
-        "Automate enrollment and access control",
-        "Provide admins with platform-wide course and student analytics",
-      ],
-
-      solution: {
-        title: "A structured LMS built around courses, lessons, and real progress",
-        description:
-          "We built E-learny around a clear course → module → lesson hierarchy, with automatic progress tracking, role-based dashboards for students, instructors, and admins, and a REST API designed for future mobile expansion.",
-        highlights: [
-          "Structured course, module, and lesson content model",
-          "Automatic per-lesson and per-course progress tracking",
-          "Role-based dashboards for students, instructors, and admins",
-          "Firebase-backed authentication and enrollment management",
-        ],
-      },
-
-      workflow: [
-        {
-          title: "Curriculum modeling",
-          description:
-            "Designed the course → module → lesson hierarchy with instructors to match how they actually structure curricula.",
-        },
-        {
-          title: "Instructor authoring tools",
-          description:
-            "Built the course creation flow so instructors could publish and update content without developer help.",
-        },
-        {
-          title: "Progress tracking engine",
-          description:
-            "Implemented per-lesson completion tracking that rolls up into course-level progress for students and instructors.",
-        },
-        {
-          title: "Enrollment & access control",
-          description:
-            "Added Firebase-backed enrollment so access to paid courses is granted and revoked automatically.",
-        },
-        {
-          title: "Admin analytics",
-          description:
-            "Shipped an admin dashboard summarizing enrollment, completion rates, and course performance platform-wide.",
-        },
-      ],
-
-      architecture: [
-        "Course → module → lesson content hierarchy",
-        "Progress tracking engine rolling lesson completion into course status",
-        "Role-based dashboards for student, instructor, and admin views",
-        "REST API layer designed for future mobile client support",
-      ],
-
-      features: [
-        "Structured course and lesson authoring for instructors",
-        "Automatic progress tracking for students",
-        "Role-based dashboards for students, instructors, and admins",
-        "Automated enrollment and access control",
-      ],
-
-      uiHighlights: [
-        "Clean course catalog with progress indicators",
-        "Distraction-free lesson player with completion tracking",
-        "Instructor dashboard summarizing enrollment and engagement",
-      ],
-
-      developmentProcess: [
-        "Discovery",
-        "Research",
-        "Planning",
-        "Wireframing",
-        "UI Design",
-        "Development",
-        "Testing",
-        "Deployment",
-        "Optimization",
-      ],
-
-      challengesFaced: [
-        "Designing a content hierarchy flexible enough for varied course structures",
-        "Rolling up granular lesson progress into accurate course-level completion",
-        "Automating enrollment and access without manual admin intervention",
-        "Keeping performance solid as course and student volume grew",
-      ],
-
-      solutionsImplemented: [
-        "Built a flexible module/lesson schema that supports both linear and non-linear course structures",
-        "Implemented weighted progress rollups so course completion reflects real lesson effort",
-        "Tied enrollment status directly to Firebase Auth claims for automatic access control",
-        "Indexed course and progress queries to keep dashboards responsive at scale",
-      ],
-
-      results: [
-        "Instructors published fully structured courses without developer involvement",
-        "Students could track progress accurately across every enrolled course",
-        "Enrollment and access management became fully automated",
-        "Admins gained platform-wide visibility into course performance for the first time",
-      ],
-
-      metrics: {
-        performance: "94/100",
-        seo: "93/100",
-        accessibility: "95/100",
-        bestPractices: "98/100",
-      },
-
-      testimonial: {
-        name: "Confidential",
-        role: "Founder",
-        company: "E-learny",
-        quote:
-          "We went from scattered videos and PDFs to a real learning platform. Instructors publish courses themselves, and for the first time we can actually see how students are progressing.",
-        image: "/images/testimonials/customer-4.webp",
-      },
-
-      lessonsLearned: [
-        "A flexible content hierarchy matters more upfront than any individual feature",
-        "Weighted progress tracking builds far more trust than simple percentage counters",
-        "Tying access control directly to auth claims removes an entire class of manual admin work",
-      ],
-
-      nextSteps: [
-        "Add quizzes and certificates tied to course completion",
-        "Introduce cohort-based live course scheduling",
-        "Build a mobile app on top of the existing REST API",
-      ],
-
-      relatedProjects: ["teacher-world", "travel-agency-application"],
-    },
-
-    {
-      id: "10",
-      slug: "teacher-world",
-      title: "Teacher World",
-      shortTitle: "Teacher World",
-      category: "Marketplace Platform",
-      industry: "Education & Tutoring",
-      client: "Teacher World",
-      service: null,
-      technologies: ["React.js", "React Router", "Bootstrap", "Node.js", "Express"],
-      tools: ["Firebase Auth", "Firebase Firestore", "Netlify"],
-      duration: "6 weeks",
-      date: null,
-      status: "Completed",
-      liveUrl: null,
-
-      thumbnail: "/images/project-thumbnails/thumbnail-10.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-10.webp",
-      gallery: [
-        "/images/projects/project-6.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-4.webp",
-      ],
-
-      overview:
-        "Teacher World is a tutor marketplace that connects students with tutors through robust search and filtering, letting students book sessions directly instead of relying on manual referrals.",
-
-      challenge: {
-        title: "Finding and booking the right tutor took too many phone calls",
-        description:
-          "The client's tutoring service matched students to tutors manually over phone and email, a process that didn't scale and gave students no visibility into tutor availability, subjects, or ratings before committing.",
-        painPoints: [
-          "No searchable directory of tutors by subject, availability, or rating",
-          "Booking a session required back-and-forth coordination by staff",
-          "No self-serve way for tutors to manage their own availability",
-          "Admins had no dashboard to oversee bookings across the platform",
-        ],
-        businessImpact: [
-          "Manual matching limited how many students the service could onboard at once",
-          "Students without visibility into tutor options were more likely to drop off before booking",
-        ],
-      },
-
-      goals: [
-        "Let students search and filter tutors by subject, availability, and rating",
-        "Enable direct, self-serve session booking",
-        "Give tutors control over their own availability and profile",
-        "Provide admins a dashboard to oversee bookings platform-wide",
-      ],
-
-      solution: {
-        title: "A self-serve marketplace connecting students directly to tutors",
-        description:
-          "We built a searchable tutor directory with rich filtering, a direct booking flow tied to tutor-managed availability, and an admin dashboard giving the platform full visibility into bookings and tutor activity.",
-        highlights: [
-          "Searchable tutor directory with subject, price, and rating filters",
-          "Self-serve booking flow tied to tutor-managed availability",
-          "Tutor dashboard for managing profile, subjects, and schedule",
-          "Admin dashboard for platform-wide booking oversight",
-        ],
-      },
-
-      workflow: [
-        {
-          title: "Marketplace structure",
-          description:
-            "Defined the tutor profile, availability, and booking data model to support direct, self-serve matching.",
-        },
-        {
-          title: "Search & filtering",
-          description:
-            "Built the tutor directory with filtering by subject, price range, rating, and availability.",
-        },
-        {
-          title: "Booking flow",
-          description:
-            "Implemented the booking flow, tying session requests directly to a tutor's live availability calendar.",
-        },
-        {
-          title: "Tutor & admin dashboards",
-          description:
-            "Shipped a tutor dashboard for managing availability and profile, and an admin dashboard for platform oversight.",
-        },
-        {
-          title: "QA & rollout",
-          description:
-            "Tested the full student-to-tutor booking journey end-to-end before rolling out to the client's existing tutor network.",
-        },
-      ],
-
-      architecture: [
-        "Tutor search and filter engine",
-        "Booking and scheduling data model tied to tutor availability",
-        "Role-based dashboards for students, tutors, and admins",
-        "Firestore-backed tutor profile storage",
-      ],
-
-      features: [
-        "Searchable tutor directory with subject and rating filters",
-        "Self-serve session booking tied to tutor availability",
-        "Tutor dashboard for managing profile and schedule",
-        "Admin dashboard for platform-wide booking oversight",
-      ],
-
-      uiHighlights: [
-        "Filterable tutor cards with ratings and subject tags at a glance",
-        "Calendar-based booking flow showing real tutor availability",
-        "Simple tutor onboarding and profile management flow",
-      ],
-
-      developmentProcess: [
-        "Discovery",
-        "Research",
-        "Planning",
-        "Wireframing",
-        "UI Design",
-        "Development",
-        "Testing",
-        "Deployment",
-        "Optimization",
-      ],
-
-      challengesFaced: [
-        "Keeping tutor availability accurate in real time as bookings came in",
-        "Designing filters specific enough to be useful without overwhelming students",
-        "Giving tutors a self-serve dashboard simple enough to adopt without training",
-        "Preventing double-booking of the same tutor slot",
-      ],
-
-      solutionsImplemented: [
-        "Locked availability slots atomically at booking time to prevent double-booking",
-        "Iterated filter design with real students to land on the most-used criteria",
-        "Designed a minimal, guided tutor onboarding flow with sensible defaults",
-        "Synced tutor calendars in real time using Firestore listeners",
-      ],
-
-      results: [
-        "Students booked tutors directly without staff coordination",
-        "Tutor onboarding time dropped significantly with the self-serve dashboard",
-        "Eliminated double-booking incidents after the atomic slot-locking fix",
-        "Admins gained full visibility into platform-wide bookings",
-      ],
-
-      metrics: {
-        performance: "93/100",
-        seo: "92/100",
-        accessibility: "94/100",
-        bestPractices: "97/100",
-      },
-
-      testimonial: {
-        name: "Confidential",
-        role: "Program Director",
-        company: "Teacher World",
-        quote:
-          "Students book tutors themselves now, and our tutors manage their own schedules. It freed our staff from coordination work and let us grow past what manual matching could ever support.",
-        image: "/images/testimonials/customer-5.webp",
-      },
-
-      lessonsLearned: [
-        "Atomic slot-locking is essential wherever two-sided marketplaces handle scheduling",
-        "Filter design should follow real user search behavior, not assumptions",
-        "Self-serve dashboards succeed when onboarding defaults do most of the work",
-      ],
-
-      nextSteps: [
-        "Add integrated video sessions for remote tutoring",
-        "Introduce a review and rating system post-session",
-        "Build recommendation logic to suggest tutors based on past bookings",
-      ],
-
-      relatedProjects: ["e-learny-platform", "apartment-selling-site"],
-    },
-
-    {
       id: "11",
       slug: "karially",
       title: "Karially",
@@ -1841,26 +820,26 @@ export const projectsData = {
       industry: "Career Technology",
       client: "Karially",
       service: "AI Product Design, Web App Development",
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "OpenAI"],
+      technologies: ["React", "TypeScript", "Tailwind CSS", "OpenAI"],
       tools: [],
       duration: null,
       date: "2024",
       status: null,
       liveUrl: "https://karially.com/",
 
-      thumbnail: "/images/project-thumbnails/thumbnail-1.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-1.webp",
+      thumbnail: "https://i.ibb.co.com/Y4wKKRwC/karially-thumbnail.png",
+      heroImage: "https://i.ibb.co.com/Y4wKKRwC/karially-thumbnail.png",
       gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
+        "https://i.ibb.co.com/60FvJWzx/karially-1-1.png",
+        "https://i.ibb.co.com/svM22Bv9/karially-2-1.png",
+        "https://i.ibb.co.com/5gHkkw0t/karially-3-1.png",
+        "https://i.ibb.co.com/GNbpnc0/karially-3-2.png",
+        "https://i.ibb.co.com/3yj3nTzm/karially-4-1.png",
+        "https://i.ibb.co.com/My79t1Z6/karially-4-2.png",
       ],
 
       overview:
-        "Your AI-powered career plan isn't generic advice; it's your personalized weekly blueprint. Answer our smart assessment and get a clear roadmap with specific milestones tailored to your goals, timeline, and current situation.",
+        "Karially is a career-growth membership that bundles AI tools with real human support — an AI-built roadmap with weekly milestones, an AI resume and cover-letter builder, and live coaching and classes, all under one subscription instead of juggling separate tools.",
 
       challenge: {
         title: null,
@@ -1873,13 +852,14 @@ export const projectsData = {
       goals: [],
 
       solution: {
-        title: "Guide every career journey with intelligent, personalized tools",
+        title: "Guide every career journey with intelligent, personalized tools and real support",
         description:
-          "We built an AI-powered platform that learns from each user's goals and habits, then curates a learning path, career roadmap and productivity toolkit that evolves with them — turning generic advice into guidance that actually fits.",
+          "We built an AI-powered membership platform that learns from each user's goals, generates a personalized career roadmap, and pairs it with an AI resume and cover-letter builder, live monthly classes, and 1:1 coaching — turning generic advice into guidance that actually fits.",
         highlights: [
           "Product Strategy",
           "UX/UI Design",
           "AI Integration",
+          "AI Resume & Cover Letter Builder",
           "Front-end Development",
           "Design System",
         ],
@@ -1916,19 +896,19 @@ export const projectsData = {
       status: null,
       liveUrl: "https://luxeb2b.com/",
 
-      thumbnail: "/images/project-thumbnails/thumbnail-2.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-2.webp",
+      thumbnail: "https://i.ibb.co.com/nswg2vX3/luxeb2b-thumbnail.png",
+      heroImage: "https://i.ibb.co.com/nswg2vX3/luxeb2b-thumbnail.png",
       gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
+        "https://i.ibb.co.com/bVbPKhY/luxeb2b-1-1.png",
+        "https://i.ibb.co.com/Cs7WypV8/luxeb2b-1-2.png",
+        "https://i.ibb.co.com/5gjxMxL5/luxeb2b-2-1.png",
+        "https://i.ibb.co.com/v73h7yN/luxeb2b-3-1.png",
+        "https://i.ibb.co.com/KcZkzp96/luxeb2b-4-1.png",
+        "https://i.ibb.co.com/G4qwmLYx/luxeb2b-6.png",
       ],
 
       overview:
-        "A premium B2B marketplace connecting global buyers and suppliers in the luxury fragrance and beauty industry.",
+        "A premium B2B directory and lead-discovery network connecting global buyers and suppliers in the luxury fragrance and beauty industry — company profiles, product listings, and category browsing across perfumes, oud, niche fragrances, and cosmetics.",
 
       challenge: {
         title: null,
@@ -1941,9 +921,9 @@ export const projectsData = {
       goals: [],
 
       solution: {
-        title: "Connect a global luxury trade on one premium marketplace",
+        title: "Connect a global luxury trade on one premium directory",
         description:
-          "We designed and built a B2B marketplace that brings verified buyers and suppliers together with streamlined sourcing, negotiation and order management — packaged in an experience that matches the prestige of the products themselves.",
+          "We designed and built a B2B network that lets suppliers create free company profiles and list products by category, and lets buyers discover and browse verified partners across the luxury fragrance and beauty trade — packaged in an experience that matches the prestige of the products themselves.",
         highlights: [
           "Marketplace UX",
           "Front-end Development",
@@ -1983,19 +963,19 @@ export const projectsData = {
       status: null,
       liveUrl: "https://achgoldestates.com/",
 
-      thumbnail: "/images/project-thumbnails/thumbnail-3.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-3.webp",
+      thumbnail: "https://i.ibb.co.com/QvdwJKLs/ach-gold-estates-thumbnail.png",
+      heroImage: "https://i.ibb.co.com/QvdwJKLs/ach-gold-estates-thumbnail.png",
       gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
+        "https://i.ibb.co.com/1f04zW1k/ach-gold-estates-1-1.png",
+        "https://i.ibb.co.com/rGTRfpVL/ach-gold-estates-2-1.png",
+        "https://i.ibb.co.com/ynJPzKn7/ach-gold-estates-3-1.png",
+        "https://i.ibb.co.com/Q7WWmnwz/ach-gold-estates-4-1.png",
+        "https://i.ibb.co.com/KM3VHV7/ach-gold-estates-5-1.png",
+        "https://i.ibb.co.com/Zzp43M2X/ach-gold-estates-6-1.png",
       ],
 
       overview:
-        "A modern real estate platform providing premium property listings and student accommodation solutions with a seamless browsing experience.",
+        "A modern student accommodation platform for Nottingham and Derby, UK, with searchable verified listings for prospective tenants and a dedicated partner pathway for letting agents to list their own properties.",
 
       challenge: {
         title: null,
@@ -2035,23 +1015,23 @@ export const projectsData = {
     },
 
     {
-      id: "14",
-      slug: "c-smith",
-      title: "C Smith",
-      shortTitle: "C Smith",
-      category: "Portfolio",
-      industry: "Personal Branding",
-      client: "C Smith",
-      service: "Portfolio Website, Motion Design",
-      technologies: ["Next.js", "GSAP", "Tailwind CSS"],
+      id: "17",
+      slug: "powernest",
+      title: "PowerNest",
+      shortTitle: "PowerNest",
+      category: "E-commerce Platform",
+      industry: "Consumer Electronics Retail",
+      client: "PowerNest",
+      service: "E-commerce Development, Payment Integration",
+      technologies: ["Next.js", "Tailwind CSS"],
       tools: [],
       duration: null,
       date: "2024",
       status: null,
-      liveUrl: "https://csmith-rho.vercel.app/",
+      liveUrl: "https://powernest-nu.vercel.app/",
 
-      thumbnail: "/images/project-thumbnails/thumbnail-4.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-4.webp",
+      thumbnail: "/images/project-thumbnails/thumbnail-7.webp",
+      heroImage: "/images/project-thumbnails/thumbnail-7.webp",
       gallery: [
         "/images/projects/project-1.webp",
         "/images/projects/project-2.webp",
@@ -2062,12 +1042,12 @@ export const projectsData = {
       ],
 
       overview:
-        "A clean and elegant portfolio website showcasing professional experience, creative work, and personal branding.",
+        "PowerNest is a full online electronics storefront built for Bangladeshi shoppers — power banks, headphones, phones, laptops, and accessories, with local bKash/Nagad payments, cash on delivery, and 0% EMI on every order.",
 
       challenge: {
         title: null,
         description:
-          "A talented professional's work was scattered across PDFs and social posts, with no single place that reflected the quality and personality behind it.",
+          "Bangladeshi shoppers had few online electronics retailers they could trust for genuine products, and even fewer that supported the local payment methods most households actually use.",
         painPoints: [],
         businessImpact: [],
       },
@@ -2075,10 +1055,81 @@ export const projectsData = {
       goals: [],
 
       solution: {
-        title: "Give a career-defining body of work a home worth visiting",
+        title: "Build an online electronics store Bangladeshi shoppers actually trust",
         description:
-          "We crafted a clean, elegant portfolio with considered typography and subtle motion that lets the work lead — turning a simple site visit into a lasting impression.",
-        highlights: ["Portfolio Design", "GSAP Animation", "Front-end Development"],
+          "We built a full e-commerce platform around 100% genuine products with official warranty, integrated bKash, Nagad, and cash-on-delivery alongside 0% EMI up to 24 months, and backed it with nationwide free delivery and a 7-day return policy.",
+        highlights: [
+          "E-commerce Development",
+          "Local Payment Integration (bKash, Nagad, COD)",
+          "UX/UI Design",
+        ],
+      },
+
+      workflow: [],
+      architecture: [],
+      features: [],
+      uiHighlights: [],
+      developmentProcess: [],
+      challengesFaced: [],
+      solutionsImplemented: [],
+      results: [],
+      metrics: null,
+      testimonial: null,
+      lessonsLearned: [],
+      nextSteps: [],
+      relatedProjects: [],
+    },
+
+    {
+      id: "19",
+      slug: "yachtease",
+      title: "YachtEase",
+      shortTitle: "YachtEase",
+      category: "Marketplace Platform",
+      industry: "Yachting & Marine Operations",
+      client: "YachtEase",
+      service: "Marketplace Platform, Operations Dashboard",
+      technologies: ["Next.js", "Tailwind CSS", "Stripe"],
+      tools: [],
+      duration: null,
+      date: "2024",
+      status: null,
+      liveUrl: "https://yachtease.co/",
+
+      thumbnail: "/images/project-thumbnails/thumbnail-9.webp",
+      heroImage: "/images/project-thumbnails/thumbnail-9.webp",
+      gallery: [
+        "/images/projects/project-1.webp",
+        "/images/projects/project-2.webp",
+        "/images/projects/project-3.webp",
+        "/images/projects/project-4.webp",
+        "/images/projects/project-5.webp",
+        "/images/projects/project-6.webp",
+      ],
+
+      overview:
+        "YachtEase is an operations marketplace built for the yachting industry — one dashboard connecting yacht management, suppliers, crew, and freelancers so senior crew can source, hire, and communicate without juggling emails and spreadsheets.",
+
+      challenge: {
+        title: null,
+        description:
+          "Running a yacht's day-to-day operations meant sourcing suppliers, hiring crew, and coordinating logistics across scattered email threads and chat apps, with no single place to track quotes, orders, or who was available in the next port.",
+        painPoints: [],
+        businessImpact: [],
+      },
+
+      goals: [],
+
+      solution: {
+        title: "Give yacht operations a single, considered workspace",
+        description:
+          "We built a role-based marketplace with dedicated entry points for yacht management, suppliers, crew, and freelancers — bundling quotes, orders, invoices, and messaging into one thread per supplier, with port-based search and verified profiles.",
+        highlights: [
+          "Marketplace Platform Development",
+          "Role-Based Dashboards",
+          "Booking & Messaging System",
+          "UX/UI Design",
+        ],
       },
 
       workflow: [],
@@ -2110,17 +1161,17 @@ export const projectsData = {
       duration: null,
       date: "2024",
       status: null,
-      liveUrl: "https://bigfish-omega.vercel.app/",
+      liveUrl: null,
 
-      thumbnail: "/images/project-thumbnails/thumbnail-5.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-5.webp",
+      thumbnail: "https://i.ibb.co.com/KpqvTX5R/big-fish-thumbnail.png",
+      heroImage: "https://i.ibb.co.com/KpqvTX5R/big-fish-thumbnail.png",
       gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
+        "https://i.ibb.co.com/Q358mmwq/big-fish-1-1.png",
+        "https://i.ibb.co.com/j9rz2FT7/big-fish-1-2.png",
+        "https://i.ibb.co.com/Mx7r2DyB/big-fish-1-3.png",
+        "https://i.ibb.co.com/mCnLnxwN/big-fish-1-4.png",
+        "https://i.ibb.co.com/1tpN2GHj/big-fish-1-5.png",
+        "https://i.ibb.co.com/RTvb5dhj/big-fish-6.png",
       ],
 
       overview:
@@ -2146,316 +1197,6 @@ export const projectsData = {
           "Framer Motion",
           "Front-end Development",
         ],
-      },
-
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
-    },
-
-    {
-      id: "16",
-      slug: "james-orpin",
-      title: "James Orpin",
-      shortTitle: "James Orpin",
-      category: "Portfolio",
-      industry: "Professional Services",
-      client: "James Orpin",
-      service: "Portfolio Website, Brand Presentation",
-      technologies: ["React", "Tailwind CSS", "GSAP"],
-      tools: [],
-      duration: null,
-      date: "2023",
-      status: null,
-      liveUrl: "https://james-orpin-beta.vercel.app/",
-
-      thumbnail: "/images/project-thumbnails/thumbnail-6.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-6.webp",
-      gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
-      ],
-
-      overview:
-        "A premium portfolio website crafted to highlight expertise, featured projects, and professional achievements.",
-
-      challenge: {
-        title: null,
-        description:
-          "Featured projects and hard-earned achievements were buried in a resume format that undersold the expertise behind them.",
-        painPoints: [],
-        businessImpact: [],
-      },
-
-      goals: [],
-
-      solution: {
-        title: "Present a career of results with the polish it deserves",
-        description:
-          "We designed a premium portfolio that foregrounds featured projects and measurable outcomes, giving visitors a confident, at-a-glance read on the expertise on offer.",
-        highlights: ["UX/UI Design", "Front-end Development", "GSAP Animation"],
-      },
-
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
-    },
-
-    {
-      id: "17",
-      slug: "powernest",
-      title: "PowerNest",
-      shortTitle: "PowerNest",
-      category: "Business",
-      industry: "Business Solutions",
-      client: "PowerNest",
-      service: "Corporate Website, Content Strategy",
-      technologies: ["Next.js", "Tailwind CSS"],
-      tools: [],
-      duration: null,
-      date: "2024",
-      status: null,
-      liveUrl: "https://powernest-nu.vercel.app/",
-
-      thumbnail: "/images/project-thumbnails/thumbnail-7.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-7.webp",
-      gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
-      ],
-
-      overview:
-        "A modern corporate website focused on showcasing innovative services, business solutions, and company values.",
-
-      challenge: {
-        title: null,
-        description:
-          "The company's innovative services and business solutions were hard to explain through a generic, template-driven website that didn't reflect their actual value proposition.",
-        painPoints: [],
-        businessImpact: [],
-      },
-
-      goals: [],
-
-      solution: {
-        title: "Make a strong business case in the first ten seconds",
-        description:
-          "We rebuilt the corporate site around a clear service narrative and structured content, giving prospective clients a fast, credible understanding of what PowerNest delivers and why it matters.",
-        highlights: ["Web Development", "Content Strategy", "UX/UI Design"],
-      },
-
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
-    },
-
-    {
-      id: "18",
-      slug: "briataor-paint",
-      title: "Briataor Paint",
-      shortTitle: "Briataor Paint",
-      category: "Business",
-      industry: "Consumer Goods",
-      client: "Briataor Paint",
-      service: "Brand Website, Product Showcase",
-      technologies: ["Next.js", "Tailwind CSS"],
-      tools: [],
-      duration: null,
-      date: "2023",
-      status: null,
-      liveUrl: "https://briataor-paint.vercel.app/",
-
-      thumbnail: "/images/project-thumbnails/thumbnail-8.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-8.webp",
-      gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
-      ],
-
-      overview:
-        "A visually engaging brand website designed to promote products, strengthen brand identity, and improve customer engagement.",
-
-      challenge: {
-        title: null,
-        description:
-          "The brand's product range and identity weren't translating online, leaving customers with little reason to engage beyond a basic catalog page.",
-        painPoints: [],
-        businessImpact: [],
-      },
-
-      goals: [],
-
-      solution: {
-        title: "Bring a bold brand identity to life online",
-        description:
-          "We built a visually engaging site that puts the product line and brand story front and center, driving stronger engagement and a clearer sense of who the brand is.",
-        highlights: ["Brand Website Design", "Front-end Development", "Product Showcase UX"],
-      },
-
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
-    },
-
-    {
-      id: "19",
-      slug: "yachtease",
-      title: "YachtEase",
-      shortTitle: "YachtEase",
-      category: "Travel",
-      industry: "Luxury Travel & Charter",
-      client: "YachtEase",
-      service: "Booking Platform, Luxury UX",
-      technologies: ["Next.js", "Booking System", "Tailwind CSS"],
-      tools: [],
-      duration: null,
-      date: "2024",
-      status: null,
-      liveUrl: "https://yachtease.co/",
-
-      thumbnail: "/images/project-thumbnails/thumbnail-9.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-9.webp",
-      gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
-      ],
-
-      overview:
-        "A premium yacht booking platform delivering an elegant user experience for luxury travel and charter services.",
-
-      challenge: {
-        title: null,
-        description:
-          "Booking a yacht charter meant emails and phone calls back and forth, a process that felt at odds with the seamless luxury experience guests expected.",
-        painPoints: [],
-        businessImpact: [],
-      },
-
-      goals: [],
-
-      solution: {
-        title: "Make booking a charter as effortless as the trip itself",
-        description:
-          "We designed and built an elegant booking platform with real-time availability and a guided reservation flow, turning a manual, multi-step process into a few effortless clicks.",
-        highlights: ["Booking System Development", "UX/UI Design", "Front-end Development"],
-      },
-
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
-    },
-
-    {
-      id: "20",
-      slug: "davorron-martis",
-      title: "Davorron Martis",
-      shortTitle: "Davorron Martis",
-      category: "Portfolio",
-      industry: "Creative Design",
-      client: "Davorron Martis",
-      service: "Creative Portfolio, Design Storytelling",
-      technologies: ["Next.js", "GSAP", "Tailwind CSS"],
-      tools: [],
-      duration: null,
-      date: "2023",
-      status: null,
-      liveUrl: "https://davorron-martisnew.vercel.app/",
-
-      thumbnail: "/images/project-thumbnails/thumbnail-10.webp",
-      heroImage: "/images/project-thumbnails/thumbnail-10.webp",
-      gallery: [
-        "/images/projects/project-1.webp",
-        "/images/projects/project-2.webp",
-        "/images/projects/project-3.webp",
-        "/images/projects/project-4.webp",
-        "/images/projects/project-5.webp",
-        "/images/projects/project-6.webp",
-      ],
-
-      overview:
-        "A bold and visually refined portfolio website featuring creative projects, professional background, and design-focused storytelling.",
-
-      challenge: {
-        title: null,
-        description:
-          "A bold creative practice needed a portfolio that matched its visual ambition instead of a generic template that flattened every project into the same layout.",
-        painPoints: [],
-        businessImpact: [],
-      },
-
-      goals: [],
-
-      solution: {
-        title: "Design a portfolio as distinctive as the work inside it",
-        description:
-          "We created a bold, design-forward portfolio with custom layouts and motion for each project, letting the creative background and storytelling come through as strongly online as it does in person.",
-        highlights: ["Portfolio Design", "GSAP Animation", "Front-end Development"],
       },
 
       workflow: [],

@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import { Play, X } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 
 interface VideoSectionProps {
   src: string

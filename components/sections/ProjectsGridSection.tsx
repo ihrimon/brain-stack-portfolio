@@ -108,7 +108,9 @@ interface ProjectsGridSectionProps {
   projects: Project[]
 }
 
-export default function ProjectsGridSection({ projects }: ProjectsGridSectionProps) {
+export default function ProjectsGridSection({
+  projects,
+}: ProjectsGridSectionProps) {
   const categories = useMemo(
     () => [
       "All",
