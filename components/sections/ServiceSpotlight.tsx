@@ -1,12 +1,16 @@
 "use client"
 
-import { serviceSpotlightData as spotlight } from "@/lib/data/service-page"
+import type { ServiceSpotlightData } from "@/lib/data/service-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import Image from "next/image"
 import { useRef, useState } from "react"
 
-export default function ServiceSpotlight() {
+interface ServiceSpotlightProps {
+  spotlight: ServiceSpotlightData
+}
+
+export default function ServiceSpotlight({ spotlight }: ServiceSpotlightProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)

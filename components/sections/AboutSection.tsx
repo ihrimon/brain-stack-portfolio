@@ -3,7 +3,7 @@
 import { SectionBadge } from "@/components/common/SectionBadge"
 import { BrainWireframe } from "@/components/three/BrainWireframe"
 import "@/lib/animations/gsap-animations"
-import { whoWeAreData } from "@/lib/data/home-page"
+import type { WhoWeAreData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
@@ -12,7 +12,11 @@ import { useRef } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
 
-export default function AboutSection() {
+interface AboutSectionProps {
+  data: WhoWeAreData
+}
+
+export default function AboutSection({ data }: AboutSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const descRef = useRef<HTMLParagraphElement>(null)
@@ -66,21 +70,21 @@ export default function AboutSection() {
       className="bg-brand-dark py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <SectionBadge className="mb-12">{whoWeAreData.badge}</SectionBadge>
+        <SectionBadge className="mb-12">{data.badge}</SectionBadge>
 
         <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,430px)_1fr]">
           <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900">
             <div className="space-y-6 p-8">
               <h3 className="text-2xl font-medium text-white sm:text-4xl">
-                {whoWeAreData.cardTitle}
+                {data.cardTitle}
               </h3>
 
               <Link
-                href={whoWeAreData.button.href}
+                href={data.button.href}
                 className="mt-8 w-fit rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
                 data-cursor="magnetic"
               >
-                {whoWeAreData.button.label}
+                {data.button.label}
               </Link>
             </div>
 
@@ -94,14 +98,14 @@ export default function AboutSection() {
               ref={titleRef}
               className="max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
             >
-              {whoWeAreData.title}
+              {data.title}
             </h2>
 
             <p
               ref={descRef}
               className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70"
             >
-              {whoWeAreData.description}
+              {data.description}
             </p>
 
             <div
@@ -109,7 +113,7 @@ export default function AboutSection() {
               className="mt-10 border-t border-white/10 pt-10"
             >
               <div className="grid grid-cols-1 divide-y divide-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-                {whoWeAreData.stats.map((stat) => (
+                {data.stats.map((stat) => (
                   <div
                     key={stat.label}
                     className="group py-6 first:pt-0 sm:px-8 sm:py-0 sm:first:pl-0 sm:last:pr-0"

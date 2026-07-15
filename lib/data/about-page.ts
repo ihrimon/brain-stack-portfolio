@@ -237,3 +237,11 @@ export const teamMembersData = {
     },
   ],
 } as const
+
+export type AboutMissionData = typeof aboutMissionData
+export type AboutStatsData = typeof aboutStatsData
+export type AboutFeaturesData = typeof aboutFeaturesData
+export type AboutApproachData = typeof aboutApproachData
+export type AboutInquiryData = typeof aboutInquiryData
+export type WhyChooseUsData = typeof whyChooseUsData
+export type TeamMembersData = typeof teamMembersData

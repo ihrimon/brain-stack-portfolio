@@ -200,3 +200,11 @@ export const ctaData = {
     "Tell us about your project. We'll respond within one business day with a clear, honest take on scope, timeline, and how we'd approach it.",
   button: { label: "Book a Call", href: "/#contact" } satisfies ButtonLink,
 } as const
+
+export type HeroBannerData = typeof heroBannerData
+export type ProjectVideoData = typeof projectVideoData
+export type WhoWeAreData = typeof whoWeAreData
+export type ServicesData = typeof servicesData
+export type ProcessData = typeof processData
+export type TestimonialsData = typeof testimonialsData
+export type CtaData = typeof ctaData

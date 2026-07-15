@@ -2,7 +2,7 @@
 
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import "@/lib/animations/gsap-animations"
-import { heroBannerData } from "@/lib/data/home-page"
+import type { HeroBannerData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { SplitText } from "gsap/all"
@@ -10,7 +10,11 @@ import { useRef } from "react"
 
 gsap.registerPlugin(SplitText)
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  data: HeroBannerData
+}
+
+export default function HeroSection({ data }: HeroSectionProps) {
   const heroRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
@@ -58,17 +62,17 @@ export default function HeroSection() {
           <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
             <div className="flex flex-col gap-8">
               <h1 className="mb-6 max-w-4xl text-5xl font-medium tracking-tight text-white uppercase lg:text-[84px]">
-                {heroBannerData.title}{" "}
+                {data.title}{" "}
               </h1>
 
-              <PrimaryButton href={heroBannerData.button.href}>
-                {heroBannerData.button.label}
+              <PrimaryButton href={data.button.href}>
+                {data.button.label}
               </PrimaryButton>
             </div>
 
             <div className="lg:w-130 lg:shrink-0">
               <p className="text-base leading-relaxed text-white/70 sm:text-2xl">
-                {heroBannerData.description}
+                {data.description}
               </p>
             </div>
           </div>

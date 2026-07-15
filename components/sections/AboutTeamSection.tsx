@@ -1,22 +1,26 @@
 import { SectionBadge } from "@/components/common/SectionBadge"
-import { teamMembersData } from "@/lib/data/about-page"
+import type { TeamMembersData } from "@/lib/data/about-page"
 import Image from "next/image"
 
-export default function AboutTeamSection() {
+interface AboutTeamSectionProps {
+  data: TeamMembersData
+}
+
+export default function AboutTeamSection({ data }: AboutTeamSectionProps) {
   return (
     <section className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="max-w-2xl">
-          <SectionBadge>{teamMembersData.badge}</SectionBadge>
+          <SectionBadge>{data.badge}</SectionBadge>
 
           <h2 className="mt-8 text-4xl leading-tight font-bold tracking-tight text-white uppercase sm:text-5xl md:text-6xl">
-            {teamMembersData.title}
+            {data.title}
           </h2>
 
         </div>
 
         <div className="mt-16 grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">
-          {teamMembersData.members.map((member) => (
+          {data.members.map((member) => (
             <div key={member.name}>
               <div className="relative aspect-4/5 overflow-hidden rounded-3xl bg-neutral-900">
                 <Image

@@ -2,7 +2,7 @@
 
 // import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
-import { processData } from "@/lib/data/home-page"
+import type { ProcessData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
 import { resolveIcon } from "@/lib/utils/icons"
 import { useGSAP } from "@gsap/react"
@@ -20,7 +20,11 @@ const accentClasses = [
   "bg-brand-primary",
 ]
 
-export default function EngineeringProcess() {
+interface EngineeringProcessProps {
+  data: ProcessData
+}
+
+export default function EngineeringProcess({ data }: EngineeringProcessProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const descRef = useRef<HTMLParagraphElement>(null)
@@ -116,13 +120,13 @@ export default function EngineeringProcess() {
       <div className="relative mx-auto max-w-400 px-5 sm:px-8">
         <div className="flex flex-wrap items-center justify-between gap-8">
           <div className="max-w-2xl">
-            <SectionBadge>{processData.badge}</SectionBadge>
+            <SectionBadge>{data.badge}</SectionBadge>
 
             <h2
               ref={titleRef}
               className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
             >
-              {processData.title}
+              {data.title}
             </h2>
           </div>
 
@@ -146,7 +150,7 @@ export default function EngineeringProcess() {
           </div>
 
           <div ref={cardsRef} className="grid gap-6 lg:grid-cols-3 lg:gap-8">
-            {processData.items.map((item, index) => {
+            {data.items.map((item, index) => {
               const Icon = resolveIcon(item.icon)
 
               return (

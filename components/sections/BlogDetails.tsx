@@ -1,14 +1,13 @@
 import { SectionBadge } from "@/components/common/SectionBadge"
-import { blogsData, type BlogContentBlock } from "@/lib/data/blog-page"
+import type { BlogContentBlock, BlogPost } from "@/lib/data/blog-page"
 import { getReadingTime } from "@/lib/utils/reading-time"
 import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
-type Post = (typeof blogsData.posts)[number]
-
 interface BlogDetailsProps {
-  post: Post
+  post: BlogPost
+  relatedPosts: BlogPost[]
 }
 
 function ContentBlock({ block }: { block: BlogContentBlock }) {
@@ -99,11 +98,7 @@ function ContentBlock({ block }: { block: BlogContentBlock }) {
   }
 }
 
-export default function BlogDetails({ post }: BlogDetailsProps) {
-  const relatedPosts = blogsData.posts
-    .filter((item) => item.slug !== post.slug)
-    .slice(0, 3)
-
+export default function BlogDetails({ post, relatedPosts }: BlogDetailsProps) {
   const year = new Date(post.publishDate).getFullYear()
   const readingTime = getReadingTime(post.content)
 

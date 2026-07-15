@@ -2,7 +2,7 @@
 
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
-import { testimonialsData } from "@/lib/data/home-page"
+import type { TestimonialsData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
@@ -27,13 +27,17 @@ function highlightQuote(quote: string, highlight?: string): ReactNode {
 
 const AUTOPLAY_MS = 5000
 
-export default function TestimonialSection() {
+interface TestimonialSectionProps {
+  data: TestimonialsData
+}
+
+export default function TestimonialSection({ data }: TestimonialSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const descRef = useRef<HTMLParagraphElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
 
-  const { items } = testimonialsData
+  const { items } = data
   const [activeIndex, setActiveIndex] = useState(0)
 
   useGSAP(
@@ -76,13 +80,13 @@ export default function TestimonialSection() {
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="max-w-4xl">
-          <SectionBadge>{testimonialsData.badge}</SectionBadge>
+          <SectionBadge>{data.badge}</SectionBadge>
 
           <h2
             ref={titleRef}
             className="mt-8 max-w-2xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
           >
-            {testimonialsData.title}
+            {data.title}
           </h2>
         </div>
 

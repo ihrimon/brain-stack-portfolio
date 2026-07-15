@@ -8,22 +8,33 @@ import ProjectVideoSection from "@/components/sections/ProjectVideoSection"
 import ServicesSection from "@/components/sections/ServicesSection"
 import TeamSection from "@/components/sections/TeamSection"
 import TestimonialSection from "@/components/sections/TestimonialSection"
+import { getAboutData } from "@/lib/utils/sheets/about"
+import { getBlogPosts } from "@/lib/utils/sheets/blog"
+import { getHomeData } from "@/lib/utils/sheets/home"
+import { getProjects } from "@/lib/utils/sheets/projects"
 
 export const revalidate = 300
 
 export default async function HomePage() {
+  const [home, about, projects, posts] = await Promise.all([
+    getHomeData(),
+    getAboutData(),
+    getProjects(),
+    getBlogPosts(),
+  ])
+
   return (
     <main id="main-content" role="main">
-      <HeroSection />
-      <ProjectVideoSection />
-      <AboutSection />
-      <ProjectsSection />
-      <ServicesSection />
-      <EngineeringProcess />
-      <TestimonialSection />
-      <TeamSection />
-      <BlogSection />
-      <CTASection />
+      <HeroSection data={home.heroBanner} />
+      <ProjectVideoSection data={home.projectVideo} />
+      <AboutSection data={home.whoWeAre} />
+      <ProjectsSection projects={projects} />
+      <ServicesSection data={home.services} />
+      <EngineeringProcess data={home.process} />
+      <TestimonialSection data={home.testimonials} />
+      <TeamSection data={about.team} />
+      <BlogSection posts={posts} />
+      <CTASection data={home.cta} />
     </main>
   )
 }

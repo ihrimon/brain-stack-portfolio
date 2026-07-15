@@ -1,6 +1,6 @@
 "use client"
 
-import { blogsData } from "@/lib/data/blog-page"
+import { blogsData, type BlogPost } from "@/lib/data/blog-page"
 import { cn } from "@/lib/utils/cn"
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
@@ -9,7 +9,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 
 const PAGE_SIZE = 8
 
-type Post = (typeof blogsData.posts)[number]
+type Post = BlogPost
 
 // Alternates 3-column and 2-column rows to match the site's editorial
 // layout. Small counts get a hand-picked split instead of ending on an
@@ -56,8 +56,11 @@ function chunkRows(posts: Post[]): Post[][] {
   return rows
 }
 
-export default function AllBlogs() {
-  const { posts } = blogsData
+interface AllBlogsProps {
+  posts: BlogPost[]
+}
+
+export default function AllBlogs({ posts }: AllBlogsProps) {
   const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE))
   const [page, setPage] = useState(1)
   const sectionRef = useRef<HTMLDivElement>(null)

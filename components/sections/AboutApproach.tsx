@@ -3,12 +3,16 @@
 import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
-import { aboutApproachData as approach } from "@/lib/data/about-page"
+import type { AboutApproachData } from "@/lib/data/about-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
 
-export default function AboutApproach() {
+interface AboutApproachProps {
+  approach: AboutApproachData
+}
+
+export default function AboutApproach({ approach }: AboutApproachProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
 

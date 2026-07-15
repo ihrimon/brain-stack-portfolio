@@ -1,14 +1,18 @@
 "use client"
 
 import "@/lib/animations/gsap-animations"
-import { exclusiveServicesData as exclusiveServices } from "@/lib/data/service-page"
+import type { ExclusiveServicesData } from "@/lib/data/service-page"
 import { resolveIcon } from "@/lib/utils/icons"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
 import { SectionBadge } from "../common/SectionBadge"
 
-export default function ExclusiveServices() {
+interface ExclusiveServicesProps {
+  exclusiveServices: ExclusiveServicesData
+}
+
+export default function ExclusiveServices({ exclusiveServices }: ExclusiveServicesProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const descRef = useRef<HTMLParagraphElement>(null)

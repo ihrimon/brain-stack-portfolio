@@ -6,6 +6,19 @@ export type BlogContentBlock =
   | { type: "imageGrid"; images: { src: string; alt: string }[] }
   | { type: "sideBySide"; image: { src: string; alt: string }; text: string }
 
+export interface BlogPost {
+  slug: string
+  title: string
+  excerpt: string
+  category: string
+  author: string
+  comments: number
+  publishDate: string
+  featuredImage: string
+  tags: string[]
+  content: BlogContentBlock[]
+}
+
 const images = [
   "/images/blog/blog-1.webp",
   "/images/blog/blog-2.webp",
@@ -494,5 +507,5 @@ export const blogsData = {
         },
       ] satisfies BlogContentBlock[],
     },
-  ],
+  ] satisfies BlogPost[],
 } as const

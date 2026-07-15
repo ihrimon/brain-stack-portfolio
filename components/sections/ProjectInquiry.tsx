@@ -1,14 +1,18 @@
 "use client"
 
 import { contactData } from "@/lib/constants/contact"
-import { aboutInquiryData as inquiry } from "@/lib/data/about-page"
+import type { AboutInquiryData } from "@/lib/data/about-page"
 import { ArrowUpRight, ChevronDown } from "lucide-react"
 import { useState, type FormEvent } from "react"
 
 const fieldClassName =
   "w-full border-b border-white/15 bg-transparent py-3 text-white placeholder:text-white/30 outline-none transition-colors duration-300 focus:border-white/50"
 
-export default function ProjectInquiry() {
+interface ProjectInquiryProps {
+  inquiry: AboutInquiryData
+}
+
+export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
   const [submitted, setSubmitted] = useState(false)
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

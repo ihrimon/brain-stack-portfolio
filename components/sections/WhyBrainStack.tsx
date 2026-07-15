@@ -1,9 +1,13 @@
-import { aboutFeaturesData as features } from "@/lib/data/about-page"
+import type { AboutFeaturesData } from "@/lib/data/about-page"
 import { ArrowUpRight, Sparkle, Star } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
-export default function WhyBrainStack() {
+interface WhyBrainStackProps {
+  features: AboutFeaturesData
+}
+
+export default function WhyBrainStack({ features }: WhyBrainStackProps) {
   return (
     <section className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">

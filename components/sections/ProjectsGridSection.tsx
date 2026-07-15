@@ -104,9 +104,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   )
 }
 
-export default function ProjectsGridSection() {
-  const { projects } = projectsData
+interface ProjectsGridSectionProps {
+  projects: Project[]
+}
 
+export default function ProjectsGridSection({ projects }: ProjectsGridSectionProps) {
   const categories = useMemo(
     () => [
       "All",

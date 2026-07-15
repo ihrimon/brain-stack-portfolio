@@ -4,16 +4,21 @@ import AboutTeamSection from "@/components/sections/AboutTeamSection"
 import MissionHero from "@/components/sections/MissionHero"
 import ProjectInquiry from "@/components/sections/ProjectInquiry"
 import WhyBrainStack from "@/components/sections/WhyBrainStack"
+import { getAboutData } from "@/lib/utils/sheets/about"
 
-export default function AboutPage() {
+export const revalidate = 300
+
+export default async function AboutPage() {
+  const about = await getAboutData()
+
   return (
     <main id="main-content" role="main">
-      <MissionHero />
-      <AboutStats />
-      <WhyBrainStack />
-      <AboutApproach />
-      <AboutTeamSection />
-      <ProjectInquiry />
+      <MissionHero data={about.mission} />
+      <AboutStats stats={about.stats} />
+      <WhyBrainStack features={about.features} />
+      <AboutApproach approach={about.approach} />
+      <AboutTeamSection data={about.team} />
+      <ProjectInquiry inquiry={about.inquiry} />
     </main>
   )
 }

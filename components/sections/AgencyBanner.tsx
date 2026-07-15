@@ -1,9 +1,13 @@
 import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { ParallaxImage } from "@/components/animations/ParallaxImage"
-import { agencyBannerData as banner } from "@/lib/data/service-page"
+import type { AgencyBannerData } from "@/lib/data/service-page"
 import Link from "next/link"
 
-export default function AgencyBanner() {
+interface AgencyBannerProps {
+  banner: AgencyBannerData
+}
+
+export default function AgencyBanner({ banner }: AgencyBannerProps) {
   return (
     <section className="overflow-hidden bg-brand-dark py-20 sm:py-28">
       <div className="grid lg:grid-cols-2">

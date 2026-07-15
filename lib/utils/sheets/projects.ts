@@ -1,5 +1,5 @@
 import { projectsData, type Project } from "@/lib/data/projects-page"
-import { google } from "googleapis"
+import { getSheetsClient, parseJson, parseJsonObject } from "./shared"
 
 const SHEET_TAB = "Projects"
 const SHEET_RANGE = `${SHEET_TAB}!A2:AH`
@@ -91,37 +91,6 @@ const EMPTY_TESTIMONIAL: NonNullable<Project["testimonial"]> = {
   image: "",
 }
 
-function parseJson<T>(value: string | undefined, fallback: T): T {
-  if (!value || !value.trim()) return fallback
-
-  try {
-    return JSON.parse(value) as T
-  } catch {
-    console.warn(`[sheets] Could not parse JSON cell, using fallback. Value: ${value.slice(0, 80)}`)
-    return fallback
-  }
-}
-
-/**
- * Like parseJson, but for object-shaped cells (challenge/solution/metrics/testimonial).
- * Merges over the fallback shape instead of replacing it outright, so a row written
- * against an older column schema (missing a since-renamed field, e.g. "highlights")
- * degrades to that one field's default instead of leaving it `undefined` and crashing
- * the page that reads it.
- */
-function parseJsonObject<T extends object>(value: string | undefined, fallback: T): T {
-  if (!value || !value.trim()) return fallback
-
-  try {
-    const parsed = JSON.parse(value)
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return fallback
-    return { ...fallback, ...parsed }
-  } catch {
-    console.warn(`[sheets] Could not parse JSON cell, using fallback. Value: ${value.slice(0, 80)}`)
-    return fallback
-  }
-}
-
 function rowToProject(row: string[]): Project | null {
   const cell = (name: (typeof COLUMNS)[number]) => row[COLUMNS.indexOf(name)]?.trim() ?? ""
 
@@ -180,21 +149,6 @@ function rowToProject(row: string[]): Project | null {
   }
 }
 
-function getAuth() {
-  const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
-  const privateKey = process.env.GOOGLE_PRIVATE_KEY
-
-  if (!clientEmail || !privateKey) return null
-
-  return new google.auth.GoogleAuth({
-    credentials: {
-      client_email: clientEmail,
-      private_key: privateKey.replace(/\\n/g, "\n"),
-    },
-    scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
-  })
-}
-
 /**
  * Fetches projects (portfolio work + in-depth case studies, merged into one
  * schema) from the "Projects" tab of the configured Google Sheet. Falls back
@@ -203,10 +157,9 @@ function getAuth() {
  * access is set up and stays resilient to API outages.
  */
 export async function getProjects(): Promise<Project[]> {
-  const auth = getAuth()
-  const spreadsheetId = process.env.GOOGLE_SHEET_ID
+  const client = getSheetsClient()
 
-  if (!auth || !spreadsheetId) {
+  if (!client) {
     console.warn(
       "[sheets] GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY or GOOGLE_SHEET_ID is not set — using local projects data."
     )
@@ -214,9 +167,8 @@ export async function getProjects(): Promise<Project[]> {
   }
 
   try {
-    const sheets = google.sheets({ version: "v4", auth })
-    const res = await sheets.spreadsheets.values.get({
-      spreadsheetId,
+    const res = await client.sheets.spreadsheets.values.get({
+      spreadsheetId: client.spreadsheetId,
       range: SHEET_RANGE,
     })
 

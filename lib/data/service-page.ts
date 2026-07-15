@@ -152,3 +152,8 @@ export const agencyBannerData = {
   button: { label: "Learn More", href: "/contact" } satisfies ButtonLink,
   image: "/images/services/services-1.png",
 } as const
+
+export type ServiceSpotlightData = typeof serviceSpotlightData
+export type ServiceProcessData = typeof serviceProcessData
+export type ExclusiveServicesData = typeof exclusiveServicesData
+export type AgencyBannerData = typeof agencyBannerData

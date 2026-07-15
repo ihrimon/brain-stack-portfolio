@@ -2,7 +2,7 @@
 
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
-import { blogsData } from "@/lib/data/blog-page"
+import { blogsData, type BlogPost } from "@/lib/data/blog-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { CircleUserRound, Tag } from "lucide-react"
@@ -18,10 +18,13 @@ function formatDate(date: string) {
   })
 }
 
-export default function BlogSection() {
+interface BlogSectionProps {
+  posts: BlogPost[]
+}
+
+export default function BlogSection({ posts }: BlogSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
-  const posts = blogsData.posts
 
   useGSAP(
     () => {

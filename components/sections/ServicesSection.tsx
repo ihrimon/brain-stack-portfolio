@@ -1,13 +1,17 @@
 "use client"
 
-import { servicesData } from "@/lib/data/home-page"
+import type { ServicesData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
 import gsap from "gsap"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import { SectionBadge } from "../common/SectionBadge"
 
-export default function ServicesSection() {
+interface ServicesSectionProps {
+  data: ServicesData
+}
+
+export default function ServicesSection({ data }: ServicesSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const imageRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -32,10 +36,10 @@ export default function ServicesSection() {
   return (
     <section id="services" className="bg-neutral-900 py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <SectionBadge>{servicesData.badge}</SectionBadge>
+        <SectionBadge>{data.badge}</SectionBadge>
         <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_minmax(0,580px)] lg:items-center lg:gap-16">
           <div className="flex flex-col">
-            {servicesData.items.map((item, index) => (
+            {data.items.map((item, index) => (
               <button
                 key={item.id}
                 type="button"
@@ -54,7 +58,7 @@ export default function ServicesSection() {
           </div>
 
           <div className="relative aspect-4/3 w-full overflow-hidden rounded-3xl bg-neutral-900">
-            {servicesData.items.map((item, index) => (
+            {data.items.map((item, index) => (
               <div
                 key={item.id}
                 ref={(el) => {

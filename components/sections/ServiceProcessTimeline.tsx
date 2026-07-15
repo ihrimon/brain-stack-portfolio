@@ -1,13 +1,17 @@
 "use client"
 
 import "@/lib/animations/gsap-animations"
-import { serviceProcessData as process } from "@/lib/data/service-page"
+import type { ServiceProcessData } from "@/lib/data/service-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
 import { SectionBadge } from "../common/SectionBadge"
 
-export default function ServiceProcessTimeline() {
+interface ServiceProcessTimelineProps {
+  process: ServiceProcessData
+}
+
+export default function ServiceProcessTimeline({ process }: ServiceProcessTimelineProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
 

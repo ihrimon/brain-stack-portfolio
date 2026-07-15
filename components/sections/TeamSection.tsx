@@ -1,7 +1,7 @@
 "use client"
 
 import "@/lib/animations/gsap-animations"
-import { teamMembersData } from "@/lib/data/about-page"
+import type { TeamMembersData } from "@/lib/data/about-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
@@ -11,7 +11,11 @@ import { SectionBadge } from "../common/SectionBadge"
 
 gsap.registerPlugin(ScrollTrigger)
 
-export default function TeamSection() {
+interface TeamSectionProps {
+  data: TeamMembersData
+}
+
+export default function TeamSection({ data }: TeamSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const descRef = useRef<HTMLParagraphElement>(null)
@@ -58,13 +62,13 @@ export default function TeamSection() {
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="max-w-4xl">
-          <SectionBadge>{teamMembersData.badge}</SectionBadge>
+          <SectionBadge>{data.badge}</SectionBadge>
 
           <h2
             ref={titleRef}
             className="mt-8 max-w-2xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
           >
-            {teamMembersData.title}
+            {data.title}
           </h2>
         </div>
 
@@ -72,7 +76,7 @@ export default function TeamSection() {
           ref={cardsRef}
           className="mt-16 grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4"
         >
-          {teamMembersData.members.slice(0, 4).map((member) => (
+          {data.members.slice(0, 4).map((member) => (
             <div key={member.name} data-team-card>
               <div className="relative aspect-4/5 origin-bottom overflow-hidden rounded-3xl bg-neutral-900 transition-transform duration-500 ease-out hover:translate-x-1 hover:-skew-x-1">
                 <Image

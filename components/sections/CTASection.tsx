@@ -4,12 +4,16 @@ import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
-import { ctaData } from "@/lib/data/home-page"
+import type { CtaData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
 
-export default function CTASection() {
+interface CTASectionProps {
+  data: CtaData
+}
+
+export default function CTASection({ data }: CTASectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
 
@@ -35,17 +39,17 @@ export default function CTASection() {
             ref={titleRef}
             className="col-span-8 max-w-5xl text-4xl leading-[1.05] font-medium tracking-tight text-white sm:text-6xl md:text-7xl"
           >
-            {ctaData.title}
+            {data.title}
           </h2>
 
           <div className="col-span-4">
             <p className="max-w-md text-base leading-relaxed text-white/50 sm:text-xl">
-              {ctaData.description}
+              {data.description}
             </p>
 
             <div className="mt-8">
-              <PrimaryButton href={ctaData.button.href}>
-                {ctaData.button.label}
+              <PrimaryButton href={data.button.href}>
+                {data.button.label}
               </PrimaryButton>
             </div>
           </div>

@@ -5,7 +5,7 @@ import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
 import { getLenis } from "@/lib/animations/lenis"
-import { projectVideoData } from "@/lib/data/home-page"
+import type { ProjectVideoData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
@@ -22,7 +22,11 @@ interface OriginRect {
   width: number
 }
 
-export default function ProjectVideoSection() {
+interface ProjectVideoSectionProps {
+  data: ProjectVideoData
+}
+
+export default function ProjectVideoSection({ data }: ProjectVideoSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const boxRef = useRef<HTMLDivElement>(null)
@@ -217,30 +221,30 @@ export default function ProjectVideoSection() {
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
           <div className="lg:col-span-4">
-            <SectionBadge>{projectVideoData.badge}</SectionBadge>
+            <SectionBadge>{data.badge}</SectionBadge>
 
             <h2
               ref={headingRef}
               className="mt-6 text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl md:text-6xl"
             >
-              {projectVideoData.title}
+              {data.title}
             </h2>
 
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
-              {projectVideoData.description}
+              {data.description}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-8">
-              <PrimaryButton href={projectVideoData.primaryButton.href}>
-                {projectVideoData.primaryButton.label}
+              <PrimaryButton href={data.primaryButton.href}>
+                {data.primaryButton.label}
               </PrimaryButton>
 
               <Link
-                href={projectVideoData.secondaryButton.href}
+                href={data.secondaryButton.href}
                 data-cursor="magnetic"
                 className="group inline-flex items-center gap-1 text-sm font-semibold tracking-widest text-white uppercase transition-colors duration-300 hover:text-white/60"
               >
-                {projectVideoData.secondaryButton.label}
+                {data.secondaryButton.label}
                 <ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>

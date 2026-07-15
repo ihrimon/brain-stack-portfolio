@@ -5,6 +5,7 @@ import { SectionBadge } from "@/components/common/SectionBadge"
 import { Marquee } from "@/components/shared/marquee"
 import "@/lib/animations/gsap-animations"
 import { projectsData, type Project } from "@/lib/data/projects-page"
+// Page-chrome text (badge/title) is static; only the project list itself is Sheet-driven.
 import { cn } from "@/lib/utils/cn"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
@@ -64,11 +65,14 @@ function ProjectMarqueeCard({ project, wide }: { project: Project; wide: boolean
   )
 }
 
-export default function ProjectsSection() {
+interface ProjectsSectionProps {
+  projects: Project[]
+}
+
+export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
 
-  const { projects } = projectsData
   const midpoint = Math.ceil(projects.length / 2)
   const rowOne = projects.slice(0, midpoint)
   const rowTwo = projects.slice(midpoint)
