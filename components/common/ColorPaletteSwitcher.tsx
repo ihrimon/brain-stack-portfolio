@@ -1,7 +1,7 @@
 "use client"
 
-import { colorPalettes } from "@/lib/data/colorPalettes"
-import { cn } from "@/lib/utils"
+import { colorPalettes } from "@/lib/constants/color-palettes"
+import { cn } from "@/lib/utils/cn"
 import { useEffect, useSyncExternalStore } from "react"
 
 const STORAGE_KEY = "bs-palette"

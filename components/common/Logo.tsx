@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/cn"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -24,7 +24,7 @@ export function Logo({
   const mark = (
     <span
       className={cn(
-        "inline-flex items-center text-xl font-bold tracking-tight text-heading uppercase font-heading",
+        "inline-flex items-center font-heading text-xl font-bold tracking-tight text-heading uppercase",
         className
       )}
     >

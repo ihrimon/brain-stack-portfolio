@@ -1,13 +1,12 @@
 "use client"
 
-import "@/lib/GSAPAnimations"
-import { servicesPageData } from "@/lib/data/servicesPage"
+import "@/lib/animations/gsap-animations"
+import { exclusiveServicesData as exclusiveServices } from "@/lib/data/service-page"
+import { resolveIcon } from "@/lib/utils/icons"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
-import { SectionBadge } from '../common/SectionBadge'
-
-const { exclusiveServices } = servicesPageData
+import { SectionBadge } from "../common/SectionBadge"
 
 export default function ExclusiveServices() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -27,25 +26,35 @@ export default function ExclusiveServices() {
   return (
     <section ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-         <SectionBadge className="mb-12">Exclusive Services</SectionBadge>
-          <h2
-            ref={titleRef}
-            className="mt-8 max-w-2xl text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl uppercase"
-          >
-            {exclusiveServices.title}
-          </h2>
+        <SectionBadge className="mb-12">{exclusiveServices.badge}</SectionBadge>
+        <h2
+          ref={titleRef}
+          className="mt-8 max-w-2xl text-4xl leading-tight font-medium tracking-tight text-white uppercase sm:text-5xl"
+        >
+          {exclusiveServices.title}
+        </h2>
+
+        <p
+          ref={descRef}
+          className="mt-6 max-w-2xl text-base leading-relaxed text-white/50 sm:text-lg"
+        >
+          {exclusiveServices.description}
+        </p>
 
         <div
           data-service-grid
           className="mt-16 grid grid-cols-1 divide-y divide-white/10 border-t border-white/10 sm:mt-20 sm:grid-cols-4 sm:divide-x sm:divide-y-0 sm:border-t-0"
         >
-          {exclusiveServices.categories.map((category) => (
+          {exclusiveServices.categories.map((category) => {
+            const Icon = resolveIcon(category.icon)
+
+            return (
             <div
               key={category.title}
               data-service-card
               className="py-8 first:pt-0 sm:px-8 sm:py-0 sm:first:pl-0 sm:last:pr-0"
             >
-              <category.icon className="size-16 text-white" strokeWidth={1.5} />
+              <Icon className="size-16 text-white" strokeWidth={1.5} />
 
               <h3 className="mt-6 text-xl leading-tight font-medium text-white sm:text-2xl">
                 {category.title}
@@ -59,7 +68,8 @@ export default function ExclusiveServices() {
                 ))}
               </ul>
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

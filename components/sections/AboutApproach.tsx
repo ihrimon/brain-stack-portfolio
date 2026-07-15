@@ -2,13 +2,11 @@
 
 import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { SectionBadge } from "@/components/common/SectionBadge"
-import "@/lib/GSAPAnimations"
-import { aboutPageData } from "@/lib/data/aboutPage"
+import "@/lib/animations/gsap-animations"
+import { aboutApproachData as approach } from "@/lib/data/about-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
-
-const { approach } = aboutPageData
 
 export default function AboutApproach() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -24,11 +22,11 @@ export default function AboutApproach() {
   return (
     <section ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <SectionBadge>{approach.label}</SectionBadge>
+        <SectionBadge>{approach.badge}</SectionBadge>
 
         <h2
           ref={titleRef}
-          className="mt-8 max-w-3xl text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl md:text-6xl uppercase"
+          className="mt-8 max-w-3xl text-4xl leading-tight font-medium tracking-tight text-white uppercase sm:text-5xl md:text-6xl"
         >
           {approach.title}
         </h2>
@@ -39,7 +37,7 @@ export default function AboutApproach() {
               key={step.title}
               className="relative overflow-hidden rounded-3xl bg-neutral-900 p-8"
             >
-              <DiagonalPattern className="opacity-60 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
+              <DiagonalPattern className="[mask-image:linear-gradient(to_bottom,black,transparent_70%)] opacity-60" />
 
               <h3 className="relative text-2xl leading-tight font-medium text-white">
                 {step.title}

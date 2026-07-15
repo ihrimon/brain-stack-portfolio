@@ -1,5 +1,5 @@
 import BlogDetails from "@/components/sections/BlogDetails"
-import { blogsData } from "@/lib/data/blogs"
+import { blogsData } from "@/lib/data/blog-page"
 import { notFound } from "next/navigation"
 
 interface BlogPostPageProps {

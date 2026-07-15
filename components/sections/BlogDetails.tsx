@@ -1,5 +1,6 @@
 import { SectionBadge } from "@/components/common/SectionBadge"
-import { blogsData, type BlogContentBlock } from "@/lib/data/blogs"
+import { blogsData, type BlogContentBlock } from "@/lib/data/blog-page"
+import { getReadingTime } from "@/lib/utils/reading-time"
 import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -103,7 +104,8 @@ export default function BlogDetails({ post }: BlogDetailsProps) {
     .filter((item) => item.slug !== post.slug)
     .slice(0, 3)
 
-  const year = new Date(post.date).getFullYear()
+  const year = new Date(post.publishDate).getFullYear()
+  const readingTime = getReadingTime(post.content)
 
   return (
     <>
@@ -114,8 +116,9 @@ export default function BlogDetails({ post }: BlogDetailsProps) {
           </h1>
 
           <p className="mt-8 text-sm text-white/40">
-            By <span className="font-semibold text-white/70">{post.author}</span>{" "}
-            — {post.category} — {year}
+            By{" "}
+            <span className="font-semibold text-white/70">{post.author}</span> —{" "}
+            {post.category} — {year} — {readingTime} min read
           </p>
         </div>
       </section>
@@ -123,7 +126,7 @@ export default function BlogDetails({ post }: BlogDetailsProps) {
       <section className="bg-brand-dark pb-16 sm:pb-20">
         <div className="relative aspect-21/9 w-full bg-neutral-900">
           <Image
-            src={post.image}
+            src={post.featuredImage}
             alt={post.title}
             fill
             priority
@@ -178,7 +181,7 @@ export default function BlogDetails({ post }: BlogDetailsProps) {
                     data-cursor="magnetic"
                   >
                     <Image
-                      src={related.image}
+                      src={related.featuredImage}
                       alt={related.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -204,7 +207,7 @@ export default function BlogDetails({ post }: BlogDetailsProps) {
                     <span className="font-semibold text-white/70">
                       {related.author}
                     </span>{" "}
-                    — {new Date(related.date).getFullYear()}
+                    — {new Date(related.publishDate).getFullYear()}
                   </p>
                 </article>
               ))}

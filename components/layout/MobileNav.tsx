@@ -1,14 +1,21 @@
 "use client"
 
-import { mobileNavigationData } from "@/lib/data/navigation"
-import { cn } from "@/lib/utils"
-import { Briefcase, Home, Layers, Mail, Newspaper, type LucideIcon } from "lucide-react"
+import { mobileNavigationData } from "@/lib/constants/navigation"
+import { cn } from "@/lib/utils/cn"
+import {
+  Briefcase,
+  Home,
+  Layers,
+  Mail,
+  Newspaper,
+  type LucideIcon,
+} from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const ICONS: Record<string, LucideIcon> = {
   Home,
-  Portfolio: Briefcase,
+  Projects: Briefcase,
   Services: Layers,
   Blog: Newspaper,
   Contact: Mail,

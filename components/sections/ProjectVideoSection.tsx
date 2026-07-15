@@ -3,10 +3,10 @@
 import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
-import { getLenis } from "@/lib/lenis"
-import { projectVideoData } from "@/lib/data/projectVideo"
-import { cn } from "@/lib/utils"
-import "@/lib/GSAPAnimations"
+import "@/lib/animations/gsap-animations"
+import { getLenis } from "@/lib/animations/lenis"
+import { projectVideoData } from "@/lib/data/home-page"
+import { cn } from "@/lib/utils/cn"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
@@ -133,7 +133,11 @@ export default function ProjectVideoSection() {
     // switching it to `position: fixed` causes no visible jump, then tween
     // from there to a centered, larger modal size — a lightweight FLIP.
     const rect = box.getBoundingClientRect()
-    originRectRef.current = { top: rect.top, left: rect.left, width: rect.width }
+    originRectRef.current = {
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+    }
 
     gsap.set(box, {
       position: "fixed",
@@ -178,7 +182,9 @@ export default function ProjectVideoSection() {
       ease: "power3.inOut",
       onUpdate: syncCloseButtonPosition,
       onComplete: () => {
-        gsap.set(box, { clearProps: "position,top,left,width,xPercent,yPercent" })
+        gsap.set(box, {
+          clearProps: "position,top,left,width,xPercent,yPercent",
+        })
         setIsFullscreen(false)
       },
     })
@@ -206,7 +212,7 @@ export default function ProjectVideoSection() {
     <section
       id="project-video"
       ref={sectionRef}
-      className="overflow-hidden py-20 sm:py-28 bg-neutral-900"
+      className="overflow-hidden bg-neutral-900 py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
@@ -217,7 +223,7 @@ export default function ProjectVideoSection() {
               ref={headingRef}
               className="mt-6 text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl md:text-6xl"
             >
-              {projectVideoData.heading}
+              {projectVideoData.title}
             </h2>
 
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
@@ -226,15 +232,15 @@ export default function ProjectVideoSection() {
 
             <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-8">
               <PrimaryButton href={projectVideoData.primaryButton.href}>
-                {projectVideoData.primaryButton.text}
+                {projectVideoData.primaryButton.label}
               </PrimaryButton>
 
               <Link
-                href={projectVideoData.secondaryLink.href}
+                href={projectVideoData.secondaryButton.href}
                 data-cursor="magnetic"
                 className="group inline-flex items-center gap-1 text-sm font-semibold tracking-widest text-white uppercase transition-colors duration-300 hover:text-white/60"
               >
-                {projectVideoData.secondaryLink.text}
+                {projectVideoData.secondaryButton.label}
                 <ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
@@ -277,7 +283,11 @@ export default function ProjectVideoSection() {
                 type="button"
                 onClick={handleButtonClick}
                 aria-label={
-                  isFullscreen ? (isPlaying ? "Pause video" : "Play video") : "Play video"
+                  isFullscreen
+                    ? isPlaying
+                      ? "Pause video"
+                      : "Play video"
+                    : "Play video"
                 }
                 className="group/btn absolute inset-0 flex cursor-pointer items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 data-cursor="magnetic"

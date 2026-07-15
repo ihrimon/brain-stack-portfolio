@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/cn"
 import type { ComponentPropsWithoutRef } from "react"
 
 interface GlassCardProps extends ComponentPropsWithoutRef<"div"> {

@@ -1,8 +1,8 @@
 "use client"
 
 import { SectionBadge } from "@/components/common/SectionBadge"
-import { contactData } from "@/lib/data/contact"
-import { cn } from "@/lib/utils"
+import { contactData } from "@/lib/constants/contact"
+import { cn } from "@/lib/utils/cn"
 import { Mail, MapPin, Paperclip, Phone } from "lucide-react"
 import { useRef, useState, type FormEvent } from "react"
 
@@ -46,7 +46,9 @@ export default function ContactForm() {
 
             <form onSubmit={handleSubmit} className="mt-12">
               <div>
-                <p className="text-base text-white/70">I&apos;m interested in&hellip;</p>
+                <p className="text-base text-white/70">
+                  I&apos;m interested in&hellip;
+                </p>
 
                 <div className="mt-4 flex flex-wrap gap-3">
                   {contactData.serviceOptions.map((service) => (
@@ -127,7 +129,9 @@ export default function ContactForm() {
                   type="file"
                   name="attachment"
                   className="sr-only"
-                  onChange={(event) => setAttachment(event.target.files?.[0] ?? null)}
+                  onChange={(event) =>
+                    setAttachment(event.target.files?.[0] ?? null)
+                  }
                 />
 
                 <button

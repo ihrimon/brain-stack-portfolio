@@ -1,19 +1,24 @@
 "use client"
 
 // import { SectionBadge } from "@/components/common/SectionBadge"
-import "@/lib/GSAPAnimations"
-import { processData } from "@/lib/data/process"
-import { cn } from "@/lib/utils"
+import "@/lib/animations/gsap-animations"
+import { processData } from "@/lib/data/home-page"
+import { cn } from "@/lib/utils/cn"
+import { resolveIcon } from "@/lib/utils/icons"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
 import Link from "next/link"
 import { useRef } from "react"
-import { SectionBadge } from '../common/SectionBadge'
+import { SectionBadge } from "../common/SectionBadge"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const accentClasses = ["bg-brand-secondary", "bg-brand-accent", "bg-brand-primary"]
+const accentClasses = [
+  "bg-brand-secondary",
+  "bg-brand-accent",
+  "bg-brand-primary",
+]
 
 export default function EngineeringProcess() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -141,7 +146,10 @@ export default function EngineeringProcess() {
           </div>
 
           <div ref={cardsRef} className="grid gap-6 lg:grid-cols-3 lg:gap-8">
-            {processData.items.map((item, index) => (
+            {processData.items.map((item, index) => {
+              const Icon = resolveIcon(item.icon)
+
+              return (
               <div
                 key={item.title}
                 data-process-card
@@ -178,7 +186,7 @@ export default function EngineeringProcess() {
                 </div>
 
                 <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white">
-                  <item.icon className="size-3.5" />
+                  <Icon className="size-3.5" />
                   STEP : {String(index + 1).padStart(2, "0")}
                 </span>
 
@@ -201,7 +209,8 @@ export default function EngineeringProcess() {
                   ))}
                 </div>
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>

@@ -1,15 +1,16 @@
 "use client"
 
-import "@/lib/GSAPAnimations"
-import { aboutPageData } from "@/lib/data/aboutPage"
+import "@/lib/animations/gsap-animations"
+import { aboutMissionData } from "@/lib/data/about-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import Image from "next/image"
 import { useRef, type ReactNode } from "react"
 
-const { mission } = aboutPageData
-
-function renderHighlighted(text: string, highlights: readonly string[]): ReactNode {
+function renderHighlighted(
+  text: string,
+  highlights: readonly string[]
+): ReactNode {
   if (highlights.length === 0) return text
 
   const pattern = new RegExp(
@@ -47,9 +48,9 @@ export default function MissionHero() {
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <h1
           ref={headingRef}
-          className="text-5xl leading-[0.95] font-medium tracking-tight text-white sm:text-7xl md:text-6xl uppercase"
+          className="text-5xl leading-[0.95] font-medium tracking-tight text-white uppercase sm:text-7xl md:text-6xl"
         >
-          {mission.heading}
+          {aboutMissionData.title}
         </h1>
 
         <div className="mt-12 border-t border-white/10 sm:mt-20" />
@@ -57,13 +58,13 @@ export default function MissionHero() {
         <div className="grid gap-10 pt-16 lg:grid-cols-[1fr_1px_1fr_1px_380px] lg:gap-16">
           <div>
             <h2 className="text-xl font-semibold text-white sm:text-2xl">
-              {mission.mission.title}
+              {aboutMissionData.statement.title}
             </h2>
 
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
               {renderHighlighted(
-                mission.mission.description,
-                mission.mission.highlights
+                aboutMissionData.statement.description,
+                aboutMissionData.statement.highlights
               )}
             </p>
           </div>
@@ -72,11 +73,11 @@ export default function MissionHero() {
 
           <div>
             <h2 className="text-xl font-semibold text-white sm:text-2xl">
-              {mission.approach.title}
+              {aboutMissionData.approach.title}
             </h2>
 
             <ul className="mt-6 space-y-3">
-              {mission.approach.items.map((item) => (
+              {aboutMissionData.approach.items.map((item) => (
                 <li
                   key={item}
                   className="flex items-center gap-3 text-base text-white/70 sm:text-lg"
@@ -92,7 +93,7 @@ export default function MissionHero() {
 
           <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-neutral-900">
             <Image
-              src={mission.image}
+              src={aboutMissionData.image}
               alt="Brain Stack"
               fill
               priority

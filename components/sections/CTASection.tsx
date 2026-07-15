@@ -3,8 +3,8 @@
 import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
-import { ctaData } from "@/lib/data/cta"
-import "@/lib/GSAPAnimations"
+import "@/lib/animations/gsap-animations"
+import { ctaData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
@@ -23,9 +23,9 @@ export default function CTASection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-brand-dark pt-24 pb-0 sm:pt-32 bg-neutral-900"
+      className="relative w-full overflow-hidden bg-brand-dark bg-neutral-900 pt-24 pb-0 sm:pt-32"
     >
-      <DiagonalPattern className="opacity-60 [mask-image:linear-gradient(to_left,black,transparent_65%)]" />
+      <DiagonalPattern className="[mask-image:linear-gradient(to_left,black,transparent_65%)] opacity-60" />
 
       <div className="relative mx-auto w-full max-w-400 px-5 pb-20 sm:px-8">
         <SectionBadge>Let&apos;s Talk</SectionBadge>
@@ -35,16 +35,18 @@ export default function CTASection() {
             ref={titleRef}
             className="col-span-8 max-w-5xl text-4xl leading-[1.05] font-medium tracking-tight text-white sm:text-6xl md:text-7xl"
           >
-            {ctaData.heading}
+            {ctaData.title}
           </h2>
 
-          <div className='col-span-4'>
+          <div className="col-span-4">
             <p className="max-w-md text-base leading-relaxed text-white/50 sm:text-xl">
               {ctaData.description}
             </p>
 
             <div className="mt-8">
-              <PrimaryButton href="/contact">Let&apos;s Get in Touch</PrimaryButton>
+              <PrimaryButton href={ctaData.button.href}>
+                {ctaData.button.label}
+              </PrimaryButton>
             </div>
           </div>
         </div>

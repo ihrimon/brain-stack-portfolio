@@ -2,8 +2,8 @@
 
 import { Logo } from "@/components/common/Logo"
 import { SettingsDrawer } from "@/components/layout/SettingsDrawer"
-import { navigationData } from "@/lib/data/navigation"
-import { cn } from "@/lib/utils"
+import { navigationData } from "@/lib/constants/navigation"
+import { cn } from "@/lib/utils/cn"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
@@ -39,7 +39,9 @@ export function Navbar() {
           >
             {navigationData.map((item) => {
               const isActive =
-                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href)
               return (
                 <li key={item.name} role="none">
                   <Link
@@ -47,7 +49,9 @@ export function Navbar() {
                     role="menuitem"
                     className={cn(
                       "block rounded-full px-3 py-2 text-sm font-medium transition-colors",
-                      isActive ? "text-white underline underline-offset-4" : "text-white/80 hover:text-white"
+                      isActive
+                        ? "text-white underline underline-offset-4"
+                        : "text-white/80 hover:text-white"
                     )}
                     data-cursor="magnetic"
                   >
@@ -61,7 +65,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="group flex size-14 shrink-0 cursor-pointer flex-col items-center justify-center gap-1.25 rounded-full border border-white/15 bg-neutral-900/90 dark:bg-white/5 backdrop-blur transition-colors hover:dark:bg-white/10"
+            className="group flex size-14 shrink-0 cursor-pointer flex-col items-center justify-center gap-1.25 rounded-full border border-white/15 bg-neutral-900/90 backdrop-blur transition-colors dark:bg-white/5 hover:dark:bg-white/10"
             aria-label="Open menu"
             data-cursor="magnetic"
           >

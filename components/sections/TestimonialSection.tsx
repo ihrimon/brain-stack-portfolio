@@ -1,9 +1,9 @@
 "use client"
 
 import { SectionBadge } from "@/components/common/SectionBadge"
-import "@/lib/GSAPAnimations"
-import { testimonialsData } from "@/lib/data/testimonials"
-import { cn } from "@/lib/utils"
+import "@/lib/animations/gsap-animations"
+import { testimonialsData } from "@/lib/data/home-page"
+import { cn } from "@/lib/utils/cn"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { Quote, Star } from "lucide-react"
@@ -63,7 +63,10 @@ export default function TestimonialSection() {
     )
   }, [activeIndex])
 
-  const visiblePair = [items[activeIndex], items[(activeIndex + 1) % items.length]]
+  const visiblePair = [
+    items[activeIndex],
+    items[(activeIndex + 1) % items.length],
+  ]
 
   return (
     <section
@@ -86,7 +89,7 @@ export default function TestimonialSection() {
         <div ref={trackRef} className="mt-16 grid gap-12 sm:grid-cols-2">
           {visiblePair.map((testimonial) => (
             <div
-              key={testimonial.author}
+              key={testimonial.name}
               className="relative flex flex-col rounded-3xl border-white/10 bg-neutral-900 p-8"
             >
               <div className="flex items-start justify-between gap-4">
@@ -108,7 +111,7 @@ export default function TestimonialSection() {
                 <div className="relative size-24 shrink-0 overflow-hidden rounded-xs">
                   <Image
                     src={testimonial.image}
-                    alt={testimonial.author}
+                    alt={testimonial.name}
                     fill
                     className="object-cover"
                     sizes="96px"
@@ -123,7 +126,7 @@ export default function TestimonialSection() {
               <div className="mt-auto flex items-end justify-between gap-4 pt-8">
                 <div>
                   <p className="text-lg font-semibold text-white">
-                    {testimonial.author}
+                    {testimonial.name}
                   </p>
                   <p className="text-sm text-white/50">
                     {testimonial.role}, {testimonial.company}

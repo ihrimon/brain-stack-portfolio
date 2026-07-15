@@ -2,7 +2,7 @@
 
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
-import "@/lib/GSAPAnimations"
+import "@/lib/animations/gsap-animations"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
@@ -24,7 +24,7 @@ export default function NotFound() {
     >
       <span
         aria-hidden="true"
-        className="footer-slang font-heading pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center leading-none font-black text-white/5 select-none"
+        className="footer-slang pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-heading leading-none font-black text-white/5 select-none"
       >
         404
       </span>

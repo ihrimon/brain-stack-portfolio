@@ -1,9 +1,7 @@
 import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { ParallaxImage } from "@/components/animations/ParallaxImage"
-import { servicesPageData } from "@/lib/data/servicesPage"
+import { agencyBannerData as banner } from "@/lib/data/service-page"
 import Link from "next/link"
-
-const { banner } = servicesPageData
 
 export default function AgencyBanner() {
   return (
@@ -33,11 +31,11 @@ export default function AgencyBanner() {
             </p>
 
             <Link
-              href={banner.cta.href}
+              href={banner.button.href}
               data-cursor="magnetic"
               className="mt-8 inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold tracking-wide text-black uppercase transition-colors duration-300 hover:bg-white/90"
             >
-              {banner.cta.label}
+              {banner.button.label}
             </Link>
           </div>
         </div>

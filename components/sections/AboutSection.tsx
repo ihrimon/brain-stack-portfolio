@@ -2,8 +2,8 @@
 
 import { SectionBadge } from "@/components/common/SectionBadge"
 import { BrainWireframe } from "@/components/three/BrainWireframe"
-import { aboutData } from "@/lib/data/about"
-import "@/lib/GSAPAnimations"
+import "@/lib/animations/gsap-animations"
+import { whoWeAreData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
@@ -66,21 +66,21 @@ export default function AboutSection() {
       className="bg-brand-dark py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <SectionBadge className="mb-12">{aboutData.eyebrow}</SectionBadge>
+        <SectionBadge className="mb-12">{whoWeAreData.badge}</SectionBadge>
 
         <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,430px)_1fr]">
           <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900">
             <div className="space-y-6 p-8">
               <h3 className="text-2xl font-medium text-white sm:text-4xl">
-                {aboutData.card.title}
+                {whoWeAreData.cardTitle}
               </h3>
 
               <Link
-                href={aboutData.card.cta.href}
+                href={whoWeAreData.button.href}
                 className="mt-8 w-fit rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
                 data-cursor="magnetic"
               >
-                {aboutData.card.cta.text}
+                {whoWeAreData.button.label}
               </Link>
             </div>
 
@@ -94,14 +94,14 @@ export default function AboutSection() {
               ref={titleRef}
               className="max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
             >
-              {aboutData.title}
+              {whoWeAreData.title}
             </h2>
 
             <p
               ref={descRef}
               className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70"
             >
-              {aboutData.description}
+              {whoWeAreData.description}
             </p>
 
             <div
@@ -109,17 +109,17 @@ export default function AboutSection() {
               className="mt-10 border-t border-white/10 pt-10"
             >
               <div className="grid grid-cols-1 divide-y divide-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-                {aboutData.stats.map((stat) => (
+                {whoWeAreData.stats.map((stat) => (
                   <div
-                    key={stat.title}
+                    key={stat.label}
                     className="group py-6 first:pt-0 sm:px-8 sm:py-0 sm:first:pl-0 sm:last:pr-0"
                   >
                     <p className="text-2xl font-medium text-white sm:text-4xl">
                       <span data-stat-value={stat.value}>0</span>
-                      {stat.highlight}
+                      {stat.suffix}
                     </p>
-                    <p className="mt-2 text-sm text-white/50 uppercase tracking-wide transition-colors duration-300 group-hover:text-white sm:text-lg">
-                      {stat.title}
+                    <p className="mt-2 text-sm tracking-wide text-white/50 uppercase transition-colors duration-300 group-hover:text-white sm:text-lg">
+                      {stat.label}
                     </p>
                     <p className="mt-4 text-white/70 transition-colors duration-300 group-hover:text-white">
                       {stat.description}

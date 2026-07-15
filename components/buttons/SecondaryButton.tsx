@@ -2,7 +2,7 @@
 
 import { MagneticButton } from "@/components/animations/MagneticButton"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/cn"
 import Link from "next/link"
 import type { ComponentProps } from "react"
 
@@ -28,5 +28,7 @@ export function SecondaryButton({
     </Button>
   )
 
-  return <MagneticButton className="inline-block w-fit">{content}</MagneticButton>
+  return (
+    <MagneticButton className="inline-block w-fit">{content}</MagneticButton>
+  )
 }

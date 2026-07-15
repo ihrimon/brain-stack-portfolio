@@ -1,6 +1,6 @@
 "use client"
 
-import { aboutPageData } from "@/lib/data/aboutPage"
+import { aboutStatsData } from "@/lib/data/about-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
@@ -8,14 +8,15 @@ import { useRef } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const { stats } = aboutPageData
-
 export default function AboutStats() {
   const sectionRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
-      const values = gsap.utils.toArray<HTMLElement>("[data-stat-value]", sectionRef.current)
+      const values = gsap.utils.toArray<HTMLElement>(
+        "[data-stat-value]",
+        sectionRef.current
+      )
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -50,7 +51,7 @@ export default function AboutStats() {
       <div className="w-full border-y border-white/10">
         <div className="mx-auto max-w-400 px-5 sm:px-8">
           <div className="grid grid-cols-2 divide-x divide-y divide-white/10 sm:grid-cols-4 sm:divide-y-0">
-            {stats.map((stat) => (
+            {aboutStatsData.map((stat) => (
               <div
                 key={stat.label}
                 className="flex flex-col items-center justify-center gap-3 px-6 py-12 text-center sm:py-16"

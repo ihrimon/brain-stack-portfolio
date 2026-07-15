@@ -1,6 +1,6 @@
 "use client"
 
-import "@/lib/GSAPAnimations"
+import "@/lib/animations/gsap-animations"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"

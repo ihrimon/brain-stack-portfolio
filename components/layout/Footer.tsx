@@ -1,7 +1,7 @@
 import { Logo } from "@/components/common/Logo"
-import { contactData } from "@/lib/data/contact"
-import { footerData } from "@/lib/data/footer"
-import { navigationData } from "@/lib/data/navigation"
+import { contactData } from "@/lib/constants/contact"
+import { footerData } from "@/lib/constants/footer"
+import { navigationData } from "@/lib/constants/navigation"
 import Image from "next/image"
 import Link from "next/link"
 

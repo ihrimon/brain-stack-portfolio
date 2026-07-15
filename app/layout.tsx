@@ -1,16 +1,16 @@
+import { Cursor } from "@/components/animations/Cursor"
+import { Loader } from "@/components/animations/Loader"
+import { ScrollButton } from "@/components/common/ScrollButton"
+import Footer from "@/components/layout/Footer"
+import { MobileNav } from "@/components/layout/MobileNav"
+import { Navbar } from "@/components/layout/Navbar"
+import { SmoothScroll } from "@/components/layout/SmoothScroll"
+import { ThemeProvider } from "@/components/theme/theme-provider"
+import "@/lib/animations/gsap-animations"
 import { defaultMetadata } from "@/lib/metadata"
 import { Metadata } from "next"
 import { Inter, Sora } from "next/font/google"
 import "./globals.css"
-import { Navbar } from '@/components/layout/Navbar'
-import { MobileNav } from '@/components/layout/MobileNav'
-import Footer from '@/components/layout/Footer'
-import { Loader } from '@/components/animations/Loader'
-import { SmoothScroll } from '@/components/layout/SmoothScroll'
-import { Cursor } from '@/components/animations/Cursor'
-import { ScrollButton } from '@/components/common/ScrollButton'
-import { ThemeProvider } from '@/components/theme/theme-provider'
-import "@/lib/GSAPAnimations"
 
 const sora = Sora({
   variable: "--font-heading",

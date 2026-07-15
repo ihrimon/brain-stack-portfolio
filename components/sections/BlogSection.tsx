@@ -1,8 +1,8 @@
 "use client"
 
 import { SectionBadge } from "@/components/common/SectionBadge"
-import "@/lib/GSAPAnimations"
-import { blogsData } from "@/lib/data/blogs"
+import "@/lib/animations/gsap-animations"
+import { blogsData } from "@/lib/data/blog-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { CircleUserRound, Tag } from "lucide-react"
@@ -31,7 +31,11 @@ export default function BlogSection() {
   )
 
   return (
-    <section id="blog" ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
+    <section
+      id="blog"
+      ref={sectionRef}
+      className="bg-brand-dark py-20 sm:py-28"
+    >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="max-w-4xl">
           <SectionBadge>{blogsData.badge}</SectionBadge>
@@ -45,7 +49,7 @@ export default function BlogSection() {
         </div>
 
         <div className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-          {posts.slice(0,4).map((post) => (
+          {posts.slice(0, 4).map((post) => (
             <article key={post.slug} className="group flex flex-col">
               <Link
                 href={`/blog/${post.slug}`}
@@ -53,7 +57,7 @@ export default function BlogSection() {
                 data-cursor="magnetic"
               >
                 <Image
-                  src={post.image}
+                  src={post.featuredImage}
                   alt={post.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -83,9 +87,11 @@ export default function BlogSection() {
               </h3>
 
               <p className="mt-3 flex items-center gap-2 text-xs text-white/40">
-                <span>{formatDate(post.date)}</span>
+                <span>{formatDate(post.publishDate)}</span>
                 <span className="size-1 rounded-full bg-white/30" />
-                <span>{post.comments.toString().padStart(2, "0")} Comments</span>
+                <span>
+                  {post.comments.toString().padStart(2, "0")} Comments
+                </span>
               </p>
             </article>
           ))}

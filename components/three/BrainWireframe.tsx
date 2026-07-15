@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/cn"
 import { useGSAP } from "@gsap/react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import gsap from "gsap"
@@ -226,7 +226,11 @@ interface BrainNodesProps {
 /** The glowing node point-cloud: a soft shared "breathing" pulse plus a
  * randomized per-node blink, both skipped entirely when the visitor
  * prefers reduced motion. */
-function BrainNodes({ positions, hoverIntensityRef, reducedMotion }: BrainNodesProps) {
+function BrainNodes({
+  positions,
+  hoverIntensityRef,
+  reducedMotion,
+}: BrainNodesProps) {
   const pointsRef = useRef<THREE.Points>(null)
   const count = positions.length / 3
   const glowTexture = useMemo(() => getGlowTexture(), [])
@@ -273,7 +277,10 @@ function BrainNodes({ positions, hoverIntensityRef, reducedMotion }: BrainNodesP
     const hoverBoost = 1 + hoverIntensityRef.current * HOVER_GLOW_BOOST
 
     for (let i = 0; i < count; i++) {
-      const blink = 1 - BLINK_INTENSITY + Math.sin(time * BLINK_SPEED + phases[i]) * BLINK_INTENSITY
+      const blink =
+        1 -
+        BLINK_INTENSITY +
+        Math.sin(time * BLINK_SPEED + phases[i]) * BLINK_INTENSITY
       const brightness = breathing * blink * hoverBoost
 
       colorArray[i * 3] = baseColorArray[i * 3] * brightness
@@ -290,7 +297,10 @@ function BrainNodes({ positions, hoverIntensityRef, reducedMotion }: BrainNodesP
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
         {/* A copy, not `baseColorArray` itself — the GPU buffer gets its own
             array to mutate every frame, decoupled from the state value. */}
-        <bufferAttribute attach="attributes-color" args={[baseColorArray.slice(), 3]} />
+        <bufferAttribute
+          attach="attributes-color"
+          args={[baseColorArray.slice(), 3]}
+        />
       </bufferGeometry>
       <pointsMaterial
         size={BASE_NODE_SIZE}
@@ -312,7 +322,10 @@ interface BrainConnectionsProps {
 
 /** Thin lines between nearby nodes — the "circuit board" / neural-network
  * read of the piece. Opacity nudges up slightly on hover. */
-function BrainConnections({ segments, hoverIntensityRef }: BrainConnectionsProps) {
+function BrainConnections({
+  segments,
+  hoverIntensityRef,
+}: BrainConnectionsProps) {
   const materialRef = useRef<THREE.LineBasicMaterial>(null)
 
   useFrame(() => {
@@ -372,7 +385,11 @@ function DataPulses({ pairs, positions, reducedMotion }: DataPulsesProps) {
       const [a, b] = pulse.pair
       const t = (time * PULSE_SPEED + pulse.offset) % 1
 
-      positionArray[i * 3] = THREE.MathUtils.lerp(positions[a * 3], positions[b * 3], t)
+      positionArray[i * 3] = THREE.MathUtils.lerp(
+        positions[a * 3],
+        positions[b * 3],
+        t
+      )
       positionArray[i * 3 + 1] = THREE.MathUtils.lerp(
         positions[a * 3 + 1],
         positions[b * 3 + 1],
@@ -396,7 +413,10 @@ function DataPulses({ pairs, positions, reducedMotion }: DataPulsesProps) {
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positionArray, 3]} />
+        <bufferAttribute
+          attach="attributes-position"
+          args={[positionArray, 3]}
+        />
       </bufferGeometry>
       <pointsMaterial
         size={PULSE_SIZE}
@@ -471,7 +491,8 @@ function BrainGroup({
 
     if (!reducedMotion) {
       group.rotation.y += BASE_ROTATION_SPEED * delta
-      group.position.y = Math.sin(clock.getElapsedTime() * FLOAT_SPEED) * FLOAT_AMPLITUDE
+      group.position.y =
+        Math.sin(clock.getElapsedTime() * FLOAT_SPEED) * FLOAT_AMPLITUDE
 
       tilt.current.x = THREE.MathUtils.lerp(
         tilt.current.x,
@@ -492,13 +513,20 @@ function BrainGroup({
   return (
     <group ref={groupRef}>
       <BrainShell reducedMotion={reducedMotion} />
-      <BrainConnections segments={segments} hoverIntensityRef={hoverIntensityRef} />
+      <BrainConnections
+        segments={segments}
+        hoverIntensityRef={hoverIntensityRef}
+      />
       <BrainNodes
         positions={positions}
         hoverIntensityRef={hoverIntensityRef}
         reducedMotion={reducedMotion}
       />
-      <DataPulses pairs={pairs} positions={positions} reducedMotion={reducedMotion} />
+      <DataPulses
+        pairs={pairs}
+        positions={positions}
+        reducedMotion={reducedMotion}
+      />
     </group>
   )
 }
@@ -509,7 +537,11 @@ function Scene(props: SceneProps) {
   return (
     <>
       <ambientLight intensity={0.4} />
-      <pointLight position={[2, 2, 3]} intensity={0.8} color={COLORS.secondaryGlow} />
+      <pointLight
+        position={[2, 2, 3]}
+        intensity={0.8}
+        color={COLORS.secondaryGlow}
+      />
       <BrainGroup {...props} />
     </>
   )
@@ -556,9 +588,12 @@ export function BrainWireframe({ className }: BrainWireframeProps) {
   // the effect body itself.
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const sizeQuery = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT_PX}px)`)
+    const sizeQuery = window.matchMedia(
+      `(max-width: ${MOBILE_BREAKPOINT_PX}px)`
+    )
 
-    const handleMotionChange = (event: MediaQueryListEvent) => setReducedMotion(event.matches)
+    const handleMotionChange = (event: MediaQueryListEvent) =>
+      setReducedMotion(event.matches)
     const handleSizeChange = (event: MediaQueryListEvent) =>
       setNodeCount(event.matches ? NODE_COUNT_MOBILE : NODE_COUNT_DESKTOP)
 
@@ -605,13 +640,16 @@ export function BrainWireframe({ className }: BrainWireframeProps) {
     { scope: wrapperRef }
   )
 
-  const handlePointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect()
-    mouseRef.current = {
-      x: ((event.clientX - bounds.left) / bounds.width) * 2 - 1,
-      y: -(((event.clientY - bounds.top) / bounds.height) * 2 - 1),
-    }
-  }, [])
+  const handlePointerMove = useCallback(
+    (event: PointerEvent<HTMLDivElement>) => {
+      const bounds = event.currentTarget.getBoundingClientRect()
+      mouseRef.current = {
+        x: ((event.clientX - bounds.left) / bounds.width) * 2 - 1,
+        y: -(((event.clientY - bounds.top) / bounds.height) * 2 - 1),
+      }
+    },
+    []
+  )
 
   const handlePointerEnter = useCallback(() => {
     gsap.to(hoverIntensityRef, {

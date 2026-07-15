@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/cn"
 import Image from "next/image"
 import Link from "next/link"
 import { type ComponentPropsWithoutRef } from "react"
@@ -42,7 +42,9 @@ export function PrimaryButton({
         href={href}
         className="inline-block w-fit"
         data-cursor="magnetic"
-        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        {...(isExternal
+          ? { target: "_blank", rel: "noopener noreferrer" }
+          : {})}
       >
         {pill}
       </Link>

@@ -1,13 +1,11 @@
 "use client"
 
-import "@/lib/GSAPAnimations"
-import { servicesPageData } from "@/lib/data/servicesPage"
+import "@/lib/animations/gsap-animations"
+import { serviceProcessData as process } from "@/lib/data/service-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
-import { SectionBadge } from '../common/SectionBadge'
-
-const { process } = servicesPageData
+import { SectionBadge } from "../common/SectionBadge"
 
 export default function ServiceProcessTimeline() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -16,7 +14,9 @@ export default function ServiceProcessTimeline() {
   useGSAP(
     () => {
       gsap.effects.textRevealOnScroll(titleRef.current)
-      gsap.effects.staggerFadeUpOnScroll("[data-steps]", { childSelector: "[data-step]" })
+      gsap.effects.staggerFadeUpOnScroll("[data-steps]", {
+        childSelector: "[data-step]",
+      })
     },
     { scope: sectionRef }
   )
@@ -24,15 +24,20 @@ export default function ServiceProcessTimeline() {
   return (
     <section ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-          <SectionBadge className="mb-12">Services Timeline</SectionBadge>
-          <h2
-            ref={titleRef}
-            className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-5xl uppercase"
-          >
-            {process.title}
-          </h2>
+        <SectionBadge variant="label" className="mb-12">
+          {process.badge}
+        </SectionBadge>
+        <h2
+          ref={titleRef}
+          className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
+        >
+          {process.title}
+        </h2>
 
-        <div data-steps className="mt-16 border-b border-dashed border-white/15 sm:mt-20">
+        <div
+          data-steps
+          className="mt-16 border-b border-dashed border-white/15 sm:mt-20"
+        >
           {process.steps.map((step, index) => (
             <div
               key={step.title}

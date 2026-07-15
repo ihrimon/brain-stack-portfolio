@@ -1,8 +1,8 @@
 "use client"
 
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
-import { heroData } from "@/lib/data/hero"
-import "@/lib/GSAPAnimations"
+import "@/lib/animations/gsap-animations"
+import { heroBannerData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { SplitText } from "gsap/all"
@@ -57,16 +57,18 @@ export default function HeroSection() {
         <div className="relative z-10 mx-auto flex w-full max-w-400 flex-1 flex-col justify-center px-5 pt-32 pb-20 sm:px-8">
           <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
             <div className="flex flex-col gap-8">
-              <h1 className="max-w-4xl font-medium text-5xl tracking-tight text-white uppercase lg:text-[84px] mb-6">
-                {heroData.title}{" "}
+              <h1 className="mb-6 max-w-4xl text-5xl font-medium tracking-tight text-white uppercase lg:text-[84px]">
+                {heroBannerData.title}{" "}
               </h1>
 
-              <PrimaryButton href="/projects">Explore Portfolio</PrimaryButton>
+              <PrimaryButton href={heroBannerData.button.href}>
+                {heroBannerData.button.label}
+              </PrimaryButton>
             </div>
 
             <div className="lg:w-130 lg:shrink-0">
               <p className="text-base leading-relaxed text-white/70 sm:text-2xl">
-                {heroData.description}
+                {heroBannerData.description}
               </p>
             </div>
           </div>

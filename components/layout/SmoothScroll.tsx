@@ -1,6 +1,6 @@
 "use client"
 
-import { setLenis } from "@/lib/lenis"
+import { setLenis } from "@/lib/animations/lenis"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
 import Lenis from "lenis"

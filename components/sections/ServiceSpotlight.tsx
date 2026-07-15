@@ -1,12 +1,10 @@
 "use client"
 
-import { servicesPageData } from "@/lib/data/servicesPage"
+import { serviceSpotlightData as spotlight } from "@/lib/data/service-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import Image from "next/image"
 import { useRef, useState } from "react"
-
-const { spotlight } = servicesPageData
 
 export default function ServiceSpotlight() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -46,7 +44,7 @@ export default function ServiceSpotlight() {
         >
           <div className="flex flex-col justify-center">
             <h2 className="max-w-md text-3xl leading-tight font-medium text-white sm:text-4xl">
-              {current.heading}
+              {current.subtitle}
             </h2>
 
             <p className="mt-8 max-w-md text-base leading-relaxed text-white/60">

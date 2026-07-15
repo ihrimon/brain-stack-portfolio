@@ -1,8 +1,7 @@
 "use client"
 
-import { SectionBadge } from "@/components/common/SectionBadge"
-import { blogsData } from "@/lib/data/blogs"
-import { cn } from "@/lib/utils"
+import { blogsData } from "@/lib/data/blog-page"
+import { cn } from "@/lib/utils/cn"
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -86,7 +85,7 @@ export default function AllBlogs() {
       className="bg-brand-dark pt-32 pb-20 sm:pt-40 sm:pb-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <h1 className="max-w-6xl text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl md:text-6xl uppercase">
+        <h1 className="max-w-6xl text-4xl leading-tight font-medium tracking-tight text-white uppercase sm:text-5xl md:text-6xl">
           {blogsData.title}
         </h1>
 
@@ -111,7 +110,7 @@ export default function AllBlogs() {
                     data-cursor="magnetic"
                   >
                     <Image
-                      src={post.image}
+                      src={post.featuredImage}
                       alt={post.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -137,7 +136,7 @@ export default function AllBlogs() {
                     <span className="font-semibold text-white/70">
                       {post.author}
                     </span>{" "}
-                    — {new Date(post.date).getFullYear()}
+                    — {new Date(post.publishDate).getFullYear()}
                   </p>
                 </article>
               ))}

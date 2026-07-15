@@ -10,7 +10,7 @@ import {
   DrawerFooter,
   DrawerHeader,
 } from "@/components/ui/drawer"
-import { contactData } from "@/lib/data/contact"
+import { contactData } from "@/lib/constants/contact"
 import { Mail, MapPin, Phone, X } from "lucide-react"
 
 interface SettingsDrawerProps {
@@ -22,14 +22,14 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
       <DrawerContent className="rounded-none! p-0">
-        <div className="flex h-full flex-col overflow-y-auto bg-background text-foreground p-6">
+        <div className="flex h-full flex-col overflow-y-auto bg-background p-6 text-foreground">
           <DrawerHeader className="flex flex-row items-center justify-between border-b border-border px-0 pb-4">
             <Logo href={false} />
             <DrawerClose asChild>
               <button
                 type="button"
                 aria-label="Close settings"
-                className="group flex size-12 items-center justify-center rounded-full border border-border text-heading hover:bg-muted cursor-pointer"
+                className="group flex size-12 cursor-pointer items-center justify-center rounded-full border border-border text-heading hover:bg-muted"
               >
                 <X className="size-6 transition-transform duration-300 group-hover:rotate-90" />
               </button>

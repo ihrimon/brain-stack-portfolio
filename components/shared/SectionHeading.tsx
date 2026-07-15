@@ -1,67 +1,67 @@
-"use client";
+"use client"
 
-import { cn } from "@/lib/utils";
-import type { LucideIcon } from "lucide-react";
-import { forwardRef } from "react";
+import { cn } from "@/lib/utils/cn"
+import type { LucideIcon } from "lucide-react"
+import { forwardRef } from "react"
 
 export interface SectionHeadingProps {
   /**
    * The badge text displayed above the heading
    */
-  badge?: string;
+  badge?: string
   /**
    * The main heading text
    */
-  heading: string;
+  heading: string
   /**
    * Optional description text (hidden from screen readers by default)
    */
-  description?: string;
+  description?: string
   /**
    * Optional icon to display in the badge
    */
-  icon?: LucideIcon;
+  icon?: LucideIcon
   /**
    * Size variant for the heading
    * @default "md"
    */
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "sm" | "md" | "lg" | "xl"
   /**
    * Text alignment
    * @default "center"
    */
-  align?: "left" | "center" | "right";
+  align?: "left" | "center" | "right"
   /**
    * Additional CSS classes for the container
    */
-  className?: string;
+  className?: string
   /**
    * Additional CSS classes for the heading
    */
-  headingClassName?: string;
+  headingClassName?: string
   /**
    * Additional CSS classes for the badge
    */
-  badgeClassName?: string;
+  badgeClassName?: string
   /**
    * HTML heading level (h1, h2, h3, h4, h5, h6)
    * @default "h2"
    */
-  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
   /**
    * Renders the heading text with the brand gradient instead of the solid heading color
    * @default false
    */
-  gradient?: boolean;
+  gradient?: boolean
   /**
    * ID for the heading element (useful for anchor links)
    */
-  id?: string;
+  id?: string
   /**
    * Whether to show the description to screen readers
    * @default false
    */
-  showDescriptionToScreenReaders?: boolean;
+  showDescriptionToScreenReaders?: boolean
 }
 
 const sizeVariants = {
@@ -85,17 +85,18 @@ const sizeVariants = {
   },
   xl: {
     badge: "text-sm px-6 py-1 sm:px-8",
-    heading: "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight",
+    heading:
+      "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight",
     description: "text-lg sm:text-xl leading-snug",
     spacing: "space-y-6 sm:space-y-8",
   },
-};
+}
 
 const alignVariants = {
   left: "text-left",
   center: "text-center",
   right: "text-right",
-};
+}
 
 const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
   (
@@ -117,8 +118,8 @@ const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
     },
     ref
   ) => {
-    const variant = sizeVariants[size];
-    const alignment = alignVariants[align];
+    const variant = sizeVariants[size]
+    const alignment = alignVariants[align]
 
     return (
       <header
@@ -130,14 +131,14 @@ const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
         {/* Badge */}
         <div
           className={cn(
-            "bg-tag-bg w-fit rounded-3xl",
+            "w-fit rounded-3xl bg-tag-bg",
             variant.badge,
             align === "center" && "md:mx-auto",
             badgeClassName
           )}
           role="banner"
         >
-          <p className="text-tag align-middle font-medium">
+          <p className="align-middle font-medium text-tag">
             {Icon && (
               <span className="mt-1.5 mr-2 inline-block self-center">
                 <Icon height={12} width={12} aria-hidden="true" />
@@ -176,10 +177,10 @@ const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
           </p>
         )}
       </header>
-    );
+    )
   }
-);
+)
 
-SectionHeading.displayName = "SectionHeading";
+SectionHeading.displayName = "SectionHeading"
 
-export { SectionHeading };
+export { SectionHeading }

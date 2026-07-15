@@ -1,9 +1,7 @@
-import { aboutPageData } from "@/lib/data/aboutPage"
+import { aboutFeaturesData as features } from "@/lib/data/about-page"
 import { ArrowUpRight, Sparkle, Star } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-
-const { features } = aboutPageData
 
 export default function WhyBrainStack() {
   return (
@@ -23,7 +21,9 @@ export default function WhyBrainStack() {
                 <div className="mt-8 rounded-xl bg-white/5 p-6">
                   <div className="flex items-center justify-between">
                     <span className="h-6 w-8 rounded-[3px] bg-linear-to-br from-amber-300 to-amber-500" />
-                    <span className="text-2xl font-semibold text-white/70">$</span>
+                    <span className="text-2xl font-semibold text-white/70">
+                      $
+                    </span>
                   </div>
 
                   <p className="mt-8 flex items-center gap-2 text-xs text-white/60">
@@ -36,9 +36,11 @@ export default function WhyBrainStack() {
               <div className="rounded-3xl bg-neutral-900 p-6 sm:p-8">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-0.5 text-amber-400">
-                    {Array.from({ length: features.rating.stars }).map((_, index) => (
-                      <Star key={index} className="size-4 fill-current" />
-                    ))}
+                    {Array.from({ length: features.rating.stars }).map(
+                      (_, index) => (
+                        <Star key={index} className="size-4 fill-current" />
+                      )
+                    )}
                   </div>
 
                   <p className="text-sm font-medium text-white">
@@ -90,7 +92,9 @@ export default function WhyBrainStack() {
                   </div>
 
                   <div className="flex items-center justify-between gap-2 rounded-full px-3 py-2">
-                    <span className="text-xs text-white/40">{features.support.message}</span>
+                    <span className="text-xs text-white/40">
+                      {features.support.message}
+                    </span>
                     <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs text-white/60">
                       +
                     </span>
@@ -151,11 +155,11 @@ export default function WhyBrainStack() {
             </div>
 
             <Link
-              href={features.strategy.cta.href}
+              href={features.strategy.button.href}
               data-cursor="magnetic"
               className="relative mt-10 inline-flex w-fit items-center gap-3 rounded-full bg-white px-6 py-3 text-xs font-semibold tracking-wide text-black uppercase transition-colors duration-300 hover:bg-white/90"
             >
-              {features.strategy.cta.label}
+              {features.strategy.button.label}
               <ArrowUpRight className="size-4" />
             </Link>
           </div>

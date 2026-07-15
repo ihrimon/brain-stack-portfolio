@@ -1,11 +1,9 @@
 "use client"
 
-import { contactData } from "@/lib/data/contact"
-import { aboutPageData } from "@/lib/data/aboutPage"
+import { contactData } from "@/lib/constants/contact"
+import { aboutInquiryData as inquiry } from "@/lib/data/about-page"
 import { ArrowUpRight, ChevronDown } from "lucide-react"
 import { useState, type FormEvent } from "react"
-
-const { inquiry } = aboutPageData
 
 const fieldClassName =
   "w-full border-b border-white/15 bg-transparent py-3 text-white placeholder:text-white/30 outline-none transition-colors duration-300 focus:border-white/50"
@@ -25,7 +23,7 @@ export default function ProjectInquiry() {
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-12">
           <div className="flex flex-col justify-between">
             <h2 className="max-w-lg text-4xl leading-tight font-semibold tracking-tight text-white sm:text-5xl">
-              {inquiry.heading}
+              {inquiry.title}
             </h2>
 
             <div className="mt-16 lg:mt-0">
@@ -132,7 +130,11 @@ export default function ProjectInquiry() {
                       Select Your Service
                     </option>
                     {contactData.serviceOptions.map((option) => (
-                      <option key={option} value={option} className="bg-neutral-900">
+                      <option
+                        key={option}
+                        value={option}
+                        className="bg-neutral-900"
+                      >
                         {option}
                       </option>
                     ))}
@@ -156,7 +158,11 @@ export default function ProjectInquiry() {
                       Select Your Range
                     </option>
                     {contactData.budgetOptions.map((option) => (
-                      <option key={option} value={option} className="bg-neutral-900">
+                      <option
+                        key={option}
+                        value={option}
+                        className="bg-neutral-900"
+                      >
                         {option}
                       </option>
                     ))}
