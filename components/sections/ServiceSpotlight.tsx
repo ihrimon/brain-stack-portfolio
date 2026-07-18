@@ -13,12 +13,8 @@ interface ServiceSpotlightProps {
 export default function ServiceSpotlight({ spotlight }: ServiceSpotlightProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
-  const [index, setIndex] = useState(0)
+  const [index] = useState(0)
   const current = spotlight[index]
-
-  const handleNext = () => {
-    setIndex((prev) => (prev + 1) % spotlight.length)
-  }
 
   useGSAP(
     () => {

@@ -17,7 +17,7 @@ import Autoplay from "embla-carousel-autoplay"
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 
 interface TeamSectionProps {
   data: TeamMembersData
@@ -26,7 +26,11 @@ interface TeamSectionProps {
 export default function TeamSection({ data }: TeamSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
-  const autoplay = useRef(
+  // Created once and never reassigned, so a lazy useState initializer (safe
+  // to read during render) is the correct place for this — unlike a ref,
+  // which the lint rule correctly flags as unsafe to read in the render body
+  // even when, as here, it never actually changes after mount.
+  const [autoplay] = useState(() =>
     Autoplay({ delay: 4000, stopOnInteraction: false })
   )
 
@@ -68,7 +72,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
 
         <Carousel
           opts={{ loop: true, align: "start" }}
-          plugins={[autoplay.current]}
+          plugins={[autoplay]}
           className="mt-16"
         >
           <CarouselContent className="-ml-5 sm:-ml-6">

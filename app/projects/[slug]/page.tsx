@@ -1,5 +1,7 @@
+import { JsonLd } from "@/components/common/JsonLd"
 import ProjectDetails from "@/components/sections/ProjectDetails"
 import { generateProjectMetadata } from "@/lib/metadata"
+import { generateProjectSchema } from "@/lib/structured-data"
 import { getProjects } from "@/lib/utils/sheets/projects"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -42,8 +44,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       : []
 
   return (
-    <main id="main-content" role="main">
-      <ProjectDetails project={project} related={related} />
-    </main>
+    <>
+      <JsonLd data={generateProjectSchema(project)} />
+      <main id="main-content" role="main">
+        <ProjectDetails project={project} related={related} />
+      </main>
+    </>
   )
 }

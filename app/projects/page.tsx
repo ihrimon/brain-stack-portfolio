@@ -1,6 +1,8 @@
+import { JsonLd } from "@/components/common/JsonLd"
 import CTASection from "@/components/sections/CTASection"
 import ProjectsGridSection from "@/components/sections/ProjectsGridSection"
 import { generatePageMetadata } from "@/lib/metadata"
+import { generateWebPageSchema } from "@/lib/structured-data"
 import { getHomeData } from "@/lib/utils/sheets/home"
 import { getProjects } from "@/lib/utils/sheets/projects"
 
@@ -11,9 +13,12 @@ export default async function ProjectsPage() {
   const [projects, home] = await Promise.all([getProjects(), getHomeData()])
 
   return (
-    <main id="main-content" role="main">
-      <ProjectsGridSection projects={projects} />
-      <CTASection data={home.cta} />
-    </main>
+    <>
+      <JsonLd data={generateWebPageSchema("projects")} />
+      <main id="main-content" role="main">
+        <ProjectsGridSection projects={projects} />
+        <CTASection data={home.cta} />
+      </main>
+    </>
   )
 }

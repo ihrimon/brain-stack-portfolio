@@ -1,5 +1,6 @@
 import AboutSection from "@/components/sections/AboutSection"
 import BlogSection from "@/components/sections/BlogSection"
+import { JsonLd } from "@/components/common/JsonLd"
 import CTASection from "@/components/sections/CTASection"
 import EngineeringProcess from "@/components/sections/EngineeringProcess"
 import HeroSection from "@/components/sections/HeroSection"
@@ -9,6 +10,7 @@ import ServicesSection from "@/components/sections/ServicesSection"
 import TeamSection from "@/components/sections/TeamSection"
 import TestimonialSection from "@/components/sections/TestimonialSection"
 import { generatePageMetadata } from "@/lib/metadata"
+import { generateWebPageSchema } from "@/lib/structured-data"
 import { getAboutData } from "@/lib/utils/sheets/about"
 import { getBlogPosts } from "@/lib/utils/sheets/blog"
 import { getHomeData } from "@/lib/utils/sheets/home"
@@ -26,17 +28,20 @@ export default async function HomePage() {
   ])
 
   return (
-    <main id="main-content" role="main">
-      <HeroSection data={home.heroBanner} />
-      <ProjectVideoSection data={home.projectVideo} />
-      <AboutSection data={home.whoWeAre} />
-      <ProjectsSection projects={projects} />
-      <ServicesSection data={home.services} />
-      <EngineeringProcess data={home.process} />
-      <TestimonialSection data={home.testimonials} />
-      <TeamSection data={about.team} />
-      <BlogSection posts={posts} />
-      <CTASection data={home.cta} />
-    </main>
+    <>
+      <JsonLd data={generateWebPageSchema("home")} />
+      <main id="main-content" role="main">
+        <HeroSection data={home.heroBanner} />
+        <ProjectVideoSection data={home.projectVideo} />
+        <AboutSection data={home.whoWeAre} />
+        <ProjectsSection projects={projects} />
+        <ServicesSection data={home.services} />
+        <EngineeringProcess data={home.process} />
+        <TestimonialSection data={home.testimonials} />
+        <TeamSection data={about.team} />
+        <BlogSection posts={posts} />
+        <CTASection data={home.cta} />
+      </main>
+    </>
   )
 }

@@ -1,5 +1,7 @@
+import { JsonLd } from "@/components/common/JsonLd"
 import BlogDetails from "@/components/sections/BlogDetails"
 import { generateBlogPostMetadata } from "@/lib/metadata"
+import { generateBlogPostingSchema } from "@/lib/structured-data"
 import { getBlogPosts } from "@/lib/utils/sheets/blog"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -37,8 +39,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedPosts = posts.filter((item) => item.slug !== post.slug).slice(0, 3)
 
   return (
-    <main id="main-content" role="main">
-      <BlogDetails post={post} relatedPosts={relatedPosts} />
-    </main>
+    <>
+      <JsonLd data={generateBlogPostingSchema(post)} />
+      <main id="main-content" role="main">
+        <BlogDetails post={post} relatedPosts={relatedPosts} />
+      </main>
+    </>
   )
 }

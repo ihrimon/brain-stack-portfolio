@@ -6,7 +6,9 @@ export const siteConfig = {
     "Brain Stack is a full-stack software studio building web, mobile, and AI-powered products for ambitious teams — from MVP to scale.",
   url: "https://brainstack.dev",
   ogImage: "https://res.cloudinary.com/dieth2xb3/image/upload/v1755799085/ssimage_bxr8i6.png",
-  logo: "/logo.jpeg",
+  // Was "/logo.jpeg" — that file doesn't exist in public/. Fixed 2026-07-18
+  // while wiring structured data, which needs a real, resolvable logo URL.
+  logo: "/logo-dark.png",
   keywords: [
     "software development agency",
     "full stack development",
@@ -395,39 +397,13 @@ export function generateProjectMetadata(
   };
 }
 
-export function generateBlogPostStructuredData(
-  title: string,
-  description: string,
-  publishedTime: string,
-  slug: string,
-  author?: string
-) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: title,
-    datePublished: publishedTime,
-    dateModified: publishedTime,
-    description,
-    url: `https://brainstack.dev/blog/${slug}`,
-    author: {
-      "@type": "Person",
-      name: author || "Brain Stack Team",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Brain Stack",
-      logo: {
-        "@type": "ImageObject",
-        url: siteConfig.logo,
-      },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://brainstack.dev/blog/${slug}`,
-    },
-  };
-}
+// JSON-LD structured data (Organization, WebSite, WebPage, BlogPosting,
+// CreativeWork, BreadcrumbList) lives in lib/structured-data.ts, not here —
+// this file is scoped to the Next.js Metadata API (<title>/<meta>/OG tags).
+// A `generateBlogPostStructuredData` function used to live here; it's been
+// superseded by `generateBlogPostingSchema` in that file (more complete —
+// adds image/keywords/isPartOf — and reuses this file's siteConfig via an
+// import rather than hardcoding the domain a second time).
 
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

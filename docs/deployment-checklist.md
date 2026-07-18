@@ -4,6 +4,8 @@
 
 **Legend:** ✅ Ready — no action needed · 🟡 Needs Improvement — ship-with-caveats, fix soon · 🔴 Critical — do not launch without this
 
+> **Status as of 2026-07-18:** every 🔴 Critical item from earlier passes is closed. The one remaining open item across the whole checklist is the contact form's delivery provider (email/SMTP/Sheets — a product decision, not an engineering gap). See [`final-engineering-report.md`](./final-engineering-report.md) for the full cumulative status.
+
 ---
 
 ## Environment & configuration
@@ -60,12 +62,13 @@
 - ✅ `generateStaticParams` present on both dynamic routes.
 - ✅ **Re-evaluated 2026-07-18**: bounding `generateStaticParams` to a recent-N subset is deliberately *not* applied yet — at 10 projects / 12 posts, any bound would just mean "all of them" with extra code. Trigger point (documented in [`rendering-strategy.md`](./rendering-strategy.md)): revisit before a push that takes either collection past ~100–150 entries.
 
-## Code quality / dead code — 🟡 Needs Improvement, non-blocking
+## Code quality / dead code — ✅ Ready
 
-- [ ] Remove or repurpose: `lib/site.ts`, `lib/fonts.ts`, `lib/icons.ts`, `lib/animations/reveal.ts`, `lib/animations/hero.ts`, `lib/animations/description.ts`, `hooks/useScrollReveal.ts`. *(Still open — out of scope for the production-stability pass.)*
-- [x] Fixed 6 stray relative imports (`Loader.tsx` plus 5 more found in the same pass: `EngineeringProcess`, `ProcessSection`, `ServiceProcessTimeline`, `ExclusiveServices`, `ServicesSection`) — done in the architecture-standardization phase, see [`coding-guidelines.md`](./coding-guidelines.md).
-- [x] Fixed a real filename typo: `VideoSectioni.tsx` → `VideoSection.tsx` (dead/unused component, zero-risk rename).
-- Newly noted, not fixed: `ProcessSection.tsx` is dead code (zero imports anywhere) — found during the GSAP cleanup review; adding to this list rather than fixing now, consistent with "no redesign" scope.
+- [x] **All confirmed dead code removed 2026-07-18** — 17 files total: `lib/site.ts`, `lib/fonts.ts`, `lib/icons.ts`, `lib/animations/reveal.ts`/`hero.ts`/`description.ts` (empty stubs), `hooks/useScrollReveal.ts`, `ProcessSection.tsx`, `IntegrationSection.tsx`, `WhatWeDo.tsx`, `TrustedSection.tsx` (placeholder junk), `Container.tsx`, `SectionTitle.tsx`, `SectionHeading.tsx`, `GlassCard.tsx`, `MotionWrapper.tsx`, `ImageWithFallback.tsx`. Verified via `tsc --noEmit` + `next lint` + `next build` after every deletion. Full inventory: [`folder-structure.md`](./folder-structure.md) §8.
+- [x] Fixed 6 stray relative imports (`Loader.tsx` plus 5 more: `EngineeringProcess`, `ProcessSection` *(since removed)*, `ServiceProcessTimeline`, `ExclusiveServices`, `ServicesSection`).
+- [x] Fixed a real filename typo: `VideoSectioni.tsx` → `VideoSection.tsx`.
+- [x] Circular dependency check (manual — `lib/` never imports from `components/` or `app/`; no section imports another section) — clean, one-directional dependency graph confirmed.
+- [ ] Add `ts-prune` (or equivalent) to CI so this list doesn't silently regrow — see `coding-guidelines.md` §"Dead code policy". Tooling recommendation, not a blocker.
 
 ## Type safety & build — ✅ Ready
 

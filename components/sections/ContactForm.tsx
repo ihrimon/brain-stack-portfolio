@@ -28,6 +28,18 @@ export default function ContactForm() {
     )
   }
 
+  // Resets the form's local UI state (including a real DOM mutation via
+  // formRef) when the Server Action reports success — a legitimate effect
+  // use case (React's own docs list "resetting a form" under valid reasons
+  // to sync to an external result), not a case of missing derived state.
+  // This intentionally still trips `react-hooks/set-state-in-effect` — the
+  // same accepted trade-off already present in the vendored
+  // components/ui/carousel.tsx for the analogous "sync local state to an
+  // external API's result" pattern. An alternative using React's
+  // adjust-during-render technique was tried and rejected: this project's
+  // lint config also flags reading/writing a ref during render, which that
+  // pattern requires, and `formRef.current?.reset()` is a genuine DOM
+  // mutation that must not run during render regardless.
   useEffect(() => {
     if (state.status === "success") {
       formRef.current?.reset()

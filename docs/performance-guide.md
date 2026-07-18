@@ -4,6 +4,8 @@
 
 **Status:** all changes below are implemented and verified (typecheck, lint, full production build, and a Playwright browser pass across `/`, `/projects`, `/projects/[slug]`, `/blog`, `/services`, and a 404). No UI/visual redesign — every change is either invisible in normal use (bundle splitting, retry logic, blur-up placeholders) or a targeted bug fix (the GSAP cleanup issue, the missing `priority` on `/services`' hero image).
 
+> **2026-07-18 update:** a later maintainability-focused pass removed 17 dead files from the codebase (see [`folder-structure.md`](./folder-structure.md) §8) — none of them were reachable at runtime, so this has no performance effect; noted here only because a couple of the removed files (`MotionWrapper.tsx`, `ImageWithFallback.tsx`) might otherwise look like performance-relevant components to a reader scanning the repo. They weren't — zero imports, confirmed before removal.
+
 ---
 
 ## 1. Images

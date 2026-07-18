@@ -13,7 +13,7 @@
 | Component files | PascalCase `.tsx` | `HeroSection.tsx`, `ProjectDetails.tsx` |
 | Non-component files | camelCase `.ts` | `gsap-animations.ts` uses kebab-case as the one exception — see below |
 | Components | PascalCase, matches filename | `export default function HeroSection()` |
-| Hooks | camelCase, `use` prefix | `useScrollReveal.ts` |
+| Hooks | camelCase, `use` prefix | `hooks/` is currently empty (scaffolding) — follow this convention for the next one added |
 | Data/constant exports | camelCase, `Data`/`Config` suffix for content objects | `heroBannerData`, `siteConfig` |
 | Type exports | PascalCase, matches the data it types | `type HeroBannerData = typeof heroBannerData` |
 | Sheets column constants | SCREAMING_SNAKE_CASE, `as const` array | `PROJECTS_SHEET_COLUMNS` |
@@ -60,7 +60,7 @@ export default function XSection({ data }: XSectionProps) {
 
 **Rules to enforce when reviewing new sections:**
 1. Props are always typed against a `lib/data/<page>.ts` export — never an inline anonymous object type.
-2. `useGSAP` always receives `{ scope: <ref> }` — this is what makes `@gsap/react`'s automatic cleanup safe. The one place this convention breaks down (`AboutSection.tsx`'s manual global `ScrollTrigger.getAll().kill()`) is flagged as an open issue in `architecture-audit.md` §8 precisely because it deviates from this rule.
+2. `useGSAP` always receives `{ scope: <ref> }` — this is what makes `@gsap/react`'s automatic cleanup safe. Four components (`AboutSection`, `ProjectVideoSection`, `EngineeringProcess`, `AboutStats`) previously bypassed this with a manual global `ScrollTrigger.getAll().kill()` in cleanup — **fixed 2026-07-18** (see `performance-guide.md` §2) by relying on `useGSAP`'s automatic scoped revert instead. Don't reintroduce this pattern.
 3. New scroll animations should reuse `gsap.effects.fadeUp`/`fadeUpOnScroll`/`staggerFadeUpOnScroll`/`textRevealOnScroll` from `lib/animations/gsap-animations.ts` rather than writing a new one-off tween — check there first.
 4. Section components never fetch data themselves — data always arrives as props from the parent `page.tsx`.
 
@@ -98,7 +98,11 @@ Consumers narrow once — `const detailed = item.kind === "detailed" ? item : nu
 
 ## Dead code policy
 
-Three empty files (`lib/site.ts`, `lib/fonts.ts`, `lib/icons.ts`), three empty animation files (`lib/animations/reveal.ts`, `hero.ts`, `description.ts`), one unused hook (`hooks/useScrollReveal.ts`), and several unused exports in `lib/metadata.ts` were found by manual reading, not tooling — see `architecture-audit.md` §3 for the full inventory. Recommendation: add `ts-prune` (or equivalent) to CI once headcount grows past 1–2 developers, so files like these are caught automatically instead of accumulating silently until the next full manual audit.
+**Resolved 2026-07-18:** 17 confirmed-dead files were removed in a full folder-by-folder sweep — 6 empty stub files, one unused hook, and 10 unused components (three of which turned out to be literal placeholder JSX, not real code — see [`folder-structure.md`](./folder-structure.md) §8 for the complete list and why each was dead). All were found by manual reading and cross-referenced with `grep`, not automated tooling, because no unused-export checker is wired into this project yet.
+
+**Still recommended, not yet done:** add `ts-prune` (or equivalent) to CI once headcount grows past 1–2 developers. This cleanup pass took real effort specifically *because* nothing catches this automatically — a component can go from "actively used" to "dead" the moment its last call site is refactored away, and nothing flags it until someone manually greps for it. Without CI enforcement, this list will silently regrow.
+
+**A pattern worth naming from this pass:** several of the dead components (`SectionTitle.tsx`, `SectionHeading.tsx`, `Container.tsx`, `GlassCard.tsx`, `MotionWrapper.tsx`) weren't leftover cruft from a refactor — they were genuine first-draft attempts at shared abstractions that were superseded by a simpler pattern before ever being adopted. See `component-guidelines.md` §5 for what that implies about *when* to extract a shared component.
 
 ## Comment style already in use — keep it
 

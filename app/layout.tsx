@@ -1,5 +1,6 @@
 import { Cursor } from "@/components/animations/Cursor"
 import { Loader } from "@/components/animations/Loader"
+import { JsonLd } from "@/components/common/JsonLd"
 import { ScrollButton } from "@/components/common/ScrollButton"
 import Footer from "@/components/layout/Footer"
 import { MobileNav } from "@/components/layout/MobileNav"
@@ -8,6 +9,7 @@ import { SmoothScroll } from "@/components/layout/SmoothScroll"
 import { ThemeProvider } from "@/components/theme/theme-provider"
 import "@/lib/animations/gsap-animations"
 import { defaultMetadata } from "@/lib/metadata"
+import { generateGlobalSchema } from "@/lib/structured-data"
 import { Metadata } from "next"
 import { Inter, Sora } from "next/font/google"
 import "./globals.css"
@@ -34,6 +36,7 @@ export default function RootLayout({
       <body
         className={`${sora.variable} ${inter.variable} bg-background text-foreground antialiased`}
       >
+        <JsonLd data={generateGlobalSchema()} />
         <ThemeProvider>
           <Loader />
           <Cursor />
