@@ -186,6 +186,87 @@ export const pageMetadata = {
       canonical: "https://brainstack.dev/blog",
     },
   },
+  services: {
+    title: "Services - Brain Stack | Full Stack, Mobile & AI Development",
+    description:
+      "From branding and UX/UI to full-stack web, mobile, and AI/automation development — see the services Brain Stack delivers for ambitious teams.",
+    keywords: [
+      "software development services",
+      "full stack development",
+      "mobile app development",
+      "AI and automation services",
+      "UX UI design",
+      "branding and identity",
+    ],
+    openGraph: {
+      title: "Services - Brain Stack | Full Stack, Mobile & AI Development",
+      description:
+        "From branding and UX/UI to full-stack web, mobile, and AI/automation development — see the services Brain Stack delivers for ambitious teams.",
+      url: "https://brainstack.dev/services",
+      type: "website",
+    },
+    twitter: {
+      title: "Services - Brain Stack | Full Stack, Mobile & AI Development",
+      description:
+        "From branding and UX/UI to full-stack web, mobile, and AI/automation development — see the services Brain Stack delivers for ambitious teams.",
+    },
+    alternates: {
+      canonical: "https://brainstack.dev/services",
+    },
+  },
+  projects: {
+    title: "Projects - Brain Stack | Case Studies & Portfolio",
+    description:
+      "SaaS platforms, AI products, marketplaces, and browser extensions — explore the case studies and portfolio work Brain Stack has shipped for clients worldwide.",
+    keywords: [
+      "software development portfolio",
+      "SaaS case studies",
+      "AI product case studies",
+      "web development portfolio",
+      "client project showcase",
+    ],
+    openGraph: {
+      title: "Projects - Brain Stack | Case Studies & Portfolio",
+      description:
+        "SaaS platforms, AI products, marketplaces, and browser extensions — explore the case studies and portfolio work Brain Stack has shipped for clients worldwide.",
+      url: "https://brainstack.dev/projects",
+      type: "website",
+    },
+    twitter: {
+      title: "Projects - Brain Stack | Case Studies & Portfolio",
+      description:
+        "SaaS platforms, AI products, marketplaces, and browser extensions — explore the case studies and portfolio work Brain Stack has shipped for clients worldwide.",
+    },
+    alternates: {
+      canonical: "https://brainstack.dev/projects",
+    },
+  },
+  contact: {
+    title: "Contact Brain Stack - Start Your Project",
+    description:
+      "Tell us about your project. Brain Stack responds within one business day with a clear, honest take on scope, timeline, and how we'd approach it.",
+    keywords: [
+      "contact software development agency",
+      "start a software project",
+      "hire full stack developers",
+      "AI development consultation",
+    ],
+    openGraph: {
+      title: "Contact Brain Stack - Start Your Project",
+      description:
+        "Tell us about your project. Brain Stack responds within one business day with a clear, honest take on scope, timeline, and how we'd approach it.",
+      url: "https://brainstack.dev/contact",
+      type: "website",
+    },
+    twitter: {
+      title: "Contact Brain Stack - Start Your Project",
+      description:
+        "Tell us about your project. Brain Stack responds within one business day with a clear, honest take on scope, timeline, and how we'd approach it.",
+    },
+    alternates: {
+      canonical: "https://brainstack.dev/contact",
+    },
+  },
 };
 
 export function generatePageMetadata(
@@ -195,7 +276,10 @@ export function generatePageMetadata(
   const baseMetadata = pageMetadata[page];
 
   return {
-    title: baseMetadata.title,
+    // `absolute` bypasses the root layout's `%s - Brain Stack` title template —
+    // these per-page titles already include the brand name, so without this
+    // every page would render as "<title> - Brain Stack" twice over.
+    title: { absolute: baseMetadata.title },
     description: baseMetadata.description,
     keywords: baseMetadata.keywords,
     openGraph: {
@@ -222,9 +306,11 @@ export function generateBlogPostMetadata(
 ): Metadata {
   const blogUrl = `https://brainstack.dev/blog/${slug}`;
   const ogImage = image || siteConfig.ogImage;
+  const fullTitle = `${title} - Brain Stack Blog`;
 
   return {
-    title: `${title} - Brain Stack Blog`,
+    // `absolute` bypasses the root layout's title template — see generatePageMetadata.
+    title: { absolute: fullTitle },
     description,
     keywords: [
       ...siteConfig.keywords,
@@ -234,7 +320,7 @@ export function generateBlogPostMetadata(
     ],
     openGraph: {
       ...siteConfig.openGraph,
-      title: `${title} - Brain Stack Blog`,
+      title: fullTitle,
       description,
       url: blogUrl,
       type: "article",
@@ -250,12 +336,60 @@ export function generateBlogPostMetadata(
     },
     twitter: {
       ...siteConfig.twitter,
-      title: `${title} - Brain Stack Blog`,
+      title: fullTitle,
       description,
       images: [ogImage],
     },
     alternates: {
       canonical: blogUrl,
+    },
+    robots: siteConfig.robots,
+  };
+}
+
+export function generateProjectMetadata(
+  title: string,
+  description: string,
+  slug: string,
+  image?: string
+): Metadata {
+  const projectUrl = `https://brainstack.dev/projects/${slug}`;
+  const ogImage = image || siteConfig.ogImage;
+  const fullTitle = `${title} - Brain Stack Projects`;
+
+  return {
+    // `absolute` bypasses the root layout's title template — see generatePageMetadata.
+    title: { absolute: fullTitle },
+    description,
+    keywords: [
+      ...siteConfig.keywords,
+      "case study",
+      "client project",
+      "software development portfolio",
+    ],
+    openGraph: {
+      ...siteConfig.openGraph,
+      title: fullTitle,
+      description,
+      url: projectUrl,
+      type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      ...siteConfig.twitter,
+      title: fullTitle,
+      description,
+      images: [ogImage],
+    },
+    alternates: {
+      canonical: projectUrl,
     },
     robots: siteConfig.robots,
   };
@@ -293,94 +427,6 @@ export function generateBlogPostStructuredData(
       "@id": `https://brainstack.dev/blog/${slug}`,
     },
   };
-}
-
-export const seoMetadata: Metadata = {
-  title: "Brain Stack - Premium Software Development & Consulting",
-  description:
-    "Transform your ideas into scalable software solutions. Brain Stack delivers enterprise-grade development with a focus on quality, innovation, and long-term success. 150+ successful projects worldwide.",
-  keywords: [
-    "software development",
-    "consulting",
-    "web development",
-    "app development",
-    "enterprise solutions",
-    "custom software",
-    "full-stack development",
-    "tech consulting",
-  ],
-  creator: "Brain Stack",
-  publisher: "Brain Stack",
-  formatDetection: {
-    email: true,
-    address: true,
-    telephone: true,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://brainstack.com",
-    siteName: "Brain Stack",
-    title: "Brain Stack - Premium Software Development & Consulting",
-    description:
-      "Transform your ideas into scalable software solutions. Enterprise-grade development with a focus on quality and innovation.",
-    images: [
-      {
-        url: "https://brainstack.com/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Brain Stack - Premium Software Development",
-        type: "image/png",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Brain Stack - Premium Software Development",
-    description: "Transform your ideas into scalable software solutions",
-    creator: "@brainstack",
-    images: ["https://brainstack.com/og-image.png"],
-  },
-  // appLinks: [],
-  alternates: {
-    canonical: "https://brainstack.com",
-  },
-  other: {
-    "mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-status-bar-style": "black-translucent",
-  },
-}
-
-export const structuredDataScript = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Brain Stack",
-  alternateName: "BrainStack",
-  url: "https://brainstack.com",
-  logo: "https://brainstack.com/logo.png",
-  sameAs: [
-    "https://twitter.com/brainstack",
-    "https://linkedin.com/company/brainstack",
-    "https://github.com/brainstack",
-  ],
-  description: "Premium software development consulting firm",
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+1-555-123-4567",
-    contactType: "Customer Service",
-  },
 }
 
 export const defaultMetadata: Metadata = {

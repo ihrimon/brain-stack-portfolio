@@ -8,12 +8,14 @@ import ProjectVideoSection from "@/components/sections/ProjectVideoSection"
 import ServicesSection from "@/components/sections/ServicesSection"
 import TeamSection from "@/components/sections/TeamSection"
 import TestimonialSection from "@/components/sections/TestimonialSection"
+import { generatePageMetadata } from "@/lib/metadata"
 import { getAboutData } from "@/lib/utils/sheets/about"
 import { getBlogPosts } from "@/lib/utils/sheets/blog"
 import { getHomeData } from "@/lib/utils/sheets/home"
 import { getProjects } from "@/lib/utils/sheets/projects"
 
 export const revalidate = 300
+export const metadata = generatePageMetadata("home")
 
 export default async function HomePage() {
   const [home, about, projects, posts] = await Promise.all([

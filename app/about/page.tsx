@@ -4,9 +4,11 @@ import AboutTeamSection from "@/components/sections/AboutTeamSection"
 import MissionHero from "@/components/sections/MissionHero"
 import ProjectInquiry from "@/components/sections/ProjectInquiry"
 import WhyBrainStack from "@/components/sections/WhyBrainStack"
+import { generatePageMetadata } from "@/lib/metadata"
 import { getAboutData } from "@/lib/utils/sheets/about"
 
 export const revalidate = 300
+export const metadata = generatePageMetadata("about")
 
 export default async function AboutPage() {
   const about = await getAboutData()

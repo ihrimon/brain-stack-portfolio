@@ -1,20 +1,24 @@
 "use client"
 
 import { SectionBadge } from "@/components/common/SectionBadge"
+import { submitContactForm, type ContactFormState } from "@/lib/actions/contact"
 import { contactData } from "@/lib/constants/contact"
 import { cn } from "@/lib/utils/cn"
 import { Mail, MapPin, Paperclip, Phone } from "lucide-react"
-import { useRef, useState, type FormEvent } from "react"
+import { useActionState, useEffect, useRef, useState } from "react"
 
 const fieldClassName =
   "w-full border-b border-white/15 bg-transparent py-3 text-white placeholder:text-white/30 outline-none transition-colors duration-300 focus:border-white/50"
 
+const initialState: ContactFormState = { status: "idle" }
+
 export default function ContactForm() {
+  const [state, formAction, isPending] = useActionState(submitContactForm, initialState)
   const [services, setServices] = useState<string[]>([])
   const [budget, setBudget] = useState<string | null>(null)
   const [attachment, setAttachment] = useState<File | null>(null)
-  const [submitted, setSubmitted] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
   const toggleService = (service: string) => {
     setServices((prev) =>
@@ -24,14 +28,14 @@ export default function ContactForm() {
     )
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setSubmitted(true)
-    setServices([])
-    setBudget(null)
-    setAttachment(null)
-    event.currentTarget.reset()
-  }
+  useEffect(() => {
+    if (state.status === "success") {
+      formRef.current?.reset()
+      setServices([])
+      setBudget(null)
+      setAttachment(null)
+    }
+  }, [state.status])
 
   return (
     <section className="bg-brand-dark py-20 sm:py-18">
@@ -44,7 +48,24 @@ export default function ContactForm() {
               Tell us what you need
             </h2>
 
-            <form onSubmit={handleSubmit} className="mt-12">
+            <form ref={formRef} action={formAction} noValidate className="mt-12">
+              {/* Honeypot — off-screen and out of the tab order, never visible or
+                  reachable for a real user; a bot filling every field fills this too. */}
+              <input
+                type="text"
+                name="company"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute h-px w-px overflow-hidden opacity-0"
+                style={{ left: "-9999px" }}
+              />
+
+              {services.map((service) => (
+                <input key={service} type="hidden" name="services" value={service} />
+              ))}
+              <input type="hidden" name="budget" value={budget ?? ""} />
+
               <div>
                 <p className="text-base text-white/70">
                   I&apos;m interested in&hellip;
@@ -56,6 +77,7 @@ export default function ContactForm() {
                       key={service}
                       type="button"
                       onClick={() => toggleService(service)}
+                      aria-pressed={services.includes(service)}
                       data-cursor="magnetic"
                       className={cn(
                         "cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-300",
@@ -76,8 +98,14 @@ export default function ContactForm() {
                   type="text"
                   name="name"
                   placeholder="Your name"
+                  aria-invalid={Boolean(state.fieldErrors?.name)}
                   className={fieldClassName}
                 />
+                {state.fieldErrors?.name && (
+                  <p role="alert" className="mt-2 text-sm text-red-400">
+                    {state.fieldErrors.name}
+                  </p>
+                )}
               </div>
 
               <div className="mt-10">
@@ -86,8 +114,14 @@ export default function ContactForm() {
                   type="email"
                   name="email"
                   placeholder="Email"
+                  aria-invalid={Boolean(state.fieldErrors?.email)}
                   className={fieldClassName}
                 />
+                {state.fieldErrors?.email && (
+                  <p role="alert" className="mt-2 text-sm text-red-400">
+                    {state.fieldErrors.email}
+                  </p>
+                )}
               </div>
 
               <div className="mt-10">
@@ -96,8 +130,14 @@ export default function ContactForm() {
                   name="message"
                   rows={3}
                   placeholder="Tell us about your project"
+                  aria-invalid={Boolean(state.fieldErrors?.message)}
                   className={`${fieldClassName} resize-none`}
                 />
+                {state.fieldErrors?.message && (
+                  <p role="alert" className="mt-2 text-sm text-red-400">
+                    {state.fieldErrors.message}
+                  </p>
+                )}
               </div>
 
               <div className="mt-12">
@@ -109,6 +149,7 @@ export default function ContactForm() {
                       key={option}
                       type="button"
                       onClick={() => setBudget(option)}
+                      aria-pressed={budget === option}
                       data-cursor="magnetic"
                       className={cn(
                         "cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-300",
@@ -147,16 +188,23 @@ export default function ContactForm() {
 
               <button
                 type="submit"
+                disabled={isPending}
                 data-cursor="magnetic"
-                className="mt-12 cursor-pointer rounded-full border border-white/30 px-8 py-3 text-sm font-medium text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-black"
+                className="mt-12 cursor-pointer rounded-full border border-white/30 px-8 py-3 text-sm font-medium text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {submitted ? "Request Sent" : "Send request"}
+                {isPending ? "Sending..." : state.status === "success" ? "Request Sent" : "Send request"}
               </button>
 
-              {submitted && (
+              {state.status === "success" && (
                 <p className="mt-4 text-sm text-white/50">
                   Thanks for reaching out — we&apos;ll get back to you within
                   one business day.
+                </p>
+              )}
+
+              {state.status === "error" && state.message && (
+                <p role="alert" className="mt-4 text-sm text-red-400">
+                  {state.message}
                 </p>
               )}
             </form>
