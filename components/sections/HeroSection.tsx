@@ -53,6 +53,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
           muted
           loop
           playsInline
+          preload="auto"
         >
           <source src="/bg-video.mp4" type="video/mp4" />
         </video>

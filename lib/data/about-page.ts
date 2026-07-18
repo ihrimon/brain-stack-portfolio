@@ -1,4 +1,4 @@
-import type { ButtonLink, Stat } from "./shared-types"
+import type { ButtonLink, FeatureCard, ProcessStep, Stat } from "./shared-types"
 
 export const aboutMissionData = {
   image: "/images/services/services-1.png",
@@ -11,7 +11,11 @@ export const aboutMissionData = {
     highlights: ["digital experiences", "businesses", "high-performance digital solutions"],
   },
 
-  approach: {
+  // Renamed from `approach` — the mission section's short list of guiding
+  // principles is a distinct concept from the page-level "Engineering
+  // Approach" section (aboutApproachData below); sharing the name "approach"
+  // made the two easy to confuse when reading the data file.
+  pillars: {
     title: "Our Approach",
     items: [
       "Clear and focused strategy",
@@ -77,7 +81,10 @@ export const aboutFeaturesData = {
 export const aboutApproachData = {
   badge: "Engineering Approach",
   title: "Method of making better results",
-  steps: [
+  // Renamed from `steps` — every other "ordered stage list" in the data
+  // layer (home's processData, service-page's serviceProcessData) uses
+  // `items`, so this one matches instead of being the one exception.
+  items: [
     {
       title: "Problem Discovery",
       items: [
@@ -122,7 +129,7 @@ export const aboutApproachData = {
         "Post-Launch Support",
       ],
     },
-  ],
+  ] satisfies ProcessStep[],
 } as const
 
 export const aboutInquiryData = {
@@ -135,7 +142,9 @@ export const whyChooseUsData = {
   title: "Engineering You Can Actually Rely On",
   description:
     "We're not a resourcing agency. We're a senior engineering team that treats your product like our own — with the technical judgment to prove it.",
-  points: [
+  // Renamed from `points` to match the `items` convention used for every
+  // other repeating list in the data layer.
+  items: [
     {
       title: "Experienced Team",
       description:
@@ -185,7 +194,7 @@ export const whyChooseUsData = {
       metric: "12+",
       metricLabel: "Countries Served",
     },
-  ],
+  ] satisfies FeatureCard[],
 } as const
 
 export const teamMembersData = {

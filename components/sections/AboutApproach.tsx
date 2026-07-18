@@ -36,7 +36,7 @@ export default function AboutApproach({ approach }: AboutApproachProps) {
         </h2>
 
         <div className="mt-16 grid gap-6 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
-          {approach.steps.map((step) => (
+          {approach.items.map((step) => (
             <div
               key={step.title}
               className="relative overflow-hidden rounded-2xl bg-neutral-900 p-8"

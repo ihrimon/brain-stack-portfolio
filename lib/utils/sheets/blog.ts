@@ -1,5 +1,5 @@
 import { blogsData, type BlogContentBlock, type BlogPost } from "@/lib/data/blog-page"
-import { getSheetsClient, parseJson } from "./shared"
+import { getSheetsClient, parseJson, withRetry } from "./shared"
 
 const SHEET_TAB = "Blog"
 const SHEET_RANGE = `${SHEET_TAB}!A2:J`
@@ -56,10 +56,14 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   }
 
   try {
-    const res = await client.sheets.spreadsheets.values.get({
-      spreadsheetId: client.spreadsheetId,
-      range: SHEET_RANGE,
-    })
+    const res = await withRetry(
+      () =>
+        client.sheets.spreadsheets.values.get({
+          spreadsheetId: client.spreadsheetId,
+          range: SHEET_RANGE,
+        }),
+      "getBlogPosts"
+    )
 
     const rows = res.data.values ?? []
     const posts = rows

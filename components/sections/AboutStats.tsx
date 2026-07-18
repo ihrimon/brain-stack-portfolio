@@ -43,9 +43,11 @@ export default function AboutStats({ stats }: AboutStatsProps) {
         },
       })
 
-      return () => {
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-      }
+      // No manual cleanup needed — useGSAP's automatic gsap.context().revert()
+      // (scoped to sectionRef) already tears down the ScrollTrigger created
+      // above. A prior version of this called
+      // `ScrollTrigger.getAll().forEach(t => t.kill())`, which kills every
+      // ScrollTrigger on the page, not just this component's own.
     },
     { scope: sectionRef }
   )

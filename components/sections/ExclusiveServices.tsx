@@ -1,12 +1,12 @@
 "use client"
 
+import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
 import type { ExclusiveServicesData } from "@/lib/data/service-page"
 import { resolveIcon } from "@/lib/utils/icons"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
-import { SectionBadge } from "../common/SectionBadge"
 
 interface ExclusiveServicesProps {
   exclusiveServices: ExclusiveServicesData
@@ -49,7 +49,7 @@ export default function ExclusiveServices({ exclusiveServices }: ExclusiveServic
           data-service-grid
           className="mt-16 grid grid-cols-1 divide-y divide-white/10 border-t border-white/10 sm:mt-20 sm:grid-cols-4 sm:divide-x sm:divide-y-0 sm:border-t-0"
         >
-          {exclusiveServices.categories.map((category) => {
+          {exclusiveServices.items.map((category) => {
             const Icon = resolveIcon(category.icon)
 
             return (

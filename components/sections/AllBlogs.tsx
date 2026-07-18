@@ -2,6 +2,7 @@
 
 import { blogsData, type BlogPost } from "@/lib/data/blog-page"
 import { cn } from "@/lib/utils/cn"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -118,6 +119,9 @@ export default function AllBlogs({ posts }: AllBlogsProps) {
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(min-width: 1024px) 33vw, 100vw"
+                      priority={rowIndex === 0}
+                      placeholder={rowIndex === 0 ? undefined : "blur"}
+                      blurDataURL={rowIndex === 0 ? undefined : BLUR_DATA_URL}
                     />
                   </Link>
 

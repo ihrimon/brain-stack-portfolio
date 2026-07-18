@@ -1,6 +1,8 @@
 # Brain Stack — Coding Guidelines
 
-**Purpose:** codify the conventions this codebase already follows almost universally, so they survive contact with a larger team instead of remaining tribal knowledge. Nothing in this document requires changing existing code — it documents the standard already in place and flags the few deviations found.
+**Purpose:** codify the conventions this codebase already follows almost universally, so they survive contact with a larger team instead of remaining tribal knowledge.
+
+> **Implementation update (2026-07-18):** the naming-convention pass in this document has been applied — see the "Fixed" notes inline below and `data-architecture.md` for the data-layer schema normalization this enabled.
 
 ---
 
@@ -18,12 +20,14 @@
 
 **Inconsistency found:** `lib/animations/gsap-animations.ts` uses kebab-case where every sibling file (`lenis.ts`, `hero.ts`) uses plain camelCase-compatible names. Not worth renaming retroactively (would touch every importer for no functional gain), but new files in `lib/` should default to the camelCase pattern used elsewhere.
 
+**Fixed 2026-07-18:** `components/sections/VideoSectioni.tsx` (unused, dead component) had a real filename typo — renamed to `VideoSection.tsx` to match its own exported component name. Zero-risk since the file had no importers.
+
 ## Import conventions
 
 - **Path alias:** use `@/*` (mapped to project root in `tsconfig.json`) for all cross-folder imports. Only same-directory or one-level-down relative imports (`./`, `../`) are acceptable, and even those should be rare.
-- **One confirmed deviation:** `components/animations/Loader.tsx` imports `Logo` via `import { Logo } from '../common/Logo'` — relative path, single quotes — the only file of its kind found across 72 `.tsx` files. Fix opportunistically next time that file is touched; not worth a standalone commit.
-- **Quote style:** double quotes throughout (enforced implicitly by Prettier defaults + `prettier-plugin-tailwindcss`). The `Loader.tsx` deviation above is again the only exception found.
-- **Import order:** not currently enforced by an ESLint rule. Observed convention is alphabetical-by-source (external packages, then `@/` imports, then relative), but this is convention, not tooling — see the roadmap for adding `eslint-plugin-import`'s `order` rule once the team grows past 1–2 people, so this stops being tribal knowledge.
+- **Fixed 2026-07-18:** six files imported a `components/common/`-or-`components/shared/`-level component via a relative path instead of the `@/` alias (`Loader.tsx`, `EngineeringProcess.tsx`, `ProcessSection.tsx`, `ServiceProcessTimeline.tsx`, `ExclusiveServices.tsx`, `ServicesSection.tsx`) — all switched to the alias and re-sorted into the file's existing alphabetical-by-source import order. `EngineeringProcess.tsx` also had a stray commented-out duplicate import removed.
+- **Quote style:** double quotes throughout (enforced implicitly by Prettier defaults + `prettier-plugin-tailwindcss`).
+- **Import order:** not currently enforced by an ESLint rule. Observed convention is alphabetical-by-source (external packages, then `@/` imports, then relative), but this is convention, not tooling — worth adding `eslint-plugin-import`'s `order` rule once the team grows past 1–2 people, so this stops being tribal knowledge and the fixes above don't quietly regress.
 
 ## Component structure convention
 
@@ -65,9 +69,24 @@ export default function XSection({ data }: XSectionProps) {
 See [`data-architecture.md`](./data-architecture.md) for the full schema discussion. The mechanical rule to follow for any *new* section, effective immediately:
 
 - Every section header uses `{ badge?, title, description? }` — don't invent a fourth field name for "the eyebrow text above a heading."
-- Every repeating body uses `items: T[]` unless the name would be genuinely ambiguous (`projects`, `posts` are fine since they're the whole page's subject).
-- Check `lib/data/shared-types.ts` before defining a new inline shape — if what you're building is a process step, a feature card, or a service tile, a shared type is either already there or proposed in `data-architecture.md` §5 for exactly this purpose.
+- Every repeating body uses `items: T[]` unless the name would be genuinely ambiguous (`projects`, `posts` are fine since they're the whole page's subject). Applied 2026-07-18: `aboutApproachData.steps`→`.items`, `serviceProcessData.steps`→`.items`, `exclusiveServicesData.categories`→`.items`, `whyChooseUsData.points`→`.items`.
+- Check `lib/data/shared-types.ts` before defining a new inline shape — `ProcessStep`, `FeatureCard`, `ServiceOffering`, `SectionHeader`, and `FAQItem` are implemented and in active use (see `data-architecture.md` §5) — reach for one of these before inventing a new inline shape for what's likely the same concept.
+- Avoid reusing the same word for two different concepts even when the *shape* differs — `aboutMissionData.approach` was renamed to `.pillars` specifically because it collided in name (not meaning) with the top-level `aboutApproachData`.
 - Every data file exports its types as `export type X = typeof xData` immediately after the const, mirroring the existing pattern in every `lib/data/*.ts` file.
+- **Renaming a field that a live Google Sheet's JSON-blob cell already uses?** Key-value tabs (Home/About/Services) store each section as a JSON blob in one cell — renaming a nested key inside that blob needs the corresponding cell's JSON updated too, or the field silently reverts to its fallback default (see `data-architecture.md` §1's merge-over-fallback behavior). Tabular tabs (Blog/Projects) are a stronger contract — their column headers are literally what a content editor sees and types into — treat those column names (`PROJECTS_SHEET_COLUMNS`, `BLOG_SHEET_COLUMNS`) as effectively frozen; reshape the *type layer* instead (see the `Project`→`BaseProject`/`PortfolioProject`/`CaseStudyProject` split in `data-architecture.md` §6 for how to do this without touching a single column name).
+
+## Discriminated-union convention for "content with two depths"
+
+`Project` (`lib/data/projects-page.ts`) is the reference implementation for a recurring shape: content where every item shares a common core, but a subset of items also carry a much deeper write-up. Rather than one interface with the deep fields all typed nullable/optional (which was the original `Project` design — see `data-architecture.md` §6 for what that cost), use:
+
+```ts
+interface BaseX { /* fields every item has */ }
+interface XSummary extends BaseX { kind: "summary" }
+interface XDetailed extends BaseX { kind: "detailed"; /* deep fields, all required */ }
+type X = XSummary | XDetailed
+```
+
+Consumers narrow once — `const detailed = item.kind === "detailed" ? item : null` — rather than checking `.length > 0` on every deep field individually. If Blog posts, team member profiles, or any other content type grows a similar "some entries get a full write-up, others don't" need, follow this pattern rather than adding another all-optional field to an existing interface.
 
 ## File organization thresholds
 

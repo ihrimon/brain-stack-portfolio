@@ -1,6 +1,38 @@
 import type { Testimonial } from "./shared-types"
 
-export interface Project {
+export interface ProjectChallenge {
+  title: string | null
+  description: string
+  painPoints: string[]
+  businessImpact: string[]
+}
+
+export interface ProjectSolution {
+  title: string
+  description: string
+  highlights: string[]
+}
+
+export interface ProjectWorkflowStep {
+  title: string
+  description: string
+}
+
+export interface ProjectMetrics {
+  performance: string
+  seo: string
+  accessibility: string
+  bestPractices: string
+}
+
+/**
+ * Fields every project has, whether it's a full case study or a lighter
+ * portfolio entry. `challenge`/`solution` live here (not on CaseStudyProject)
+ * because even "thin" portfolio entries carry a real challenge/solution
+ * summary — it's only the *deep-dive* narrative fields below that some
+ * projects skip entirely.
+ */
+export interface BaseProject {
   id: string
   slug: string
   title: string
@@ -10,8 +42,6 @@ export interface Project {
   client: string
   /** Short service line, e.g. "AI Product Design, Web App Development". Portfolio-only projects. */
   service: string | null
-  technologies: string[]
-  tools: string[]
   duration: string | null
   /** Year completed, e.g. "2024". Portfolio-only projects. */
   date: string | null
@@ -23,24 +53,23 @@ export interface Project {
   gallery: string[]
 
   overview: string
+  technologies: string[]
+  tools: string[]
 
-  challenge: {
-    title: string | null
-    description: string
-    painPoints: string[]
-    businessImpact: string[]
-  } | null
+  challenge: ProjectChallenge
+  solution: ProjectSolution
+}
 
+/** A portfolio entry without a full engineering-deep-dive write-up. */
+export interface PortfolioProject extends BaseProject {
+  kind: "portfolio"
+}
+
+/** A full case study — every deep-dive narrative field is populated. */
+export interface CaseStudyProject extends BaseProject {
+  kind: "case-study"
   goals: string[]
-
-  solution: {
-    title: string
-    description: string
-    highlights: string[]
-  }
-
-  workflow: { title: string; description: string }[]
-
+  workflow: ProjectWorkflowStep[]
   architecture: string[]
   features: string[]
   uiHighlights: string[]
@@ -48,20 +77,22 @@ export interface Project {
   challengesFaced: string[]
   solutionsImplemented: string[]
   results: string[]
-
-  metrics: {
-    performance: string
-    seo: string
-    accessibility: string
-    bestPractices: string
-  } | null
-
-  testimonial: Testimonial | null
-
+  metrics: ProjectMetrics
+  testimonial: Testimonial
   lessonsLearned: string[]
   nextSteps: string[]
   relatedProjects: string[]
 }
+
+/**
+ * A project is either a `PortfolioProject` or a `CaseStudyProject` — check
+ * `project.kind` to narrow before accessing case-study-only fields (see
+ * ProjectDetails.tsx for the pattern). Previously this was one ~34-field
+ * interface with every deep-dive field typed as nullable/optional, which
+ * let a "thin" project accidentally carry a stray `workflow` entry with no
+ * type-level signal that anything was unusual either way.
+ */
+export type Project = PortfolioProject | CaseStudyProject
 
 export const projectsData = {
   badge: "Featured Work",
@@ -73,6 +104,7 @@ export const projectsData = {
     {
       id: "01",
       slug: "standard-insights",
+      kind: "case-study",
       title: "Standard Insights",
       shortTitle: "Standard Insights",
       category: "SaaS Platform",
@@ -266,6 +298,7 @@ export const projectsData = {
     {
       id: "02",
       slug: "sync-space",
+      kind: "case-study",
       title: "SyncSpace",
       shortTitle: "SyncSpace",
       category: "Browser Extension",
@@ -445,6 +478,7 @@ export const projectsData = {
     {
       id: "03",
       slug: "focus-pilot",
+      kind: "case-study",
       title: "Focus Pilot",
       shortTitle: "Focus Pilot",
       category: "SaaS CRM",
@@ -635,6 +669,7 @@ export const projectsData = {
     {
       id: "04",
       slug: "career-dock",
+      kind: "case-study",
       title: "Career Dock",
       shortTitle: "Career Dock",
       category: "SaaS Platform",
@@ -814,6 +849,7 @@ export const projectsData = {
     {
       id: "11",
       slug: "karially",
+      kind: "portfolio",
       title: "Karially",
       shortTitle: "Karially",
       category: "AI Platform",
@@ -849,8 +885,6 @@ export const projectsData = {
         businessImpact: [],
       },
 
-      goals: [],
-
       solution: {
         title: "Guide every career journey with intelligent, personalized tools and real support",
         description:
@@ -865,24 +899,12 @@ export const projectsData = {
         ],
       },
 
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
     },
 
     {
       id: "12",
       slug: "luxeb2b",
+      kind: "portfolio",
       title: "LUXEB2B",
       shortTitle: "LUXEB2B",
       category: "Business",
@@ -918,8 +940,6 @@ export const projectsData = {
         businessImpact: [],
       },
 
-      goals: [],
-
       solution: {
         title: "Connect a global luxury trade on one premium directory",
         description:
@@ -932,24 +952,12 @@ export const projectsData = {
         ],
       },
 
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
     },
 
     {
       id: "13",
       slug: "ach-gold-estates",
+      kind: "portfolio",
       title: "ACH Gold Estates",
       shortTitle: "ACH Gold Estates",
       category: "Business",
@@ -985,8 +993,6 @@ export const projectsData = {
         businessImpact: [],
       },
 
-      goals: [],
-
       solution: {
         title: "Turn property browsing into a seamless self-serve experience",
         description:
@@ -999,24 +1005,12 @@ export const projectsData = {
         ],
       },
 
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
     },
 
     {
       id: "17",
       slug: "powernest",
+      kind: "portfolio",
       title: "PowerNest",
       shortTitle: "PowerNest",
       category: "E-commerce Platform",
@@ -1052,8 +1046,6 @@ export const projectsData = {
         businessImpact: [],
       },
 
-      goals: [],
-
       solution: {
         title: "Build an online electronics store Bangladeshi shoppers actually trust",
         description:
@@ -1065,24 +1057,12 @@ export const projectsData = {
         ],
       },
 
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
     },
 
     {
       id: "19",
       slug: "yachtease",
+      kind: "portfolio",
       title: "YachtEase",
       shortTitle: "YachtEase",
       category: "Marketplace Platform",
@@ -1118,8 +1098,6 @@ export const projectsData = {
         businessImpact: [],
       },
 
-      goals: [],
-
       solution: {
         title: "Give yacht operations a single, considered workspace",
         description:
@@ -1132,24 +1110,12 @@ export const projectsData = {
         ],
       },
 
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
     },
 
     {
       id: "15",
       slug: "big-fish",
+      kind: "portfolio",
       title: "Big Fish",
       shortTitle: "Big Fish",
       category: "Portfolio",
@@ -1185,8 +1151,6 @@ export const projectsData = {
         businessImpact: [],
       },
 
-      goals: [],
-
       solution: {
         title: "Turn scrolling into a story worth staying for",
         description:
@@ -1199,19 +1163,6 @@ export const projectsData = {
         ],
       },
 
-      workflow: [],
-      architecture: [],
-      features: [],
-      uiHighlights: [],
-      developmentProcess: [],
-      challengesFaced: [],
-      solutionsImplemented: [],
-      results: [],
-      metrics: null,
-      testimonial: null,
-      lessonsLearned: [],
-      nextSteps: [],
-      relatedProjects: [],
     },
   ] satisfies Project[],
 } as const

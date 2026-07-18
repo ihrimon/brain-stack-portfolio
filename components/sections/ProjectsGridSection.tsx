@@ -4,6 +4,7 @@ import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { CircleViewButton } from "@/components/buttons/CircleViewButton"
 import { projectsData, type Project } from "@/lib/data/projects-page"
 import { cn } from "@/lib/utils/cn"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { motion, type Variants } from "framer-motion"
 import { ExternalLink } from "lucide-react"
 import Image from "next/image"
@@ -51,6 +52,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 fill
                 className="object-cover transition-transform duration-500 group-hover/card:scale-105"
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                priority={index < 3}
+                placeholder={index < 3 ? undefined : "blur"}
+                blurDataURL={index < 3 ? undefined : BLUR_DATA_URL}
               />
 
               <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />

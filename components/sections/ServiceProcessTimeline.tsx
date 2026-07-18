@@ -1,11 +1,11 @@
 "use client"
 
+import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
 import type { ServiceProcessData } from "@/lib/data/service-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
-import { SectionBadge } from "../common/SectionBadge"
 
 interface ServiceProcessTimelineProps {
   process: ServiceProcessData
@@ -42,7 +42,7 @@ export default function ServiceProcessTimeline({ process }: ServiceProcessTimeli
           data-steps
           className="mt-16 border-b border-dashed border-white/15 sm:mt-20"
         >
-          {process.steps.map((step, index) => (
+          {process.items.map((step, index) => (
             <div
               key={step.title}
               data-step

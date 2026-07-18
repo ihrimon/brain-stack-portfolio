@@ -1,5 +1,13 @@
-import { projectsData, type Project } from "@/lib/data/projects-page"
-import { getSheetsClient, parseJson, parseJsonObject } from "./shared"
+import {
+  projectsData,
+  type BaseProject,
+  type CaseStudyProject,
+  type Project,
+  type ProjectMetrics,
+  type ProjectWorkflowStep,
+} from "@/lib/data/projects-page"
+import type { Testimonial } from "@/lib/data/shared-types"
+import { getSheetsClient, parseJson, parseJsonObject, withRetry } from "./shared"
 
 const SHEET_TAB = "Projects"
 const SHEET_RANGE = `${SHEET_TAB}!A2:AH`
@@ -63,27 +71,27 @@ const JSON_ARRAY_COLUMNS = new Set([
 
 const JSON_OBJECT_COLUMNS = new Set(["challenge", "solution", "metrics", "testimonial"])
 
-const EMPTY_CHALLENGE: NonNullable<Project["challenge"]> = {
+const EMPTY_CHALLENGE: BaseProject["challenge"] = {
   title: null,
   description: "",
   painPoints: [],
   businessImpact: [],
 }
 
-const EMPTY_SOLUTION: Project["solution"] = {
+const EMPTY_SOLUTION: BaseProject["solution"] = {
   title: "",
   description: "",
   highlights: [],
 }
 
-const EMPTY_METRICS: NonNullable<Project["metrics"]> = {
+const EMPTY_METRICS: ProjectMetrics = {
   performance: "",
   seo: "",
   accessibility: "",
   bestPractices: "",
 }
 
-const EMPTY_TESTIMONIAL: NonNullable<Project["testimonial"]> = {
+const EMPTY_TESTIMONIAL: Testimonial = {
   name: "",
   role: "",
   company: "",
@@ -105,7 +113,7 @@ function rowToProject(row: string[]): Project | null {
   const date = cell("date")
   const status = cell("status")
 
-  return {
+  const base: BaseProject = {
     id: cell("id"),
     slug,
     title,
@@ -124,29 +132,69 @@ function rowToProject(row: string[]): Project | null {
     gallery: parseJson<string[]>(cell("gallery"), []),
 
     overview: cell("overview"),
-
-    challenge: parseJsonObject(cell("challenge"), EMPTY_CHALLENGE),
-    goals: parseJson<string[]>(cell("goals"), []),
-    solution: parseJsonObject(cell("solution"), EMPTY_SOLUTION),
-    workflow: parseJson<Project["workflow"]>(cell("workflow"), []),
-
     technologies: parseJson<string[]>(cell("technologies"), []),
     tools: parseJson<string[]>(cell("tools"), []),
-    architecture: parseJson<string[]>(cell("architecture"), []),
-    features: parseJson<string[]>(cell("features"), []),
-    uiHighlights: parseJson<string[]>(cell("uiHighlights"), []),
-    developmentProcess: parseJson<string[]>(cell("developmentProcess"), []),
-    challengesFaced: parseJson<string[]>(cell("challengesFaced"), []),
-    solutionsImplemented: parseJson<string[]>(cell("solutionsImplemented"), []),
-    results: parseJson<string[]>(cell("results"), []),
 
-    metrics: parseJsonObject(cell("metrics"), EMPTY_METRICS),
-    testimonial: parseJsonObject(cell("testimonial"), EMPTY_TESTIMONIAL),
-
-    lessonsLearned: parseJson<string[]>(cell("lessonsLearned"), []),
-    nextSteps: parseJson<string[]>(cell("nextSteps"), []),
-    relatedProjects: parseJson<string[]>(cell("relatedProjects"), []),
+    challenge: parseJsonObject(cell("challenge"), EMPTY_CHALLENGE),
+    solution: parseJsonObject(cell("solution"), EMPTY_SOLUTION),
   }
+
+  // The sheet has no explicit "is this a full case study" column — every
+  // deep-dive field is just a JSON cell that's either populated or empty.
+  // Classify from the parsed content instead: any real narrative/metrics/
+  // testimonial signal means this row is a case study, not just a portfolio
+  // card. Mirrors the same distinction already present in the seed data
+  // (lib/data/projects-page.ts).
+  const goals = parseJson<string[]>(cell("goals"), [])
+  const workflow = parseJson<ProjectWorkflowStep[]>(cell("workflow"), [])
+  const architecture = parseJson<string[]>(cell("architecture"), [])
+  const features = parseJson<string[]>(cell("features"), [])
+  const uiHighlights = parseJson<string[]>(cell("uiHighlights"), [])
+  const developmentProcess = parseJson<string[]>(cell("developmentProcess"), [])
+  const challengesFaced = parseJson<string[]>(cell("challengesFaced"), [])
+  const solutionsImplemented = parseJson<string[]>(cell("solutionsImplemented"), [])
+  const results = parseJson<string[]>(cell("results"), [])
+  const lessonsLearned = parseJson<string[]>(cell("lessonsLearned"), [])
+  const nextSteps = parseJson<string[]>(cell("nextSteps"), [])
+  const relatedProjects = parseJson<string[]>(cell("relatedProjects"), [])
+  const metrics = parseJson<ProjectMetrics | null>(cell("metrics"), null)
+  const testimonial = parseJson<Testimonial | null>(cell("testimonial"), null)
+
+  const isCaseStudy =
+    workflow.length > 0 ||
+    architecture.length > 0 ||
+    features.length > 0 ||
+    developmentProcess.length > 0 ||
+    challengesFaced.length > 0 ||
+    solutionsImplemented.length > 0 ||
+    results.length > 0 ||
+    metrics !== null ||
+    testimonial !== null
+
+  if (!isCaseStudy) {
+    return { ...base, kind: "portfolio" }
+  }
+
+  const caseStudy: CaseStudyProject = {
+    ...base,
+    kind: "case-study",
+    goals,
+    workflow,
+    architecture,
+    features,
+    uiHighlights,
+    developmentProcess,
+    challengesFaced,
+    solutionsImplemented,
+    results,
+    metrics: metrics ?? EMPTY_METRICS,
+    testimonial: testimonial ?? EMPTY_TESTIMONIAL,
+    lessonsLearned,
+    nextSteps,
+    relatedProjects,
+  }
+
+  return caseStudy
 }
 
 /**
@@ -167,10 +215,14 @@ export async function getProjects(): Promise<Project[]> {
   }
 
   try {
-    const res = await client.sheets.spreadsheets.values.get({
-      spreadsheetId: client.spreadsheetId,
-      range: SHEET_RANGE,
-    })
+    const res = await withRetry(
+      () =>
+        client.sheets.spreadsheets.values.get({
+          spreadsheetId: client.spreadsheetId,
+          range: SHEET_RANGE,
+        }),
+      "getProjects"
+    )
 
     const rows = res.data.values ?? []
     const projects = rows

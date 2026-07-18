@@ -3,6 +3,7 @@
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
 import { blogsData, type BlogPost } from "@/lib/data/blog-page"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { CircleUserRound, Tag } from "lucide-react"
@@ -65,6 +66,8 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 90vw"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
                 />
               </Link>
 

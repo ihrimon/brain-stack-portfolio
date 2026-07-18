@@ -1,14 +1,24 @@
 "use client"
 
 import { SectionBadge } from "@/components/common/SectionBadge"
-import { BrainWireframe } from "@/components/three/BrainWireframe"
 import "@/lib/animations/gsap-animations"
 import type { WhoWeAreData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
+import dynamic from "next/dynamic"
 import Link from "next/link"
 import { useRef } from "react"
+
+// three.js + React Three Fiber are a heavy dependency for a purely
+// decorative, pointer-driven, aria-hidden canvas — loading it client-only
+// keeps it out of this page's server-rendered bundle entirely. No loading
+// fallback needed: the wrapping div below is already sized via `aspect-square`,
+// so there's nothing for a fallback to prevent layout shift for.
+const BrainWireframe = dynamic(
+  () => import("@/components/three/BrainWireframe").then((mod) => mod.BrainWireframe),
+  { ssr: false }
+)
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -56,9 +66,14 @@ export default function AboutSection({ data }: AboutSectionProps) {
         })
       }
 
-      return () => {
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-      }
+      // No manual cleanup here — useGSAP's automatic gsap.context().revert()
+      // (scoped to sectionRef) already tears down every tween/ScrollTrigger
+      // created in this callback, including the one above. A prior version
+      // of this cleanup called `ScrollTrigger.getAll().forEach(t => t.kill())`,
+      // which kills *every* ScrollTrigger on the page, not just this
+      // component's own — a latent risk under fast client-side navigation
+      // where a still-mounted sibling section's ScrollTrigger could get
+      // killed by this component unmounting.
     },
     { scope: sectionRef }
   )

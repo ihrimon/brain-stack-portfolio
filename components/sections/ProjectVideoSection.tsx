@@ -86,9 +86,11 @@ export default function ProjectVideoSection({
         }
       )
 
-      return () => {
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-      }
+      // No manual cleanup needed — useGSAP's automatic gsap.context().revert()
+      // (scoped to sectionRef) already tears down the tween/ScrollTrigger
+      // created above. A prior version of this called
+      // `ScrollTrigger.getAll().forEach(t => t.kill())`, which kills every
+      // ScrollTrigger on the page, not just this component's own.
     },
     { scope: sectionRef }
   )
@@ -271,6 +273,7 @@ export default function ProjectVideoSection({
                 loop
                 playsInline
                 autoPlay
+                preload="auto"
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
               >

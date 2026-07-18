@@ -1,4 +1,11 @@
-import type { ButtonLink, IconName, Stat, Testimonial } from "./shared-types"
+import type {
+  ButtonLink,
+  IconName,
+  ProcessStep,
+  ServiceOffering,
+  Stat,
+  Testimonial,
+} from "./shared-types"
 
 export const heroBannerData = {
   badge: "Creative Design Agency",
@@ -93,7 +100,7 @@ export const servicesData = {
       title: "Web Development",
       image: "/images/services/services-5.png",
     },
-  ],
+  ] satisfies ServiceOffering[],
 } as const
 
 export const processData = {
@@ -128,7 +135,7 @@ export const processData = {
         "Every successful product starts with research. We analyze business goals, user needs, and market trends before crafting intuitive UI/UX experiences.",
       tags: ["Research", "UI/UX", "Discovery"],
     },
-  ],
+  ] satisfies ProcessStep[],
 } as const
 
 export const testimonialsData = {

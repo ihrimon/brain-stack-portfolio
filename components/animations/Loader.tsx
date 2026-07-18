@@ -1,9 +1,9 @@
 "use client"
 
+import { Logo } from "@/components/common/Logo"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef, useState } from "react"
-import { Logo } from '../common/Logo'
 
 gsap.registerPlugin(useGSAP)
 

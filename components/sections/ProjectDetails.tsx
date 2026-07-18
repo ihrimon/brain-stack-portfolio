@@ -1,7 +1,8 @@
 import { ParallaxImage } from "@/components/animations/ParallaxImage"
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
-import type { Project } from "@/lib/data/projects-page"
+import type { CaseStudyProject, Project, ProjectMetrics } from "@/lib/data/projects-page"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -10,7 +11,7 @@ interface ProjectDetailsProps {
   related: Project[]
 }
 
-const metricLabels: Record<keyof NonNullable<Project["metrics"]>, string> = {
+const metricLabels: Record<keyof ProjectMetrics, string> = {
   performance: "Performance",
   seo: "SEO",
   accessibility: "Accessibility",
@@ -18,6 +19,11 @@ const metricLabels: Record<keyof NonNullable<Project["metrics"]>, string> = {
 }
 
 export default function ProjectDetails({ project, related }: ProjectDetailsProps) {
+  // Deep-dive sections below only exist on full case studies — narrowing
+  // once here (rather than repeating `project.kind === "case-study"` at
+  // every section) keeps the rest of this component readable.
+  const caseStudy: CaseStudyProject | null = project.kind === "case-study" ? project : null
+
   const detailRows = [
     { label: "Service:", value: project.service },
     { label: "Client:", value: project.client },
@@ -157,7 +163,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
         </section>
       )}
 
-      {project.goals.length > 0 && (
+      {caseStudy && caseStudy.goals.length > 0 && (
         <section className="bg-brand-dark py-20 sm:py-28">
           <div className="mx-auto max-w-400 px-5 sm:px-8">
             <div className="grid gap-10 lg:grid-cols-[200px_1fr] lg:gap-12">
@@ -166,7 +172,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
               </h2>
 
               <ul className="grid gap-4 sm:grid-cols-2">
-                {project.goals.map((goal, index) => (
+                {caseStudy.goals.map((goal, index) => (
                   <li
                     key={goal}
                     className="flex gap-4 rounded-2xl border border-white/10 p-5 text-base leading-relaxed text-white/70"
@@ -207,7 +213,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
         </div>
       </section>
 
-      {project.workflow.length > 0 && (
+      {caseStudy && caseStudy.workflow.length > 0 && (
         <section className="bg-brand-dark py-20 sm:py-28">
           <div className="mx-auto max-w-400 px-5 sm:px-8">
             <h2 className="max-w-2xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl">
@@ -215,7 +221,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
             </h2>
 
             <div className="mt-12 divide-y divide-white/10 border-t border-white/10">
-              {project.workflow.map((step, index) => (
+              {caseStudy.workflow.map((step, index) => (
                 <div
                   key={step.title}
                   className="grid gap-4 py-8 sm:grid-cols-[100px_1fr] sm:gap-8"
@@ -239,7 +245,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
         </section>
       )}
 
-      {(project.tools.length > 0 || project.architecture.length > 0) && (
+      {(project.tools.length > 0 || (caseStudy?.architecture.length ?? 0) > 0) && (
         <section className="py-20 sm:py-28">
           <div className="mx-auto max-w-400 px-5 sm:px-8">
             <div className="grid gap-10 lg:grid-cols-3 lg:gap-12">
@@ -259,13 +265,13 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                 </div>
               )}
 
-              {project.architecture.length > 0 && (
+              {caseStudy && caseStudy.architecture.length > 0 && (
                 <div>
                   <h3 className="text-sm font-semibold tracking-widest uppercase">
                     Architecture
                   </h3>
                   <ul className="mt-5 space-y-2">
-                    {project.architecture.map((item) => (
+                    {caseStudy.architecture.map((item) => (
                       <li
                         key={item}
                         className="flex gap-2 text-sm leading-relaxed text-neutral-500"
@@ -282,17 +288,17 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
         </section>
       )}
 
-      {(project.features.length > 0 || project.uiHighlights.length > 0) && (
+      {caseStudy && (caseStudy.features.length > 0 || caseStudy.uiHighlights.length > 0) && (
         <section className="bg-brand-dark py-20 sm:py-28">
           <div className="mx-auto max-w-400 px-5 sm:px-8">
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              {project.features.length > 0 && (
+              {caseStudy.features.length > 0 && (
                 <div>
                   <h2 className="text-2xl font-medium tracking-tight text-white sm:text-3xl">
                     Key Features
                   </h2>
                   <ul className="mt-6 space-y-3">
-                    {project.features.map((feature) => (
+                    {caseStudy.features.map((feature) => (
                       <li
                         key={feature}
                         className="flex items-center gap-3 text-base text-white/70"
@@ -305,13 +311,13 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                 </div>
               )}
 
-              {project.uiHighlights.length > 0 && (
+              {caseStudy.uiHighlights.length > 0 && (
                 <div>
                   <h2 className="text-2xl font-medium tracking-tight text-white sm:text-3xl">
                     UI Highlights
                   </h2>
                   <ul className="mt-6 space-y-3">
-                    {project.uiHighlights.map((highlight) => (
+                    {caseStudy.uiHighlights.map((highlight) => (
                       <li
                         key={highlight}
                         className="flex items-center gap-3 text-base text-white/70"
@@ -328,7 +334,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
         </section>
       )}
 
-      {project.developmentProcess.length > 0 && (
+      {caseStudy && caseStudy.developmentProcess.length > 0 && (
         <section className="py-20 sm:py-28">
           <div className="mx-auto max-w-400 px-5 sm:px-8">
             <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
@@ -336,7 +342,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
             </h2>
 
             <div className="mt-10 flex flex-wrap gap-3">
-              {project.developmentProcess.map((stage, index) => (
+              {caseStudy.developmentProcess.map((stage, index) => (
                 <div
                   key={stage}
                   className="flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium dark:border-white/10"
@@ -352,7 +358,8 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
         </section>
       )}
 
-      {(project.challengesFaced.length > 0 || project.solutionsImplemented.length > 0) && (
+      {caseStudy &&
+        (caseStudy.challengesFaced.length > 0 || caseStudy.solutionsImplemented.length > 0) && (
         <section className="bg-brand-dark py-20 sm:py-28">
           <div className="mx-auto max-w-400 px-5 sm:px-8">
             <h2 className="text-2xl font-medium tracking-tight text-white sm:text-3xl">
@@ -360,13 +367,13 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
             </h2>
 
             <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16">
-              {project.challengesFaced.length > 0 && (
+              {caseStudy.challengesFaced.length > 0 && (
                 <div>
                   <h3 className="text-sm font-semibold tracking-widest text-white/50 uppercase">
                     Challenges Faced
                   </h3>
                   <ul className="mt-5 space-y-4">
-                    {project.challengesFaced.map((challenge) => (
+                    {caseStudy.challengesFaced.map((challenge) => (
                       <li key={challenge} className="text-base leading-relaxed text-white/70">
                         {challenge}
                       </li>
@@ -375,13 +382,13 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                 </div>
               )}
 
-              {project.solutionsImplemented.length > 0 && (
+              {caseStudy.solutionsImplemented.length > 0 && (
                 <div>
                   <h3 className="text-sm font-semibold tracking-widest text-white/50 uppercase">
                     Solutions Implemented
                   </h3>
                   <ul className="mt-5 space-y-4">
-                    {project.solutionsImplemented.map((solution) => (
+                    {caseStudy.solutionsImplemented.map((solution) => (
                       <li key={solution} className="text-base leading-relaxed text-white/70">
                         {solution}
                       </li>
@@ -394,15 +401,15 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
         </section>
       )}
 
-      {(project.results.length > 0 || project.metrics) && (
+      {caseStudy && (caseStudy.results.length > 0 || caseStudy.metrics) && (
         <section className="py-20 sm:py-28">
           <div className="mx-auto max-w-400 px-5 sm:px-8">
             <div className="grid gap-16 lg:grid-cols-2">
-              {project.results.length > 0 && (
+              {caseStudy.results.length > 0 && (
                 <div>
                   <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">Results</h2>
                   <ul className="mt-6 space-y-3">
-                    {project.results.map((result) => (
+                    {caseStudy.results.map((result) => (
                       <li key={result} className="flex gap-3 text-base leading-relaxed">
                         <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-neutral-400" />
                         {result}
@@ -412,22 +419,18 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                 </div>
               )}
 
-              {project.metrics && (
+              {caseStudy.metrics && (
                 <div>
                   <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
                     Quality Metrics
                   </h2>
                   <div className="mt-6 grid grid-cols-2 gap-4">
-                    {(
-                      Object.keys(project.metrics) as Array<keyof NonNullable<Project["metrics"]>>
-                    ).map((key) => (
+                    {(Object.keys(caseStudy.metrics) as Array<keyof ProjectMetrics>).map((key) => (
                       <div
                         key={key}
                         className="rounded-2xl border border-neutral-200 p-5 dark:border-white/10"
                       >
-                        <span className="text-2xl font-semibold">
-                          {project.metrics?.[key]}
-                        </span>
+                        <span className="text-2xl font-semibold">{caseStudy.metrics[key]}</span>
                         <p className="mt-1 text-xs tracking-widest text-neutral-400 uppercase">
                           {metricLabels[key]}
                         </p>
@@ -441,34 +444,36 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
         </section>
       )}
 
-      {project.testimonial && (
+      {caseStudy && caseStudy.testimonial && (
         <section className="bg-brand-dark py-20 sm:py-28">
           <div className="mx-auto max-w-400 px-5 sm:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-2xl leading-relaxed text-white sm:text-3xl">
-                &ldquo;{project.testimonial.quote}&rdquo;
+                &ldquo;{caseStudy.testimonial.quote}&rdquo;
               </p>
 
               <div className="mt-8 flex items-center justify-center gap-4">
                 <div className="relative size-12 overflow-hidden rounded-full bg-neutral-800">
-                  {project.testimonial.image && (
+                  {caseStudy.testimonial.image && (
                     <Image
-                      src={project.testimonial.image}
-                      alt={project.testimonial.name}
+                      src={caseStudy.testimonial.image}
+                      alt={caseStudy.testimonial.name}
                       fill
                       className="object-cover"
                       sizes="48px"
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
                     />
                   )}
                 </div>
 
                 <div className="text-left">
                   <p className="text-sm font-semibold text-white">
-                    {project.testimonial.name}
+                    {caseStudy.testimonial.name}
                   </p>
                   <p className="text-xs text-white/50">
-                    {project.testimonial.role}
-                    {project.testimonial.company ? `, ${project.testimonial.company}` : ""}
+                    {caseStudy.testimonial.role}
+                    {caseStudy.testimonial.company ? `, ${caseStudy.testimonial.company}` : ""}
                   </p>
                 </div>
               </div>
@@ -477,17 +482,17 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
         </section>
       )}
 
-      {(project.lessonsLearned.length > 0 || project.nextSteps.length > 0) && (
+      {caseStudy && (caseStudy.lessonsLearned.length > 0 || caseStudy.nextSteps.length > 0) && (
         <section className="py-20 sm:py-28">
           <div className="mx-auto max-w-400 px-5 sm:px-8">
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              {project.lessonsLearned.length > 0 && (
+              {caseStudy.lessonsLearned.length > 0 && (
                 <div>
                   <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
                     Lessons Learned
                   </h2>
                   <ul className="mt-6 space-y-3">
-                    {project.lessonsLearned.map((lesson) => (
+                    {caseStudy.lessonsLearned.map((lesson) => (
                       <li key={lesson} className="text-base leading-relaxed text-neutral-500">
                         {lesson}
                       </li>
@@ -496,11 +501,11 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                 </div>
               )}
 
-              {project.nextSteps.length > 0 && (
+              {caseStudy.nextSteps.length > 0 && (
                 <div>
                   <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">Next Steps</h2>
                   <ul className="mt-6 space-y-3">
-                    {project.nextSteps.map((step) => (
+                    {caseStudy.nextSteps.map((step) => (
                       <li key={step} className="text-base leading-relaxed text-neutral-500">
                         {step}
                       </li>
@@ -519,6 +524,8 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
             src={primaryImage}
             alt={`${project.title} showcase 1`}
             sizes="(min-width: 1024px) 58vw, 100vw"
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
             wrapperClassName="aspect-4/3 w-full max-w-full bg-neutral-900 lg:aspect-auto lg:col-span-7 lg:row-span-2"
           />
 
@@ -526,6 +533,8 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
             src={secondaryImage}
             alt={`${project.title} showcase 2`}
             sizes="(min-width: 1024px) 42vw, 100vw"
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
             wrapperClassName="aspect-4/3 w-full max-w-full bg-neutral-900 lg:aspect-auto lg:col-span-5"
           />
 
@@ -533,6 +542,8 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
             src={tertiaryImage}
             alt={`${project.title} showcase 3`}
             sizes="(min-width: 1024px) 42vw, 100vw"
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
             wrapperClassName="aspect-4/3 w-full max-w-full bg-neutral-900 lg:aspect-auto lg:col-span-5"
           />
         </div>
@@ -545,6 +556,8 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                 src={image}
                 alt={`${project.title} showcase ${index + 4}`}
                 sizes="(min-width: 1024px) 33vw, 100vw"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
                 wrapperClassName="aspect-4/3 w-full max-w-full bg-neutral-900"
               />
             ))}
@@ -578,6 +591,8 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                       fill
                       className="object-cover transition-transform duration-500 group-hover/related:scale-105"
                       sizes="(min-width: 640px) 50vw, 100vw"
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
                     />
                   </div>
                   <div className="p-6">

@@ -1,5 +1,6 @@
 import { SectionBadge } from "@/components/common/SectionBadge"
 import type { BlogContentBlock, BlogPost } from "@/lib/data/blog-page"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { getReadingTime } from "@/lib/utils/reading-time"
 import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
@@ -50,6 +51,8 @@ function ContentBlock({ block }: { block: BlogContentBlock }) {
             fill
             className="object-cover"
             sizes="(min-width: 1024px) 900px, 100vw"
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
           />
         </div>
       )
@@ -68,6 +71,8 @@ function ContentBlock({ block }: { block: BlogContentBlock }) {
                 fill
                 className="object-cover"
                 sizes="(min-width: 1024px) 450px, 50vw"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
               />
             </div>
           ))}
@@ -84,6 +89,8 @@ function ContentBlock({ block }: { block: BlogContentBlock }) {
               fill
               className="object-cover"
               sizes="(min-width: 1024px) 450px, 100vw"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
             />
           </div>
 
@@ -181,6 +188,8 @@ export default function BlogDetails({ post, relatedPosts }: BlogDetailsProps) {
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(min-width: 1024px) 33vw, 100vw"
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
                     />
                   </Link>
 

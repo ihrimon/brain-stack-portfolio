@@ -1,6 +1,6 @@
 "use client"
 
-// import { SectionBadge } from "@/components/common/SectionBadge"
+import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
 import type { ProcessData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
@@ -10,7 +10,6 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
 import Link from "next/link"
 import { useRef } from "react"
-import { SectionBadge } from "../common/SectionBadge"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -89,9 +88,14 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
         })
       })
 
+      // Only the manual mouseenter/mouseleave listeners need explicit
+      // cleanup here — useGSAP's automatic gsap.context().revert() (scoped
+      // to sectionRef) already tears down every tween/ScrollTrigger created
+      // above. A prior version of this also called
+      // `ScrollTrigger.getAll().forEach(t => t.kill())`, which kills every
+      // ScrollTrigger on the page, not just this component's own.
       return () => {
         cleanups.forEach((fn) => fn())
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
       }
     },
     { scope: sectionRef }

@@ -77,11 +77,11 @@ export default function MissionHero({ data }: MissionHeroProps) {
 
           <div>
             <h2 className="text-xl font-semibold text-white sm:text-2xl">
-              {data.approach.title}
+              {data.pillars.title}
             </h2>
 
             <ul className="mt-6 space-y-3">
-              {data.approach.items.map((item) => (
+              {data.pillars.items.map((item) => (
                 <li
                   key={item}
                   className="flex items-center gap-3 text-base text-white/70 sm:text-lg"

@@ -7,6 +7,7 @@ import "@/lib/animations/gsap-animations"
 import { projectsData, type Project } from "@/lib/data/projects-page"
 // Page-chrome text (badge/title) is static; only the project list itself is Sheet-driven.
 import { cn } from "@/lib/utils/cn"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import Image from "next/image"
@@ -38,6 +39,8 @@ function ProjectMarqueeCard({ project, wide }: { project: Project; wide: boolean
           quality={100}
           className="object-cover transition-transform duration-500 group-hover/card:scale-105"
           sizes="(min-width: 640px) 480px, 256px"
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
         />
 
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />

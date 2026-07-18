@@ -1,11 +1,11 @@
 "use client"
 
+import { SectionBadge } from "@/components/common/SectionBadge"
 import type { ServicesData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
 import gsap from "gsap"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
-import { SectionBadge } from "../common/SectionBadge"
 
 interface ServicesSectionProps {
   data: ServicesData

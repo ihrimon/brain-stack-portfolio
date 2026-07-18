@@ -1,5 +1,6 @@
 import { SectionBadge } from "@/components/common/SectionBadge"
 import type { TeamMembersData } from "@/lib/data/about-page"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import Image from "next/image"
 
 interface AboutTeamSectionProps {
@@ -28,6 +29,8 @@ export default function AboutTeamSection({ data }: AboutTeamSectionProps) {
                   fill
                   className="object-cover"
                   sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 45vw"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
                 />
               </div>
 

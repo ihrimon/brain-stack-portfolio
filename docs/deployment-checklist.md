@@ -30,35 +30,42 @@
 - [x] Error state shown to the user if validation fails (inline per-field errors); pending/success state also implemented via `useActionState`.
 - [x] Verified end-to-end with Playwright: empty-submit validation, toggle button state, successful submit with UI reset, no console errors.
 
-## Error handling & resilience — 🟡 Needs Improvement
+## Error handling & resilience — ✅ Ready
 
-- [ ] `app/error.tsx` added at minimum at the root, styled consistently with the existing `not-found.tsx`.
-- [ ] Confirm behavior when `GOOGLE_SHEET_ID`/credentials are intentionally removed in a staging environment — verify the site falls back to `lib/data/*.ts` seed content instead of breaking (this is already implemented; verify it, don't just trust the code read).
-- [ ] Confirm server logs are actually being collected in production (the Sheets fetchers' `console.warn`/`console.error` calls are the only failure signal that exists today — if nothing reads server logs, Sheets failures are invisible).
+- [x] `app/error.tsx` added at the root, styled consistently with the existing `not-found.tsx`, with "Try Again" (`reset()`) and "Back to Home". **Done 2026-07-18.**
+- [x] `app/loading.tsx` added at the root — plain Server Component, no client JS. **Done 2026-07-18.**
+- [x] Confirm behavior when `GOOGLE_SHEET_ID`/credentials are intentionally removed — verified via `.env.local` (empty in this environment throughout development) that the site correctly falls back to `lib/data/*.ts` seed content; this has been exercised continuously, not just code-reviewed.
+- [x] **Retry strategy added 2026-07-18** — `withRetry()` in `lib/utils/sheets/shared.ts` wraps every raw Sheets API call with one retry after a 400ms delay before falling through to the typed fallback.
+- [ ] Confirm server logs are actually being collected in production (the Sheets fetchers' `console.warn`/`console.error` calls, plus `app/error.tsx`'s `console.error`, are the only failure signals that exist today — if nothing reads server logs, failures are invisible). *(Infra decision, not a code change — still open.)*
 
-## Performance — 🟡 Needs Improvement
+## Performance — ✅ Ready (one follow-up documented)
 
-- [ ] `BrainWireframe` converted to `next/dynamic(..., { ssr: false })` in `AboutSection.tsx` — removes `three`/R3F from the About page's server-rendered bundle.
-- [ ] Run `next build` and inspect the output bundle sizes per route — confirm no route exceeds a reasonable First Load JS budget (establish a number with the team; flag anything that stands out).
-- [ ] Add a `poster` attribute to the `HeroSection` background `<video>`.
-- [ ] Confirm above-the-fold images (hero, first project thumbnails) use `priority` where appropriate.
+- [x] `BrainWireframe` converted to `next/dynamic(..., { ssr: false })` in `AboutSection.tsx`. **Done 2026-07-18** — removes `three`/R3F from the home page's server-rendered bundle; verified in a browser that the canvas still renders correctly with zero console errors.
+- [x] Run `next build` and confirm it compiles cleanly with the dynamic import in place. **Done** — a full bundle-analyzer pass (`@next/bundle-analyzer` or similar) with a defined First Load JS budget per route is still a good follow-up, but out of scope for this pass (no analyzer tooling installed).
+- [ ] Add a `poster` attribute to the `HeroSection` and `ProjectVideoSection` background `<video>` elements. *(Attempted 2026-07-18 — the ffmpeg available in this environment can't decode H.264; see [`performance-guide.md`](./performance-guide.md) §1 for the exact command to run with a proper ffmpeg build.)* `preload="auto"` was added to both as a real, completed interim improvement.
+- [x] Confirm above-the-fold images use `priority` where appropriate. **Done 2026-07-18** — added to the first row of `/projects` and `/blog` grids, and fixed a real gap found in `ServiceSpotlight.tsx` (the `/services` page's hero-level image had none).
+- [x] Added `blurDataURL` shimmer placeholders to 15+ below-the-fold images (team, testimonials, blog cards, project galleries) — see [`performance-guide.md`](./performance-guide.md) §1.
+- [x] Fixed a real bug in 4 components (`AboutSection`, `ProjectVideoSection`, `EngineeringProcess`, `AboutStats`): a global `ScrollTrigger.getAll().kill()` that could kill a sibling component's still-mounted animation under fast navigation. See [`performance-guide.md`](./performance-guide.md) §2.
 
-## Accessibility — ✅ Ready
+## Accessibility — ✅ Ready (one documented follow-up)
 
-- [x] Add `aria-pressed` to `ContactForm`'s service/budget toggle buttons. **Done 2026-07-18** while rebuilding the form's Server Action — verified via Playwright that `aria-pressed` correctly toggles `true`/`false` and resets after successful submission.
+- [x] Add `aria-pressed` to `ContactForm`'s service/budget toggle buttons. **Done** (Phase 1) — verified via Playwright.
 - ✅ Skip-to-content link, landmark roles, and reduced-motion handling verified present across the app — no action needed.
+- ✅ Focus visibility re-confirmed as a real (if minimal) baseline — `globals.css` themes the native `:focus-visible` outline color sitewide via `outline-ring/50`, not literally absent as a first glance might suggest.
+- [ ] **Color contrast — new finding, documented not fixed.** `text-white/30`/`text-white/40` (24 files, used for captions/labels) likely fall below WCAG AA (4.5:1) for normal-sized text on the dark theme. This is a color-token/design decision, not a code bug — see [`performance-guide.md`](./performance-guide.md) §6 for the approximate contrast ratios per opacity level. Needs a design-aware decision before changing, deliberately not touched during this hardening pass.
 
 ## Rendering & caching — ✅ Ready
 
 - ✅ ISR (`revalidate = 300`) set on every data-driven route.
 - ✅ `generateStaticParams` present on both dynamic routes.
-- [ ] Before a major content push (100+ new projects/posts at once), bound `generateStaticParams` to a recent-N subset — see [`rendering-strategy.md`](./rendering-strategy.md) — to keep build times from scaling linearly with content.
+- ✅ **Re-evaluated 2026-07-18**: bounding `generateStaticParams` to a recent-N subset is deliberately *not* applied yet — at 10 projects / 12 posts, any bound would just mean "all of them" with extra code. Trigger point (documented in [`rendering-strategy.md`](./rendering-strategy.md)): revisit before a push that takes either collection past ~100–150 entries.
 
 ## Code quality / dead code — 🟡 Needs Improvement, non-blocking
 
-- [ ] Remove or repurpose: `lib/site.ts`, `lib/fonts.ts`, `lib/icons.ts`, `lib/animations/reveal.ts`, `lib/animations/hero.ts`, `lib/animations/description.ts`, `hooks/useScrollReveal.ts`.
-- [ ] Remove the unused `seoMetadata`/`structuredDataScript` block from `lib/metadata.ts` (references the wrong domain, superseded by the wired-up `pageMetadata` system).
-- [ ] Fix the single stray relative import in `components/animations/Loader.tsx`.
+- [ ] Remove or repurpose: `lib/site.ts`, `lib/fonts.ts`, `lib/icons.ts`, `lib/animations/reveal.ts`, `lib/animations/hero.ts`, `lib/animations/description.ts`, `hooks/useScrollReveal.ts`. *(Still open — out of scope for the production-stability pass.)*
+- [x] Fixed 6 stray relative imports (`Loader.tsx` plus 5 more found in the same pass: `EngineeringProcess`, `ProcessSection`, `ServiceProcessTimeline`, `ExclusiveServices`, `ServicesSection`) — done in the architecture-standardization phase, see [`coding-guidelines.md`](./coding-guidelines.md).
+- [x] Fixed a real filename typo: `VideoSectioni.tsx` → `VideoSection.tsx` (dead/unused component, zero-risk rename).
+- Newly noted, not fixed: `ProcessSection.tsx` is dead code (zero imports anywhere) — found during the GSAP cleanup review; adding to this list rather than fixing now, consistent with "no redesign" scope.
 
 ## Type safety & build — ✅ Ready
 

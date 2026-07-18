@@ -14,6 +14,8 @@ interface ParallaxImageProps {
   alt: string
   sizes?: string
   priority?: boolean
+  placeholder?: "blur" | "empty"
+  blurDataURL?: string
   className?: string
   wrapperClassName?: string
   strength?: number
@@ -24,6 +26,8 @@ export function ParallaxImage({
   alt,
   sizes,
   priority,
+  placeholder,
+  blurDataURL,
   className,
   wrapperClassName,
   strength = 12,
@@ -67,6 +71,8 @@ export function ParallaxImage({
         fill
         priority={priority}
         sizes={sizes}
+        placeholder={placeholder}
+        blurDataURL={blurDataURL}
         className={cn("object-cover", className)}
       />
     </div>

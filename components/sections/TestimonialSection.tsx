@@ -4,6 +4,7 @@ import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
 import type { TestimonialsData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { Quote, Star } from "lucide-react"
@@ -119,6 +120,8 @@ export default function TestimonialSection({ data }: TestimonialSectionProps) {
                     fill
                     className="object-cover"
                     sizes="96px"
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
                   />
                 </div>
               </div>

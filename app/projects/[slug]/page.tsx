@@ -34,9 +34,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound()
   }
 
-  const related = project.relatedProjects
-    .map((relatedSlug) => projects.find((item) => item.slug === relatedSlug))
-    .filter((item): item is (typeof projects)[number] => Boolean(item))
+  const related =
+    project.kind === "case-study"
+      ? project.relatedProjects
+          .map((relatedSlug) => projects.find((item) => item.slug === relatedSlug))
+          .filter((item): item is (typeof projects)[number] => Boolean(item))
+      : []
 
   return (
     <main id="main-content" role="main">

@@ -1,4 +1,5 @@
 import type { AboutFeaturesData } from "@/lib/data/about-page"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { ArrowUpRight, Sparkle, Star } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -69,6 +70,8 @@ export default function WhyBrainStack({ features }: WhyBrainStackProps) {
                         fill
                         className="object-cover"
                         sizes="48px"
+                        placeholder="blur"
+                        blurDataURL={BLUR_DATA_URL}
                       />
                     </div>
                   ))}

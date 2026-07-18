@@ -1,6 +1,7 @@
 import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { ParallaxImage } from "@/components/animations/ParallaxImage"
 import type { AgencyBannerData } from "@/lib/data/service-page"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import Link from "next/link"
 
 interface AgencyBannerProps {
@@ -15,6 +16,8 @@ export default function AgencyBanner({ banner }: AgencyBannerProps) {
           src={banner.image}
           alt={banner.title}
           sizes="(min-width: 1024px) 50vw, 100vw"
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
           wrapperClassName="aspect-4/3 w-full max-w-full bg-neutral-900 lg:aspect-auto lg:min-h-140"
         />
 

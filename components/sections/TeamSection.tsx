@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/carousel"
 import "@/lib/animations/gsap-animations"
 import type { TeamMembersData } from "@/lib/data/about-page"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import Autoplay from "embla-carousel-autoplay"
@@ -84,6 +85,8 @@ export default function TeamSection({ data }: TeamSectionProps) {
                       fill
                       className="object-cover group-hover/glitch:animate-glitch-jitter"
                       sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 45vw"
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
                     />
                     <Image
                       src={member.image}

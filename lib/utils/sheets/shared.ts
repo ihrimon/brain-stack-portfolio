@@ -23,6 +23,24 @@ export function getSheetsClient() {
   return { sheets: google.sheets({ version: "v4", auth }), spreadsheetId }
 }
 
+/**
+ * Retries a transient Sheets API failure once after a short delay before
+ * giving up — covers the common case of a momentary network blip or rate
+ * limit without turning a genuine outage into a slow one (one retry, not a
+ * loop). Every caller already falls back to local seed data if this
+ * ultimately still rejects, so this only changes the odds of needing that
+ * fallback, not the failure-handling behavior itself.
+ */
+export async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
+  try {
+    return await fn()
+  } catch (error) {
+    console.warn(`[sheets] "${label}" request failed, retrying once...`, error)
+    await new Promise((resolve) => setTimeout(resolve, 400))
+    return fn()
+  }
+}
+
 export function parseJson<T>(value: string | undefined, fallback: T): T {
   if (!value || !value.trim()) return fallback
 
@@ -66,10 +84,14 @@ export async function fetchKeyValueTab(
   const client = getSheetsClient()
   if (!client) return null
 
-  const res = await client.sheets.spreadsheets.values.get({
-    spreadsheetId: client.spreadsheetId,
-    range: `${tab}!A2:B`,
-  })
+  const res = await withRetry(
+    () =>
+      client.sheets.spreadsheets.values.get({
+        spreadsheetId: client.spreadsheetId,
+        range: `${tab}!A2:B`,
+      }),
+    `fetchKeyValueTab:${tab}`
+  )
 
   const rows = res.data.values ?? []
   const map: Record<string, string> = {}

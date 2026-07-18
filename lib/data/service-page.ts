@@ -1,4 +1,4 @@
-import type { ButtonLink, IconName } from "./shared-types"
+import type { ButtonLink, IconName, ProcessStep, ServiceOffering } from "./shared-types"
 
 export const serviceSpotlightData = [
   {
@@ -47,13 +47,15 @@ export const serviceSpotlightData = [
     tags: ["Next.js", "Full-Stack", "Performance", "SEO"],
     image: "/images/services/services-5.png",
   },
-] as const
+] as const satisfies ServiceOffering[]
 
 export const serviceProcessData = {
   badge: "We follow a proven working process",
   title:
     "We help ambitious teams build software that performs where people live and work",
-  steps: [
+  // Renamed from `steps` to match the `items` convention used across every
+  // other ordered-stage list in the data layer.
+  items: [
     {
       title: "Discovery & Research",
       description:
@@ -79,7 +81,7 @@ export const serviceProcessData = {
       description:
         "We ship, monitor, and stay close after launch — fixing, refining and scaling the product as real usage comes in.",
     },
-  ],
+  ] satisfies ProcessStep[],
 } as const
 
 export const exclusiveServicesData = {
@@ -87,7 +89,10 @@ export const exclusiveServicesData = {
   title: "Our exclusive services",
   description:
     "We bet on products that shift categories and add real value to people's lives — and on founders who are motivated to build something that lasts.",
-  categories: [
+  // Renamed from `categories` to match the `items` convention; each entry is
+  // a ServiceOffering (icon + title + a sub-bullet list), the same shape
+  // used for every other "list of service tiles" in the data layer.
+  items: [
     {
       icon: "Layers" as IconName,
       title: "UX/UI Design",
@@ -140,7 +145,7 @@ export const exclusiveServicesData = {
         "Monitoring & Support",
       ],
     },
-  ],
+  ] satisfies ServiceOffering[],
 } as const
 
 export const agencyBannerData = {
