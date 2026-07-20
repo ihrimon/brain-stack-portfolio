@@ -1,11 +1,18 @@
 "use client"
 
 import { SectionBadge } from "@/components/common/SectionBadge"
+import "@/lib/animations/gsap-animations"
 import type { ServicesData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
+import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
+import { ScrollTrigger } from "gsap/all"
+import { useRef, useState } from "react"
+import { ServiceCarousel } from "./services/ServiceCarousel"
+import { ServiceControls } from "./services/ServiceControls"
+import { ServiceDetails } from "./services/ServiceDetails"
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface ServicesSectionProps {
   data: ServicesData
@@ -13,73 +20,110 @@ interface ServicesSectionProps {
 
 export default function ServicesSection({ data }: ServicesSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0)
-  const imageRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  // Crossfades the right-side image whenever a different title is hovered.
-  // The title's own hover feedback (color/underline/shift) stays pure CSS —
-  // this state only exists to drive which image is currently showing, and
-  // it stays on the last-hovered item rather than resetting on mouse-out.
-  useEffect(() => {
-    imageRefs.current.forEach((el, index) => {
-      if (!el) return
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const descRef = useRef<HTMLParagraphElement>(null)
 
-      const isActive = index === activeIndex
-      gsap.to(el, {
-        opacity: isActive ? 1 : 0,
-        scale: isActive ? 1 : 1.06,
-        duration: 0.6,
-        ease: "power2.out",
+  const activeItem = data.items[activeIndex]
+
+  const goTo = (direction: 1 | -1) => {
+    setActiveIndex(
+      (current) => (current + direction + data.items.length) % data.items.length
+    )
+  }
+
+  // Sequenced reveal as the section scrolls into view: header text, then the
+  // featured card, then the preview rail (staggered per card), then the
+  // bottom detail block — each its own ScrollTrigger at the natural point it
+  // enters the viewport, rather than one shared timeline.
+  useGSAP(
+    () => {
+      gsap.effects.textRevealOnScroll([titleRef.current, descRef.current])
+
+      gsap.effects.fadeUpOnScroll("[data-featured-card]", {
+        start: "top 80%",
+        yOffset: 50,
       })
-    })
-  }, [activeIndex])
+
+      gsap.effects.staggerFadeUpOnScroll("[data-preview-rail]", {
+        start: "top 85%",
+        childSelector: "[data-preview-card]",
+      })
+
+      gsap.effects.fadeUpOnScroll("[data-service-details]", {
+        start: "top 88%",
+        yOffset: 30,
+      })
+    },
+    { scope: sectionRef }
+  )
 
   return (
-    <section id="services" className="bg-neutral-900 py-20 sm:py-28">
+    <section
+      id="services"
+      ref={sectionRef}
+      className="bg-neutral-900 py-20 sm:py-28"
+    >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <SectionBadge>{data.badge}</SectionBadge>
-        <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_minmax(0,580px)] lg:items-center lg:gap-16">
-          <div className="flex flex-col">
-            {data.items.map((item, index) => (
-              <button
-                key={item.id}
-                type="button"
-                onMouseEnter={() => setActiveIndex(index)}
-                className="group/title w-fit cursor-pointer py-2 text-left sm:py-3"
-                data-cursor="magnetic"
-              >
-                <span className="relative inline-block text-3xl leading-tight font-bold tracking-tight text-white/30 uppercase transition-colors duration-300 group-hover/title:text-white sm:text-4xl md:text-5xl">
-                  <span className="inline-block transition-transform duration-300 ease-out group-hover/title:translate-x-3">
-                    {item.title}
-                  </span>
-                  <span className="absolute -bottom-1 left-0 h-0.75 w-full origin-left scale-x-0 bg-white transition-transform duration-500 ease-out group-hover/title:scale-x-100" />
-                </span>
-              </button>
-            ))}
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <div className="max-w-2xl">
+            <SectionBadge>{data.badge}</SectionBadge>
+
+            <h2
+              ref={titleRef}
+              className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
+            >
+              {data.title}
+            </h2>
+
+            {/* <p
+              ref={descRef}
+              className="mt-6 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg"
+            >
+              {data.description}
+            </p> */}
           </div>
 
-          <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-neutral-900">
-            {data.items.map((item, index) => (
-              <div
-                key={item.id}
-                ref={(el) => {
-                  imageRefs.current[index] = el
-                }}
-                className={cn(
-                  "absolute inset-0",
-                  index === 0 ? "opacity-100" : "opacity-0"
-                )}
-              >
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 1024px) 380px, 90vw"
-                  priority={index === 0}
-                />
-              </div>
-            ))}
-          </div>
+          <ServiceControls onPrev={() => goTo(-1)} onNext={() => goTo(1)} />
+        </div>
+
+        <div
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Our services"
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === "ArrowLeft") goTo(-1)
+            if (event.key === "ArrowRight") goTo(1)
+          }}
+          className="mt-16 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/60"
+        >
+          <ServiceCarousel
+            items={data.items}
+            activeIndex={activeIndex}
+            onSelect={setActiveIndex}
+          />
+        </div>
+
+        <div className="mt-8 flex items-center justify-center gap-2 lg:hidden">
+          {data.items.map((item, index) => (
+            <button
+              key={item.slug ?? item.id ?? item.title}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              aria-label={`Go to ${item.title}`}
+              aria-current={index === activeIndex}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                index === activeIndex ? "w-6 bg-white" : "w-1.5 bg-white/20"
+              )}
+            />
+          ))}
+        </div>
+
+        <div data-service-details className="mt-16">
+          <ServiceDetails item={activeItem} />
         </div>
       </div>
     </section>

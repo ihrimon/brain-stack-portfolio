@@ -1,11 +1,14 @@
 import {
   Blocks,
+  BookOpen,
   BrainCircuit,
   PencilLine,
   Layers,
+  Megaphone,
   Palette,
   Code2,
   Bot,
+  Smartphone,
   type LucideIcon,
 } from "lucide-react"
 
@@ -15,14 +18,17 @@ import {
  */
 const ICON_MAP: Record<string, LucideIcon> = {
   Blocks,
+  BookOpen,
   BrainCircuit,
   PencilLine,
   Layers,
+  Megaphone,
   Palette,
   Code2,
   Bot,
+  Smartphone,
 }
 
-export function resolveIcon(name: string): LucideIcon {
-  return ICON_MAP[name] ?? Blocks
+export function resolveIcon(name?: string): LucideIcon {
+  return (name && ICON_MAP[name]) || Blocks
 }

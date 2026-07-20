@@ -84,13 +84,27 @@ export interface ServiceOffering {
   /** Display index (e.g. "01"), not a stable identity — optional, only used
    *  by sections that render a numbered list. */
   id?: string
+  /** URL-safe identifier, e.g. for a `/services#slug` anchor. */
+  slug?: string
   icon?: IconName
   image?: string
   title: string
   subtitle?: string
   description?: string
+  /** One-line summary for compact/featured presentations. */
+  shortDescription?: string
+  /** Longer prose for a dedicated detail view. */
+  fullDescription?: string
   tags?: string[]
   items?: string[]
+  /** Tools/stack associated with this service. */
+  technologies?: string[]
+  /** Bullet-point capabilities, distinct from `items` (kept generic above). */
+  features?: string[]
+  buttonLabel?: string
+  buttonHref?: string
+  featured?: boolean
+  order?: number
 }
 
 /**
