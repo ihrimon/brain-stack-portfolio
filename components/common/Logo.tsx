@@ -24,7 +24,7 @@ export function Logo({
   const mark = (
     <span
       className={cn(
-        "inline-flex items-center font-heading text-xl font-bold tracking-tight text-heading uppercase",
+        "inline-flex items-center bg-background font-heading text-xl font-bold tracking-tight text-heading uppercase",
         className
       )}
     >

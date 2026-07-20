@@ -31,9 +31,18 @@ export default async function HomePage() {
     <>
       <JsonLd data={generateWebPageSchema("home")} />
       <main id="main-content" role="main">
-        <HeroSection data={home.heroBanner} />
+        {/*
+          Hero and About share one background video: both are direct
+          children of this `relative` element so the video's `sticky`
+          layer (rendered by HeroSection) stays pinned for their combined
+          scroll height and releases exactly when About ends. See
+          HeroSection.tsx for the layer structure.
+        */}
+        <div className="relative">
+          <HeroSection data={home.heroBanner} />
+          <AboutSection data={home.whoWeAre} />
+        </div>
         <ProjectVideoSection data={home.projectVideo} />
-        <AboutSection data={home.whoWeAre} />
         <ProjectsSection projects={projects} />
         <ServicesSection data={home.services} />
         <EngineeringProcess data={home.process} />
