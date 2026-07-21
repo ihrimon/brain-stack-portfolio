@@ -122,9 +122,9 @@ export default function ServicesSection({ data }: ServicesSectionProps) {
           ))}
         </div>
 
-        <div data-service-details className="mt-16">
+        {/* <div data-service-details className="mt-16">
           <ServiceDetails item={activeItem} />
-        </div>
+        </div> */}
       </div>
     </section>
   )

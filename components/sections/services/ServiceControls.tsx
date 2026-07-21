@@ -14,7 +14,7 @@ export function ServiceControls({ onPrev, onNext }: ServiceControlsProps) {
         type="button"
         onClick={onPrev}
         aria-label="Previous service"
-        className="flex size-11 cursor-pointer items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors duration-300 hover:border-white/30 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+        className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors duration-300 hover:border-white/30 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
         data-cursor="magnetic"
       >
         <ArrowLeft className="size-4" />
@@ -24,7 +24,7 @@ export function ServiceControls({ onPrev, onNext }: ServiceControlsProps) {
         type="button"
         onClick={onNext}
         aria-label="Next service"
-        className="flex size-11 cursor-pointer items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors duration-300 hover:border-white/30 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+        className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors duration-300 hover:border-white/30 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
         data-cursor="magnetic"
       >
         <ArrowRight className="size-4" />

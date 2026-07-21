@@ -1,4 +1,4 @@
-import AboutSection from "@/components/sections/AboutSection"
+// import AboutSection from "@/components/sections/AboutSection"
 import BlogSection from "@/components/sections/BlogSection"
 import { JsonLd } from "@/components/common/JsonLd"
 import CTASection from "@/components/sections/CTASection"
@@ -15,6 +15,7 @@ import { getAboutData } from "@/lib/utils/sheets/about"
 import { getBlogPosts } from "@/lib/utils/sheets/blog"
 import { getHomeData } from "@/lib/utils/sheets/home"
 import { getProjects } from "@/lib/utils/sheets/projects"
+import AboutSection from '@/components/sections/AboutSection'
 
 export const revalidate = 300
 export const metadata = generatePageMetadata("home")

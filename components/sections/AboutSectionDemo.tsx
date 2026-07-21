@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
 import dynamic from "next/dynamic"
+import Image from 'next/image'
 import Link from "next/link"
 import { useRef } from "react"
 
@@ -89,7 +90,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
 
         <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,430px)_1fr]">
           <div className="relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-900">
-            <div className="space-y-6 p-8">
+            {/*  <div className="space-y-6 p-8">
               <h3 className="text-2xl font-medium text-white sm:text-4xl">
                 {data.cardTitle}
               </h3>
@@ -103,8 +104,15 @@ export default function AboutSection({ data }: AboutSectionProps) {
               </Link>
             </div>
 
-            <div className="relative mt-10 aspect-square overflow-hidden rounded-2xl p-0">
-              <BrainWireframe />
+            <div className="relative mt-10 aspect-auto overflow-hidden rounded-2xl p-0">
+              <Image src={'/images/neural-pathways.jpg'} alt='neural pathways' fill className='object-cover' />
+            </div> */}
+            <div>
+              <Image
+                src={"/images/neural-pathways.jpg"}
+                fill
+                alt="Neural Pathways"
+              />
             </div>
           </div>
 
