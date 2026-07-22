@@ -64,19 +64,19 @@ function onBeforeCompile(
       uniform float uSeed;
       ${simplexNoise3D}
       // Domain-warped noise: sample a low-frequency vector field, use it to
-      // gently bend the coordinates fed into a second noise sample. This is
-      // kept very mild — the target look is a near-spherical, glass-smooth
-      // blob with only a soft, barely-there asymmetry, not a visibly
-      // textured/veined surface.
+      // bend the coordinates fed into a second noise sample. A single plain
+      // octave of simplex noise reads as isotropic round bumps — "stone".
+      // Warping the input first is what turns that into the long, flowing,
+      // vein-like ridges a satin/liquid surface actually has.
       float blobDisplacement(vec3 p) {
         vec3 pos = p * uNoiseFreq + uSeed;
         float t = uTime * 0.06;
         vec3 warp = vec3(
-          snoise(pos * 0.4 + vec3(0.0, 0.0, t)),
-          snoise(pos * 0.4 + vec3(37.2, 11.3, t)),
-          snoise(pos * 0.4 + vec3(5.7, 91.2, t))
+          snoise(pos * 0.6 + vec3(0.0, 0.0, t)),
+          snoise(pos * 0.6 + vec3(37.2, 11.3, t)),
+          snoise(pos * 0.6 + vec3(5.7, 91.2, t))
         );
-        return snoise(pos + warp * 0.4 + t);
+        return snoise(pos + warp * 1.2 + t);
       }`
     )
     .replace(
@@ -99,23 +99,6 @@ function onBeforeCompile(
       `
     )
     .replace("#include <begin_vertex>", `vec3 transformed = posBase;`)
-
-  // A view-angle (Fresnel) gradient tint, blended in at the very end of the
-  // fragment shader — independent of where the scene's lights happen to
-  // sit. Without it, a blob that the key/fill lights don't reach renders as
-  // a near-flat black disc with only the env-map catchlight breaking it up;
-  // this guarantees every blob reads as a shaded 3D sphere (dark facing the
-  // camera, gently lifted toward a cool gray at the grazing silhouette) so
-  // they all sit in the same tonal family regardless of position.
-  shader.fragmentShader = shader.fragmentShader.replace(
-    "#include <dithering_fragment>",
-    `
-    vec3 fresnelGradientColor = vec3(0.47, 0.49, 0.63);
-    float fresnelGradient = pow(1.0 - max(dot(normalize(normal), normalize(vViewPosition)), 0.0), 2.4);
-    gl_FragColor.rgb = mix(gl_FragColor.rgb, fresnelGradientColor, fresnelGradient * 0.32);
-    #include <dithering_fragment>
-    `
-  )
 
   this.userData.shader = shader
 }
