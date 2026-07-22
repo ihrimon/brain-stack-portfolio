@@ -2,28 +2,18 @@
 
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionDivider } from "@/components/common/SectionDivider"
+import { HeroIntelligencePanel } from "@/components/sections/hero-panel/HeroIntelligencePanel"
 import "@/lib/animations/gsap-animations"
 import type { HeroBannerData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { SplitText } from "gsap/all"
-import { ChevronRight, Star } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import dynamic from "next/dynamic"
-import Image from "next/image"
 import Link from "next/link"
 import { useRef, type ReactNode } from "react"
 
 gsap.registerPlugin(SplitText)
-
-// Real customer photos already used in TestimonialSection — reused here as
-// a "trusted by real clients" avatar stack rather than inventing stand-ins.
-const AVATAR_IMAGES = [
-  "/images/testimonials/customer-1.webp",
-  "/images/testimonials/customer-2.webp",
-  "/images/testimonials/customer-3.webp",
-]
-
-const PROCESS_STEPS = ["Design", "Develop", "Automate"]
 
 /** Renders `title` with its `highlight` substring picked out in italic
  * accent color, matching the reference layout's single-word emphasis. */
@@ -63,51 +53,8 @@ export default function HeroSection({ data }: HeroSectionProps) {
   const stickyRef = useRef<HTMLDivElement>(null)
   const backgroundRef = useRef<HTMLDivElement>(null)
 
-  // A direct child of the grid below (not just a fragment) so it can sit in
-  // the grid's first cell without an extra wrapping div.
-  const trustSignals = (
-    <div className="flex flex-col items-start gap-6">
-      <div className="flex items-center -space-x-3">
-        {AVATAR_IMAGES.map((src) => (
-          <span
-            key={src}
-            className="relative size-11 overflow-hidden rounded-full ring-2 ring-[#0b1020]"
-          >
-            <Image src={src} alt="" fill className="object-cover" sizes="44px" />
-          </span>
-        ))}
-      </div>
-
-      <div className="inline-flex w-fit items-center gap-2.5 rounded-xl bg-primary px-4 py-2.5">
-        <span className="flex size-6 items-center justify-center rounded-full bg-white">
-          <Star className="size-3.5 fill-primary text-primary" />
-        </span>
-        <span className="text-sm font-semibold text-white">
-          {data.review.rating.toFixed(1)} {data.review.label}
-        </span>
-      </div>
-
-      <p className="text-sm font-medium text-white/50 italic">{data.badge}</p>
-
-      <div className="flex items-center gap-3">
-        <span className="h-px w-8 shrink-0 bg-white/15" aria-hidden="true" />
-        <div className="flex items-center gap-1.5 text-xs font-medium tracking-widest text-white/40 uppercase">
-          {PROCESS_STEPS.map((step) => (
-            <span
-              key={step}
-              className="flex items-center gap-1.5 transition-opacity duration-300 hover:opacity-70"
-            >
-              <ChevronRight className="size-3.5 text-white/30" aria-hidden="true" />
-              {step}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-
   const ctaRow = (
-    <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+    <div className="pointer-events-auto flex flex-wrap items-center gap-x-8 gap-y-4">
       <PrimaryButton href={data.button.href}>{data.button.label}</PrimaryButton>
 
       <Link
@@ -188,8 +135,12 @@ export default function HeroSection({ data }: HeroSectionProps) {
         ref={stickyRef}
         className="sticky top-0 z-0 h-screen w-full overflow-hidden"
         style={{
+          // Retuned to sit on the blobs' own base color (`#0c0d13` in
+          // hero-background/constants.ts) rather than a separately-chosen
+          // navy — that's what lets the blobs blend into the backdrop at
+          // their edges instead of reading as a visibly different tone.
           background:
-            "linear-gradient(180deg, #050816 0%, #0b1020 55%, #111827 100%)",
+            "linear-gradient(180deg, #060710 0%, #0c0d13 50%, #0a0b12 100%)",
         }}
       >
         <div
@@ -202,7 +153,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
 
       <div
         ref={contentRef}
-        className="relative z-10 mt-[-100vh] flex min-h-screen w-full flex-col"
+        className="relative z-10 mt-[-100vh] flex min-h-screen w-full flex-col pointer-events-none"
       >
         <div className="mx-auto flex w-full max-w-400 flex-1 flex-col justify-center px-5 py-32 mt-20 sm:px-8">
           <h1 className="max-w-5xl text-5xl leading-[1.05] font-bold tracking-tight text-white lg:text-[80px]">
@@ -211,18 +162,13 @@ export default function HeroSection({ data }: HeroSectionProps) {
 
           <SectionDivider
             top={false}
-            className="mt-12 sm:mt-16"
+            className="mt-12 h-10 sm:mt-16"
             lineClassName="bg-white/10"
             iconClassName="text-white/40"
           />
 
-          {/* Single grid for every breakpoint, same pattern as
-              MissionHero.tsx: a `1px` middle track stays a plain hidden div
-              below `lg`, so mobile/tablet get the two blocks stacked in
-              document order for free instead of a separate duplicate
-              layout. */}
-          <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1px_1fr] lg:items-stretch lg:gap-x-14">
-            {trustSignals}
+          <div className="grid gap-16 lg:grid-cols-[1fr_1px_1fr] lg:items-stretch pt-8">
+            <HeroIntelligencePanel className="pointer-events-auto" />
 
             <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
 

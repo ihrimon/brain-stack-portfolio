@@ -21,14 +21,14 @@ interface SectionDividerProps {
   iconClassName?: string
 }
 
-const STUB_LENGTH = "h-10"
-
 /**
  * A center star with thin lines extending in up to four directions, used to
- * mark a transition between two blocks of content. Every arm is an
- * independently-toggleable boolean prop — the star and every rendered arm
- * meet at one exact point (absolutely centered for the vertical arms,
- * `flex` for the horizontal ones) so there's never a gap between them.
+ * mark a transition between two blocks of content. The vertical arms are
+ * `flex-1` inside a column layout rather than a fixed-length stub — their
+ * length isn't baked into the component, it stretches to fill however much
+ * height the wrapper ends up with: pass an explicit height via
+ * `className` (e.g. `h-16`), or drop this in as a grid/flex item next to
+ * `items-stretch` siblings and it'll automatically match their height.
  */
 export function SectionDivider({
   top = true,
@@ -42,32 +42,19 @@ export function SectionDivider({
   return (
     <div
       aria-hidden="true"
-      className={cn("relative flex items-center justify-center", className)}
+      className={cn("flex flex-col items-center", className)}
     >
-      {top && (
-        <span
-          className={cn(
-            "absolute bottom-1/2 left-1/2 w-px -translate-x-1/2",
-            STUB_LENGTH,
-            lineClassName
-          )}
-        />
-      )}
-      {bottom && (
-        <span
-          className={cn(
-            "absolute top-1/2 left-1/2 w-px -translate-x-1/2",
-            STUB_LENGTH,
-            lineClassName
-          )}
-        />
-      )}
+      {top && <span className={cn("w-px flex-1", lineClassName)} />}
 
-      {left && <span className={cn("h-px flex-1", lineClassName)} />}
+      <div className="flex w-full shrink-0 items-center">
+        {left && <span className={cn("h-px flex-1", lineClassName)} />}
 
-      <Sparkle className={cn("relative z-10 size-5 shrink-0", iconClassName)} />
+        <Sparkle className={cn("size-5 shrink-0", iconClassName)} />
 
-      {right && <span className={cn("h-px flex-1", lineClassName)} />}
+        {right && <span className={cn("h-px flex-1", lineClassName)} />}
+      </div>
+
+      {bottom && <span className={cn("w-px flex-1", lineClassName)} />}
     </div>
   )
 }

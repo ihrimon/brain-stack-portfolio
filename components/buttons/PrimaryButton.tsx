@@ -17,20 +17,46 @@ export function PrimaryButton({
   children,
   ...props
 }: PrimaryButtonProps) {
-  const pill = (
-    <span
-      className={cn(
-        "group inline-flex h-16 items-center rounded-full bg-neutral-900 px-6 text-xl font-medium text-white",
-        className
-      )}
-    >
-      <span className="whitespace-nowrap">{children}</span>
+  const content = (
+    <span className={cn("group relative inline-flex w-fit items-center", className)}>
+      <span
+        className={cn(
+          "relative inline-flex h-15 items-center gap-3 overflow-hidden rounded-full bg-neutral-100 text-base border-[6px] border-neutral-100 font-medium text-neutral-900 uppercase",
+          showArrow ? "pr-6" : "px-6"
+        )}
+      >
+        {/* The fill: a pill-shaped layer scaled from 0 (anchored at the
+            left edge, where the arrow circle sits) up to full coverage on
+            hover — reads as the button filling with color rather than a
+            flat background crossfade. */}
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 origin-left scale-x-0 rounded-full bg-primary transition-transform duration-500 ease-out group-hover:scale-x-100"
+        />
 
-      {showArrow && (
-        <span className="ml-4 flex size-10 shrink-0 items-center justify-center rounded-full bg-white/15 transition-colors group-hover:bg-white">
-          <Image src="/icons/arrow-right.svg" alt="" width={16} height={16} />
+        {showArrow && (
+          <span className="relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full bg-primary transition-colors duration-500 ease-out group-hover:bg-white group-hover:shadow-md">
+            <Image src="/icons/arrow-right.svg" alt="" width={18} height={18} />
+          </span>
+        )}
+
+        {/* Same vertical slide-reveal used for the Navbar's nav items — the
+            visible layer slides down and out on hover while a second
+            (white, since this pill flips to a solid fill) copy slides down
+            into its place, rather than a flat color crossfade. */}
+        <span className="relative z-10 inline-flex overflow-hidden whitespace-nowrap">
+          <span className="block transition-transform duration-300 ease-out group-hover:translate-y-full">
+            {children}
+          </span>
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 block -translate-y-full text-white transition-transform duration-300 ease-out group-hover:translate-y-0"
+          >
+            {children}
+          </span>
         </span>
-      )}
+      </span>
+
     </span>
   )
 
@@ -46,7 +72,7 @@ export function PrimaryButton({
           ? { target: "_blank", rel: "noopener noreferrer" }
           : {})}
       >
-        {pill}
+        {content}
       </Link>
     )
   }
@@ -58,7 +84,7 @@ export function PrimaryButton({
       data-cursor="magnetic"
       {...props}
     >
-      {pill}
+      {content}
     </button>
   )
 }

@@ -61,13 +61,14 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <ul
               className={cn(
-                "hidden h-14 items-center gap-1 rounded-full px-4 py-2 transition-colors duration-300 lg:flex dark:border-white/15",
+                "hidden h-14 items-center gap-1 rounded-full bg-transparent px-4 py-2 transition-all duration-500 ease-out lg:flex dark:border-white/15",
                 scrolledPastHero
-                  ? "border border-white/10 bg-neutral-900/90 backdrop-blur-sm dark:bg-white/5"
-                  : "bg-transparent"
+                  ? "pointer-events-none origin-right scale-50 opacity-0"
+                  : "origin-right scale-100 opacity-100"
               )}
               role="menubar"
               aria-label="Main navigation menu"
+              aria-hidden={scrolledPastHero}
             >
               {primaryNavigationData.map((item) => {
                 const isActive = pathname.startsWith(item.href)

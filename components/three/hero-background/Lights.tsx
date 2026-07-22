@@ -48,28 +48,37 @@ export function Lights({ mouseRef, reducedMotion }: LightsProps) {
 
   return (
     <>
-      <ambientLight intensity={0.55} color="#3a4361" />
+      <ambientLight intensity={0.35} color="#12141c" />
       <directionalLight
         ref={rimLightRef}
         position={[3.5, 2.5, 4]}
-        intensity={1.3}
-        color="#4fd1ff"
+        intensity={0.3}
+        color="#c7cce0"
       />
+      {/* One dominant soft key light — this is what reads as the single
+          clean highlight arc across each blob. The second area light below
+          is a much dimmer fill so it doesn't compete and split the
+          highlight into several smaller, "stone-like" patches. Both kept
+          near-white (rather than the saturated blue/cyan this used to be)
+          to match a near-monochrome dark-glass reference, and dialed well
+          down in intensity — full brightness turned the sphere silhouettes
+          into a hot glossy rim, whereas the reference keeps its edges
+          almost as dark as the background with only a faint, soft sheen. */}
       <rectAreaLight
         position={[-4.5, 3, -2]}
         rotation={[0, Math.PI / 4, 0]}
-        width={7}
-        height={7}
-        intensity={4}
-        color="#5b5fff"
+        width={16}
+        height={16}
+        intensity={1.7}
+        color="#c2c6da"
       />
       <rectAreaLight
         position={[3, -2.5, 2]}
         rotation={[0, -Math.PI / 3, 0]}
-        width={5}
-        height={5}
-        intensity={1.6}
-        color="#22d3ee"
+        width={10}
+        height={10}
+        intensity={0.3}
+        color="#7d84a0"
       />
     </>
   )
