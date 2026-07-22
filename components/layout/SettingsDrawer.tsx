@@ -11,7 +11,11 @@ import {
   DrawerHeader,
 } from "@/components/ui/drawer"
 import { contactData } from "@/lib/constants/contact"
-import { Mail, MapPin, Phone, X } from "lucide-react"
+import { navigationData } from "@/lib/constants/navigation"
+import { cn } from "@/lib/utils/cn"
+import { ArrowUpRight, Mail, MapPin, Phone, X } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 interface SettingsDrawerProps {
   open: boolean
@@ -19,6 +23,8 @@ interface SettingsDrawerProps {
 }
 
 export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
+  const pathname = usePathname()
+
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
       <DrawerContent className="rounded-none! p-0">
@@ -37,7 +43,59 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
           </DrawerHeader>
 
           <div className="flex flex-col gap-8 py-6">
-            <section>
+            <nav aria-label="Full site navigation">
+              <ul className="flex flex-col divide-y divide-border">
+                {navigationData.map((item, index) => {
+                  const isActive =
+                    item.href === "/"
+                      ? pathname === "/"
+                      : pathname.startsWith(item.href)
+
+                  return (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        onClick={() => onOpenChange(false)}
+                        aria-current={isActive ? "page" : undefined}
+                        className="group flex items-center justify-between gap-4 py-4"
+                        data-cursor="magnetic"
+                      >
+                        <span className="flex items-baseline gap-3">
+                          <span
+                            className={cn(
+                              "text-xs font-medium",
+                              isActive ? "text-primary" : "text-label"
+                            )}
+                          >
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span className="relative inline-flex overflow-hidden text-2xl font-medium tracking-tight">
+                            <span
+                              className={cn(
+                                "block transition-transform duration-300 ease-out group-hover:-translate-y-full",
+                                isActive ? "text-primary" : "text-heading"
+                              )}
+                            >
+                              {item.name}
+                            </span>
+                            <span
+                              aria-hidden="true"
+                              className="absolute inset-0 block translate-y-full text-primary transition-transform duration-300 ease-out group-hover:translate-y-0"
+                            >
+                              {item.name}
+                            </span>
+                          </span>
+                        </span>
+
+                        <ArrowUpRight className="size-5 -translate-x-2 text-label opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-primary group-hover:opacity-100" />
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </nav>
+
+            <section className="border-t border-border pt-6">
               <h3 className="mb-3 text-xs font-semibold tracking-wider text-label uppercase">
                 Appearance
               </h3>
@@ -49,46 +107,6 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
                 Theme Color
               </h3>
               <ColorPaletteSwitcher />
-            </section>
-
-            <section className="space-y-5 border-t border-border pt-6">
-              <div className="flex gap-3">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted">
-                  <Mail className="size-4 text-heading" />
-                </div>
-                <div>
-                  <p className="text-xs text-label">Send Us Mail</p>
-                  <p className="text-sm font-medium text-heading">
-                    {contactData.email}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted">
-                  <Phone className="size-4 text-heading" />
-                </div>
-                <div>
-                  <p className="text-xs text-label">{contactData.phoneHours}</p>
-                  <p className="text-sm font-medium text-heading">
-                    {contactData.phone}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted">
-                  <MapPin className="size-4 text-heading" />
-                </div>
-                <div>
-                  <p className="text-xs text-label">Visit Office</p>
-                  <p className="text-sm font-medium text-heading">
-                    {contactData.address.line1}
-                    <br />
-                    {contactData.address.line2}
-                  </p>
-                </div>
-              </div>
             </section>
           </div>
 

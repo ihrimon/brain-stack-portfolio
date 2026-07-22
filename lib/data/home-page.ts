@@ -12,12 +12,21 @@ export const heroBannerData = {
 
   title: "Empowering Businesses Through Technology & Innovation",
 
+  // Rendered in italic + accent color within the title above — must be an
+  // exact substring of `title`.
+  highlight: "Innovation",
+
   description:
     "We design and build scalable digital products — mobile, web, and AI — that help businesses grow faster, innovate effectively, and stay competitive across the US, UK and Europe.",
 
   button: {
     label: "Start Your Project",
     href: "/contact",
+  } satisfies ButtonLink,
+
+  secondaryButton: {
+    label: "View Projects",
+    href: "/projects",
   } satisfies ButtonLink,
 
   review: {

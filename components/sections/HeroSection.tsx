@@ -1,14 +1,58 @@
 "use client"
 
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
+import { SectionDivider } from "@/components/common/SectionDivider"
 import "@/lib/animations/gsap-animations"
 import type { HeroBannerData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { SplitText } from "gsap/all"
-import { useRef } from "react"
+import { ChevronRight, Star } from "lucide-react"
+import dynamic from "next/dynamic"
+import Image from "next/image"
+import Link from "next/link"
+import { useRef, type ReactNode } from "react"
 
 gsap.registerPlugin(SplitText)
+
+// Real customer photos already used in TestimonialSection — reused here as
+// a "trusted by real clients" avatar stack rather than inventing stand-ins.
+const AVATAR_IMAGES = [
+  "/images/testimonials/customer-1.webp",
+  "/images/testimonials/customer-2.webp",
+  "/images/testimonials/customer-3.webp",
+]
+
+const PROCESS_STEPS = ["Design", "Develop", "Automate"]
+
+/** Renders `title` with its `highlight` substring picked out in italic
+ * accent color, matching the reference layout's single-word emphasis. */
+function renderTitle(title: string, highlight: string): ReactNode {
+  const index = title.indexOf(highlight)
+  if (index === -1) return title
+
+  return (
+    <>
+      {title.slice(0, index)}
+      <em className="text-accent">{highlight}</em>
+      {title.slice(index + highlight.length)}
+    </>
+  )
+}
+
+// three.js + React Three Fiber are a heavy dependency for a purely
+// decorative, aria-hidden background — loading it client-only keeps it out
+// of this page's server-rendered bundle entirely. No loading fallback
+// needed: the sticky wrapper below already paints the same dark gradient as
+// a plain CSS background, so there's nothing for a fallback to prevent
+// layout shift or a color flash for.
+const HeroBackground = dynamic(
+  () =>
+    import("@/components/three/hero-background/HeroBackground").then(
+      (mod) => mod.HeroBackground
+    ),
+  { ssr: false }
+)
 
 interface HeroSectionProps {
   data: HeroBannerData
@@ -17,7 +61,65 @@ interface HeroSectionProps {
 export default function HeroSection({ data }: HeroSectionProps) {
   const contentRef = useRef<HTMLDivElement>(null)
   const stickyRef = useRef<HTMLDivElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const backgroundRef = useRef<HTMLDivElement>(null)
+
+  // A direct child of the grid below (not just a fragment) so it can sit in
+  // the grid's first cell without an extra wrapping div.
+  const trustSignals = (
+    <div className="flex flex-col items-start gap-6">
+      <div className="flex items-center -space-x-3">
+        {AVATAR_IMAGES.map((src) => (
+          <span
+            key={src}
+            className="relative size-11 overflow-hidden rounded-full ring-2 ring-[#0b1020]"
+          >
+            <Image src={src} alt="" fill className="object-cover" sizes="44px" />
+          </span>
+        ))}
+      </div>
+
+      <div className="inline-flex w-fit items-center gap-2.5 rounded-xl bg-primary px-4 py-2.5">
+        <span className="flex size-6 items-center justify-center rounded-full bg-white">
+          <Star className="size-3.5 fill-primary text-primary" />
+        </span>
+        <span className="text-sm font-semibold text-white">
+          {data.review.rating.toFixed(1)} {data.review.label}
+        </span>
+      </div>
+
+      <p className="text-sm font-medium text-white/50 italic">{data.badge}</p>
+
+      <div className="flex items-center gap-3">
+        <span className="h-px w-8 shrink-0 bg-white/15" aria-hidden="true" />
+        <div className="flex items-center gap-1.5 text-xs font-medium tracking-widest text-white/40 uppercase">
+          {PROCESS_STEPS.map((step) => (
+            <span
+              key={step}
+              className="flex items-center gap-1.5 transition-opacity duration-300 hover:opacity-70"
+            >
+              <ChevronRight className="size-3.5 text-white/30" aria-hidden="true" />
+              {step}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+
+  const ctaRow = (
+    <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+      <PrimaryButton href={data.button.href}>{data.button.label}</PrimaryButton>
+
+      <Link
+        href={data.secondaryButton.href}
+        data-cursor="magnetic"
+        className="group inline-flex items-center gap-1 text-sm font-semibold tracking-wide text-white uppercase underline decoration-white/30 underline-offset-4 transition-colors duration-300 hover:text-white/60"
+      >
+        {data.secondaryButton.label}
+        <ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+      </Link>
+    </div>
+  )
 
   useGSAP(
     () => {
@@ -42,18 +144,20 @@ export default function HeroSection({ data }: HeroSectionProps) {
 
       // `stickyRef`'s parent is the `relative` wrapper in app/page.tsx that
       // holds both Hero and About — it's what the sticky background pins
-      // against for their combined height. Scrubbing the video's own
-      // transform across that same range (instead of moving the sticky
-      // layer itself) is what reads as parallax while the pin stays pure
-      // CSS, with no JS-driven pin/unpin to jitter.
+      // against for their combined height. Scrubbing the background
+      // wrapper's own transform across that same range (instead of moving
+      // the sticky layer itself) is what reads as parallax while the pin
+      // stays pure CSS, with no JS-driven pin/unpin to jitter. This is a
+      // plain CSS transform on a wrapper div — independent of, and layered
+      // on top of, the WebGL scene's own subtle cursor-driven motion.
       const sharedBackground = stickyRef.current?.parentElement
-      if (!sharedBackground || !videoRef.current) return
+      if (!sharedBackground || !backgroundRef.current) return
 
       const mm = gsap.matchMedia()
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const tween = gsap.fromTo(
-          videoRef.current,
+          backgroundRef.current,
           { yPercent: -6 },
           {
             yPercent: 6,
@@ -82,38 +186,53 @@ export default function HeroSection({ data }: HeroSectionProps) {
     <>
       <div
         ref={stickyRef}
-        className="sticky top-0 z-0 h-screen w-full overflow-hidden bg-brand-dark"
+        className="sticky top-0 z-0 h-screen w-full overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, #050816 0%, #0b1020 55%, #111827 100%)",
+        }}
       >
-        <video
-          ref={videoRef}
-          className="absolute inset-0 h-full w-full scale-[1.15] object-cover will-change-transform"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
+        <div
+          ref={backgroundRef}
+          className="absolute inset-0 h-full w-full scale-[1.15] will-change-transform"
         >
-          <source src="/bg-video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
+          <HeroBackground className="absolute inset-0 h-full w-full" />
+        </div>
       </div>
 
       <div
         ref={contentRef}
         className="relative z-10 mt-[-100vh] flex min-h-screen w-full flex-col"
       >
-        <div className="mx-auto flex w-full max-w-400 flex-1 flex-col items-center justify-center px-5 py-32 mt-20 text-center sm:px-8">
-          <h1 className="max-w-6xl text-5xl font-medium tracking-tight text-white uppercase lg:text-[90px]">
-            {data.title}
+        <div className="mx-auto flex w-full max-w-400 flex-1 flex-col justify-center px-5 py-32 mt-20 sm:px-8">
+          <h1 className="max-w-5xl text-5xl leading-[1.05] font-bold tracking-tight text-white lg:text-[80px]">
+            {renderTitle(data.title, data.highlight)}
           </h1>
 
-          <p className="mt-8 max-w-3xl text-base leading-relaxed text-white/70 sm:text-2xl">
-            {data.description}
-          </p>
+          <SectionDivider
+            top={false}
+            className="mt-12 sm:mt-16"
+            lineClassName="bg-white/10"
+            iconClassName="text-white/40"
+          />
 
-          <PrimaryButton href={data.button.href} className="mt-10">
-            {data.button.label}
-          </PrimaryButton>
+          {/* Single grid for every breakpoint, same pattern as
+              MissionHero.tsx: a `1px` middle track stays a plain hidden div
+              below `lg`, so mobile/tablet get the two blocks stacked in
+              document order for free instead of a separate duplicate
+              layout. */}
+          <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1px_1fr] lg:items-stretch lg:gap-x-14">
+            {trustSignals}
+
+            <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
+
+            <div className="flex max-w-xl flex-col items-start gap-8">
+              <p className="text-base leading-relaxed text-white/70 sm:text-xl">
+                {data.description}
+              </p>
+              {ctaRow}
+            </div>
+          </div>
         </div>
       </div>
     </>
