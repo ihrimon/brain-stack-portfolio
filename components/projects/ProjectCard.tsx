@@ -163,7 +163,7 @@ export const ProjectCard = forwardRef<ProjectCardHandle, ProjectCardProps>(
             aria-label={`Explore ${item.title} — view project`}
             className="absolute inset-0 z-30 m-auto flex h-12 w-fit scale-90 items-center gap-3 rounded-full border border-white/20 bg-white/90 py-1.5 pr-1.5 pl-6 text-sm font-semibold text-black opacity-0 backdrop-blur-md transition-all duration-500 ease-out group-hover/media:scale-100 group-hover/media:opacity-100"
           >
-            Explore Project
+            Explore
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-black">
               <Image
                 src="/icons/arrow-right.svg"

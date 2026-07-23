@@ -33,45 +33,42 @@ export function ProjectsStack({ items }: ProjectsStackProps) {
       {rows.map((row, rowIndex) => (
         <div
           key={row.map((item) => item.id).join("-")}
-          // OUTER: a plain block in normal document flow. Its extra
-          // bottom padding (beyond the sticky row's own height) is what
-          // gives the row real scroll room to hold in place before the
-          // next row's turn to stick and cover it — sticky positioning has
-          // nothing to hold against without that slack. No buffer after
-          // the last row: nothing needs to cover it.
-          className={cn(rowIndex < rows.length - 1 && "sm:pb-[40vh]")}
+          ref={(el) => {
+            rowRefs.current[rowIndex] = el
+          }}
+          // From `sm:` up, useProjectsStackAnimation.ts pins every row but
+          // the last for a scroll distance equal to its own height, with
+          // `pinSpacing: false` — so no extra space is reserved after it,
+          // and the next row (later in DOM, higher z-index) sits only its
+          // own height away in the document. The small negative top margin
+          // below pulls each row up just enough to arrive a little *before*
+          // the previous row's pin ends, so the two overlap for a beat and
+          // the later one visibly slides up to cover the current one,
+          // instead of only handing off once the current one has fully
+          // scrolled away. Kept within the row's own py padding, so it's
+          // invisible in the static (unpinned) layout — mobile, print, or
+          // before JS runs.
+          className={cn(
+            "bg-brand-dark relative w-full py-10 lg:py-16",
+            rowIndex > 0 && "sm:-mt-10 lg:-mt-16"
+          )}
+          style={{ zIndex: rowIndex + 1 }}
         >
-          <div
-            ref={(el) => {
-              rowRefs.current[rowIndex] = el
-            }}
-            // INNER: the actual visible, stacking row. `sticky` only from
-            // `sm:` up (640px) — below that it's `static`, a plain block
-            // in the mobile fallback list, matching where the hook's own
-            // mobile branch switches to the fade-up reveal. Every row
-            // sticks at the *same* `top: 0` — a later row is later in DOM
-            // order and has a higher z-index, so once it reaches the top
-            // it fully covers the row underneath rather than leaving a
-            // permanent sliver visible.
-            className="bg-brand-dark relative top-0 w-full py-10 sm:sticky lg:py-16"
-            style={{ zIndex: rowIndex + 1 }}
-          >
-            <div className="mx-auto grid max-w-400 grid-cols-1 gap-6 px-5 sm:px-8 lg:grid-cols-2">
-              {row.map((item, itemIndex) => {
-                const index = rowIndex * ROW_SIZE + itemIndex
+          <div className="mx-auto grid max-w-400 grid-cols-1 gap-6 px-5 sm:px-8 lg:grid-cols-2">
+            {row.map((item, itemIndex) => {
+              const index = rowIndex * ROW_SIZE + itemIndex
 
-                return (
-                  <ProjectCard
-                    key={item.id}
-                    ref={(handle) => {
-                      cardHandles.current[index] = handle
-                    }}
-                    item={item}
-                    priority={index < 2}
-                  />
-                )
-              })}
-            </div>
+              return (
+                <ProjectCard
+                  key={item.id}
+                  ref={(handle) => {
+                    cardHandles.current[index] = handle
+                  }}
+                  item={item}
+                  priority={index < 2}
+                />
+              )
+            })}
           </div>
         </div>
       ))}

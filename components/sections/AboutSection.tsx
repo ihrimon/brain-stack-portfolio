@@ -4,14 +4,23 @@ import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
 import type { WhoWeAreData } from "@/lib/data/home-page"
-import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
-import Image from "next/image"
+import dynamic from "next/dynamic"
 import { useRef } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
+
+// three.js + React Three Fiber are a heavy dependency for a purely
+// decorative, pointer-driven, aria-hidden canvas — loading it client-only
+// keeps it out of this page's server-rendered bundle entirely, matching
+// the same dynamic-import-with-no-fallback approach HeroSection.tsx uses
+// for HeroBackground.
+const BrainWireframe = dynamic(
+  () => import("@/components/three/BrainWireframe").then((mod) => mod.BrainWireframe),
+  { ssr: false }
+)
 
 interface AboutSectionProps {
   data: WhoWeAreData
@@ -53,16 +62,8 @@ export default function AboutSection({ data }: AboutSectionProps) {
             </PrimaryButton>
           </div>
 
-          <div className="relative mx-auto aspect-4/7 w-full max-w-sm lg:mx-0 lg:max-w-md">
-            <Image
-              src="/images/neural-pathways.jpg"
-              alt="Neural network visualization forming the shape of a brain"
-              fill
-              className="object-contain"
-              sizes="(min-width: 1024px) 30vw, 80vw"
-              placeholder="blur"
-              blurDataURL={BLUR_DATA_URL}
-            />
+          <div className="relative mx-auto h-90 w-full max-w-md sm:h-120 lg:mx-0 lg:h-full lg:max-w-none">
+            <BrainWireframe className="absolute inset-0 size-full" />
           </div>
         </div>
       </div>
