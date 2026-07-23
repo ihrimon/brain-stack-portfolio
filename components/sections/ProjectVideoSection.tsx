@@ -228,7 +228,7 @@ export default function ProjectVideoSection({
 
             <h2
               ref={headingRef}
-              className="mt-6 text-4xl leading-tight font-medium tracking-tight text-white sm:text-5xl md:text-6xl"
+              className="mt-6 text-4xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-5xl"
             >
               {data.title}
             </h2>

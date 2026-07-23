@@ -12,7 +12,7 @@ export default function Footer() {
       className="relative overflow-hidden bg-brand-dark"
       role="contentinfo"
     >
-      <Image
+      {/* <Image
         src="/images/bg-footer.webp"
         alt=""
         fill
@@ -20,7 +20,7 @@ export default function Footer() {
         className="object-cover object-top opacity-70"
         placeholder="blur"
         blurDataURL={BLUR_DATA_URL}
-      />
+      /> */}
       <div
         className="absolute inset-0 bg-linear-to-b from-transparent via-brand-dark/50 to-brand-dark"
         aria-hidden="true"

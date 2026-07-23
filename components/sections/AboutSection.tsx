@@ -4,9 +4,11 @@ import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
 import type { WhoWeAreData } from "@/lib/data/home-page"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
+import Image from "next/image"
 import { useRef } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -18,55 +20,12 @@ interface AboutSectionProps {
 export default function AboutSection({ data }: AboutSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
-  const statsListRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
       // Title starts muted and reveals word-by-word as the section is
       // scrolled through, rather than fading in all at once.
       gsap.effects.textRevealOnScroll(titleRef.current)
-
-      if (statsListRef.current) {
-        // Each stat row fades in and slides up as the list enters view.
-        gsap.effects.staggerFadeUpOnScroll(statsListRef.current, {
-          start: "top 85%",
-        })
-
-        // Count the stats up once the list enters view.
-        const values = gsap.utils.toArray<HTMLElement>(
-          "[data-stat-value]",
-          statsListRef.current
-        )
-
-        ScrollTrigger.create({
-          trigger: statsListRef.current,
-          start: "top 85%",
-          once: true,
-          onEnter: () => {
-            values.forEach((el) => {
-              const target = Number(el.dataset.statValue)
-              const counter = { value: 0 }
-              gsap.to(counter, {
-                value: target,
-                duration: 1.6,
-                ease: "power2.out",
-                onUpdate: () => {
-                  el.textContent = Math.round(counter.value).toString()
-                },
-              })
-            })
-          },
-        })
-      }
-
-      // No manual cleanup here — useGSAP's automatic gsap.context().revert()
-      // (scoped to sectionRef) already tears down every tween/ScrollTrigger
-      // created in this callback, including the ones above. A prior version
-      // of this cleanup called `ScrollTrigger.getAll().forEach(t => t.kill())`,
-      // which kills *every* ScrollTrigger on the page, not just this
-      // component's own — a latent risk under fast client-side navigation
-      // where a still-mounted sibling section's ScrollTrigger could get
-      // killed by this component unmounting.
     },
     { scope: sectionRef }
   )
@@ -94,26 +53,16 @@ export default function AboutSection({ data }: AboutSectionProps) {
             </PrimaryButton>
           </div>
 
-          <div ref={statsListRef} className="flex flex-col gap-6">
-            {data.stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="group rounded-3xl  bg-white/5 p-6 border border-white/20 backdrop-blur-xl sm:p-10"
-              >
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <p className="text-4xl font-medium text-white sm:text-5xl">
-                    <span data-stat-value={stat.value}>0</span>
-                    {stat.suffix}
-                  </p>
-                  <p className="text-sm tracking-wide text-white/50 uppercase transition-colors duration-300 group-hover:text-white sm:text-lg">
-                    {stat.label}
-                  </p>
-                </div>
-                <p className="mt-4 text-white/70 transition-colors duration-300 group-hover:text-white">
-                  {stat.description}
-                </p>
-              </div>
-            ))}
+          <div className="relative mx-auto aspect-4/7 w-full max-w-sm lg:mx-0 lg:max-w-md">
+            <Image
+              src="/images/neural-pathways.jpg"
+              alt="Neural network visualization forming the shape of a brain"
+              fill
+              className="object-contain"
+              sizes="(min-width: 1024px) 30vw, 80vw"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
+            />
           </div>
         </div>
       </div>

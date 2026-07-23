@@ -24,7 +24,7 @@ function renderTitle(title: string, highlight: string): ReactNode {
   return (
     <>
       {title.slice(0, index)}
-      <em className="text-accent">{highlight}</em>
+      <em className="text-primary">{highlight}</em>
       {title.slice(index + highlight.length)}
     </>
   )

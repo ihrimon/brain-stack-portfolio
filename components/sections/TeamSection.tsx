@@ -92,7 +92,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
                       src={member.image}
                       alt={member.name}
                       fill
-                      className="object-cover grayscale transition-[filter] duration-700 ease-out group-hover/photo:grayscale-0"
+                      className="object-cover duration-700 ease-out group-hover/photo:scale-110 transition-all"
                       sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 45vw"
                       placeholder="blur"
                       blurDataURL={BLUR_DATA_URL}

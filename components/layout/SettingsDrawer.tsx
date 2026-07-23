@@ -95,12 +95,12 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
               </ul>
             </nav>
 
-            <section className="border-t border-border pt-6">
+            {/* <section className="border-t border-border pt-6">
               <h3 className="mb-3 text-xs font-semibold tracking-wider text-label uppercase">
                 Appearance
               </h3>
               <ThemeToggle />
-            </section>
+            </section> */}
 
             <section>
               <h3 className="mb-3 text-xs font-semibold tracking-wider text-label uppercase">
