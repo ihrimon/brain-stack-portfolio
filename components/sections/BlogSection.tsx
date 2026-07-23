@@ -41,15 +41,32 @@ export default function BlogSection({ posts }: BlogSectionProps) {
       className="bg-brand-dark py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="max-w-4xl">
-          <SectionBadge>{blogsData.badge}</SectionBadge>
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-30">
+            <SectionBadge>{blogsData.badge}</SectionBadge>
 
-          <h2
-            ref={titleRef}
-            className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-6xl"
+            <h2
+              ref={titleRef}
+              className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl lg:text-5xl"
+            >
+              {blogsData.title}
+            </h2>
+          </div>
+
+          <Link
+            href="/blog"
+            data-cursor="magnetic"
+            className="group/link inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-background hover:text-foreground"
           >
-            {blogsData.title}
-          </h2>
+            View All Posts
+            <Image
+              src="/icons/arrow-right.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="invert transition-transform duration-300 group-hover/link:translate-x-1"
+            />
+          </Link>
         </div>
 
         <div className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">

@@ -8,6 +8,7 @@ import { resolveIcon } from "@/lib/utils/icons"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
+import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
 
@@ -122,13 +123,13 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
       /> */}
 
       <div className="relative mx-auto max-w-400 px-5 sm:px-8">
-        <div className="flex flex-wrap items-center justify-between gap-8">
-          <div className="max-w-2xl">
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-30">
             <SectionBadge>{data.badge}</SectionBadge>
 
             <h2
               ref={titleRef}
-              className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-6xl"
+              className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl lg:text-5xl"
             >
               {data.title}
             </h2>
@@ -136,11 +137,17 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
 
           <Link
             href="/contact"
-            className="flex items-center gap-3 text-sm font-medium text-white hover:text-white/80"
             data-cursor="magnetic"
+            className="group/link inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-background hover:text-foreground"
           >
-            <span className="h-px w-10 bg-white/40" />
             Let&apos;s Work Together
+            <Image
+              src="/icons/arrow-right.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="invert transition-transform duration-300 group-hover/link:translate-x-1"
+            />
           </Link>
         </div>
 

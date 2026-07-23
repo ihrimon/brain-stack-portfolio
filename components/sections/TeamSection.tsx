@@ -14,7 +14,6 @@ import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import Autoplay from "embla-carousel-autoplay"
-import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRef, useState } from "react"
@@ -49,12 +48,12 @@ export default function TeamSection({ data }: TeamSectionProps) {
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-8">
-          <div className="max-w-2xl">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-30">
             <SectionBadge>{data.badge}</SectionBadge>
 
             <h2
               ref={titleRef}
-              className="mt-8 max-w-2xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-6xl"
+              className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-5xl"
             >
               {data.title}
             </h2>
@@ -63,10 +62,16 @@ export default function TeamSection({ data }: TeamSectionProps) {
           <Link
             href="/about#team"
             data-cursor="magnetic"
-            className="group/link inline-flex shrink-0 items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-background hover:text-foreground"
+            className="group/link inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-background hover:text-foreground"
           >
             View All Members
-            <ArrowRight className="size-4 transition-transform duration-300 group-hover/link:translate-x-1" />
+            <Image
+              src="/icons/arrow-right.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="invert transition-transform duration-300 group-hover/link:translate-x-1"
+            />
           </Link>
         </div>
 
@@ -79,38 +84,18 @@ export default function TeamSection({ data }: TeamSectionProps) {
             {data.members.map((member) => (
               <CarouselItem
                 key={member.name}
-                className="basis-1/2 pl-5 sm:pl-6 lg:basis-1/4"
+                className="basis-1/3 pl-5 sm:pl-6 lg:basis-1/4"
               >
-                <div className="group/glitch">
+                <div className="group/photo">
                   <div className="relative aspect-4/5 overflow-hidden rounded-2xl bg-neutral-900">
                     <Image
                       src={member.image}
                       alt={member.name}
                       fill
-                      className="object-cover group-hover/glitch:animate-glitch-jitter"
+                      className="object-cover grayscale transition-[filter] duration-700 ease-out group-hover/photo:grayscale-0"
                       sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 45vw"
                       placeholder="blur"
                       blurDataURL={BLUR_DATA_URL}
-                    />
-                    <Image
-                      src={member.image}
-                      alt=""
-                      aria-hidden="true"
-                      fill
-                      className="object-cover opacity-0 mix-blend-screen saturate-200 filter-[hue-rotate(180deg)] transition-opacity duration-150 group-hover/glitch:opacity-60 group-hover/glitch:animate-glitch-cyan"
-                      sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 45vw"
-                    />
-                    <Image
-                      src={member.image}
-                      alt=""
-                      aria-hidden="true"
-                      fill
-                      className="object-cover opacity-0 mix-blend-screen saturate-200 filter-[hue-rotate(-40deg)] transition-opacity duration-150 group-hover/glitch:opacity-60 group-hover/glitch:animate-glitch-red"
-                      sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 45vw"
-                    />
-                    <div
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-0 bg-white opacity-0 mix-blend-overlay group-hover/glitch:animate-glitch-blink"
                     />
                   </div>
 
@@ -123,10 +108,30 @@ export default function TeamSection({ data }: TeamSectionProps) {
             ))}
           </CarouselContent>
 
-          <div className="mt-8 flex items-center justify-center gap-3">
-            <CarouselPrevious className="static size-10 translate-x-0 translate-y-0 border-white/20 bg-transparent hover:bg-background hover:text-foreground" />
-            <CarouselNext className="static size-10 translate-x-0 translate-y-0 border-white/20 bg-transparent hover:bg-background hover:text-foreground" />
-          </div>
+          <CarouselPrevious
+            className="left-3 size-12 cursor-pointer border-0 bg-white/10 backdrop-blur-md hover:bg-white/20 sm:left-4"
+            icon={
+              <Image
+                src="/icons/arrow-right.svg"
+                alt=""
+                width={16}
+                height={16}
+                className="invert -scale-x-100"
+              />
+            }
+          />
+          <CarouselNext
+            className="right-3 size-12 cursor-pointer border-0 bg-white/10 backdrop-blur-md hover:bg-white/20 sm:right-4"
+            icon={
+              <Image
+                src="/icons/arrow-right.svg"
+                alt=""
+                width={16}
+                height={16}
+                className="invert"
+              />
+            }
+          />
         </Carousel>
       </div>
     </section>

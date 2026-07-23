@@ -33,14 +33,16 @@ export default function ServicesSection({ data }: ServicesSectionProps) {
       className="bg-neutral-900 py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <SectionBadge>{data.badge}</SectionBadge>
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-30">
+          <SectionBadge>{data.badge}</SectionBadge>
 
-        <h2
-          ref={titleRef}
-          className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white  sm:text-4xl md:text-6xl"
-        >
-          {data.title}
-        </h2>
+          <h2
+            ref={titleRef}
+            className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl lg:text-5xl"
+          >
+            {data.title}
+          </h2>
+        </div>
       </div>
 
       <div>
