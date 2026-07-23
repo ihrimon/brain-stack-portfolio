@@ -82,7 +82,7 @@ export const whoWeAreData = {
 } as const
 
 export const servicesData = {
-  badge: "Our Services",
+  badge: "What We Do",
 
   title: "Engineering Digital Products That Scale",
 
@@ -101,6 +101,14 @@ export const servicesData = {
       fullDescription:
         "We shape how a product looks, sounds and feels — logo, color, typography and voice — into a system your team can apply consistently from a landing page to a pitch deck, so the brand never outgrows the business.",
       technologies: ["Figma", "Brand Systems", "Motion Design"],
+      items: [
+        "Brand Strategy",
+        "Naming & Positioning",
+        "Logo & Identity",
+        "Brand Messaging",
+        "Visual Guidelines",
+        "Design Systems",
+      ],
       features: [
         "Visual identity design",
         "Brand guideline docs",
@@ -122,6 +130,14 @@ export const servicesData = {
       fullDescription:
         "We design mobile products from wireframe to pixel-perfect UI, balancing platform conventions with your brand, so the app feels considered on every screen size and OS version.",
       technologies: ["Figma", "iOS HIG", "Material Design"],
+      items: [
+        "UX Research & Flows",
+        "UI Design",
+        "iOS & Android Apps",
+        "Interactive Prototypes",
+        "Design Systems",
+        "App Store Assets",
+      ],
       features: [
         "UX research & flows",
         "High-fidelity UI kits",
@@ -142,6 +158,14 @@ export const servicesData = {
       fullDescription:
         "We plan and run the campaigns that get a product in front of the right audience — SEO, paid, content and lifecycle marketing — tied back to the metrics that actually move the business.",
       technologies: ["SEO", "Paid Media", "Analytics"],
+      items: [
+        "SEO & Content Strategy",
+        "Paid Media",
+        "Social Media Marketing",
+        "Email & Lifecycle",
+        "Analytics & Reporting",
+        "Conversion Optimization",
+      ],
       features: [
         "Growth strategy",
         "Campaign management",
@@ -162,6 +186,14 @@ export const servicesData = {
       fullDescription:
         "We turn a brand identity into a living reference — logo usage, color, type, imagery and tone — so designers, marketers and partners can all build on it without drifting off-brand.",
       technologies: ["Notion", "Figma", "Style Guides"],
+      items: [
+        "Logo Usage Rules",
+        "Color & Typography",
+        "Voice & Tone",
+        "Asset Libraries",
+        "Style Guide Docs",
+        "Team Onboarding",
+      ],
       features: [
         "Usage documentation",
         "Asset libraries",
@@ -182,6 +214,14 @@ export const servicesData = {
       fullDescription:
         "We build and ship production web applications — from marketing sites to complex SaaS platforms — with the performance, accessibility and architecture to grow with the business.",
       technologies: ["Next.js", "TypeScript", "Cloud Infrastructure"],
+      items: [
+        "Frontend Development",
+        "Backend Development",
+        "Full-Stack Solutions",
+        "API Integration",
+        "Cloud Infrastructure",
+        "Performance Optimization",
+      ],
       features: [
         "Full-stack development",
         "API & cloud architecture",

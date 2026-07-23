@@ -46,7 +46,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
 
           <h2
             ref={titleRef}
-            className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
+            className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-6xl"
           >
             {blogsData.title}
           </h2>

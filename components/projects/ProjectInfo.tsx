@@ -12,10 +12,12 @@ interface ProjectInfoProps {
 }
 
 /** Dumb bottom info bar for a stacked project card — title, year, category
- * pill, tech pills, and a real "View Case Study" link to the internal
- * case-study page (distinct from the "Explore" link over the image, which
- * goes to the live project URL instead). Hover animation on the tech pills
- * rides the ancestor `.group` on `ProjectCard`'s root, not local state. */
+ * pill, tech pills, and a "View Case Study" link to the internal
+ * case-study page. Distinct from "Explore Project" in ProjectCard.tsx,
+ * which only appears on hovering the image and goes to the live project
+ * URL — this one lives here, in the content area, and is its own
+ * destination. Hover animation on the tech pills rides the ancestor
+ * `.group` on ProjectCard's root, not local state. */
 export function ProjectInfo({
   title,
   year,
@@ -39,7 +41,7 @@ export function ProjectInfo({
 
       <div className="flex items-end justify-between gap-4">
         <div className="min-w-0">
-          <h3 className="truncate text-2xl font-medium text-white sm:text-3xl">
+          <h3 className="truncate text-2xl font-medium text-white/85 transition-colors duration-500 group-hover:text-white sm:text-3xl">
             {title}
           </h3>
 

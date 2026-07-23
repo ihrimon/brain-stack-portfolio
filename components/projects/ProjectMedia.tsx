@@ -53,7 +53,7 @@ export const ProjectMedia = forwardRef<ProjectMediaHandle, ProjectMediaProps>(
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
           className={cn(
-            "object-cover transition-transform duration-700 ease-out group-hover:scale-105",
+            "object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]",
             video && "opacity-0"
           )}
         />

@@ -3,6 +3,24 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Registering these as typed custom properties is what lets a CSS
+   `transition` on `--x`/`--y` interpolate them smoothly — untyped custom
+   properties can only ever jump instantly, no matter what `transition`
+   says. Used by the project card cursor-glow (ProjectCard.tsx): the glow's
+   position is set with a plain, instant `style.setProperty` on pointer
+   move, and the browser's own compositor does the easing — no per-frame
+   JS/GSAP ticking required for that smoothing. */
+@property --x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+@property --y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

@@ -8,11 +8,16 @@ import { type ComponentPropsWithoutRef } from "react"
 interface PrimaryButtonProps extends ComponentPropsWithoutRef<"button"> {
   href?: string
   showArrow?: boolean
+  /** "solid" (default) is the white-pill look used everywhere else on the
+   *  site. "outline" is a plain transparent/bordered pill for contexts that
+   *  need something quieter — e.g. ServiceContent.tsx. */
+  variant?: "solid" | "outline"
 }
 
 export function PrimaryButton({
   href,
   showArrow = true,
+  variant = "solid",
   className,
   children,
   ...props
@@ -21,7 +26,10 @@ export function PrimaryButton({
     <span className={cn("group relative inline-flex w-fit items-center", className)}>
       <span
         className={cn(
-          "relative inline-flex h-15 items-center gap-3 overflow-hidden rounded-full bg-neutral-100 text-base border-[6px] border-neutral-100 font-medium text-neutral-900 uppercase",
+          "relative inline-flex h-15 items-center gap-3 overflow-hidden rounded-full text-base font-medium uppercase",
+          variant === "solid"
+            ? "border-[6px] border-neutral-100 bg-neutral-100 text-neutral-900"
+            : "border border-white/20 bg-transparent text-white h-13",
           showArrow ? "pr-6" : "px-6"
         )}
       >

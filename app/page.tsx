@@ -16,6 +16,7 @@ import { getBlogPosts } from "@/lib/utils/sheets/blog"
 import { getHomeData } from "@/lib/utils/sheets/home"
 import { getProjects } from "@/lib/utils/sheets/projects"
 import AboutSection from '@/components/sections/AboutSection'
+import { servicesData } from '@/lib/data/home-page'
 
 export const revalidate = 300
 export const metadata = generatePageMetadata("home")
@@ -45,9 +46,10 @@ export default async function HomePage() {
         </div>
         <ProjectVideoSection data={home.projectVideo} />
         <ProjectsSection projects={projects} />
-        <ServicesSection data={home.services} />
+        {/* <ServicesSection data={home.services} /> */}
+        <ServicesSection data={servicesData} />
         <EngineeringProcess data={home.process} />
-        <TestimonialSection data={home.testimonials} />
+        {/* <TestimonialSection data={home.testimonials} /> */}
         <TeamSection data={about.team} />
         <BlogSection posts={posts} />
         <CTASection data={home.cta} />

@@ -31,10 +31,12 @@ interface ProjectCardProps {
  * `useProjectsStackAnimation`. Never touches React state itself, so hover
  * and scroll can both run every frame without triggering a re-render.
  *
- * The root is a plain div, not a link — the card exposes two independent
- * destinations instead of one whole-card link: the "Explore" button over
- * the image goes straight to the live project URL, and "View Case Study"
- * in the info bar goes to the internal case-study page. Nesting either
+ * The root is a plain div, not a link — it exposes two independent
+ * destinations instead of one whole-card link: "Explore Project", centered
+ * over the image and visible only while hovering that image specifically
+ * (scoped to its own `group/media`, not the card-wide `group`), goes
+ * straight to the live project URL; "View Case Study" in the info bar
+ * (ProjectInfo.tsx) goes to the internal case-study page. Nesting either
  * inside a card-wide `<a>` would be invalid HTML, hence the split.
  *
  * The pointer-parallax translate is applied to the inner media wrapper
@@ -75,6 +77,12 @@ export const ProjectCard = forwardRef<ProjectCardHandle, ProjectCardProps>(
         ease: "power3.out",
       })
 
+      // Only this element gets a compositor layer hint, and only for the
+      // lifetime of this listener (removed on cleanup) — promoting all
+      // eight cards' worth of elements permanently is the "will-change
+      // misuse" that costs more GPU memory than it saves.
+      mediaWrap.style.willChange = "transform"
+
       const handleMove = (event: PointerEvent) => {
         const rect = root.getBoundingClientRect()
         const relX = (event.clientX - rect.left) / rect.width
@@ -82,6 +90,9 @@ export const ProjectCard = forwardRef<ProjectCardHandle, ProjectCardProps>(
 
         setMediaX((relX - 0.5) * 16)
         setMediaY((relY - 0.5) * 16)
+        // Plain instant sets — the smooth follow comes from the native
+        // CSS `transition` on these two `@property`-registered custom
+        // properties (see globals.css), not from any per-frame JS easing.
         glow.style.setProperty("--x", `${relX * 100}%`)
         glow.style.setProperty("--y", `${relY * 100}%`)
       }
@@ -97,6 +108,7 @@ export const ProjectCard = forwardRef<ProjectCardHandle, ProjectCardProps>(
       return () => {
         root.removeEventListener("pointermove", handleMove)
         root.removeEventListener("pointerleave", handleLeave)
+        mediaWrap.style.willChange = "auto"
       }
     }, [])
 
@@ -106,29 +118,34 @@ export const ProjectCard = forwardRef<ProjectCardHandle, ProjectCardProps>(
       <div
         ref={rootRef}
         className={cn(
-          "group glass relative flex aspect-[4/3] w-full flex-col overflow-hidden rounded-3xl shadow-2xl",
-          "transition-[transform,opacity,box-shadow] duration-500 ease-out",
-          "hover:-translate-y-1.5 hover:shadow-[0_40px_90px_-30px_rgba(0,0,0,0.65)]",
+          "group border-6 relative flex aspect-[4/3] w-full flex-col overflow-hidden rounded-3xl",
+          "bg-card/55 border-white/10 shadow-2xl backdrop-blur-lg",
+          "transition-[transform,opacity,box-shadow,border-color] duration-500 ease-out",
+          "hover:-translate-y-1.5 hover:border-white/25 hover:shadow-[0_40px_90px_-30px_rgba(0,0,0,0.65)]",
           "data-[active=true]:scale-[1.015] data-[active=true]:opacity-100",
           "data-[active=false]:scale-[0.99] data-[active=false]:opacity-80"
         )}
       >
-        <span
-          aria-hidden="true"
-          className="ring-brand-primary/40 pointer-events-none absolute inset-0 z-20 rounded-3xl opacity-0 ring-1 ring-inset transition-opacity duration-500 group-hover:opacity-100"
-        />
-
         <div
           ref={glowRef}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 z-10 opacity-0 group-hover:opacity-100"
           style={{
+            // Small and soft on purpose — a wide, saturated glow reads as
+            // a spotlight and competes with the content; this is meant to
+            // register as a barely-there warmth that follows the cursor.
             background:
-              "radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), color-mix(in oklch, var(--brand-primary) 20%, transparent), transparent 70%)",
+              "radial-gradient(160px circle at var(--x, 50%) var(--y, 50%), color-mix(in oklch, var(--brand-primary) 12%, transparent), transparent 65%)",
+            transition:
+              "opacity 0.5s ease, --x 0.6s cubic-bezier(0.16,1,0.3,1), --y 0.6s cubic-bezier(0.16,1,0.3,1)",
           }}
         />
 
-        <div className="relative flex-1 overflow-hidden">
+        {/* `group/media`: scopes "Explore Project" to hovering the image
+            itself — the card-wide `group` above still drives the lift/
+            border-glow/cursor-glow, but this button shouldn't appear just
+            because the pointer is over the title or tech pills below. */}
+        <div className="group/media relative flex-1 overflow-hidden">
           <div ref={mediaWrapRef} className="absolute -inset-2">
             <ProjectMedia
               ref={mediaHandleRef}
@@ -143,10 +160,10 @@ export const ProjectCard = forwardRef<ProjectCardHandle, ProjectCardProps>(
             target={item.liveUrl ? "_blank" : undefined}
             rel={item.liveUrl ? "noopener noreferrer" : undefined}
             data-cursor="magnetic"
-            aria-label={`Explore ${item.title}`}
-            className="absolute inset-0 z-30 m-auto flex h-12 w-fit scale-90 items-center gap-3 rounded-full border border-white/20 bg-white/90 py-1.5 pr-1.5 pl-6 text-sm font-semibold text-black opacity-0 backdrop-blur-md transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100"
+            aria-label={`Explore ${item.title} — view project`}
+            className="absolute inset-0 z-30 m-auto flex h-12 w-fit scale-90 items-center gap-3 rounded-full border border-white/20 bg-white/90 py-1.5 pr-1.5 pl-6 text-sm font-semibold text-black opacity-0 backdrop-blur-md transition-all duration-500 ease-out group-hover/media:scale-100 group-hover/media:opacity-100"
           >
-            Explore
+            Explore Project
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-black">
               <Image
                 src="/icons/arrow-right.svg"

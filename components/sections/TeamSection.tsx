@@ -54,7 +54,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
 
             <h2
               ref={titleRef}
-              className="mt-8 max-w-2xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
+              className="mt-8 max-w-2xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-6xl"
             >
               {data.title}
             </h2>
