@@ -78,7 +78,7 @@ export function ProjectsStack({ items }: ProjectsStackProps) {
                 }}
               />
 
-              <div className="relative mx-auto grid max-w-400 grid-cols-1 gap-6 px-5 sm:px-8 lg:grid-cols-2">
+              <div className="relative mx-auto grid max-w-400 grid-cols-2 gap-3 px-5 sm:gap-6 sm:px-8">
                 {row.map((item, itemIndex) => {
                   const index = rowIndex * ROW_SIZE + itemIndex
 

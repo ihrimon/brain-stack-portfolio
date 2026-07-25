@@ -118,8 +118,8 @@ export const ProjectCard = forwardRef<ProjectCardHandle, ProjectCardProps>(
       <div
         ref={rootRef}
         className={cn(
-          "group border-6 relative flex aspect-[4/3] w-full flex-col overflow-hidden rounded-3xl",
-          "bg-card/55 border-white/10 shadow-2xl backdrop-blur-lg",
+          "group relative flex aspect-[3/4] w-full flex-col overflow-hidden rounded-lg sm:aspect-[4/3] sm:border-6",
+          "bg-neutral-900 shadow-2xl sm:bg-card/55 sm:border-white/10 sm:backdrop-blur-lg",
           "transition-[transform,opacity,box-shadow,border-color] duration-500 ease-out",
           "hover:-translate-y-1.5 hover:border-white/25 hover:shadow-[0_40px_90px_-30px_rgba(0,0,0,0.65)]",
           "data-[active=true]:scale-[1.015] data-[active=true]:opacity-100",
@@ -145,7 +145,7 @@ export const ProjectCard = forwardRef<ProjectCardHandle, ProjectCardProps>(
             itself — the card-wide `group` above still drives the lift/
             border-glow/cursor-glow, but this button shouldn't appear just
             because the pointer is over the title or tech pills below. */}
-        <div className="group/media relative flex-1 overflow-hidden">
+        <div className="group/media absolute inset-0 overflow-hidden sm:relative sm:flex-1">
           <div ref={mediaWrapRef} className="absolute -inset-2">
             <ProjectMedia
               ref={mediaHandleRef}
@@ -180,7 +180,6 @@ export const ProjectCard = forwardRef<ProjectCardHandle, ProjectCardProps>(
           title={item.title}
           year={item.year}
           category={item.category}
-          techPills={item.techPills}
           slug={item.slug}
         />
       </div>

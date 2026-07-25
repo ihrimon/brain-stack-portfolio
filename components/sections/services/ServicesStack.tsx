@@ -48,7 +48,7 @@ export function ServicesStack({ items }: ServicesStackProps) {
           useServicesScrollStack.ts for the matching `listVisible` check. */}
       <div
         ref={mobileListRef}
-        className="mx-auto flex max-w-400 flex-col gap-16 px-5 sm:px-8 lg:motion-safe:hidden"
+        className="mx-auto flex max-w-400 flex-col gap-16 px-4 sm:px-8 lg:motion-safe:hidden"
       >
         {items.map((item, index) => (
           <ServiceRow

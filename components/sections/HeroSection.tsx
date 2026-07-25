@@ -60,7 +60,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
       <Link
         href={data.secondaryButton.href}
         data-cursor="magnetic"
-        className="group inline-flex items-center gap-1 text-sm font-semibold tracking-wide text-white uppercase underline decoration-white/30 underline-offset-4 transition-colors duration-300 hover:text-white/60"
+        className="group hidden items-center gap-1 text-sm font-semibold tracking-wide text-white uppercase underline decoration-white/30 underline-offset-4 transition-colors duration-300 hover:text-white/60 lg:inline-flex"
       >
         {data.secondaryButton.label}
         <ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -168,11 +168,11 @@ export default function HeroSection({ data }: HeroSectionProps) {
           />
 
           <div className="grid gap-16 lg:grid-cols-[1fr_1px_1fr] lg:items-stretch pt-8">
-            <HeroIntelligencePanel className="pointer-events-auto" />
+            <HeroIntelligencePanel className="pointer-events-auto order-2 lg:order-none" />
 
             <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
 
-            <div className="flex max-w-xl flex-col items-start gap-8">
+            <div className="order-1 flex max-w-xl flex-col items-start gap-8 lg:order-none">
               <p className="text-base leading-relaxed text-white/70 sm:text-xl">
                 {data.description}
               </p>

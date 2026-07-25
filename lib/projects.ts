@@ -8,7 +8,6 @@ export interface ProjectStackItem {
   title: string
   year: string | null
   category: string
-  techPills: string[]
   liveUrl: string | null
   thumbnail: string
 }
@@ -29,7 +28,6 @@ export function toProjectStackItems(projects: Project[]): ProjectStackItem[] {
     title: project.title,
     year: project.date,
     category: project.category,
-    techPills: project.technologies.slice(0, 4),
     liveUrl: project.liveUrl,
     thumbnail: project.thumbnail,
   }))

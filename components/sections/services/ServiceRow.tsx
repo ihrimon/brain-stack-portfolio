@@ -28,7 +28,7 @@ export const ServiceRow = forwardRef<ServiceRowHandle, ServiceRowProps>(
     return (
       <div
         ref={rootRef}
-        className="mx-auto grid w-full max-w-400 grid-cols-1 items-start gap-10 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16 border border-gray-100"
+        className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-16"
       >
         <ServiceContent item={item} index={index} />
         <ServiceVisual title={item.title} index={index} priority={priority} />

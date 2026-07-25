@@ -84,7 +84,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
             {data.members.map((member) => (
               <CarouselItem
                 key={member.name}
-                className="basis-1/3 pl-5 sm:pl-6 lg:basis-1/4"
+                className="basis-1/2 pl-5 sm:basis-1/3 sm:pl-6 lg:basis-1/4"
               >
                 <div className="group/photo">
                   <div className="relative aspect-4/5 overflow-hidden rounded-2xl bg-neutral-900">

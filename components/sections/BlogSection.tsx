@@ -11,9 +11,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
 
-function formatDate(date: string) {
+function formatDate(date: string, month: "long" | "short" = "long") {
   return new Date(date).toLocaleDateString("en-US", {
-    month: "long",
+    month,
     day: "numeric",
     year: "numeric",
   })
@@ -69,7 +69,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
           </Link>
         </div>
 
-        <div className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-14 lg:grid-cols-4">
           {posts.slice(0, 4).map((post) => (
             <article key={post.slug} className="group flex flex-col">
               <Link
@@ -88,8 +88,8 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                 />
               </Link>
 
-              <div className="mt-5 flex flex-wrap items-center gap-4 text-xs text-white/50">
-                <span className="flex items-center gap-1.5">
+              <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/50 sm:gap-4">
+                <span className="hidden items-center gap-1.5 sm:flex">
                   <CircleUserRound className="size-4" />
                   {post.author}
                 </span>
@@ -110,7 +110,8 @@ export default function BlogSection({ posts }: BlogSectionProps) {
               </h3>
 
               <p className="mt-3 flex items-center gap-2 text-xs text-white/40">
-                <span>{formatDate(post.publishDate)}</span>
+                <span className="sm:hidden">{formatDate(post.publishDate, "short")}</span>
+                <span className="hidden sm:inline">{formatDate(post.publishDate)}</span>
                 <span className="size-1 rounded-full bg-white/30" />
                 <span>
                   {post.comments.toString().padStart(2, "0")} Comments

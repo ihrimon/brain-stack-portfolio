@@ -32,7 +32,7 @@ export default function ServicesSection({ data }: ServicesSectionProps) {
       ref={sectionRef}
       className="bg-neutral-900 py-20 sm:py-28"
     >
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
+      <div className="mx-auto max-w-400 px-4 sm:px-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-30">
           <SectionBadge>{data.badge}</SectionBadge>
 

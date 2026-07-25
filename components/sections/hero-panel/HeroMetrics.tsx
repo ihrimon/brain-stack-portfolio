@@ -70,27 +70,31 @@ export function HeroMetrics({ data, className }: HeroMetricsProps) {
   return (
     <div
       ref={containerRef}
-      className={cn("flex flex-wrap items-center gap-x-5 gap-y-3 sm:gap-x-6", className)}
+      className={cn("grid grid-cols-3 items-start gap-x-3 gap-y-3 sm:gap-x-6", className)}
     >
       {data.map((metric, index) => (
-        <div key={metric.label} className="flex items-center gap-5 sm:gap-6">
-          {index > 0 && (
-            <span aria-hidden="true" className="h-6 w-px bg-white/10" />
+        <div
+          key={metric.label}
+          className={cn(
+            "flex min-w-0 items-center",
+            index > 0 && "border-l border-white/10 pl-3 sm:pl-6"
           )}
-
-          <div className="flex flex-col">
+        >
+          <div className="flex min-w-0 flex-col">
             <div className="flex items-baseline gap-0.5 transition-transform duration-300 hover:-translate-y-0.5">
               <span
                 data-metric-value={metric.value}
-                className="text-2xl font-bold text-white tabular-nums sm:text-3xl"
+                className="text-xl font-bold text-white tabular-nums sm:text-2xl lg:text-3xl"
               >
                 0
               </span>
-              <span className="text-2xl font-bold text-white sm:text-3xl">
+              <span className="text-xl font-bold text-white sm:text-2xl lg:text-3xl">
                 {metric.suffix}
               </span>
             </div>
-            <span className="text-sm text-white/40 sm:text-base">{metric.label}</span>
+            <span className="text-wrap text-xs text-white/40 sm:text-sm lg:text-base">
+              {metric.label}
+            </span>
           </div>
         </div>
       ))}

@@ -30,7 +30,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
   return (
     <section id="projects" ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
+      <div className="mx-auto max-w-400 px-5 sm:px-8 mb-16 md:mb-0">
         <div className="flex flex-wrap items-end justify-between gap-8">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-30">
             <SectionBadge>{projectsData.badge}</SectionBadge>
