@@ -58,7 +58,7 @@ export function HeroTagline({ data, className }: HeroTaglineProps) {
     <div
       ref={containerRef}
       className={cn(
-        "group relative inline-flex w-fit items-center text-sm font-semibold tracking-widest text-white/70 uppercase transition-[letter-spacing] duration-500 hover:tracking-[0.25em] sm:text-base",
+        "group relative inline-flex w-fit max-w-full flex-wrap items-center gap-y-2 text-xs font-semibold tracking-wide text-white/70 uppercase transition-[letter-spacing] duration-500 hover:tracking-[0.25em] sm:text-sm sm:tracking-widest md:text-base",
         className
       )}
     >
@@ -68,7 +68,7 @@ export function HeroTagline({ data, className }: HeroTaglineProps) {
             <span
               data-connector
               aria-hidden="true"
-              className="relative mx-2 h-4 w-10 overflow-hidden sm:w-14"
+              className="relative mx-1.5 h-4 w-7 overflow-hidden sm:mx-2 sm:w-10 lg:w-14"
             >
               {Array.from({ length: CHEVRONS_PER_CONNECTOR }).map(
                 (_, chevronIndex) => (

@@ -45,13 +45,13 @@ export function Navbar() {
         role="banner"
       >
         <nav
-          className="mx-auto flex w-full max-w-400 items-center justify-between px-5 py-4 sm:px-8"
+          className="mx-auto flex w-full max-w-400 items-center justify-between px-4 py-4 sm:px-8"
           role="navigation"
           aria-label="Primary navigation"
         >
           <div
             className={cn(
-              "rounded-full px-4 py-2 transition-colors duration-300",
+              "rounded-full py-2 transition-colors duration-300",
               scrolledPastHero ? "bg-black" : "bg-transparent"
             )}
           >

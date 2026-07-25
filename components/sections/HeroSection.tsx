@@ -155,7 +155,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
         ref={contentRef}
         className="relative z-10 mt-[-100vh] flex min-h-screen w-full flex-col pointer-events-none"
       >
-        <div className="mx-auto flex w-full max-w-400 flex-1 flex-col justify-center px-5 py-32 mt-20 sm:px-8">
+        <div className="mx-auto flex w-full max-w-400 flex-1 flex-col justify-center px-4 py-32 mt-20 sm:px-8">
           <h1 className="max-w-5xl text-5xl leading-[1.05] font-bold tracking-tight text-white lg:text-[80px]">
             {renderTitle(data.title, data.highlight)}
           </h1>

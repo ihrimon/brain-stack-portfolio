@@ -47,10 +47,15 @@ export function HeroReviews({ data, className }: HeroReviewsProps) {
 
   return (
     <div className={cn("flex flex-col gap-4", className)}>
-      <div className="flex flex-wrap items-center gap-4">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
         <div className="flex items-center -space-x-3">
-          <Image src='/images/customers.png' alt='Customers reviews' width={
-            160} height={100} />
+          <Image
+            src="/images/customers.png"
+            alt="Customers reviews"
+            width={160}
+            height={100}
+            className="h-auto w-28 sm:w-40"
+          />
         </div>
 
         <div className="flex flex-col gap-1">
@@ -63,13 +68,13 @@ export function HeroReviews({ data, className }: HeroReviewsProps) {
               />
             ))}
           </div>
-          <p className="text-base font-medium text-white/50">
+          <p className="text-sm font-medium text-white/50 sm:text-base">
             {data.rating.toFixed(1)} {data.ratingLabel}
           </p>
         </div>
-      <p className="text-base text-white/40">{data.trustedBy}</p>
-      </div>
 
+        <p className="text-sm text-white/40 sm:text-base">{data.trustedBy}</p>
+      </div>
     </div>
   )
 }

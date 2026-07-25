@@ -12,40 +12,43 @@ gsap.registerPlugin(ScrollTrigger)
 
 interface UseProjectsStackAnimationArgs {
   containerRef: RefObject<HTMLDivElement | null>
+  stageRefs: RefObject<Array<HTMLDivElement | null>>
   rowRefs: RefObject<Array<HTMLDivElement | null>>
+  overlayRefs: RefObject<Array<HTMLDivElement | null>>
+  glowRefs: RefObject<Array<HTMLDivElement | null>>
   cardHandles: RefObject<Array<ProjectCardHandle | null>>
   itemCount: number
 }
 
 /**
- * Desktop/tablet (`sm:` and up): every row but the last is pinned via
- * ScrollTrigger for a scroll distance equal to its own height, with
- * `pinSpacing: false` so no extra space is reserved after it — the next
- * row's natural document position is therefore only its own height away.
- * Combined with the small negative top margin in ProjectsStack.tsx, the
- * next row (later in DOM, higher z-index) arrives a little *before* the
- * current row's pin ends: both are momentarily trying to occupy the same
- * spot, the later one wins by z-index, and it reads as sliding up to cover
- * the current row rather than an abrupt handoff.
+ * Desktop/tablet (`sm:` and up): the stacking itself is plain CSS —
+ * `position: sticky` on each row in ProjectsStack.tsx. A stuck row is later
+ * in DOM (and given an ascending z-index) than the ones before it, so as the
+ * next row's stage scrolls up through the viewport it naturally rises over
+ * and covers the previous — that's ordinary scroll + sticky + z-index, no
+ * translate, no JS-driven position. This hook only adds the *polish* on top:
+ * a scrub-linked crossfade of two purely-opacity layers (a darken scrim on
+ * the row being covered, a glow/shadow frame on the row doing the covering),
+ * timed to exactly the window where the next row is rising into view —
+ * `trigger: stage[i]` (the row's own flow container, including its dwell
+ * spacer), `start: "bottom bottom"` (next row's leading edge just entering
+ * the viewport) to `end: "bottom top"` (next row fully locked at the top,
+ * i.e. fully covering). Opacity-only tweens keep this cheap: no layout
+ * reads/writes on scroll, nothing fights the sticky positioning.
  *
- * The settle-back scale/opacity animation lives on the *same* ScrollTrigger
- * as the pin — one `gsap.to` call doing both — rather than a second
- * trigger keyed off the next row's arrival. A previous version used two
- * separate triggers that had to agree on timing by coincidence (the pin's
- * scroll distance vs. the cover tween's duration); any mismatch showed up
- * as a stuck pause or a snap. A single trigger can't drift out of sync with
- * itself.
- *
- * Beyond that, this hook owns two things that genuinely need JS: which
- * card is "active" (closest to the viewport's vertical center — drives the
+ * Beyond that, this hook owns two things that genuinely need JS: which card
+ * is "active" (closest to the viewport's vertical center — drives the
  * `data-active` attribute and video play/pause) via a single
- * IntersectionObserver instead of a per-frame ScrollTrigger `onUpdate`
- * loop, and the mobile fallback fade-up (mobile skips the pin entirely and
- * gets a plain list with its own reveal instead).
+ * IntersectionObserver instead of a per-frame polling loop, and the mobile
+ * fallback fade-up (mobile skips the sticky stack entirely and gets a plain
+ * list with its own reveal instead).
  */
 export function useProjectsStackAnimation({
   containerRef,
+  stageRefs,
   rowRefs,
+  overlayRefs,
+  glowRefs,
   cardHandles,
   itemCount,
 }: UseProjectsStackAnimationArgs) {
@@ -78,32 +81,38 @@ export function useProjectsStackAnimation({
             return
           }
 
-          // Desktop/tablet: skip pinning entirely under reduced motion —
-          // rows just render in their static (slightly overlapping-margin)
-          // layout with no scroll-driven cover effect.
-          if (conditions.reduce) return
-
           const rows = rowRefs.current.filter(
             (el): el is HTMLDivElement => el !== null
           )
 
-          for (let i = 0; i < rows.length - 1; i++) {
-            const row = rows[i]
+          // Reduced motion: the sticky positioning is itself a scroll-driven
+          // visual change, so opt all rows back out of it and let them sit
+          // in plain, static document flow — no pin, no scrub, no crossfade.
+          if (conditions.reduce) {
+            gsap.set(rows, { position: "static" })
+            return
+          }
 
-            gsap.to(row, {
-              scale: 0.94,
-              opacity: 0.75,
-              ease: "none",
-              scrollTrigger: {
-                trigger: row,
-                start: "top top",
-                end: () => `+=${row.offsetHeight}`,
-                pin: true,
-                pinSpacing: false,
-                scrub: true,
-                invalidateOnRefresh: true,
-              },
-            })
+          const stages = stageRefs.current
+
+          for (let i = 0; i < stages.length - 1; i++) {
+            const stage = stages[i]
+            const overlay = overlayRefs.current[i]
+            const glow = glowRefs.current[i + 1]
+            if (!stage || !overlay || !glow) continue
+
+            gsap
+              .timeline({
+                scrollTrigger: {
+                  trigger: stage,
+                  start: "bottom bottom",
+                  end: "bottom top",
+                  scrub: 0.4,
+                  invalidateOnRefresh: true,
+                },
+              })
+              .to(overlay, { opacity: 0.14, ease: "none" }, 0)
+              .to(glow, { opacity: 1, ease: "none" }, 0)
           }
         }
       )
