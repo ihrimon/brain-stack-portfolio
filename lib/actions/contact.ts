@@ -53,7 +53,11 @@ export async function submitContactForm(
   // Honeypot: real users never see or fill this field (kept off-screen and
   // out of the tab order in the form). A bot that fills every field on the
   // page will fill this one too — silently accept without doing anything.
-  if (String(formData.get("company") ?? "").trim()) {
+  const honeypot = String(formData.get("company") ?? "").trim()
+  if (honeypot) {
+    console.log(
+      `[contact] Honeypot field was filled ("${honeypot}") — treating as bot, not delivering.`
+    )
     return { status: "success" }
   }
 
