@@ -10,22 +10,23 @@ import type {
 export const heroBannerData = {
   badge: "Creative Design Agency",
 
-  title: "Empowering Businesses Through Technology & Innovation",
+  title:
+    "We build digital products that grow your business. We build websites that AI can't be trusted to build",
 
   // Rendered in italic + accent color within the title above — must be an
   // exact substring of `title`.
-  highlight: "Innovation",
+  highlight: "grow your business",
 
   description:
-    "We design and build scalable digital products — mobile, web, and AI — that help businesses grow faster, innovate effectively, and stay competitive across the US, UK and Europe.",
+    "Secure, production-grade digital products for businesses where failure isn't an option. Fintech, healthcare, SaaS, and regulated industries — built by engineers, not AI generators.",
 
   button: {
-    label: "Start Your Project",
+    label: "Start a project",
     href: "/contact",
   } satisfies ButtonLink,
 
   secondaryButton: {
-    label: "View Projects",
+    label: "View our work",
     href: "/projects",
   } satisfies ButtonLink,
 
@@ -50,11 +51,13 @@ export const projectVideoData = {
 export const whoWeAreData = {
   badge: "Who We Are",
 
-  title:
-    "We combine creativity, technology, and strategy to transform ambitious ideas into powerful digital solutions.",
+  title: "A focused studio that builds products people actually use.",
 
-  description:
-    "We're a team of senior engineers and product designers working globally with ambitious founders. We believe progress only happens when you refuse to play it safe — we combine sharp product thinking, modern tooling and AI-assisted engineering to ship software that lasts.",
+  description: [
+    "Brain Stack is a small, senior team — two founders and a network of specialist engineers — working with ambitious founders and businesses across the US, UK, and Europe.",
+    "We don't run large teams where your project gets handed to juniors. When you work with Brain Stack, you work directly with the people who built the products in our portfolio. That's how we stay fast, sharp, and accountable.",
+    "We specialise in high-stakes digital products — fintech platforms, HIPAA-compliant healthcare systems, B2B marketplaces, and SaaS tools where security, compliance, and reliability aren't optional. Our team has shipped products handling real financial transactions and real patient data. When the stakes are too high for a no-code tool, that's when clients come to us.",
+  ],
 
   cardTitle: "Build Digital Products, Delivered End-to-End",
   button: { label: "Discover More", href: "/#services" } satisfies ButtonLink,
@@ -81,13 +84,56 @@ export const whoWeAreData = {
   ] satisfies Stat[],
 } as const
 
+export const foundersData = {
+  badge: "The Team",
+
+  title: "Built by founders, run by founders.",
+
+  description:
+    "Two senior builders and a trusted network of specialist contractors. Every project runs through us directly — no account managers, no hand-offs.",
+
+  members: [
+    {
+      name: "Jakir Uddin",
+      title: "Founder & CTO",
+      initials: "JU",
+      bio: "Senior Full-Stack Engineer with 4+ years building production-grade mobile and web products across fintech, healthcare, and AI. He architects the systems, writes the code, and ensures every product ships clean, scalable, and maintainable.",
+      linkedin: "https://linkedin.com/in/jakir-uddin-jahid",
+      skills: [
+        "Flutter",
+        "React Native",
+        "Next.js",
+        "Node.js",
+        "TypeScript",
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "AWS",
+        "Firebase",
+        "OpenAI API",
+      ],
+    },
+    {
+      name: "Kyaw Munn Oo",
+      title: "Co-Founder",
+      initials: "KMO",
+      bio: "Leads the business, client relationships, and growth side of Brain Stack. His background spans product strategy, sales, marketing, and content. He's the person who understands your business problem before it becomes a product brief.",
+      linkedin: "https://linkedin.com/in/kyawmunn",
+      skills: ["Product Strategy", "Sales & BD", "Content & Growth Marketing"],
+    },
+  ],
+
+  footnote:
+    "We work with a trusted network of senior contractors — developers, designers, and AI specialists — brought in for specific project needs.",
+} as const
+
 export const servicesData = {
   badge: "What We Do",
 
-  title: "Engineering Digital Products That Scale",
+  title: "Everything you need to build and launch a digital product.",
 
   description:
-    "From full-stack development to AI, cloud and product engineering — we bring the disciplines ambitious teams need to design, build and scale a digital product end-to-end.",
+    "Mobile apps, web platforms, AI tools, and everything in between — designed and built end to end by a senior team that has shipped live products across fintech, healthcare, e-commerce, and SaaS. We're the right fit if your product handles sensitive data, financial transactions, or operates in a regulated industry.",
 
   items: [
     {
@@ -237,99 +283,107 @@ export const servicesData = {
 export const processData = {
   badge: "How We Engineer",
 
-  title: "Engineering modern digital solutions.",
+  title: "How we work.",
 
   description:
-    "Our engineering process combines strategy, design, and cutting-edge technologies to deliver scalable digital products that solve real business problems.",
+    "No surprises. No hand-offs to juniors. The same two people who scoped your project build it and deliver it.",
 
   items: [
     {
-      icon: "Blocks" as IconName,
-      title: "End-to-End Development",
+      icon: "Search" as IconName,
+      title: "Discovery",
       description:
-        "From planning and architecture to deployment and maintenance, we build reliable web and mobile solutions with performance, scalability, and long-term growth in mind.",
-      tags: ["Mobile", "Web", "Desktop"],
-    },
-
-    {
-      icon: "BrainCircuit" as IconName,
-      title: "Integrating New Technologies",
-      description:
-        "We leverage AI, automation, cloud computing, IoT, and emerging technologies to create smarter products that improve efficiency and user experience.",
-      tags: ["AI Features", "Automation", "Cloud"],
+        "We start with your business, not your brief. We ask what you're actually trying to solve, who uses it, and what success looks like in 90 days. We ask the straightforward questions before a line of code is written. Output: clear scope, tech recommendation, fixed timeline, and fixed price.",
+      tags: ["Scoping", "Fixed Price", "Fixed Timeline"],
     },
 
     {
       icon: "PencilLine" as IconName,
-      title: "Analysis & Design",
+      title: "Design",
       description:
-        "Every successful product starts with research. We analyze business goals, user needs, and market trends before crafting intuitive UI/UX experiences.",
-      tags: ["Research", "UI/UX", "Discovery"],
+        "Before we build, we map. Wireframes, user flows, and architecture decisions get agreed here. You review and approve everything before development starts. No surprises halfway through.",
+      tags: ["Wireframes", "User Flows", "Architecture"],
+    },
+
+    {
+      icon: "Blocks" as IconName,
+      title: "Build",
+      description:
+        "Jakir leads engineering. We build in sprints with weekly check-ins so you always know where things stand. You get access to a staging environment throughout — not just a demo at the end.",
+      tags: ["Sprints", "Weekly Check-ins", "Staging Access"],
+    },
+
+    {
+      icon: "Rocket" as IconName,
+      title: "Launch & Beyond",
+      description:
+        "We handle deployment and monitor the first 72 hours live. We don't disappear at go-live. Most clients continue working with us after launch because the product still needs to grow — we offer ongoing support and iteration on a retainer or project basis.",
+      tags: ["Deployment", "Monitoring", "Ongoing Support"],
     },
   ] satisfies ProcessStep[],
 } as const
 
+// No real client testimonials are available yet. Keep the section wired
+// into the Sheets CMS fallback (see lib/utils/sheets/home.ts) with an empty
+// item list so it can be reinstated by adding real quotes here later —
+// see docs/brainstack-website-content-brief.md Section 8.
 export const testimonialsData = {
   badge: "Testimonial",
   title: "What Our Clients Say About Working With Us",
   description: "Transforming ideas into memorable digital experiences.",
+  items: [] as Testimonial[],
+} as const
+
+export const faqData = {
+  badge: "FAQ",
+  title: "Common questions.",
+
   items: [
     {
-      rating: 5,
-      title: "Outstanding Service",
-      quote:
-        "Brain Stack transformed our legacy platform into something we're actually proud to demo. Their engineering judgment saved us months.",
-      highlight: "saved us months",
-      name: "Sarah Johnson",
-      role: "CTO",
-      company: "Nexora",
-      image: "/images/testimonials/customer-1.webp",
+      question: "How much does a project cost?",
+      answer:
+        "Projects start from £5,000 for a focused MVP or feature build. Full product builds — including design, engineering, and deployment — typically range from £12,000 to £40,000 depending on scope and complexity. We give you a clear fixed price before anything starts. No open-ended billing.",
     },
     {
-      rating: 5,
-      title: "Delivered On Time, Under Budget",
-      quote:
-        "They delivered a complex, multi-tenant SaaS product on time and under budget — and stayed on to help us scale it past 40 clients.",
-      highlight: "on time and under budget",
-      name: "Michael Chen",
-      role: "Founder",
-      company: "Ledgerly",
-      image: "/images/testimonials/customer-2.webp",
+      question: "Why not just use an AI website builder?",
+      answer:
+        "For a landing page or simple brochure site — honestly, you probably could. But if your product handles payments, user data, medical records, or business-critical workflows, AI-generated code creates real security and compliance risks. We build products where the architecture, data handling, and security are engineered properly from day one. Our clients choose us because they can't afford for it to go wrong.",
     },
     {
-      rating: 5,
-      title: "Radical Transparency",
-      quote:
-        "What stood out was the transparency. Weekly demos, honest timelines, and an engineering team that pushed back when it mattered.",
-      highlight: "the transparency",
-      name: "Emma Williams",
-      role: "Product Director",
-      company: "Cloudpeak",
-      image: "/images/testimonials/customer-3.webp",
+      question: "How long does a project take?",
+      answer:
+        "A focused MVP takes 4–8 weeks. A full product with multiple features takes 10–16 weeks. We'll tell you exactly at the discovery stage — and we don't take on projects we can't deliver on time.",
     },
     {
-      rating: 5,
-      title: "Built To Last",
-      quote:
-        "Brain Stack shipped our MVP in six weeks — clean enough architecture that we never had to rebuild it after raising our seed round.",
-      highlight: "MVP in six weeks",
-      name: "David Okafor",
-      role: "Founder",
-      company: "Vertex Labs",
-      image: "/images/testimonials/customer-4.webp",
+      question: "Who actually works on my project?",
+      answer:
+        "Both founders. Jakir leads the engineering. Kyaw handles communication, delivery coordination, and making sure what we build solves your actual business problem. You are never handed to a junior team or a subcontractor you've never met.",
     },
     {
-      rating: 5,
-      title: "Doubled Our Engagement",
-      quote:
-        "Working with Brain Stack was a turning point for our brand. They understood our vision and delivered a modern, user-friendly website that doubled our engagement within a month.",
-      highlight: "doubled our engagement",
-      name: "Priya Sharma",
-      role: "Marketing Lead",
-      company: "Northwind",
-      image: "/images/testimonials/customer-5.webp",
+      question: "Do you work with early-stage startups?",
+      answer:
+        "Yes — most of our clients are founders building their first or second product. We understand pre-seed budgets and investor timelines. If you need to move fast and build something fundable, that's our sweet spot.",
     },
-  ] satisfies Testimonial[],
+    {
+      question: "What happens after launch?",
+      answer:
+        "We don't disappear at go-live. We offer ongoing support, bug fixes, and feature development on a retainer or project basis. Most clients continue working with us after launch.",
+    },
+    {
+      question: "Do you sign NDAs?",
+      answer: "Yes — always, and before any discussion of your product details.",
+    },
+    {
+      question: "Can you work with our existing codebase?",
+      answer:
+        "Yes. We've taken over legacy systems, modernised them, and scaled them. If you have existing code, we'll audit it honestly before committing to anything.",
+    },
+    {
+      question: "What time zones do you work across?",
+      answer:
+        "Our founders are based in Dhaka (UTC+6) and work with clients in the UK, US, Canada, and the Middle East. We're comfortable with async collaboration and scheduled calls across time zones.",
+    },
+  ],
 } as const
 
 export const ctaData = {
@@ -342,7 +396,9 @@ export const ctaData = {
 export type HeroBannerData = typeof heroBannerData
 export type ProjectVideoData = typeof projectVideoData
 export type WhoWeAreData = typeof whoWeAreData
+export type FoundersData = typeof foundersData
 export type ServicesData = typeof servicesData
 export type ProcessData = typeof processData
+export type FaqData = typeof faqData
 export type TestimonialsData = typeof testimonialsData
 export type CtaData = typeof ctaData

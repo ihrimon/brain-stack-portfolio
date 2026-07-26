@@ -36,8 +36,6 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
               </p>
               <p className="mt-2 text-white/50">
                 {contactData.address.line1}
-                <br />
-                {contactData.address.line2}
               </p>
 
               <div className="mt-6 space-y-1 text-white/50">

@@ -76,3 +76,7 @@ This project is documented in depth under [`docs/`](docs/):
 ## License
 
 Developed exclusively for Brain Stack. All rights reserved © Brain Stack.
+
+gmkk qoeh crfi nfqm
+boxo jirj qhgw gnor
+

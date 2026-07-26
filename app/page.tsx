@@ -3,12 +3,13 @@ import BlogSection from "@/components/sections/BlogSection"
 import { JsonLd } from "@/components/common/JsonLd"
 import CTASection from "@/components/sections/CTASection"
 import EngineeringProcess from "@/components/sections/EngineeringProcess"
+import FaqSection from "@/components/sections/FaqSection"
+import FoundersSection from "@/components/sections/FoundersSection"
 import HeroSection from "@/components/sections/HeroSection"
 import ProjectsSection from "@/components/sections/ProjectsSection"
 import ProjectVideoSection from "@/components/sections/ProjectVideoSection"
 import ServicesSection from "@/components/sections/ServicesSection"
 import TeamSection from "@/components/sections/TeamSection"
-import TestimonialSection from "@/components/sections/TestimonialSection"
 import { generatePageMetadata } from "@/lib/metadata"
 import { generateWebPageSchema } from "@/lib/structured-data"
 import { getAboutData } from "@/lib/utils/sheets/about"
@@ -16,7 +17,7 @@ import { getBlogPosts } from "@/lib/utils/sheets/blog"
 import { getHomeData } from "@/lib/utils/sheets/home"
 import { getProjects } from "@/lib/utils/sheets/projects"
 import AboutSection from '@/components/sections/AboutSection'
-import { servicesData } from '@/lib/data/home-page'
+import { faqData, foundersData, servicesData } from '@/lib/data/home-page'
 
 export const revalidate = 300
 export const metadata = generatePageMetadata("home")
@@ -44,14 +45,15 @@ export default async function HomePage() {
           <HeroSection data={home.heroBanner} />
           <AboutSection data={home.whoWeAre} />
         </div>
+        <FoundersSection data={foundersData} />
         <ProjectVideoSection data={home.projectVideo} />
         <ProjectsSection projects={projects} />
         {/* <ServicesSection data={home.services} /> */}
         <ServicesSection data={servicesData} />
         <EngineeringProcess data={home.process} />
-        {/* <TestimonialSection data={home.testimonials} /> */}
         <TeamSection data={about.team} />
         <BlogSection posts={posts} />
+        <FaqSection data={faqData} />
         <CTASection data={home.cta} />
       </main>
     </>

@@ -11,9 +11,10 @@ interface HeroMetricsProps {
   className?: string
 }
 
-/** Three compact inline metrics — deliberately not stat cards. Values
- * count up once on mount, then give a small stagger pulse every few
- * seconds as a quiet "still counting" signal. */
+/** Three compact inline metrics — deliberately not stat cards. Values are
+ * static (fixed business numbers, not something to "count up" toward) and
+ * render immediately so they're never blank or shown as 0; a small stagger
+ * pulse plays every few seconds as a quiet "still alive" signal. */
 export function HeroMetrics({ data, className }: HeroMetricsProps) {
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -26,20 +27,6 @@ export function HeroMetrics({ data, className }: HeroMetricsProps) {
       const mm = gsap.matchMedia()
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        valueEls.forEach((el) => {
-          const target = Number(el.dataset.metricValue)
-          const counter = { value: 0 }
-          gsap.to(counter, {
-            value: target,
-            duration: 1.6,
-            ease: "power2.out",
-            delay: 0.2,
-            onUpdate: () => {
-              el.textContent = Math.round(counter.value).toString()
-            },
-          })
-        })
-
         const pulse = gsap.to(valueEls, {
           scale: 1.08,
           duration: 0.5,
@@ -52,14 +39,6 @@ export function HeroMetrics({ data, className }: HeroMetricsProps) {
         })
 
         return () => pulse.kill()
-      })
-
-      // Reduced motion still needs the real numbers on screen — just
-      // without the animated count-up or pulse.
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        valueEls.forEach((el) => {
-          el.textContent = el.dataset.metricValue ?? "0"
-        })
       })
 
       return () => mm.revert()
@@ -86,7 +65,7 @@ export function HeroMetrics({ data, className }: HeroMetricsProps) {
                 data-metric-value={metric.value}
                 className="text-xl font-bold text-white tabular-nums sm:text-2xl lg:text-3xl"
               >
-                0
+                {metric.value}
               </span>
               <span className="text-xl font-bold text-white sm:text-2xl lg:text-3xl">
                 {metric.suffix}

@@ -27,8 +27,8 @@ const images = [
 ]
 
 export const blogsData = {
-  badge: "Blog Insights",
-  title: "Explore Our Thoughts on Technology and Innovation",
+  badge: "From our journal",
+  title: "Thinking out loud.",
 
   posts: [
     {
@@ -37,7 +37,7 @@ export const blogsData = {
       excerpt:
         "How LLM-powered tooling is changing what a senior engineering team can ship in a single sprint — and what it means for your roadmap.",
       category: "AI & Engineering",
-      author: "John Smith",
+      author: "Jakir Uddin",
       comments: 4,
       publishDate: "2026-05-12",
       featuredImage: "/images/blog/blog-1.webp",
@@ -78,7 +78,7 @@ export const blogsData = {
       excerpt:
         "A practical framework for deciding how much product to build before your first real users touch it.",
       category: "Product Strategy",
-      author: "John Smith",
+      author: "Kyaw Munn Oo",
       comments: 4,
       publishDate: "2026-04-03",
       featuredImage: "/images/blog/blog-2.webp",
@@ -120,7 +120,7 @@ export const blogsData = {
       excerpt:
         "The architecture decisions that matter once your product stops being a prototype and starts being infrastructure.",
       category: "SaaS Engineering",
-      author: "John Smith",
+      author: "Jakir Uddin",
       comments: 4,
       publishDate: "2026-02-20",
       featuredImage: "/images/blog/blog-3.webp",
@@ -164,7 +164,7 @@ export const blogsData = {
       excerpt:
         "A practical filter for deciding which case studies actually earn their place in front of new clients.",
       category: "Consulting",
-      author: "John Smith",
+      author: "Kyaw Munn Oo",
       comments: 4,
       publishDate: "2026-01-09",
       featuredImage: "/images/blog/blog-4.webp",
@@ -201,7 +201,7 @@ export const blogsData = {
       excerpt:
         "Why the shortcuts that get you to launch are rarely the ones that should still be in production a year later.",
       category: "Engineering",
-      author: "Sarah Chen",
+      author: "Jakir Uddin",
       comments: 6,
       publishDate: "2025-12-18",
       featuredImage: "/images/blog/blog-1.webp",
@@ -242,7 +242,7 @@ export const blogsData = {
       excerpt:
         "The small friction points that quietly kill activation rates — and how we test for them before shipping.",
       category: "Product Design",
-      author: "Marcus Lee",
+      author: "Kyaw Munn Oo",
       comments: 3,
       publishDate: "2025-11-22",
       featuredImage: "/images/blog/blog-2.webp",
@@ -279,7 +279,7 @@ export const blogsData = {
       excerpt:
         "The gap between a working demo and a reliable agent your team can trust — and how to close it.",
       category: "AI & Engineering",
-      author: "John Smith",
+      author: "Jakir Uddin",
       comments: 8,
       publishDate: "2025-10-05",
       featuredImage: "/images/blog/blog-3.webp",
@@ -323,7 +323,7 @@ export const blogsData = {
       excerpt:
         "Fewer frameworks, more leverage — the stack decisions that still matter once the hype cycle moves on.",
       category: "Product Strategy",
-      author: "Sarah Chen",
+      author: "Kyaw Munn Oo",
       comments: 5,
       publishDate: "2025-09-14",
       featuredImage: "/images/blog/blog-4.webp",
@@ -360,7 +360,7 @@ export const blogsData = {
       excerpt:
         "Shipping consistent product faster starts with fewer one-off components, not more designers.",
       category: "Design Systems",
-      author: "Marcus Lee",
+      author: "Jakir Uddin",
       comments: 2,
       publishDate: "2025-08-01",
       featuredImage: "/images/blog/blog-1.webp",
@@ -401,7 +401,7 @@ export const blogsData = {
       excerpt:
         "Setting speed targets is easy. Keeping a team honest to them six sprints later is the hard part.",
       category: "Engineering",
-      author: "John Smith",
+      author: "Kyaw Munn Oo",
       comments: 4,
       publishDate: "2025-06-27",
       featuredImage: "/images/blog/blog-2.webp",
@@ -438,7 +438,7 @@ export const blogsData = {
       excerpt:
         "The two-week process that saves months of building the wrong thing.",
       category: "Product Strategy",
-      author: "Sarah Chen",
+      author: "Jakir Uddin",
       comments: 7,
       publishDate: "2025-05-11",
       featuredImage: "/images/blog/blog-3.webp",
@@ -476,7 +476,7 @@ export const blogsData = {
       excerpt:
         "Async by default, meetings by exception — the operating rhythm behind shipping across three continents.",
       category: "Team & Culture",
-      author: "Marcus Lee",
+      author: "Kyaw Munn Oo",
       comments: 3,
       publishDate: "2025-03-30",
       featuredImage: "/images/blog/blog-4.webp",

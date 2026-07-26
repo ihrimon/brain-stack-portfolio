@@ -29,15 +29,17 @@ export default function ContactSection() {
             ref={titleRef}
             className="mt-8 max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-6xl"
           >
-            Ready to build something great together
+            Ready to build something?
           </h2>
 
           <p
             ref={descRef}
             className="mt-6 max-w-xl text-2xl leading-relaxed text-white/70"
           >
-            Have a project in mind or just want to say hello? Reach out and our
-            team will get back to you within one business day.
+            Tell us what you&apos;re building and who it&apos;s for. We work
+            best with founders and businesses in fintech, healthcare, SaaS,
+            and regulated industries. We&apos;ll get back within 24 hours —
+            honest assessment, no pitch, no obligation.
           </p>
         </div>
       </div>

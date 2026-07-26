@@ -18,9 +18,9 @@ export interface HeroMetric {
 }
 
 export const heroMetrics = [
-  { value: 48, suffix: "+", label: "Projects Delivered" },
-  { value: 99, suffix: "%", label: "Client Satisfaction" },
-  { value: 12, suffix: "", label: "AI Workflows" },
+  { value: 5, suffix: "+", label: "Products Shipped" },
+  { value: 4, suffix: "+", label: "Years Combined Experience" },
+  { value: 2, suffix: "", label: "Founders" },
 ] satisfies HeroMetric[]
 
 export interface HeroReviewAvatar {

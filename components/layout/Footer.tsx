@@ -75,8 +75,6 @@ export default function Footer() {
               </h3>
               <p className="text-white">
                 {contactData.address.line1}
-                <br />
-                {contactData.address.line2}
               </p>
             </div>
 
@@ -117,7 +115,7 @@ export default function Footer() {
         <div className="mx-auto flex max-w-400 flex-col items-center justify-between gap-4 px-5 py-6 text-xs text-white/40 sm:flex-row sm:px-8">
           <Logo variant="on-dark" />
           <p className="text-base">
-            © {new Date().getFullYear()} Brain Stack. All rights reserved.
+            © {new Date().getFullYear()} Brain Stack Studio. All rights reserved.
           </p>
         </div>
       </div>

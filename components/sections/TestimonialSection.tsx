@@ -100,7 +100,7 @@ export default function TestimonialSection({ data }: TestimonialSectionProps) {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="flex" aria-hidden="true">
-                    {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    {Array.from({ length: testimonial.rating ?? 0 }).map((_, i) => (
                       <Star
                         key={i}
                         className="size-4 fill-amber-400 text-amber-400"

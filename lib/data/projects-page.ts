@@ -96,9 +96,8 @@ export type Project = PortfolioProject | CaseStudyProject
 
 export const projectsData = {
   badge: "Featured Work",
-  title: "Selected Projects That Reflect Our Expertise",
-  description:
-    "From AI-powered platforms and SaaS products to luxury marketplaces, real estate solutions, and modern portfolio websites, each project demonstrates our commitment to creating scalable, user-focused, and visually engaging digital experiences.",
+  title: "Work we've shipped.",
+  description: "Live products, real clients. Click any project to see it.",
 
   projects: [
     {
@@ -905,11 +904,11 @@ export const projectsData = {
       id: "12",
       slug: "luxeb2b",
       kind: "portfolio",
-      title: "LUXEB2B",
-      shortTitle: "LUXEB2B",
-      category: "Business",
+      title: "LuxeB2B",
+      shortTitle: "LuxeB2B",
+      category: "B2B Luxury Marketplace",
       industry: "Luxury Fragrance & Beauty",
-      client: "LUXEB2B",
+      client: "LuxeB2B",
       service: "Marketplace Platform, Brand Identity",
       technologies: ["Next.js", "React", "Tailwind CSS"],
       tools: [],
@@ -960,7 +959,7 @@ export const projectsData = {
       kind: "portfolio",
       title: "ACH Gold Estates",
       shortTitle: "ACH Gold Estates",
-      category: "Business",
+      category: "Real Estate Platform",
       industry: "Real Estate",
       client: "ACH Gold Estates",
       service: "Real Estate Platform, CMS Integration",
@@ -1013,7 +1012,7 @@ export const projectsData = {
       kind: "portfolio",
       title: "PowerNest",
       shortTitle: "PowerNest",
-      category: "E-commerce Platform",
+      category: "Business Website",
       industry: "Consumer Electronics Retail",
       client: "PowerNest",
       service: "E-commerce Development, Payment Integration",
@@ -1065,7 +1064,7 @@ export const projectsData = {
       kind: "portfolio",
       title: "YachtEase",
       shortTitle: "YachtEase",
-      category: "Marketplace Platform",
+      category: "Luxury Travel",
       industry: "Yachting & Marine Operations",
       client: "YachtEase",
       service: "Marketplace Platform, Operations Dashboard",
@@ -1118,7 +1117,7 @@ export const projectsData = {
       kind: "portfolio",
       title: "Big Fish",
       shortTitle: "Big Fish",
-      category: "Portfolio",
+      category: "Creative Portfolio",
       industry: "Creative Studio",
       client: "Big Fish",
       service: "Creative Portfolio, Interactive Design",
@@ -1127,7 +1126,7 @@ export const projectsData = {
       duration: null,
       date: "2024",
       status: null,
-      liveUrl: null,
+      liveUrl: "https://bigfish-omega.vercel.app/",
 
       thumbnail: "https://i.ibb.co.com/KpqvTX5R/big-fish-thumbnail.png",
       heroImage: "https://i.ibb.co.com/KpqvTX5R/big-fish-thumbnail.png",

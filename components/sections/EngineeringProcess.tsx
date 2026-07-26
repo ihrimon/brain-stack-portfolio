@@ -40,29 +40,22 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
         "[data-process-card]",
         cardsRef.current
       )
-      const isDesktop = window.innerWidth >= 1024
       const cleanups: (() => void)[] = []
 
-      // Cards fade/slide in from three different directions — left, bottom,
-      // right — as they scroll into view. The middle card settles slightly
-      // higher than the other two on desktop, matching the staggered layout.
-      const fromOffsets = [
-        { x: -80, y: 0 },
-        { x: 0, y: 80 },
-        { x: 80, y: 0 },
-      ]
-
+      // Cards fade/slide in, alternating left/right by position, as they
+      // scroll into view — a layout-agnostic version of the previous
+      // fixed 3-card left/bottom/right stagger, since the grid now wraps
+      // to a variable number of rows depending on viewport width.
       cards.forEach((card, index) => {
-        const restY = index === 1 && isDesktop ? -40 : 0
-        const from = fromOffsets[index % fromOffsets.length]
+        const from = index % 2 === 0 ? { x: -80, y: 0 } : { x: 80, y: 0 }
 
         gsap.fromTo(
           card,
-          { opacity: 0, x: from.x, y: from.y + restY },
+          { opacity: 0, x: from.x, y: from.y },
           {
             opacity: 1,
             x: 0,
-            y: restY,
+            y: 0,
             duration: 0.8,
             ease: "power3.out",
             scrollTrigger: {
@@ -77,9 +70,9 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
         // PrimaryButton's hover swap — the card itself moves on hover
         // instead of relying on a plain CSS transition.
         const onEnter = () =>
-          gsap.to(card, { y: restY - 10, duration: 0.45, ease: "power3.out" })
+          gsap.to(card, { y: -10, duration: 0.45, ease: "power3.out" })
         const onLeave = () =>
-          gsap.to(card, { y: restY, duration: 0.45, ease: "power3.out" })
+          gsap.to(card, { y: 0, duration: 0.45, ease: "power3.out" })
 
         card.addEventListener("mouseenter", onEnter)
         card.addEventListener("mouseleave", onLeave)
@@ -160,7 +153,7 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
             <span className="absolute top-0 left-2/3 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500" />
           </div>
 
-          <div ref={cardsRef} className="grid gap-6 lg:grid-cols-3 lg:gap-8">
+          <div ref={cardsRef} className="grid gap-6 sm:grid-cols-2 lg:gap-8 xl:grid-cols-4">
             {data.items.map((item, index) => {
               const Icon = resolveIcon(item.icon)
 

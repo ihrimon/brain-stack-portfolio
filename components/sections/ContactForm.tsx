@@ -267,8 +267,6 @@ export default function ContactForm() {
                 </p>
                 <p className="mt-1 font-medium text-white">
                   {contactData.address.line1}
-                  <br />
-                  {contactData.address.line2}
                 </p>
               </div>
             </div>

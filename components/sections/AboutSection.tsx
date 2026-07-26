@@ -29,12 +29,13 @@ interface AboutSectionProps {
 export default function AboutSection({ data }: AboutSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
+  const descRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
-      // Title starts muted and reveals word-by-word as the section is
-      // scrolled through, rather than fading in all at once.
-      gsap.effects.textRevealOnScroll(titleRef.current)
+      // Title and description start muted and reveal word-by-word as the
+      // section is scrolled through, rather than fading in all at once.
+      gsap.effects.textRevealOnScroll([titleRef.current, descRef.current])
     },
     { scope: sectionRef }
   )
@@ -56,6 +57,24 @@ export default function AboutSection({ data }: AboutSectionProps) {
             >
               {data.title}
             </h2>
+
+            <div
+              ref={descRef}
+              className="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-white/70"
+            >
+              {/* `description` is normally an array of paragraphs (see
+                  lib/data/home-page.ts), but this section's data can also
+                  arrive from the Google Sheets CMS (see
+                  lib/utils/sheets/home.ts), which may still hold an older
+                  single-string value until that sheet cell is updated to
+                  match — coerce defensively so either shape renders. */}
+              {(Array.isArray(data.description)
+                ? data.description
+                : [data.description]
+              ).map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
           </div>
 
           {/* On mobile (single-column flow) this sits between the title and

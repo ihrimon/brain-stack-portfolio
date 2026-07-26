@@ -51,14 +51,14 @@ export function MobileNav() {
       >
         <span
           className={cn(
-            "flex size-9 items-center justify-center rounded-full transition-all duration-300",
+            "flex size-12 items-center justify-center rounded-full transition-all duration-300",
             active &&
-              "-translate-y-1 bg-neutral-900 ring-2 ring-accent ring-offset-2 ring-offset-transparent"
+              "-translate-y-6 bg-neutral-900 ring-1 ring-accent ring-offset-1 ring-offset-transparent"
           )}
         >
           <Icon
             className={cn(
-              "size-5 transition-all duration-300",
+              "size-6 transition-all duration-300",
               active ? "scale-110 text-accent" : "text-white/50"
             )}
           />
@@ -66,7 +66,7 @@ export function MobileNav() {
         <span
           className={cn(
             "transition-colors duration-300",
-            active ? "text-white" : "text-white/50"
+            active ? "hidden" : "text-white/50"
           )}
         >
           {item.name}
@@ -104,8 +104,8 @@ export function MobileNav() {
                   "absolute left-1/2 flex size-14 -translate-x-1/2 items-center justify-center rounded-full",
                   "bg-neutral-900 transition-all duration-300 active:scale-95",
                   active
-                    ? "-top-7 ring-2 ring-accent ring-offset-2 ring-offset-transparent"
-                    : "-top-6 ring-1 ring-white/10"
+                    ? "-top-7 ring-1 ring-accent ring-offset-2 ring-offset-transparent"
+                    : ""
                 )}
               >
                 <Icon

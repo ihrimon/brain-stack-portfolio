@@ -1,10 +1,9 @@
 export const contactData = {
   email: "hello@brainstack.dev",
-  phone: "+1 (415) 555-0182",
+  phone: "+1 (315) 272-7994",
   phoneHours: "Call 24/7 Hours",
   address: {
-    line1: "148 Innovation Drive, Suite 400",
-    line2: "San Francisco, CA 94107, United States",
+    line1: "London · New York · Dhaka",
   },
   socials: [
     { label: "X", glyph: "X", href: "https://x.com/brainstack" },

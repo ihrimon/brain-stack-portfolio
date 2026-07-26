@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { contactData } from "@/lib/constants/contact";
 
 export const siteConfig = {
   name: "Brain Stack",
@@ -146,10 +147,7 @@ export const pageMetadata = {
         "@type": "PostalAddress",
         "addressCountry": "US"
       },
-      "sameAs": [
-        "https://linkedin.com/company/brainstack",
-        "https://twitter.com/brainstack"
-      ],
+      "sameAs": contactData.socials.map((social) => social.href),
       "knowsAbout": [
         "Full Stack Development",
         "Mobile App Development",

@@ -9,6 +9,8 @@ import {
   Code2,
   Bot,
   Smartphone,
+  Search,
+  Rocket,
   type LucideIcon,
 } from "lucide-react"
 
@@ -27,6 +29,8 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Code2,
   Bot,
   Smartphone,
+  Search,
+  Rocket,
 }
 
 export function resolveIcon(name?: string): LucideIcon {
