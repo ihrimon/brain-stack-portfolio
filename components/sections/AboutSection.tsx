@@ -53,7 +53,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
 
             <h2
               ref={titleRef}
-              className="max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
+              className="max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white capitalize sm:text-4xl md:text-5xl"
             >
               {data.title}
             </h2>

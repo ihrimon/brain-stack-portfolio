@@ -1,4 +1,3 @@
-// import AboutSection from "@/components/sections/AboutSection"
 import BlogSection from "@/components/sections/BlogSection"
 import { JsonLd } from "@/components/common/JsonLd"
 import CTASection from "@/components/sections/CTASection"
@@ -12,24 +11,26 @@ import ServicesSection from "@/components/sections/ServicesSection"
 import TeamSection from "@/components/sections/TeamSection"
 import { generatePageMetadata } from "@/lib/metadata"
 import { generateWebPageSchema } from "@/lib/structured-data"
-import { getAboutData } from "@/lib/utils/sheets/about"
-import { getBlogPosts } from "@/lib/utils/sheets/blog"
-import { getHomeData } from "@/lib/utils/sheets/home"
-import { getProjects } from "@/lib/utils/sheets/projects"
-import AboutSection from '@/components/sections/AboutSection'
-import { faqData, foundersData, servicesData } from '@/lib/data/home-page'
+import AboutSection from "@/components/sections/AboutSection"
+import {
+  ctaData,
+  faqData,
+  foundersData,
+  processData,
+  projectVideoData,
+  servicesData,
+  whoWeAreData,
+} from "@/lib/data/home-page"
+import { teamMembersData } from "@/lib/data/about-page"
+import { projectsData } from "@/lib/data/projects-page"
+import { blogsData } from "@/lib/data/blog-page"
 
-export const revalidate = 300
+// Data is sourced from the local lib/data/*.ts files below, not the Google
+// Sheets CMS — re-wire to lib/utils/sheets/* once updated sheet data is
+// ready to go live.
 export const metadata = generatePageMetadata("home")
 
-export default async function HomePage() {
-  const [home, about, projects, posts] = await Promise.all([
-    getHomeData(),
-    getAboutData(),
-    getProjects(),
-    getBlogPosts(),
-  ])
-
+export default function HomePage() {
   return (
     <>
       <JsonLd data={generateWebPageSchema("home")} />
@@ -42,19 +43,18 @@ export default async function HomePage() {
           HeroSection.tsx for the layer structure.
         */}
         <div className="relative">
-          <HeroSection data={home.heroBanner} />
-          <AboutSection data={home.whoWeAre} />
+          <HeroSection />
+          <AboutSection data={whoWeAreData} />
         </div>
         <FoundersSection data={foundersData} />
-        <ProjectVideoSection data={home.projectVideo} />
-        <ProjectsSection projects={projects} />
-        {/* <ServicesSection data={home.services} /> */}
+        <ProjectVideoSection data={projectVideoData} />
+        <ProjectsSection projects={projectsData.projects} />
         <ServicesSection data={servicesData} />
-        <EngineeringProcess data={home.process} />
-        <TeamSection data={about.team} />
-        <BlogSection posts={posts} />
+        <EngineeringProcess data={processData} />
+        <TeamSection data={teamMembersData} />
+        <BlogSection posts={blogsData.posts} />
         <FaqSection data={faqData} />
-        <CTASection data={home.cta} />
+        <CTASection data={ctaData} />
       </main>
     </>
   )

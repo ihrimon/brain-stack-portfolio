@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils/cn"
-import { Sparkle } from "lucide-react"
+import { Brain, Sparkle } from "lucide-react"
 
 interface SectionDividerProps {
   /** Vertical stub extending up from the star. */
@@ -49,7 +49,7 @@ export function SectionDivider({
       <div className="flex w-full shrink-0 items-center">
         {left && <span className={cn("h-px flex-1", lineClassName)} />}
 
-        <Sparkle className={cn("size-5 shrink-0", iconClassName)} />
+        <Brain className={cn("size-6 shrink-0", iconClassName)} />
 
         {right && <span className={cn("h-px flex-1", lineClassName)} />}
       </div>

@@ -53,7 +53,7 @@ The three animated counters currently show 0. Replace with these fixed values:
 | | |
 |---|---|
 | **Stat 1** | 5+ Products Shipped |
-| **Stat 2 label** | Products shipped using modern, AI-assisted engineering |
+| **Stat 1 label** | Products shipped using modern, AI-assisted engineering |
 | **Stat 2** | 4+ Years |
 | **Stat 2 label** | Combined craft across mobile, web, cloud and AI |
 | **Stat 3** | 2 Founders |
