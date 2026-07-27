@@ -1,12 +1,11 @@
+import { blogsData } from "@/lib/data/blog-page"
+import { projectsData } from "@/lib/data/projects"
 import { siteConfig } from "@/lib/metadata"
-import { getBlogPosts } from "@/lib/utils/sheets/blog"
-import { getProjects } from "@/lib/utils/sheets/projects"
 import type { MetadataRoute } from "next"
 
-export const revalidate = 300
-
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [projects, posts] = await Promise.all([getProjects(), getBlogPosts()])
+export default function sitemap(): MetadataRoute.Sitemap {
+  const projects = projectsData.projects
+  const posts = blogsData.posts
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: siteConfig.url, changeFrequency: "weekly", priority: 1 },

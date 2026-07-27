@@ -1,26 +1,22 @@
 import { JsonLd } from "@/components/common/JsonLd"
 import BlogDetails from "@/components/sections/BlogDetails"
+import { blogsData } from "@/lib/data/blog-page"
 import { generateBlogPostMetadata } from "@/lib/metadata"
 import { generateBlogPostingSchema } from "@/lib/structured-data"
-import { getBlogPosts } from "@/lib/utils/sheets/blog"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-
-export const revalidate = 300
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
 }
 
-export async function generateStaticParams() {
-  const posts = await getBlogPosts()
-  return posts.map((post) => ({ slug: post.slug }))
+export function generateStaticParams() {
+  return blogsData.posts.map((post) => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params
-  const posts = await getBlogPosts()
-  const post = posts.find((item) => item.slug === slug)
+  const post = blogsData.posts.find((item) => item.slug === slug)
 
   if (!post) return {}
 
@@ -29,7 +25,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params
-  const posts = await getBlogPosts()
+  const posts = blogsData.posts
   const post = posts.find((item) => item.slug === slug)
 
   if (!post) {
