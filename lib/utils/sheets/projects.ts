@@ -5,12 +5,12 @@ import {
   type Project,
   type ProjectMetrics,
   type ProjectWorkflowStep,
-} from "@/lib/data/projects-page"
+} from "@/lib/data/projects"
 import type { Testimonial } from "@/lib/data/shared-types"
 import { getSheetsClient, parseJson, parseJsonObject, withRetry } from "./shared"
 
 const SHEET_TAB = "Projects"
-const SHEET_RANGE = `${SHEET_TAB}!A2:AH`
+const SHEET_RANGE = `${SHEET_TAB}!A2:AI`
 
 // Column order the Google Sheet is expected to follow (row 1 = header, data from row 2).
 // Simple fields are plain cells; nested arrays/objects are JSON text in a single cell.
@@ -19,6 +19,7 @@ const COLUMNS = [
   "slug",
   "title",
   "shortTitle",
+  "label",
   "category",
   "industry",
   "client",
@@ -118,6 +119,7 @@ function rowToProject(row: string[]): Project | null {
     slug,
     title,
     shortTitle: cell("shortTitle") || title,
+    label: cell("label") || title,
     category: cell("category"),
     industry: cell("industry"),
     client: cell("client"),
@@ -144,7 +146,7 @@ function rowToProject(row: string[]): Project | null {
   // Classify from the parsed content instead: any real narrative/metrics/
   // testimonial signal means this row is a case study, not just a portfolio
   // card. Mirrors the same distinction already present in the seed data
-  // (lib/data/projects-page.ts).
+  // (lib/data/projects.ts).
   const goals = parseJson<string[]>(cell("goals"), [])
   const workflow = parseJson<ProjectWorkflowStep[]>(cell("workflow"), [])
   const architecture = parseJson<string[]>(cell("architecture"), [])
@@ -200,7 +202,7 @@ function rowToProject(row: string[]): Project | null {
 /**
  * Fetches projects (portfolio work + in-depth case studies, merged into one
  * schema) from the "Projects" tab of the configured Google Sheet. Falls back
- * to the local lib/data/projects-page.ts seed data when credentials aren't
+ * to the local lib/data/projects.ts seed data when credentials aren't
  * configured or the request fails, so the site keeps working before Sheets
  * access is set up and stays resilient to API outages.
  */

@@ -2,7 +2,7 @@
 
 import { DiagonalPattern } from "@/components/animations/DiagonalPattern"
 import { CircleViewButton } from "@/components/buttons/CircleViewButton"
-import { projectsData, type Project } from "@/lib/data/projects-page"
+import { projectsData, type Project } from "@/lib/data/projects"
 import { cn } from "@/lib/utils/cn"
 import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { motion, type Variants } from "framer-motion"

@@ -1,7 +1,7 @@
 import { ParallaxImage } from "@/components/animations/ParallaxImage"
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
-import type { CaseStudyProject, Project, ProjectMetrics } from "@/lib/data/projects-page"
+import type { CaseStudyProject, Project, ProjectMetrics } from "@/lib/data/projects"
 import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import Image from "next/image"
 import Link from "next/link"

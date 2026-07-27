@@ -1,6 +1,6 @@
 // Content brief: SECTION 4 — The Team Behind Brain Stack
 export const foundersData = {
-  badge: "The Team",
+  badge: "The Team Behind",
 
   title: "Built by founders, run by founders.",
 

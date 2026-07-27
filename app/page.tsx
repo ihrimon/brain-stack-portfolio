@@ -22,7 +22,7 @@ import {
   whoWeAreData,
 } from "@/lib/data/home-page"
 import { teamMembersData } from "@/lib/data/about-page"
-import { projectsData } from "@/lib/data/projects-page"
+import { projectsData } from "@/lib/data/projects"
 import { blogsData } from "@/lib/data/blog-page"
 
 // Data is sourced from the local lib/data/*.ts files below, not the Google

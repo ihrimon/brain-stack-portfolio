@@ -16,7 +16,7 @@
 
 import { contactData } from "./constants/contact"
 import type { BlogPost } from "./data/blog-page"
-import type { Project } from "./data/projects-page"
+import type { Project } from "./data/projects"
 import { pageMetadata, siteConfig } from "./metadata"
 
 const ORGANIZATION_ID = `${siteConfig.url}/#organization`

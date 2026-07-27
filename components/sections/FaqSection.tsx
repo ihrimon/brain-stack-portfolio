@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import gsap from "gsap"
 import { ChevronDown } from "lucide-react"
 import { useId, useRef, useState } from "react"
+import { HeadingSection } from '../common/HeadingSection'
 
 interface FaqSectionProps {
   data: FaqData
@@ -34,19 +35,10 @@ export default function FaqSection({ data }: FaqSectionProps) {
     <section
       id="faq"
       ref={sectionRef}
-      className="relative z-10 py-20 sm:py-28"
+      className="relative z-10 py-20 sm:py-28 bg-neutral-900"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="max-w-3xl">
-          <SectionBadge className="mb-8 w-fit">{data.badge}</SectionBadge>
-
-          <h2
-            ref={titleRef}
-            className="text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
-          >
-            {data.title}
-          </h2>
-        </div>
+        <HeadingSection badge={data.badge} title={data.title} />
 
         <div className="mt-12 divide-y divide-white/10 border-t border-b border-white/10">
           {data.items.map((item, index) => {

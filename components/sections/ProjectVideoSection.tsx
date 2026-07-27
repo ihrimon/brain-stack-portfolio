@@ -4,7 +4,7 @@ import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
 import { getLenis } from "@/lib/animations/lenis"
-import type { ProjectVideoData } from "@/lib/data/home-page"
+import type { ProjectVideoData } from "@/lib/data/projects"
 import { cn } from "@/lib/utils/cn"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
@@ -219,7 +219,7 @@ export default function ProjectVideoSection({
     <section
       id="project-video"
       ref={sectionRef}
-      className="overflow-hidden py-20 sm:py-28"
+      className="overflow-hidden py-20 sm:py-28 bg-neutral-900"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">

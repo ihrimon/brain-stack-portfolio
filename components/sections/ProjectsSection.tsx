@@ -1,9 +1,10 @@
 "use client"
 
 import { ProjectsStack } from "@/components/projects/ProjectsStack"
+import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { HeadingSection } from "@/components/common/HeadingSection"
 import "@/lib/animations/gsap-animations"
-import { projectsData, type Project } from "@/lib/data/projects-page"
+import { projectsData, type Project } from "@/lib/data/projects"
 import { toProjectStackItems } from "@/lib/projects"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
@@ -33,12 +34,16 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           badge={projectsData.badge}
           title={projectsData.title}
           titleRef={titleRef}
-          link={{ label: "View All Projects", href: "/projects" }}
+          description={projectsData.description}
         />
       </div>
 
       <div className="mt-16">
         <ProjectsStack items={items} />
+      </div>
+
+      <div className="mt-16 flex justify-center">
+        <PrimaryButton href="/projects">View All Projects</PrimaryButton>
       </div>
     </section>
   )

@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
-import { projectsData } from "../lib/data/projects-page"
+import { projectsData } from "../lib/data/projects"
 import { JSON_ARRAY_COLUMNS, JSON_OBJECT_COLUMNS, PROJECTS_SHEET_COLUMNS } from "../lib/utils/sheets"
 
 const JSON_COLUMNS = new Set<string>([...JSON_ARRAY_COLUMNS, ...JSON_OBJECT_COLUMNS])

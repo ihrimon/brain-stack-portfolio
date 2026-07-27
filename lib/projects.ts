@@ -1,11 +1,11 @@
-import type { Project } from "@/lib/data/projects-page"
+import type { Project } from "@/lib/data/projects"
 
 export const PROJECTS_STACK_MAX = 8
 
 export interface ProjectStackItem {
   id: string
   slug: string
-  title: string
+  label: string
   year: string | null
   category: string
   liveUrl: string | null
@@ -25,7 +25,7 @@ export function toProjectStackItems(projects: Project[]): ProjectStackItem[] {
   return projects.slice(0, PROJECTS_STACK_MAX).map((project) => ({
     id: project.id,
     slug: project.slug,
-    title: project.title,
+    label: project.label,
     year: project.date,
     category: project.category,
     liveUrl: project.liveUrl,
