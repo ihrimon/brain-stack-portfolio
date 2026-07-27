@@ -13,7 +13,7 @@ export const whoWeAreData = {
   ],
 
   cardTitle: "Build Digital Products, Delivered End-to-End",
-  button: { label: "Discover More", href: "/#services" } satisfies ButtonLink,
+  button: { label: "Discover More", href: "/#what-we-do" } satisfies ButtonLink,
 
   stats: [
     {

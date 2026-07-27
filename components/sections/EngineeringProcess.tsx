@@ -1,6 +1,6 @@
 "use client"
 
-import { SectionBadge } from "@/components/common/SectionBadge"
+import { HeadingSection } from "@/components/common/HeadingSection"
 import "@/lib/animations/gsap-animations"
 import type { ProcessData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
@@ -8,8 +8,6 @@ import { resolveIcon } from "@/lib/utils/icons"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
-import Image from "next/image"
-import Link from "next/link"
 import { useRef } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -116,33 +114,12 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
       /> */}
 
       <div className="relative mx-auto max-w-400 px-5 sm:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-8">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-30">
-            <SectionBadge>{data.badge}</SectionBadge>
-
-            <h2
-              ref={titleRef}
-              className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl lg:text-5xl"
-            >
-              {data.title}
-            </h2>
-          </div>
-
-          <Link
-            href="/contact"
-            data-cursor="magnetic"
-            className="group/link inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-background hover:text-foreground"
-          >
-            Let&apos;s Work Together
-            <Image
-              src="/icons/arrow-right.svg"
-              alt=""
-              width={16}
-              height={16}
-              className="invert transition-transform duration-300 group-hover/link:translate-x-1"
-            />
-          </Link>
-        </div>
+        <HeadingSection
+          badge={data.badge}
+          title={data.title}
+          titleRef={titleRef}
+          link={{ label: "Let's Work Together", href: "/contact" }}
+        />
 
         <div className="relative mt-20">
           <div

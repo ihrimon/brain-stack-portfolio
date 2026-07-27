@@ -1,18 +1,18 @@
 prefers-reduced-motion: reduce -> false
 --- t=0s (1 h1 elements) ---
-  [0] text="We build digital products that grow your business."
-       outer=<h1 class="max-w-5xl text-5xl leading-[1.05] font-bold tracking-tight text-white lg:text-[90px]" aria-label="We build digital products that grow your business." style="translate: none; rotate: none; scale: none; filter: blur(1.0699px); transform: translate3d(0px, 1.7832px, 0px); opacity: 0.8217; vis
+  [0] text="We build digital products that grow your business"
+       outer=<h1 class="max-w-5xl text-5xl leading-[1.05] font-semibold capitalize tracking-tight text-white lg:text-[90px]" style="translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1; visibility: inherit;">We build digital products that grow your <em class="
 --- t=6s (1 h1 elements) ---
-  [0] text="We build digital products that grow your business."
-       outer=<h1 class="max-w-5xl text-5xl leading-[1.05] font-bold tracking-tight text-white lg:text-[90px]" style="translate: none; rotate: none; scale: none; filter: blur(6px); transform: translate(0px, 10px); opacity: 0; visibility: hidden;">We build digital products that grow your <em class="text-primary">b
+  [0] text="We build digital products that grow your business"
+       outer=<h1 class="max-w-5xl text-5xl leading-[1.05] font-semibold capitalize tracking-tight text-white lg:text-[90px]" style="translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1; visibility: inherit;">We build digital products that grow your <em class="
 --- t=12s (1 h1 elements) ---
-  [0] text="We build digital products that grow your business."
-       outer=<h1 class="max-w-5xl text-5xl leading-[1.05] font-bold tracking-tight text-white lg:text-[90px]" style="translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1; visibility: inherit;">We build digital products that grow your <em class="text-primary">b
+  [0] text="We build digital products that grow your business"
+       outer=<h1 class="max-w-5xl text-5xl leading-[1.05] font-semibold capitalize tracking-tight text-white lg:text-[90px]" style="translate: none; rotate: none; scale: none; filter: blur(0px); transform: translate(0px, 0px); opacity: 1; visibility: inherit;">We build digital products that grow your <em class="
+stats label box: {"text":"Products shipped using modern, AI-assisted engineering","height":48,"width":230.296875}
 --- console/page logs ---
 [console:info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [console:log] [HMR] connected
-[console:log] [debug] render with titleIndex= 0
-[console:log] [debug] render with titleIndex= 0
+[console:log] [Fast Refresh] rebuilding
 [console:warning] Image with src "https://i.ibb.co.com/vvvWHy2Y/standard-insights-thumbnail.png" is using quality "100" which is not configured in images.qualities [75]. Please update your config to [100, 75].
 Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
 [console:warning] Image with src "https://i.ibb.co.com/q37Gzwx4/sync-space-thumbnail.png" is using quality "100" which is not configured in images.qualities [75]. Please update your config to [100, 75].
@@ -21,6 +21,7 @@ Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
 Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
 [console:warning] Image with src "https://i.ibb.co.com/Hpd4GQwM/career-dock-thumbnail.png" is using quality "100" which is not configured in images.qualities [75]. Please update your config to [100, 75].
 Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
+[console:log] [Fast Refresh] done in 280ms
 [console:warning] Image with src "https://i.ibb.co.com/Y4wKKRwC/karially-thumbnail.png" is using quality "100" which is not configured in images.qualities [75]. Please update your config to [100, 75].
 Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
 [console:warning] Image with src "https://i.ibb.co.com/nswg2vX3/luxeb2b-thumbnail.png" is using quality "100" which is not configured in images.qualities [75]. Please update your config to [100, 75].
@@ -31,41 +32,10 @@ Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
 Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
 [console:warning] GSAP target  not found. https://gsap.com
 [console:warning] GSAP target  not found. https://gsap.com
-[console:log] [debug] rotation effect ran, reducedMotion= false
+[console:warning] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[console:warning] [.WebGL-0x599c00b54e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[console:warning] [.WebGL-0x599c00b54e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[console:warning] [.WebGL-0x599c00b54e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[console:warning] [.WebGL-0x599c00b54e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
 [console:warning] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
 [console:warning] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
-[console:warning] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
-[console:warning] [.WebGL-0x23c001cfa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
-[console:warning] [.WebGL-0x23c001cfa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
-[console:log] [debug] interval tick, advancing titleIndex
-[console:log] [debug] titleIndex 0 -> 1
-[console:log] [debug] titleIndex 0 -> 1
-[console:log] [debug] render with titleIndex= 1
-[console:log] [debug] render with titleIndex= 1
-[console:warning] [.WebGL-0x23c001cfa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
-[console:warning] [.WebGL-0x23c001cfa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
-[console:log] [debug] interval tick, advancing titleIndex
-[console:log] [debug] titleIndex 1 -> 0
-[console:log] [debug] titleIndex 1 -> 0
-[console:log] [debug] render with titleIndex= 0
-[console:log] [debug] render with titleIndex= 0
-[console:log] [debug] interval tick, advancing titleIndex
-[console:log] [debug] titleIndex 0 -> 1
-[console:log] [debug] titleIndex 0 -> 1
-[console:log] [debug] render with titleIndex= 1
-[console:log] [debug] render with titleIndex= 1
-[console:log] [debug] interval tick, advancing titleIndex
-[console:log] [debug] titleIndex 1 -> 0
-[console:log] [debug] titleIndex 1 -> 0
-[console:log] [debug] render with titleIndex= 0
-[console:log] [debug] render with titleIndex= 0
-[console:log] [debug] interval tick, advancing titleIndex
-[console:log] [debug] titleIndex 0 -> 1
-[console:log] [debug] titleIndex 0 -> 1
-[console:log] [debug] render with titleIndex= 1
-[console:log] [debug] render with titleIndex= 1
-[console:log] [debug] interval tick, advancing titleIndex
-[console:log] [debug] titleIndex 1 -> 0
-[console:log] [debug] titleIndex 1 -> 0
-[console:log] [debug] render with titleIndex= 0
-[console:log] [debug] render with titleIndex= 0

@@ -7,11 +7,11 @@ import FoundersSection from "@/components/sections/FoundersSection"
 import HeroSection from "@/components/sections/HeroSection"
 import ProjectsSection from "@/components/sections/ProjectsSection"
 import ProjectVideoSection from "@/components/sections/ProjectVideoSection"
-import ServicesSection from "@/components/sections/ServicesSection"
 import TeamSection from "@/components/sections/TeamSection"
+import WhatWeDoSection from "@/components/sections/WhatWeDoSection"
 import { generatePageMetadata } from "@/lib/metadata"
 import { generateWebPageSchema } from "@/lib/structured-data"
-import AboutSection from "@/components/sections/AboutSection"
+import WhoWeAreSection from "@/components/sections/WhoWeAreSection"
 import {
   ctaData,
   faqData,
@@ -44,12 +44,12 @@ export default function HomePage() {
         */}
         <div className="relative">
           <HeroSection />
-          <AboutSection data={whoWeAreData} />
+          <WhoWeAreSection data={whoWeAreData} />
         </div>
         <FoundersSection data={foundersData} />
         <ProjectVideoSection data={projectVideoData} />
         <ProjectsSection projects={projectsData.projects} />
-        <ServicesSection data={servicesData} />
+        <WhatWeDoSection data={servicesData} />
         <EngineeringProcess data={processData} />
         <TeamSection data={teamMembersData} />
         <BlogSection posts={blogsData.posts} />

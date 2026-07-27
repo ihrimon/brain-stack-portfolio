@@ -5,55 +5,23 @@ const { chromium } = require("playwright")
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
 
   const logs = []
-  page.on("console", (msg) => logs.push(`[console:${msg.type()}] ${msg.text()}`))
-  page.on("pageerror", (err) => logs.push(`[pageerror] ${err.message}`))
-
-  const rm = await page.evaluate(() =>
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  )
-  console.log("prefers-reduced-motion: reduce ->", rm)
+  page.on("console", (msg) => logs.push(`[${Date.now()}] [console:${msg.type()}] ${msg.text()}`))
+  page.on("pageerror", (err) => logs.push(`[${Date.now()}] [pageerror] ${err.message}`))
 
   await page.goto("http://localhost:3000", { waitUntil: "load", timeout: 60000 })
   await page.waitForSelector("h1")
 
-  const dump = async (label) => {
-    const info = await page.evaluate(() => {
-      const els = Array.from(document.querySelectorAll("h1"))
-      return els.map((el) => ({
-        text: el.textContent,
-        outer: el.outerHTML.slice(0, 300),
-      }))
-    })
-    console.log(`--- ${label} (${info.length} h1 elements) ---`)
-    info.forEach((i, idx) => {
-      console.log(`  [${idx}] text=${JSON.stringify(i.text)}`)
-      console.log(`       outer=${i.outer}`)
-    })
+  const start = Date.now()
+  for (let i = 0; i < 16; i++) {
+    const text = await page.evaluate(() => document.querySelector("h1")?.textContent ?? null)
+    console.log(`t=${((Date.now() - start) / 1000).toFixed(1)}s h1="${text}"`)
+    await page.waitForTimeout(1000)
   }
 
-  await dump("t=0s")
-  await page.screenshot({ path: "hero-t0.png" })
-
-  await page.waitForTimeout(6000)
-  await dump("t=6s")
-  await page.screenshot({ path: "hero-t6.png" })
-
-  await page.waitForTimeout(6000)
-  await dump("t=12s")
-  await page.screenshot({ path: "hero-t12.png" })
-
-  const statsGrid = await page.evaluate(() => {
-    const label = Array.from(document.querySelectorAll("[data-panel-metrics] span")).find(
-      (el) => el.textContent && el.textContent.length > 25
-    )
-    if (!label) return null
-    const rect = label.getBoundingClientRect()
-    return { text: label.textContent, height: rect.height, width: rect.width }
-  })
-  console.log("stats label box:", JSON.stringify(statsGrid))
-
-  console.log("--- console/page logs ---")
-  logs.forEach((l) => console.log(l))
+  console.log("--- console/page logs (relevant only) ---")
+  logs
+    .filter((l) => /Fast Refresh|HMR|reload|debug|error/i.test(l))
+    .forEach((l) => console.log(l))
 
   await browser.close()
 })().catch((e) => {

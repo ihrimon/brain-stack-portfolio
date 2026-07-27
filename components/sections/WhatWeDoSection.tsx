@@ -1,6 +1,6 @@
 "use client"
 
-import { SectionBadge } from "@/components/common/SectionBadge"
+import { HeadingSection } from "@/components/common/HeadingSection"
 import { ServicesStack } from "@/components/sections/services/ServicesStack"
 import "@/lib/animations/gsap-animations"
 import type { ServicesData } from "@/lib/data/home-page"
@@ -11,11 +11,11 @@ import { useRef } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
 
-interface ServicesSectionProps {
+interface WhatWeDoSectionProps {
   data: ServicesData
 }
 
-export default function ServicesSection({ data }: ServicesSectionProps) {
+export default function WhatWeDoSection({ data }: WhatWeDoSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
 
@@ -28,21 +28,12 @@ export default function ServicesSection({ data }: ServicesSectionProps) {
 
   return (
     <section
-      id="services"
+      id="what-we-do"
       ref={sectionRef}
       className="bg-neutral-900 py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-4 sm:px-8">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-30">
-          <SectionBadge>{data.badge}</SectionBadge>
-
-          <h2
-            ref={titleRef}
-            className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl lg:text-5xl"
-          >
-            {data.title}
-          </h2>
-        </div>
+        <HeadingSection badge={data.badge} title={data.title} titleRef={titleRef} />
       </div>
 
       <div>

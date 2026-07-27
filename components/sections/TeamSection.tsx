@@ -1,6 +1,6 @@
 "use client"
 
-import { SectionBadge } from "@/components/common/SectionBadge"
+import { HeadingSection } from "@/components/common/HeadingSection"
 import {
   Carousel,
   CarouselContent,
@@ -15,7 +15,6 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
-import Link from "next/link"
 import { useRef, useState } from "react"
 
 interface TeamSectionProps {
@@ -47,33 +46,12 @@ export default function TeamSection({ data }: TeamSectionProps) {
       className="overflow-hidden bg-brand-dark py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-8">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-30">
-            <SectionBadge>{data.badge}</SectionBadge>
-
-            <h2
-              ref={titleRef}
-              className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl md:text-5xl"
-            >
-              {data.title}
-            </h2>
-          </div>
-
-          <Link
-            href="/about#team"
-            data-cursor="magnetic"
-            className="group/link inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-background hover:text-foreground"
-          >
-            View All Members
-            <Image
-              src="/icons/arrow-right.svg"
-              alt=""
-              width={16}
-              height={16}
-              className="invert transition-transform duration-300 group-hover/link:translate-x-1"
-            />
-          </Link>
-        </div>
+        <HeadingSection
+          badge={data.badge}
+          title={data.title}
+          titleRef={titleRef}
+          link={{ label: "View All Members", href: "/about#team" }}
+        />
 
         <Carousel
           opts={{ loop: true, align: "start" }}

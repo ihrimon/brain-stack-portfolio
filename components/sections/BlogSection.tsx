@@ -1,6 +1,6 @@
 "use client"
 
-import { SectionBadge } from "@/components/common/SectionBadge"
+import { HeadingSection } from "@/components/common/HeadingSection"
 import "@/lib/animations/gsap-animations"
 import { blogsData, type BlogPost } from "@/lib/data/blog-page"
 import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
@@ -41,33 +41,12 @@ export default function BlogSection({ posts }: BlogSectionProps) {
       className="bg-brand-dark py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-8">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-30">
-            <SectionBadge>{blogsData.badge}</SectionBadge>
-
-            <h2
-              ref={titleRef}
-              className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl lg:text-5xl"
-            >
-              {blogsData.title}
-            </h2>
-          </div>
-
-          <Link
-            href="/blog"
-            data-cursor="magnetic"
-            className="group/link inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-background hover:text-foreground"
-          >
-            View All Posts
-            <Image
-              src="/icons/arrow-right.svg"
-              alt=""
-              width={16}
-              height={16}
-              className="invert transition-transform duration-300 group-hover/link:translate-x-1"
-            />
-          </Link>
-        </div>
+        <HeadingSection
+          badge={blogsData.badge}
+          title={blogsData.title}
+          titleRef={titleRef}
+          link={{ label: "View All Posts", href: "/blog" }}
+        />
 
         <div className="mt-16 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-14 lg:grid-cols-4">
           {posts.slice(0, 4).map((post) => (
