@@ -20,3 +20,9 @@ export const contactData = {
   ],
   budgetOptions: ["$5k - $15k", "$15k - $50k", "$50k - $100k", "$100k+"],
 } as const
+
+// Shared between ContactForm.tsx (client-side pre-check) and
+// lib/actions/contact.ts (server-side enforcement) — kept comfortably
+// under Gmail's ~25MB post-send attachment cap even after MIME base64
+// encoding inflates the raw file by roughly a third.
+export const MAX_ATTACHMENT_BYTES = 15 * 1024 * 1024

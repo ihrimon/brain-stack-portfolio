@@ -2,9 +2,9 @@
 
 import { SectionBadge } from "@/components/common/SectionBadge"
 import { submitContactForm, type ContactFormState } from "@/lib/actions/contact"
-import { contactData } from "@/lib/constants/contact"
+import { contactData, MAX_ATTACHMENT_BYTES } from "@/lib/constants/contact"
 import { cn } from "@/lib/utils/cn"
-import { Mail, MapPin, Paperclip, Phone } from "lucide-react"
+import { Mail, MapPin, Paperclip, Phone, X } from "lucide-react"
 import { useActionState, useEffect, useRef, useState } from "react"
 
 const fieldClassName =
@@ -12,13 +12,46 @@ const fieldClassName =
 
 const initialState: ContactFormState = { status: "idle" }
 
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`
+  const units = ["KB", "MB", "GB"]
+  let value = bytes / 1024
+  let unitIndex = 0
+  while (value >= 1024 && unitIndex < units.length - 1) {
+    value /= 1024
+    unitIndex++
+  }
+  return `${value.toFixed(1)} ${units[unitIndex]}`
+}
+
 export default function ContactForm() {
   const [state, formAction, isPending] = useActionState(submitContactForm, initialState)
   const [services, setServices] = useState<string[]>([])
   const [budget, setBudget] = useState<string | null>(null)
   const [attachment, setAttachment] = useState<File | null>(null)
+  const [attachmentError, setAttachmentError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
+
+  const handleAttachmentChange = (file: File | null) => {
+    if (file && file.size > MAX_ATTACHMENT_BYTES) {
+      setAttachmentError(
+        `That file is too large — please attach something under ${formatBytes(MAX_ATTACHMENT_BYTES)}.`
+      )
+      setAttachment(null)
+      if (fileInputRef.current) fileInputRef.current.value = ""
+      return
+    }
+
+    setAttachmentError(null)
+    setAttachment(file)
+  }
+
+  const clearAttachment = () => {
+    setAttachment(null)
+    setAttachmentError(null)
+    if (fileInputRef.current) fileInputRef.current.value = ""
+  }
 
   const toggleService = (service: string) => {
     setServices((prev) =>
@@ -46,6 +79,7 @@ export default function ContactForm() {
       setServices([])
       setBudget(null)
       setAttachment(null)
+      setAttachmentError(null)
     }
   }, [state.status])
 
@@ -62,13 +96,18 @@ export default function ContactForm() {
 
             <form ref={formRef} action={formAction} noValidate className="mt-12">
               {/* Honeypot — off-screen and out of the tab order, never visible or
-                  reachable for a real user; a bot filling every field fills this too. */}
+                  reachable for a real user; a bot filling every field fills this too.
+                  Named/tagged to avoid semantic autofill matches (a prior field named
+                  "company" was being silently filled by browser/extension autofill,
+                  which made the honeypot misfire on real submissions). */}
               <input
                 type="text"
-                name="company"
+                name="hp_check"
                 tabIndex={-1}
                 autoComplete="off"
                 aria-hidden="true"
+                data-lpignore="true"
+                data-1p-ignore="true"
                 className="absolute h-px w-px overflow-hidden opacity-0"
                 style={{ left: "-9999px" }}
               />
@@ -177,25 +216,53 @@ export default function ContactForm() {
               </div>
 
               <div className="mt-12">
+                {/* No `accept` restriction — any file type is welcome
+                    (image, video, audio, PDF, docs, plain text, etc). */}
                 <input
                   ref={fileInputRef}
                   type="file"
                   name="attachment"
                   className="sr-only"
                   onChange={(event) =>
-                    setAttachment(event.target.files?.[0] ?? null)
+                    handleAttachmentChange(event.target.files?.[0] ?? null)
                   }
                 />
 
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  data-cursor="magnetic"
-                  className="inline-flex cursor-pointer items-center gap-2 border-b border-white/40 pb-0.5 text-sm font-semibold text-white transition-colors duration-300 hover:border-white/70"
-                >
-                  <Paperclip className="size-4" />
-                  {attachment ? attachment.name : "Add attachment"}
-                </button>
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    data-cursor="magnetic"
+                    className="inline-flex cursor-pointer items-center gap-2 border-b border-white/40 pb-0.5 text-sm font-semibold text-white transition-colors duration-300 hover:border-white/70"
+                  >
+                    <Paperclip className="size-4" />
+                    {attachment
+                      ? `${attachment.name} (${formatBytes(attachment.size)})`
+                      : "Add attachment"}
+                  </button>
+
+                  {attachment && (
+                    <button
+                      type="button"
+                      onClick={clearAttachment}
+                      aria-label="Remove attachment"
+                      data-cursor="magnetic"
+                      className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white/60 transition-colors duration-300 hover:bg-white/20 hover:text-white"
+                    >
+                      <X className="size-3.5" />
+                    </button>
+                  )}
+                </div>
+
+                <p className="mt-2 text-xs text-white/40">
+                  Any file type, up to {formatBytes(MAX_ATTACHMENT_BYTES)}.
+                </p>
+
+                {(attachmentError || state.fieldErrors?.attachment) && (
+                  <p role="alert" className="mt-2 text-sm text-red-400">
+                    {attachmentError || state.fieldErrors?.attachment}
+                  </p>
+                )}
               </div>
 
               <button
