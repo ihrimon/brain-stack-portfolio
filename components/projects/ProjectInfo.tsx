@@ -25,7 +25,7 @@ export function ProjectInfo({
   return (
     <div
       className={cn(
-        "absolute inset-x-0 bottom-0 z-10 flex min-h-32 flex-col gap-3 border-2 border-neutral-900 bg-neutral-900 p-4 sm:relative sm:min-h-32 sm:gap-4 sm:p-6 lg:p-8",
+        "absolute inset-x-0 bottom-0 z-10 flex min-h-32 flex-col gap-3 border-2 border-neutral-900 bg-surface-dark p-4 sm:relative sm:min-h-32 sm:gap-4 sm:p-6 lg:p-8",
         className
       )}
     >
@@ -39,7 +39,7 @@ export function ProjectInfo({
         <Link
           href={`/projects/${slug}`}
           data-cursor="magnetic"
-          className="relative z-10 inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/5 py-1 pr-1 pl-3 text-[11px] font-medium whitespace-nowrap text-white backdrop-blur-sm sm:gap-2 sm:py-1.5 sm:pr-1.5 sm:pl-5 sm:text-xs lg:text-sm"
+          className="relative z-10 inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/5 py-1 pr-1 pl-3 text-[11px] font-medium whitespace-nowrap text-white backdrop-blur-sm transition-colors duration-300 hover:border-primary hover:bg-primary sm:gap-2 sm:py-1.5 sm:pr-1.5 sm:pl-5 sm:text-xs lg:text-sm"
         >
           View Case Study
           <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-white sm:size-7">

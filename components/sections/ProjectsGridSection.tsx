@@ -34,13 +34,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       <div className="group/card relative h-full">
         <Link
           href={`/projects/${project.slug}`}
-          className="block h-full overflow-hidden rounded-3xl bg-neutral-900 transition-transform duration-300 hover:-translate-y-1"
+          className="block h-full overflow-hidden rounded-3xl bg-surface-dark transition-transform duration-300 hover:-translate-y-1"
           data-cursor="magnetic"
         >
           <div className="relative pb-4">
             <div
               aria-hidden="true"
-              className="absolute inset-x-0 top-4 bottom-0 -z-10 overflow-hidden bg-neutral-900"
+              className="absolute inset-x-0 top-4 bottom-0 -z-10 overflow-hidden bg-surface-dark"
             >
               <DiagonalPattern className="opacity-60" />
             </div>

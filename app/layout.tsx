@@ -6,7 +6,6 @@ import Footer from "@/components/layout/Footer"
 import { MobileNav } from "@/components/layout/MobileNav"
 import { Navbar } from "@/components/layout/Navbar"
 import { SmoothScroll } from "@/components/layout/SmoothScroll"
-import { ThemeProvider } from "@/components/theme/theme-provider"
 import "@/lib/animations/gsap-animations"
 import { defaultMetadata } from "@/lib/metadata"
 import { generateGlobalSchema } from "@/lib/structured-data"
@@ -37,19 +36,19 @@ export default function RootLayout({
         className={`${sora.variable} ${inter.variable} bg-background text-foreground antialiased`}
       >
         <JsonLd data={generateGlobalSchema()} />
-        <ThemeProvider>
-          <Loader />
-          <Cursor />
-          <ScrollButton />
-          <SmoothScroll>
-            <div className="min-h-screen w-full pb-20 lg:pb-0">
-              <Navbar />
-              {children}
-              <Footer />
-            </div>
-          </SmoothScroll>
-          <MobileNav />
-        </ThemeProvider>
+        {/* <ThemeProvider> */}
+        <Loader />
+        <Cursor />
+        <ScrollButton />
+        <SmoothScroll>
+          <div className="min-h-screen w-full pb-20 lg:pb-0">
+            <Navbar />
+            {children}
+            <Footer />
+          </div>
+        </SmoothScroll>
+        <MobileNav />
+        {/* </ThemeProvider> */}
       </body>
     </html>
   )

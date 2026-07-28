@@ -44,7 +44,7 @@ function ContentBlock({ block }: { block: BlogContentBlock }) {
 
     case "image":
       return (
-        <div className="relative aspect-16/9 w-full overflow-hidden rounded-2xl bg-neutral-900">
+        <div className="relative aspect-16/9 w-full overflow-hidden rounded-2xl bg-surface-dark">
           <Image
             src={block.src}
             alt={block.alt}
@@ -63,7 +63,7 @@ function ContentBlock({ block }: { block: BlogContentBlock }) {
           {block.images.map((image) => (
             <div
               key={image.src + image.alt}
-              className="relative aspect-4/3 overflow-hidden rounded-2xl bg-neutral-900"
+              className="relative aspect-4/3 overflow-hidden rounded-2xl bg-surface-dark"
             >
               <Image
                 src={image.src}
@@ -82,7 +82,7 @@ function ContentBlock({ block }: { block: BlogContentBlock }) {
     case "sideBySide":
       return (
         <div className="grid gap-6 sm:grid-cols-2 sm:items-center sm:gap-10">
-          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-neutral-900">
+          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-surface-dark">
             <Image
               src={block.image.src}
               alt={block.image.alt}
@@ -126,7 +126,7 @@ export default function BlogDetails({ post, relatedPosts }: BlogDetailsProps) {
       </section>
 
       <section className="bg-brand-dark pb-16 sm:pb-20">
-        <div className="relative aspect-21/9 w-full bg-neutral-900">
+        <div className="relative aspect-21/9 w-full bg-surface-dark">
           <Image
             src={post.featuredImage}
             alt={post.title}
@@ -179,7 +179,7 @@ export default function BlogDetails({ post, relatedPosts }: BlogDetailsProps) {
                 >
                   <Link
                     href={`/blog/${related.slug}`}
-                    className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-neutral-900"
+                    className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-surface-dark"
                     data-cursor="magnetic"
                   >
                     <Image

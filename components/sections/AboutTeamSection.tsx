@@ -22,7 +22,7 @@ export default function AboutTeamSection({ data }: AboutTeamSectionProps) {
         <div className="mt-16 grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">
           {data.members.map((member) => (
             <div key={member.name}>
-              <div className="relative aspect-4/5 overflow-hidden rounded-3xl bg-neutral-900">
+              <div className="relative aspect-4/5 overflow-hidden rounded-3xl bg-surface-dark">
                 <Image
                   src={member.image}
                   alt={member.name}

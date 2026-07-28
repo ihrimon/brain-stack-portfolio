@@ -38,7 +38,10 @@ export function ProjectMedia({
         sizes="(min-width: 1024px) 640px, (min-width: 640px) 90vw, 100vw"
         placeholder="blur"
         blurDataURL={BLUR_DATA_URL}
-        className={cn("object-cover", video && "opacity-0")}
+        className={cn(
+          "object-cover transition-transform duration-500 ease-out group-hover/media:scale-105",
+          video && "opacity-0"
+        )}
       />
 
       {video && (

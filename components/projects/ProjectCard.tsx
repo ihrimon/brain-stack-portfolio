@@ -1,7 +1,6 @@
 import { ProjectInfo } from "@/components/projects/ProjectInfo"
 import { ProjectMedia } from "@/components/projects/ProjectMedia"
 import type { ProjectStackItem } from "@/lib/projects"
-import Image from "next/image"
 import Link from "next/link"
 
 interface ProjectCardProps {
@@ -23,7 +22,10 @@ export function ProjectCard({ item, priority }: ProjectCardProps) {
   const exploreHref = item.liveUrl ?? `/projects/${item.slug}`
 
   return (
-    <div className="group relative flex aspect-3.5/4 w-full flex-col overflow-hidden rounded-lg bg-neutral-900 shadow-2xl sm:aspect-4/3.5 sm:bg-card/55 sm:backdrop-blur-lg">
+    <div
+      data-project-card
+      className="group relative flex aspect-3.5/4 w-full flex-col overflow-hidden rounded-lg bg-surface-dark shadow-2xl sm:aspect-4/3.5 sm:bg-card/55 sm:backdrop-blur-lg"
+    >
       {/* `group/media`: scopes "Explore Project" to hovering the image
           itself — separate from the card-wide `group` above. */}
       <div className="group/media absolute inset-0 overflow-hidden sm:relative sm:flex-1">
@@ -37,18 +39,9 @@ export function ProjectCard({ item, priority }: ProjectCardProps) {
           rel={item.liveUrl ? "noopener noreferrer" : undefined}
           data-cursor="magnetic"
           aria-label={`Explore ${item.label} — view project`}
-          className="absolute inset-0 z-30 m-auto flex h-12 w-fit items-center gap-3 rounded-full py-1.5 pr-1.5 pl-6 text-sm font-semibold bg-white text-black opacity-0 backdrop-blur-md group-hover/media:opacity-100"
+          className="absolute inset-0 z-30 m-auto flex size-20 items-center justify-center rounded-full bg-white text-sm font-semibold text-black opacity-0 backdrop-blur-md group-hover/media:opacity-100"
         >
           Explore
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-black">
-            <Image
-              src="/icons/arrow-right.svg"
-              alt=""
-              width={14}
-              height={14}
-              className="invert"
-            />
-          </span>
         </Link>
       </div>
 

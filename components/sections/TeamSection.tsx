@@ -43,7 +43,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
     <section
       id="team"
       ref={sectionRef}
-      className="overflow-hidden bg-brand-dark py-20 sm:py-28 bg-neutral-900"
+      className="overflow-hidden bg-brand-dark py-20 sm:py-28 bg-surface-dark"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <HeadingSection
@@ -65,7 +65,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
                 className="basis-1/2 pl-5 sm:basis-1/3 sm:pl-6 lg:basis-1/4"
               >
                 <div className="group/photo">
-                  <div className="relative aspect-4/5 overflow-hidden rounded-2xl bg-neutral-900">
+                  <div className="relative aspect-4/5 overflow-hidden rounded-2xl bg-surface-dark">
                     <Image
                       src={member.image}
                       alt={member.name}

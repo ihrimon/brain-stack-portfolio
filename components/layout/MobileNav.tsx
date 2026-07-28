@@ -53,7 +53,7 @@ export function MobileNav() {
           className={cn(
             "flex size-12 items-center justify-center rounded-full transition-all duration-300",
             active &&
-              "-translate-y-6 bg-neutral-900 ring-1 ring-accent ring-offset-1 ring-offset-transparent"
+              "-translate-y-6 bg-surface-dark ring-1 ring-accent ring-offset-1 ring-offset-transparent"
           )}
         >
           <Icon
@@ -77,7 +77,7 @@ export function MobileNav() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-40 rounded-t-3xl border-t border-white/10 bg-neutral-900/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-lg lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 rounded-t-3xl border-t border-white/10 bg-surface-dark/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-lg lg:hidden"
       role="navigation"
       aria-label="Mobile navigation"
     >
@@ -102,7 +102,7 @@ export function MobileNav() {
                 aria-label={centerItem.name}
                 className={cn(
                   "absolute left-1/2 flex size-14 -translate-x-1/2 items-center justify-center rounded-full",
-                  "bg-neutral-900 transition-all duration-300 active:scale-95",
+                  "bg-surface-dark transition-all duration-300 active:scale-95",
                   active
                     ? "-top-7 ring-1 ring-accent ring-offset-2 ring-offset-transparent"
                     : ""

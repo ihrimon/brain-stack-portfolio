@@ -43,7 +43,7 @@ export default function WhoWeAreSection({ data }: WhoWeAreSectionProps) {
     <section
       id="who-we-are"
       ref={sectionRef}
-      className="relative z-10 py-20 sm:py-28"
+      className="relative z-10 py-20 sm:py-28 bg-surface-dark"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <HeadingSection

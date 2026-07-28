@@ -57,7 +57,7 @@ export function HeadingSection({
         <Link
           href={link.href}
           data-cursor="magnetic"
-          className="group/link inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-background hover:text-foreground lg:justify-self-end lg:self-end"
+          className="group/link inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-primary lg:justify-self-end lg:self-end"
         >
           {link.label}
           <Image

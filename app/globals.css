@@ -37,6 +37,9 @@
   --brand-secondary: #8b5cf6;
   --brand-accent: #22d3ee;
   --brand-dark: #0b0b0f;
+  /* Dark section/card surface — was hardcoded as Tailwind's `neutral-900`
+     everywhere; centralized here so it can be swapped in one place. */
+  --surface-dark: #161616;
 
   --background: #ffffff;
   --foreground: #111111;
@@ -196,6 +199,7 @@
   --color-brand-secondary: var(--brand-secondary);
   --color-brand-accent: var(--brand-accent);
   --color-brand-dark: var(--brand-dark);
+  --color-surface-dark: var(--surface-dark);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

@@ -110,7 +110,7 @@ export default function AllBlogs({ posts }: AllBlogsProps) {
                 >
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="relative aspect-4/3 w-full overflow-hidden rounded-3xl bg-neutral-900"
+                    className="relative aspect-4/3 w-full overflow-hidden rounded-3xl bg-surface-dark"
                     data-cursor="magnetic"
                   >
                     <Image

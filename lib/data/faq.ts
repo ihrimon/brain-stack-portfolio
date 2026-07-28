@@ -1,7 +1,7 @@
 // Content brief: SECTION 11 — FAQ
 export const faqData = {
   badge: "FAQ",
-  title: "Common questions.",
+  title: "Common questions",
 
   items: [
     {

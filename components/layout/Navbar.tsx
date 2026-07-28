@@ -51,8 +51,8 @@ export function Navbar() {
         >
           <div
             className={cn(
-              "rounded-full py-2 transition-colors duration-300",
-              scrolledPastHero ? "bg-black" : "bg-transparent"
+              "rounded-[5px] py-1 px-2 transition-colors duration-300",
+              scrolledPastHero ? "bg-surface-dark" : "bg-transparent"
             )}
           >
             <Logo variant="on-dark" className="text-white" />
@@ -108,7 +108,7 @@ export function Navbar() {
               className={cn(
                 "group flex size-14 shrink-0 cursor-pointer flex-col items-center justify-center gap-1.5 p-2 rounded-full transition-colors duration-300",
                 scrolledPastHero
-                  ? "border border-white/15 bg-neutral-900/90 backdrop-blur dark:bg-white/5 hover:dark:bg-white/10"
+                  ? "border border-white/15 bg-surface-dark/90 backdrop-blur dark:bg-white/5 hover:dark:bg-white/10"
                   : "bg-transparent"
               )}
               aria-label="Open menu"

@@ -95,7 +95,7 @@ export default function TestimonialSection({ data }: TestimonialSectionProps) {
           {visiblePair.map((testimonial) => (
             <div
               key={testimonial.name}
-              className="relative flex flex-col rounded-2xl border-white/10 bg-neutral-900 p-8"
+              className="relative flex flex-col rounded-2xl border-white/10 bg-surface-dark p-8"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>

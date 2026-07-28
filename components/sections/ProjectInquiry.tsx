@@ -128,14 +128,14 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
                     defaultValue=""
                     className={`${fieldClassName} appearance-none pr-8`}
                   >
-                    <option value="" disabled className="bg-neutral-900">
+                    <option value="" disabled className="bg-surface-dark">
                       Select Your Service
                     </option>
                     {contactData.serviceOptions.map((option) => (
                       <option
                         key={option}
                         value={option}
-                        className="bg-neutral-900"
+                        className="bg-surface-dark"
                       >
                         {option}
                       </option>
@@ -156,14 +156,14 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
                     defaultValue=""
                     className={`${fieldClassName} appearance-none pr-8`}
                   >
-                    <option value="" disabled className="bg-neutral-900">
+                    <option value="" disabled className="bg-surface-dark">
                       Select Your Range
                     </option>
                     {contactData.budgetOptions.map((option) => (
                       <option
                         key={option}
                         value={option}
-                        className="bg-neutral-900"
+                        className="bg-surface-dark"
                       >
                         {option}
                       </option>

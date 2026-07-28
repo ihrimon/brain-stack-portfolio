@@ -15,7 +15,7 @@ export default function WhyBrainStack({ features }: WhyBrainStackProps) {
         <div className="grid gap-4 sm:gap-6 lg:grid-cols-[2fr_1fr]">
           <div className="flex flex-col gap-4 sm:gap-6">
             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-              <div className="rounded-3xl bg-neutral-900 p-6 sm:p-8">
+              <div className="rounded-3xl bg-surface-dark p-6 sm:p-8">
                 <h3 className="text-xl font-medium text-white sm:text-2xl">
                   {features.plan.title}
                 </h3>
@@ -38,7 +38,7 @@ export default function WhyBrainStack({ features }: WhyBrainStackProps) {
                 </div>
               </div>
 
-              <div className="rounded-3xl bg-neutral-900 p-6 sm:p-8">
+              <div className="rounded-3xl bg-surface-dark p-6 sm:p-8">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-0.5 text-amber-400">
                     {Array.from({ length: features.rating.stars }).map(
@@ -80,7 +80,7 @@ export default function WhyBrainStack({ features }: WhyBrainStackProps) {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3 sm:gap-6">
-              <div className="flex flex-col justify-between rounded-3xl bg-neutral-900 p-6">
+              <div className="flex flex-col justify-between rounded-3xl bg-surface-dark p-6">
                 <div>
                   <p className="text-3xl font-semibold text-white">
                     {features.support.title}
@@ -115,7 +115,7 @@ export default function WhyBrainStack({ features }: WhyBrainStackProps) {
                 </h3>
               </div>
 
-              <div className="rounded-3xl bg-neutral-900 p-6">
+              <div className="rounded-3xl bg-surface-dark p-6">
                 <h3 className="text-lg font-semibold text-white sm:text-xl">
                   {features.stack.title}
                 </h3>
@@ -137,7 +137,7 @@ export default function WhyBrainStack({ features }: WhyBrainStackProps) {
             </div>
           </div>
 
-          <div className="relative flex flex-col justify-between overflow-hidden rounded-3xl bg-neutral-900 p-8">
+          <div className="relative flex flex-col justify-between overflow-hidden rounded-3xl bg-surface-dark p-8">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -top-20 -right-20 size-72 rounded-full bg-brand-accent/20 blur-3xl"

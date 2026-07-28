@@ -30,7 +30,7 @@ export default function WhatWeDoSection({ data }: WhatWeDoSectionProps) {
     <section
       id="what-we-do"
       ref={sectionRef}
-      className="bg-neutral-900 py-20 sm:py-28"
+      className="bg-surface-dark py-20 sm:py-28"
     >
       <div className="mx-auto max-w-400 px-4 sm:px-8">
         <HeadingSection badge={data.badge} title={data.title} titleRef={titleRef} />

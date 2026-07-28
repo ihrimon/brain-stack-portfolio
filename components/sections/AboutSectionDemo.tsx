@@ -89,7 +89,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
         <SectionBadge className="mb-12">{data.badge}</SectionBadge>
 
         <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,430px)_1fr]">
-          <div className="relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-900">
+          <div className="relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-surface-dark">
             {/*  <div className="space-y-6 p-8">
               <h3 className="text-2xl font-medium text-white sm:text-4xl">
                 {data.cardTitle}

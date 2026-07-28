@@ -92,7 +92,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
           alt={project.title}
           priority
           sizes="100vw"
-          wrapperClassName="aspect-[16/7] w-full max-w-full bg-neutral-900"
+          wrapperClassName="aspect-[16/7] w-full max-w-full bg-surface-dark"
         />
       </section>
 
@@ -526,7 +526,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
             sizes="(min-width: 1024px) 58vw, 100vw"
             placeholder="blur"
             blurDataURL={BLUR_DATA_URL}
-            wrapperClassName="aspect-4/3 w-full max-w-full bg-neutral-900 lg:aspect-auto lg:col-span-7 lg:row-span-2"
+            wrapperClassName="aspect-4/3 w-full max-w-full bg-surface-dark lg:aspect-auto lg:col-span-7 lg:row-span-2"
           />
 
           <ParallaxImage
@@ -535,7 +535,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
             sizes="(min-width: 1024px) 42vw, 100vw"
             placeholder="blur"
             blurDataURL={BLUR_DATA_URL}
-            wrapperClassName="aspect-4/3 w-full max-w-full bg-neutral-900 lg:aspect-auto lg:col-span-5"
+            wrapperClassName="aspect-4/3 w-full max-w-full bg-surface-dark lg:aspect-auto lg:col-span-5"
           />
 
           <ParallaxImage
@@ -544,7 +544,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
             sizes="(min-width: 1024px) 42vw, 100vw"
             placeholder="blur"
             blurDataURL={BLUR_DATA_URL}
-            wrapperClassName="aspect-4/3 w-full max-w-full bg-neutral-900 lg:aspect-auto lg:col-span-5"
+            wrapperClassName="aspect-4/3 w-full max-w-full bg-surface-dark lg:aspect-auto lg:col-span-5"
           />
         </div>
 
@@ -558,7 +558,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                 sizes="(min-width: 1024px) 33vw, 100vw"
                 placeholder="blur"
                 blurDataURL={BLUR_DATA_URL}
-                wrapperClassName="aspect-4/3 w-full max-w-full bg-neutral-900"
+                wrapperClassName="aspect-4/3 w-full max-w-full bg-surface-dark"
               />
             ))}
           </div>

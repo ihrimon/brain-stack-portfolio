@@ -95,7 +95,7 @@ export default function MissionHero({ data }: MissionHeroProps) {
 
           <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
 
-          <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-neutral-900">
+          <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-surface-dark">
             <Image
               src={data.image}
               alt="Brain Stack"

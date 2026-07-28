@@ -35,12 +35,12 @@ export default function FaqSection({ data }: FaqSectionProps) {
     <section
       id="faq"
       ref={sectionRef}
-      className="relative z-10 py-20 sm:py-28 bg-neutral-900"
+      className="relative z-10 py-20 sm:py-28 bg-surface-dark"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <HeadingSection badge={data.badge} title={data.title} />
 
-        <div className="mt-12 divide-y divide-white/10 border-t border-b border-white/10">
+        <div className="mt-12 divide-y divide-white/10 border-t border-b border-white/10 max-w-6xl mx-auto">
           {data.items.map((item, index) => {
             const isOpen = index === openIndex
             const buttonId = `${idPrefix}-faq-button-${index}`

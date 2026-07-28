@@ -65,7 +65,7 @@ export default function ServiceSpotlight({ spotlight }: ServiceSpotlightProps) {
 
           <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
 
-          <div className="relative aspect-3/2 overflow-hidden rounded-3xl bg-neutral-900">
+          <div className="relative aspect-3/2 overflow-hidden rounded-3xl bg-surface-dark">
             <Image
               src={current.image}
               alt={current.title}

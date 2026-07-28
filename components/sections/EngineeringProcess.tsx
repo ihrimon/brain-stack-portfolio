@@ -138,7 +138,7 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
                 <div
                   key={item.title}
                   data-process-card
-                  className="relative overflow-hidden rounded-2xl bg-neutral-900 p-8"
+                  className="relative overflow-hidden rounded-2xl bg-surface-dark p-8"
                 >
                   <div
                     aria-hidden="true"

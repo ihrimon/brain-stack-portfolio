@@ -1,5 +1,5 @@
-import BlogSection from "@/components/sections/BlogSection"
 import { JsonLd } from "@/components/common/JsonLd"
+import BlogSection from "@/components/sections/BlogSection"
 import CTASection from "@/components/sections/CTASection"
 import EngineeringProcess from "@/components/sections/EngineeringProcess"
 import FaqSection from "@/components/sections/FaqSection"
@@ -9,9 +9,9 @@ import ProjectsSection from "@/components/sections/ProjectsSection"
 import ProjectVideoSection from "@/components/sections/ProjectVideoSection"
 import TeamSection from "@/components/sections/TeamSection"
 import WhatWeDoSection from "@/components/sections/WhatWeDoSection"
-import { generatePageMetadata } from "@/lib/metadata"
-import { generateWebPageSchema } from "@/lib/structured-data"
 import WhoWeAreSection from "@/components/sections/WhoWeAreSection"
+import { teamMembersData } from "@/lib/data/about-page"
+import { blogsData } from "@/lib/data/blog-page"
 import {
   ctaData,
   faqData,
@@ -21,9 +21,9 @@ import {
   servicesData,
   whoWeAreData,
 } from "@/lib/data/home-page"
-import { teamMembersData } from "@/lib/data/about-page"
 import { projectsData } from "@/lib/data/projects"
-import { blogsData } from "@/lib/data/blog-page"
+import { generatePageMetadata } from "@/lib/metadata"
+import { generateWebPageSchema } from "@/lib/structured-data"
 
 // Data is sourced from the local lib/data/*.ts files below, not the Google
 // Sheets CMS — re-wire to lib/utils/sheets/* once updated sheet data is
@@ -44,8 +44,8 @@ export default function HomePage() {
         */}
         <div className="relative">
           <HeroSection />
-          <WhoWeAreSection data={whoWeAreData} />
         </div>
+        <WhoWeAreSection data={whoWeAreData} />
         <FoundersSection data={foundersData} />
         <ProjectVideoSection data={projectVideoData} />
         <ProjectsSection projects={projectsData.projects} />

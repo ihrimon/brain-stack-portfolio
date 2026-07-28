@@ -44,7 +44,7 @@ export default function FoundersSection({ data }: FoundersSectionProps) {
           {data.members.map((member) => (
             <div
               key={member.name}
-              className="flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 xl:flex-row xl:items-stretch"
+              className="flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-surface-dark xl:flex-row xl:items-stretch"
             >
               <div className="flex flex-1 flex-col p-6">
                 <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80">

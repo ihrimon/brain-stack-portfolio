@@ -219,7 +219,7 @@ export default function ProjectVideoSection({
     <section
       id="project-video"
       ref={sectionRef}
-      className="overflow-hidden py-20 sm:py-28 bg-neutral-900"
+      className="overflow-hidden py-20 sm:py-28 bg-surface-dark"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
