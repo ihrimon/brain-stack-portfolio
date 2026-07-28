@@ -199,14 +199,14 @@ export const whyChooseUsData = {
 
 export const teamMembersData = {
   badge: "Team Members",
-  title: "Meet The Creative Team Members",
+  title: "We Work Together, We Innovate Together",
   description:
     "We're a team of strategic digital marketers working globally with the largest brands, We believe that progress only happens when you refused to play things safe.",
 
   members: [
     {
-      name: "David William",
-      role: "Marketing Manager",
+      name: "Jakir Uddin",
+      role: "Founder & CTO",
       image: "/images/team/team-1.webp",
     },
     {
@@ -227,12 +227,12 @@ export const teamMembersData = {
     {
       name: "Priya Sharma",
       role: "Product Designer",
-      image: "/images/team/team-1.webp",
+      image: "/images/team/team-5.webp",
     },
     {
       name: "Daniel Kim",
       role: "Software Engineer",
-      image: "/images/team/team-2.webp",
+      image: "/images/team/team-6.webp",
     },
     {
       name: "Olivia Bennett",

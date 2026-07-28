@@ -21,8 +21,8 @@ export interface BlogPost {
 
 const images = [
   "/images/blog/blog-1.webp",
-  "/images/blog/blog-2.webp",
   "/images/blog/blog-3.webp",
+  "/images/blog/blog-2.webp",
   "/images/blog/blog-4.webp",
 ]
 
@@ -74,14 +74,14 @@ export const blogsData = {
     },
     {
       slug: "choosing-between-mvp-and-full-product-build",
-      title: "MVP or Full Build? How to Choose",
+      title: "Minimal Viable Product or Full Build? How to Choose",
       excerpt:
         "A practical framework for deciding how much product to build before your first real users touch it.",
       category: "Product Strategy",
       author: "Kyaw Munn Oo",
       comments: 4,
       publishDate: "2026-04-03",
-      featuredImage: "/images/blog/blog-2.webp",
+      featuredImage: "/images/blog/blog-3.webp",
       tags: ["Product Strategy", "MVP"],
       content: [
         {
@@ -123,7 +123,7 @@ export const blogsData = {
       author: "Jakir Uddin",
       comments: 4,
       publishDate: "2026-02-20",
-      featuredImage: "/images/blog/blog-3.webp",
+      featuredImage: "/images/blog/blog-2.webp",
       tags: ["SaaS", "Architecture"],
       content: [
         {

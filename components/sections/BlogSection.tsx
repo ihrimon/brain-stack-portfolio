@@ -78,7 +78,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                 </span>
               </div>
 
-              <h3 className="mt-3 text-lg font-semibold text-white">
+              <h3 className="mt-3 text-xl font-medium text-white">
                 <Link
                   href={`/blog/${post.slug}`}
                   className="transition-colors duration-300 hover:text-white/80"

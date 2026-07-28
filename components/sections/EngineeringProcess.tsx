@@ -12,11 +12,9 @@ import { useRef } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const accentClasses = [
-  "bg-brand-secondary",
-  "bg-brand-accent",
-  "bg-brand-primary",
-]
+// Cycled per-step for the colored side tab — same accent trio used
+// elsewhere, just repurposed from a corner dot to the step tab.
+const tabAccentClasses = ["bg-brand-primary", "bg-brand-secondary", "bg-brand-accent"]
 
 interface EngineeringProcessProps {
   data: ProcessData
@@ -41,11 +39,10 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
       const cleanups: (() => void)[] = []
 
       // Cards fade/slide in, alternating left/right by position, as they
-      // scroll into view — a layout-agnostic version of the previous
-      // fixed 3-card left/bottom/right stagger, since the grid now wraps
-      // to a variable number of rows depending on viewport width.
+      // scroll into view — matches the alternating left/right staircase
+      // layout below.
       cards.forEach((card, index) => {
-        const from = index % 2 === 0 ? { x: -80, y: 0 } : { x: 80, y: 0 }
+        const from = index % 2 === 0 ? { x: -60, y: 0 } : { x: 60, y: 0 }
 
         gsap.fromTo(
           card,
@@ -68,7 +65,7 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
         // PrimaryButton's hover swap — the card itself moves on hover
         // instead of relying on a plain CSS transition.
         const onEnter = () =>
-          gsap.to(card, { y: -10, duration: 0.45, ease: "power3.out" })
+          gsap.to(card, { y: -8, duration: 0.45, ease: "power3.out" })
         const onLeave = () =>
           gsap.to(card, { y: 0, duration: 0.45, ease: "power3.out" })
 
@@ -83,9 +80,7 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
       // Only the manual mouseenter/mouseleave listeners need explicit
       // cleanup here — useGSAP's automatic gsap.context().revert() (scoped
       // to sectionRef) already tears down every tween/ScrollTrigger created
-      // above. A prior version of this also called
-      // `ScrollTrigger.getAll().forEach(t => t.kill())`, which kills every
-      // ScrollTrigger on the page, not just this component's own.
+      // above.
       return () => {
         cleanups.forEach((fn) => fn())
       }
@@ -99,20 +94,6 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
       ref={sectionRef}
       className="relative overflow-hidden bg-brand-dark py-20 sm:py-28"
     >
-      {/* <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 hidden h-64 w-64 opacity-40 sm:block"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      /> */}
-      {/* <span
-        aria-hidden="true"
-        className="pointer-events-none absolute top-24 left-13 hidden size-2 rounded-full bg-brand-accent sm:block"
-      /> */}
-
       <div className="relative mx-auto max-w-400 px-5 sm:px-8">
         <HeadingSection
           badge={data.badge}
@@ -121,82 +102,101 @@ export default function EngineeringProcess({ data }: EngineeringProcessProps) {
           link={{ label: "Let's Work Together", href: "/contact" }}
         />
 
-        <div className="relative mt-20">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-16 top-28 hidden border-t border-dashed border-white/15 lg:block"
-          >
-            <span className="absolute top-0 left-1/3 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500" />
-            <span className="absolute top-0 left-2/3 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500" />
-          </div>
+        {/* Staircase flow: steps alternate left/right down the page, each
+            one starting halfway down the previous one (50% overlap) and
+            connected to it by a dashed elbow arrow — inspired by a
+            reference "research → design → build → deliver" flow diagram. */}
+        <div ref={cardsRef} className="mx-auto mt-20 flex max-w-6xl flex-col">
+          {data.items.map((item, index) => {
+            const Icon = resolveIcon(item.icon)
+            const isLast = index === data.items.length - 1
+            const alignEnd = index % 2 === 1
 
-          <div ref={cardsRef} className="grid gap-6 sm:grid-cols-2 lg:gap-8 xl:grid-cols-4">
-            {data.items.map((item, index) => {
-              const Icon = resolveIcon(item.icon)
-
-              return (
+            return (
+              <div
+                key={item.title}
+                className={cn(
+                  "relative w-full lg:w-[46%]",
+                  alignEnd && "lg:self-end",
+                  index > 0 && "mt-10 lg:-mt-28"
+                )}
+              >
                 <div
-                  key={item.title}
                   data-process-card
-                  className="relative overflow-hidden rounded-2xl bg-surface-dark p-8"
+                  className="relative z-10 flex overflow-hidden rounded-3xl bg-surface-dark shadow-xl lg:min-h-56"
                 >
+                  {/* Step-number side tab */}
                   <div
-                    aria-hidden="true"
-                    className="absolute top-6 right-6 grid grid-cols-3 grid-rows-2 gap-1 opacity-90"
+                    className={cn(
+                      "flex w-12 shrink-0 items-center justify-center py-6 sm:w-14",
+                      tabAccentClasses[index % tabAccentClasses.length]
+                    )}
                   >
-                    <span
-                      className={cn(
-                        "col-start-2 row-start-1 size-3 rounded-[3px]",
-                        accentClasses[index % accentClasses.length]
-                      )}
-                    />
-                    <span
-                      className={cn(
-                        "col-start-3 row-start-1 size-3 rounded-[3px]",
-                        accentClasses[index % accentClasses.length]
-                      )}
-                    />
-                    <span
-                      className={cn(
-                        "col-start-1 row-start-2 size-3 rounded-[3px]",
-                        accentClasses[index % accentClasses.length]
-                      )}
-                    />
-                    <span
-                      className={cn(
-                        "col-start-2 row-start-2 size-3 rounded-[3px]",
-                        accentClasses[index % accentClasses.length]
-                      )}
-                    />
+                    <span className="[writing-mode:vertical-rl] text-xs font-semibold tracking-widest text-white sm:text-sm">
+                      STEP {String(index + 1).padStart(2, "0")}
+                    </span>
                   </div>
 
-                  <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white">
-                    <Icon className="size-3.5" />
-                    STEP : {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <h3 className="mt-6 text-2xl font-medium text-white">
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-4 text-sm leading-relaxed text-white/60 sm:text-base">
-                    {item.description}
-                  </p>
-
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/60"
-                      >
-                        {tag}
+                  <div className="flex-1 p-6 sm:p-8">
+                    <div className="flex items-center gap-3">
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
+                        <Icon className="size-4" />
                       </span>
-                    ))}
+                      <h3 className="text-xl font-medium text-white sm:text-2xl">
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    <p className="mt-4 text-sm leading-relaxed text-white/60 sm:text-base">
+                      {item.description}
+                    </p>
+
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {item.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/60"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              )
-            })}
-          </div>
+
+                {/* Dashed connector reaching toward the next step — a small
+                    node dot where it leaves this card, a dashed elbow, and
+                    an arrowhead where it meets the next one. */}
+                {!isLast && (
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 120 140"
+                    preserveAspectRatio="none"
+                    className={cn(
+                      "pointer-events-none absolute bottom-6 z-20 hidden h-36 w-32 text-primary/60 lg:block",
+                      alignEnd ? "left-2 -scale-x-100" : "right-2"
+                    )}
+                  >
+                    <circle cx="8" cy="8" r="4" fill="currentColor" />
+                    <path
+                      d="M8 12 V80 Q8 100 28 100 H100"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeDasharray="6 6"
+                    />
+                    <path
+                      d="M100 100 L91 93 M100 100 L91 107"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      fill="none"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                )}
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>

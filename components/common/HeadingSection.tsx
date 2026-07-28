@@ -70,7 +70,7 @@ export function HeadingSection({
         </Link>
       ) : (
         description && (
-          <p className="max-w-lg text-base leading-relaxed text-white/60 sm:text-lg">
+          <p className="max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
             {description}
           </p>
         )
