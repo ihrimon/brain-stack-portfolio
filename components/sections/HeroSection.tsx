@@ -1,7 +1,6 @@
 "use client"
 
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
-import { SectionDivider } from "@/components/common/SectionDivider"
 import { HeroStatsSection } from "@/components/sections/hero-panel/HeroStatsSection"
 import "@/lib/animations/gsap-animations"
 import { heroBannerData } from "@/lib/data/hero"
@@ -12,8 +11,6 @@ import dynamic from "next/dynamic"
 import Link from "next/link"
 import { useEffect, useRef, useState, type ReactNode } from "react"
 
-// How long each rotating headline stays on screen before crossfading to the
-// next one in heroBannerData.title.
 const TITLE_ROTATION_INTERVAL_MS = 5000
 
 /** Renders `title` with its `highlight` substring picked out in italic
@@ -198,7 +195,7 @@ export default function HeroSection() {
         <div className="mx-auto mt-20 flex w-full max-w-400 flex-1 flex-col justify-center px-4 py-32 sm:px-8">
           <h1
             ref={titleRef}
-            className="max-w-5xl text-5xl leading-[1.05] font-semibold capitalize tracking-tight text-white lg:text-[90px]"
+            className="max-w-5xl text-5xl leading-[1.05] font-semibold tracking-tight text-white capitalize lg:text-[90px]"
           >
             {renderTitle(
               heroBannerData.title[titleIndex],
@@ -216,7 +213,6 @@ export default function HeroSection() {
 
           {/* Hero Stats + CTA section */}
           <div className="mt-12 grid gap-12 pt-8 md:mt-16 lg:grid-cols-[1fr_1px_1.3fr] lg:items-stretch">
-
             {/* CTA Section */}
             <div className="order-1 flex flex-col items-start gap-8 lg:order-0">
               <p className="text-lg leading-relaxed text-white/70 sm:text-[22px]">
@@ -224,9 +220,9 @@ export default function HeroSection() {
               </p>
               {ctaRow}
             </div>
-            
+
             <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
-            
+
             <HeroStatsSection className="pointer-events-auto order-2 lg:order-0" />
           </div>
         </div>

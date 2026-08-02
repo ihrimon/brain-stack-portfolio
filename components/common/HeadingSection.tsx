@@ -27,7 +27,7 @@ interface HeadingSectionProps {
 }
 
 /** Shared badge + title (+ optional right-side link or description) row used
- * at the top of every homepage section — extracted from EngineeringProcess.tsx
+ * at the top of every homepage section and reused across layouts.
  * so the same layout doesn't get re-authored per section. */
 export function HeadingSection({
   badge,
@@ -48,7 +48,7 @@ export function HeadingSection({
 
       <h2
         ref={titleRef}
-        className="max-w-3xl text-3xl leading-tight font-medium tracking-tight capitalize text-white sm:text-4xl lg:text-5xl"
+        className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white capitalize sm:text-4xl lg:text-5xl"
       >
         {title}
       </h2>
@@ -57,7 +57,7 @@ export function HeadingSection({
         <Link
           href={link.href}
           data-cursor="magnetic"
-          className="group/link inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-primary lg:justify-self-end lg:self-end"
+          className="group/link inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-primary lg:self-end lg:justify-self-end"
         >
           {link.label}
           <Image

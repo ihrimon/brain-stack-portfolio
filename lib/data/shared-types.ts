@@ -58,6 +58,9 @@ export interface ProcessStep {
   items?: string[]
   icon?: IconName
   tags?: string[]
+  /** Short timeframe badge, e.g. "1-2 Weeks". Timeline-diagram usages only
+   *  (e.g. home's processData) — most ProcessStep consumers leave this unset. */
+  duration?: string
 }
 
 /**

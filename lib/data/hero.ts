@@ -1,6 +1,5 @@
 import type { ButtonLink } from "./shared-types"
 
-// Content brief: SECTION 1 — Hero (Homepage Top)
 export const heroBannerData = {
   badge: "Creative Design Agency",
 
@@ -21,11 +20,6 @@ export const heroBannerData = {
     label: "View our work",
     href: "/projects",
   } satisfies ButtonLink,
-
-  review: {
-    label: "Review on Clutch",
-    rating: 5,
-  },
 } as const
 
 export interface HeroWorkflowStep {

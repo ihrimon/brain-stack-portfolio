@@ -4,8 +4,8 @@ import { PrimaryButton } from "@/components/buttons/PrimaryButton"
 import { SectionBadge } from "@/components/common/SectionBadge"
 import "@/lib/animations/gsap-animations"
 import type { TeamMembersData } from "@/lib/data/about-page"
-import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { cn } from "@/lib/utils/cn"
+import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import Image from "next/image"
@@ -27,7 +27,11 @@ export default function TeamSection({ data }: TeamSectionProps) {
   )
 
   return (
-    <section id="team" ref={sectionRef} className="overflow-hidden bg-surface-dark py-20 sm:py-28">
+    <section
+      id="team"
+      ref={sectionRef}
+      className="overflow-hidden bg-surface-dark py-20 sm:py-28"
+    >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="grid gap-16 lg:grid-cols-[1fr_1.8fr] lg:items-center lg:gap-12">
           <div className="flex flex-col items-start gap-6">
@@ -52,7 +56,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
               </span>
             </h2>
 
-            <p className="max-w-sm text-base leading-relaxed text-white/60">
+            <p className="max-w-lg text-xl leading-relaxed text-white/60">
               {data.description}
             </p>
 
@@ -65,7 +69,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
                 key={member.name}
                 className={cn(
                   "group/photo relative aspect-4/5 overflow-hidden",
-                  index % 2 === 0 ? "bg-neutral-400" : "bg-neutral-700"
+                  index % 2 === 0 ? "bg-neutral-700" : "bg-neutral-800"
                 )}
               >
                 <Image

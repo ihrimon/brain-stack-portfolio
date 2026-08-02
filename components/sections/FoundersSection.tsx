@@ -62,7 +62,7 @@ export default function FoundersSection({ data }: FoundersSectionProps) {
                     <BookOpen className="size-4" />
                   </span>
                   <div>
-                    <p className="text-white">{member.skills.join(" · ")}</p>
+                    <p className="text-white text-sm">{member.skills.join(" · ")}</p>
                   </div>
                 </div>
 

@@ -27,7 +27,7 @@ const images = [
 ]
 
 export const blogsData = {
-  badge: "From our journal",
+  badge: "From Our Journal",
   title: "Thinking out loud.",
 
   posts: [
@@ -138,7 +138,10 @@ export const blogsData = {
         {
           type: "imageGrid",
           images: [
-            { src: images[0], alt: "Engineers pairing on an architecture diagram" },
+            {
+              src: images[0],
+              alt: "Engineers pairing on an architecture diagram",
+            },
             { src: images[3], alt: "Dashboard showing platform metrics" },
           ],
         },
@@ -465,7 +468,10 @@ export const blogsData = {
         },
         {
           type: "sideBySide",
-          image: { src: images[1], alt: "Discovery workshop notes on a whiteboard" },
+          image: {
+            src: images[1],
+            alt: "Discovery workshop notes on a whiteboard",
+          },
           text: "Discovery isn't a report nobody reads. It's the document every design and engineering decision gets checked against for the rest of the project.",
         },
       ] satisfies BlogContentBlock[],

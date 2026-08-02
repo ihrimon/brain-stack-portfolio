@@ -11,11 +11,12 @@ export const processData = {
 
   items: [
     {
-      icon: "Search" as IconName,
+      icon: "BrainCircuit" as IconName,
       title: "Discovery",
       description:
-        "We start with your business, not your brief. We ask what you're actually trying to solve, who uses it, and what success looks like in 90 days. We ask the straightforward questions before a line of code is written. Output: clear scope, tech recommendation, fixed timeline, and fixed price.",
+        "We start with your business, not your brief. We ask what you're actually trying to solve, who uses it, and what success looks like in 90 days. We ask the straightforward questions before a line of code is written.",
       tags: ["Scoping", "Fixed Price", "Fixed Timeline"],
+      duration: "1-2 Weeks",
     },
 
     {
@@ -24,6 +25,7 @@ export const processData = {
       description:
         "Before we build, we map. Wireframes, user flows, and architecture decisions get agreed here. You review and approve everything before development starts. No surprises halfway through.",
       tags: ["Wireframes", "User Flows", "Architecture"],
+      duration: "1-2 Weeks",
     },
 
     {
@@ -32,6 +34,7 @@ export const processData = {
       description:
         "Jakir leads engineering. We build in sprints with weekly check-ins so you always know where things stand. You get access to a staging environment throughout — not just a demo at the end.",
       tags: ["Sprints", "Weekly Check-ins", "Staging Access"],
+      duration: "4-8 Weeks",
     },
 
     {
@@ -40,6 +43,7 @@ export const processData = {
       description:
         "We handle deployment and monitor the first 72 hours live. We don't disappear at go-live. Most clients continue working with us after launch because the product still needs to grow — we offer ongoing support and iteration on a retainer or project basis.",
       tags: ["Deployment", "Monitoring", "Ongoing Support"],
+      duration: "Ongoing",
     },
   ] satisfies ProcessStep[],
 } as const

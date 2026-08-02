@@ -3,6 +3,7 @@ import type { ButtonLink, Testimonial } from "./shared-types"
 export interface ProjectChallenge {
   title: string | null
   description: string
+  label?: string
   painPoints: string[]
   businessImpact: string[]
 }
@@ -71,6 +72,7 @@ export interface PortfolioProject extends BaseProject {
 export interface CaseStudyProject extends BaseProject {
   kind: "case-study"
   goals: string[]
+  label: string
   workflow: ProjectWorkflowStep[]
   architecture: string[]
   features: string[]

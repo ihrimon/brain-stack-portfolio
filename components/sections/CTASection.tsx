@@ -104,7 +104,7 @@ export default function CTASection({ data }: CTASectionProps) {
               >
                 {data.title}
               </h2>
-              <p className="mt-6 max-w-md text-base leading-relaxed text-white/50 sm:text-xl">
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-white/50 sm:text-xl">
                 {data.description}
               </p>
             </div>

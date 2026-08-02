@@ -27,7 +27,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
-      <DrawerContent className="rounded-none! p-0">
+      <DrawerContent className="rounded-none! p-0 bg-surface-dark">
         <div className="flex h-full flex-col overflow-y-auto bg-background p-6 text-foreground">
           <DrawerHeader className="flex flex-row items-center justify-between border-b border-border px-0 pb-4">
             <Logo href={false} />
@@ -110,7 +110,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
             </section>
           </div>
 
-          <DrawerFooter className="mt-auto border-t border-border px-0">
+          {/* <DrawerFooter className="mt-auto border-t border-border px-0">
             <p className="mb-3 text-xs font-semibold tracking-wider text-label uppercase">
               Follow Us
             </p>
@@ -128,7 +128,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
                 </a>
               ))}
             </div>
-          </DrawerFooter>
+          </DrawerFooter> */}
         </div>
       </DrawerContent>
     </Drawer>

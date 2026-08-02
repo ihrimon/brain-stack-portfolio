@@ -1,56 +1,59 @@
-import { JsonLd } from "@/components/common/JsonLd"
-import BlogSection from "@/components/sections/BlogSection"
-import CTASection from "@/components/sections/CTASection"
-import EngineeringProcess from "@/components/sections/EngineeringProcess"
-import FaqSection from "@/components/sections/FaqSection"
-import FoundersSection from "@/components/sections/FoundersSection"
-import HeroSection from "@/components/sections/HeroSection"
-import ProjectsSection from "@/components/sections/ProjectsSection"
-import ProjectVideoSection from "@/components/sections/ProjectVideoSection"
-import TeamSection from "@/components/sections/TeamSection"
-import WhatWeDoSection from "@/components/sections/WhatWeDoSection"
-import WhoWeAreSection from "@/components/sections/WhoWeAreSection"
+// import { JsonLd } from "@/components/common/JsonLd"
 import { teamMembersData } from "@/lib/data/about-page"
 import { blogsData } from "@/lib/data/blog-page"
 import {
   ctaData,
   faqData,
   foundersData,
-  processData,
   projectVideoData,
   servicesData,
   whoWeAreData,
 } from "@/lib/data/home-page"
+import { processData } from "@/lib/data/process"
 import { projectsData } from "@/lib/data/projects"
 import { generatePageMetadata } from "@/lib/metadata"
-import { generateWebPageSchema } from "@/lib/structured-data"
+// import { generateWebPageSchema } from "@/lib/structured-data"
+import dynamic from "next/dynamic"
+const CTASection = dynamic(() => import("@/components/sections/CTASection"))
+const FoundersSection = dynamic(
+  () => import("@/components/sections/FoundersSection")
+)
+const WhatWeDoSection = dynamic(
+  () => import("@/components/sections/WhatWeDoSection")
+)
+const WhoWeAreSection = dynamic(
+  () => import("@/components/sections/WhoWeAreSection")
+)
+const HeroSection = dynamic(() => import("@/components/sections/HeroSection"))
+const BlogSection = dynamic(() => import("@/components/sections/BlogSection"))
+const FaqSection = dynamic(() => import("@/components/sections/FaqSection"))
+const HowWeWorkSection = dynamic(
+  () => import("@/components/sections/HowWeWorkSection")
+)
+const ProjectsSection = dynamic(
+  () => import("@/components/sections/ProjectsSection")
+)
+const ProjectVideoSection = dynamic(
+  () => import("@/components/sections/ProjectVideoSection")
+)
+const TeamSection = dynamic(() => import("@/components/sections/TeamSection"))
 
-// Data is sourced from the local lib/data/*.ts files below, not the Google
-// Sheets CMS — re-wire to lib/utils/sheets/* once updated sheet data is
-// ready to go live.
 export const metadata = generatePageMetadata("home")
 
 export default function HomePage() {
   return (
     <>
-      <JsonLd data={generateWebPageSchema("home")} />
+      {/* <JsonLd data={generateWebPageSchema("home")} /> */}
       <main id="main-content" role="main">
-        {/*
-          Hero and About share one background video: both are direct
-          children of this `relative` element so the video's `sticky`
-          layer (rendered by HeroSection) stays pinned for their combined
-          scroll height and releases exactly when About ends. See
-          HeroSection.tsx for the layer structure.
-        */}
         <div className="relative">
           <HeroSection />
         </div>
         <WhoWeAreSection data={whoWeAreData} />
-        <FoundersSection data={foundersData} />
         <ProjectVideoSection data={projectVideoData} />
-        <ProjectsSection projects={projectsData.projects} />
+        <FoundersSection data={foundersData} />
         <WhatWeDoSection data={servicesData} />
-        <EngineeringProcess data={processData} />
+        <ProjectsSection projects={projectsData.projects} />
+        <HowWeWorkSection data={processData} />
         <TeamSection data={teamMembersData} />
         <BlogSection posts={blogsData.posts} />
         <FaqSection data={faqData} />

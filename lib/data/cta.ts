@@ -6,7 +6,7 @@ import type { ButtonLink } from "./shared-types"
 export const ctaData = {
   title: "Let's Build Something Amazing Together",
   description:
-    "Tell us about your project. We'll respond within one business day with a clear, honest take on scope, timeline, and how we'd approach it.",
+    "Tell us what you're building and who it's for. We work best with founders and businesses in fintech, healthcare, SaaS, and regulated industries. We'll get back within 24 hours - honest assessment, no pitch, no obligation.",
   button: { label: "Book a Call", href: "/#contact" } satisfies ButtonLink,
 } as const
 
