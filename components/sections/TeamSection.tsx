@@ -41,19 +41,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
               ref={titleRef}
               className="text-4xl leading-tight font-bold text-white sm:text-5xl"
             >
-              <span
-                aria-hidden="true"
-                className="mr-1 align-top text-5xl leading-none text-primary sm:text-6xl"
-              >
-                &ldquo;
-              </span>
               {data.title}
-              <span
-                aria-hidden="true"
-                className="ml-1 align-top text-5xl leading-none text-primary sm:text-6xl"
-              >
-                &rdquo;
-              </span>
             </h2>
 
             <p className="max-w-lg text-xl leading-relaxed text-white/60">
@@ -68,7 +56,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
               <div
                 key={member.name}
                 className={cn(
-                  "group/photo relative aspect-4/5 overflow-hidden",
+                  "group/photo relative aspect-4/5 overflow-hidden border border-white/10",
                   index % 2 === 0 ? "bg-neutral-700" : "bg-neutral-800"
                 )}
               >
@@ -82,13 +70,18 @@ export default function TeamSection({ data }: TeamSectionProps) {
                   blurDataURL={BLUR_DATA_URL}
                 />
 
-                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-black/30 p-3 backdrop-blur-md">
-                  <span className="truncate text-sm font-semibold text-white sm:text-lg">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent"
+                />
+
+                <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                  <p className="truncate text-sm font-semibold text-white sm:text-base">
                     {member.name}
-                  </span>
-                  <span className="shrink-0 text-xs text-white/70 sm:text-sm">
+                  </p>
+                  <p className="mt-0.5 truncate text-xs font-medium tracking-wider text-white/60 uppercase">
                     {member.role}
-                  </span>
+                  </p>
                 </div>
               </div>
             ))}

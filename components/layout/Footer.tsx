@@ -113,7 +113,7 @@ export default function Footer() {
 
       <div className="relative z-10 max-w-full border-t border-white/10">
         <div className="mx-auto flex max-w-400 flex-col items-center justify-between gap-4 px-5 py-6 text-xs text-white/40 sm:flex-row sm:px-8">
-          <Logo variant="on-dark" />
+          <Logo variant="on-dark" className="text-white" />
           <p className="text-base">
             © {new Date().getFullYear()} Brain Stack Studio. All rights reserved.
           </p>

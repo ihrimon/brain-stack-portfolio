@@ -7,12 +7,22 @@ import type { FoundersData } from "@/lib/data/home-page"
 import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { BookOpen, Quote, User } from "lucide-react"
+import { BookOpen, Network, User } from "lucide-react"
 import Image from "next/image"
 import { useRef } from "react"
 
 interface FoundersSectionProps {
   data: FoundersData
+}
+
+// lucide-react ships no brand/logo icons, so the LinkedIn glyph is drawn
+// directly (path from the MIT-licensed simple-icons set).
+function LinkedinIcon({ className }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  )
 }
 
 export default function FoundersSection({ data }: FoundersSectionProps) {
@@ -56,6 +66,7 @@ export default function FoundersSection({ data }: FoundersSectionProps) {
                   {member.name}
                 </h3>
                 <p className="mt-4 text-sm text-white/70">{member.bio}</p>
+                <p className="mt-3 text-sm font-medium text-white/90">{member.shortBio}</p>
 
                 <div className="my-4 flex items-start gap-3 border-t border-white/10 pt-4">
                   <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -82,9 +93,9 @@ export default function FoundersSection({ data }: FoundersSectionProps) {
                     rel="me noopener noreferrer"
                     aria-label={`${member.name} on LinkedIn`}
                     data-cursor="magnetic"
-                    className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-white uppercase transition-colors hover:bg-primary-hover"
+                    className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary-hover"
                   >
-                    in
+                    <LinkedinIcon className="size-4.5" />
                   </a>
                 </div>
               </div>
@@ -110,7 +121,7 @@ export default function FoundersSection({ data }: FoundersSectionProps) {
 
         <blockquote className="mt-16 flex flex-col items-start justify-between gap-6 rounded-3xl text-left sm:flex-row sm:items-center">
           <div className="flex items-start gap-8 lg:gap-30">
-            <Quote
+            <Network
               aria-hidden="true"
               className="size-12 shrink-0 text-primary"
             />

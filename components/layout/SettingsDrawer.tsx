@@ -27,15 +27,15 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction="right">
-      <DrawerContent className="rounded-none! p-0 bg-surface-dark">
-        <div className="flex h-full flex-col overflow-y-auto bg-background p-6 text-foreground">
-          <DrawerHeader className="flex flex-row items-center justify-between border-b border-border px-0 pb-4">
-            <Logo href={false} />
+      <DrawerContent className="rounded-none! bg-surface-dark! before:bg-surface-dark! before:border-white/10 p-0 text-white">
+        <div className="flex h-full flex-col overflow-y-auto p-6 text-white">
+          <DrawerHeader className="flex flex-row items-center justify-between border-b border-white/10 px-0 pb-4">
+            <Logo href={false} className="text-white" variant="on-dark" />
             <DrawerClose asChild>
               <button
                 type="button"
                 aria-label="Close settings"
-                className="group flex size-12 cursor-pointer items-center justify-center rounded-full border border-border text-heading hover:bg-muted"
+                className="group flex size-12 cursor-pointer items-center justify-center rounded-full border border-white/10 text-white hover:bg-white/10"
               >
                 <X className="size-6 transition-transform duration-300 group-hover:rotate-90" />
               </button>
@@ -44,7 +44,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
 
           <div className="flex flex-col gap-8 py-6">
             <nav aria-label="Full site navigation">
-              <ul className="flex flex-col divide-y divide-border">
+              <ul className="flex flex-col divide-y divide-white/10">
                 {navigationData.map((item, index) => {
                   const isActive =
                     item.href === "/"
@@ -64,7 +64,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
                           <span
                             className={cn(
                               "text-xs font-medium",
-                              isActive ? "text-primary" : "text-label"
+                              isActive ? "text-primary" : "text-white/50"
                             )}
                           >
                             {String(index + 1).padStart(2, "0")}
@@ -73,7 +73,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
                             <span
                               className={cn(
                                 "block transition-transform duration-300 ease-out group-hover:-translate-y-full",
-                                isActive ? "text-primary" : "text-heading"
+                                isActive ? "text-primary" : "text-white"
                               )}
                             >
                               {item.name}
@@ -87,7 +87,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
                           </span>
                         </span>
 
-                        <ArrowUpRight className="size-5 -translate-x-2 text-label opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-primary group-hover:opacity-100" />
+                        <ArrowUpRight className="size-5 -translate-x-2 text-white/50 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-primary group-hover:opacity-100" />
                       </Link>
                     </li>
                   )
@@ -95,23 +95,23 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
               </ul>
             </nav>
 
-            {/* <section className="border-t border-border pt-6">
-              <h3 className="mb-3 text-xs font-semibold tracking-wider text-label uppercase">
+            {/* <section className="border-t border-white/10 pt-6">
+              <h3 className="mb-3 text-xs font-semibold tracking-wider text-white/50 uppercase">
                 Appearance
               </h3>
               <ThemeToggle />
             </section> */}
 
             <section>
-              <h3 className="mb-3 text-xs font-semibold tracking-wider text-label uppercase">
+              <h3 className="mb-3 text-xs font-semibold tracking-wider text-white/50 uppercase">
                 Theme Color
               </h3>
               <ColorPaletteSwitcher />
             </section>
           </div>
 
-          {/* <DrawerFooter className="mt-auto border-t border-border px-0">
-            <p className="mb-3 text-xs font-semibold tracking-wider text-label uppercase">
+          {/* <DrawerFooter className="mt-auto border-t border-white/10 px-0">
+            <p className="mb-3 text-xs font-semibold tracking-wider text-white/50 uppercase">
               Follow Us
             </p>
             <div className="flex gap-2">
@@ -122,7 +122,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
                   target="_blank"
                   rel="me noopener noreferrer"
                   aria-label={`Follow us on ${social.label}`}
-                  className="flex size-9 items-center justify-center rounded-full bg-muted text-xs font-semibold text-heading hover:bg-accent hover:text-accent-foreground"
+                  className="flex size-9 items-center justify-center rounded-full bg-white/10 text-xs font-semibold text-white hover:bg-accent hover:text-accent-foreground"
                 >
                   {social.glyph}
                 </a>
