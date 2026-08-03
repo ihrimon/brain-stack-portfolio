@@ -57,23 +57,32 @@ export default function FoundersSection({ data }: FoundersSectionProps) {
               className="flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-surface-dark xl:flex-row xl:items-stretch"
             >
               <div className="flex flex-1 flex-col p-6">
-                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80">
-                  <User className="size-3.5" />
-                  {member.title}
-                </span>
-
-                <h3 className="mt-4 text-3xl leading-tight font-bold text-white sm:text-3xl">
-                  {member.name}
-                </h3>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <h3 className="text-3xl leading-tight font-bold text-white sm:text-3xl">
+                    {member.name}
+                  </h3>
+                  <span className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80">
+                    <User className="size-3.5" />
+                    {member.title}
+                  </span>
+                </div>
                 <p className="mt-4 text-sm text-white/70">{member.bio}</p>
                 <p className="mt-3 text-sm font-medium text-white/90">{member.shortBio}</p>
 
-                <div className="my-4 flex items-start gap-3 border-t border-white/10 pt-4">
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <BookOpen className="size-4" />
-                  </span>
-                  <div>
-                    <p className="text-white text-sm">{member.skills.join(" · ")}</p>
+                <div className="my-4 border-t border-white/10 pt-4">
+                  <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-white/50 uppercase">
+                    <BookOpen className="size-3.5 text-primary" />
+                    Core Skills
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {member.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-medium text-white/90"
+                      >
+                        {skill}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
@@ -100,7 +109,7 @@ export default function FoundersSection({ data }: FoundersSectionProps) {
                 </div>
               </div>
 
-              <div className="relative aspect-square w-full shrink-0 p-4 sm:p-6 xl:aspect-auto xl:w-80">
+              <div className="relative aspect-square w-full shrink-0 p-4 sm:p-6 xl:aspect-auto xl:w-84">
                 <div className="relative h-full w-full overflow-hidden rounded-xl border border-white/10 ">
                   <div className="relative h-full w-full overflow-hidden rounded-xl">
                     <Image
@@ -108,7 +117,7 @@ export default function FoundersSection({ data }: FoundersSectionProps) {
                       alt={member.name}
                       fill
                       className="object-cover"
-                      sizes="(min-width: 1024px) 384px, 100vw"
+                      sizes="(min-width: 1024px) 336px, 100vw"
                       placeholder="blur"
                       blurDataURL={BLUR_DATA_URL}
                     />
