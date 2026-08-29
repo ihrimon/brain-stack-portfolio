@@ -35,3 +35,6 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# internal-only review notes (not for GitHub)
+docs/PROJECT-REVIEW-BN.md

@@ -15,8 +15,8 @@ import {
 } from "lucide-react"
 
 /**
- * Maps a Sheets-friendly icon name string (e.g. "Blocks") to its Lucide
- * component. Add new icons here as data files reference them.
+ * Maps an icon name string (e.g. "Blocks") to its Lucide component.
+ * Add new icons here as data files reference them.
  */
 const ICON_MAP: Record<string, LucideIcon> = {
   Blocks,

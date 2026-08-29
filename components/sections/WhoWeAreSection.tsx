@@ -59,11 +59,8 @@ export default function WhoWeAreSection({ data }: WhoWeAreSectionProps) {
             className="max-w-2xl space-y-4 text-lg leading-relaxed text-white/70"
           >
             {/* `description` is normally an array of paragraphs (see
-                lib/data/home-page.ts), but this section's data can also
-                arrive from the Google Sheets CMS (see
-                lib/utils/sheets/home.ts), which may still hold an older
-                single-string value until that sheet cell is updated to
-                match — coerce defensively so either shape renders. */}
+                lib/data/home-page.ts) — coerce defensively in case a single
+                string is ever passed instead. */}
             {(Array.isArray(data.description)
               ? data.description
               : [data.description]

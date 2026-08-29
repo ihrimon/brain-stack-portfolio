@@ -24,8 +24,8 @@ const WEBSITE_ID = `${siteConfig.url}/#website`
 
 /**
  * schema.org `image`/`logo` fields require absolute URLs. Every image in
- * this app is either an already-absolute Sheets-supplied URL (Cloudinary,
- * ibb.co) or a local `/images/...` path — this resolves either to a full URL.
+ * this app is either an already-absolute remote URL (Cloudinary, ibb.co)
+ * or a local `/images/...` path — this resolves either to a full URL.
  */
 function toAbsoluteUrl(path: string): string {
   if (/^https?:\/\//.test(path)) return path

@@ -1,8 +1,7 @@
 /**
  * Shared shapes reused across every page's data file (home, about, service,
- * projects, blog). Keeping these in one place is what lets a single Google
- * Sheet column convention (plain cell vs JSON-in-cell) apply consistently
- * across HomeSheet / AboutSheet / ServicesSheet / ProjectsSheet / BlogSheet.
+ * projects, blog). Keeping these in one place lets equivalent concepts
+ * (a stat, a testimonial, a section header) stay consistent across pages.
  */
 
 export interface ButtonLink {
@@ -110,12 +109,7 @@ export interface ServiceOffering {
   order?: number
 }
 
-/**
- * A single question/answer pair. Not consumed by any section yet — no FAQ
- * section exists in the app today — but proposed ahead of the first one so
- * it launches consistent with the rest of the data layer instead of as a
- * one-off shape (see docs/data-architecture.md).
- */
+/** A single question/answer pair, used by the homepage FAQ section. */
 export interface FAQItem {
   question: string
   answer: string

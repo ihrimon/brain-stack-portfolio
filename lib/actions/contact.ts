@@ -116,10 +116,8 @@ function buildEmailHtml(params: {
 /**
  * Validates and delivers a contact-form submission by email via Gmail SMTP
  * (nodemailer), authenticated with GMAIL_USER / GMAIL_APP_PASSWORD (see
- * .env.local). GMAIL_USER currently points at a testing inbox
- * (ihrimon147@gmail.com) and doubles as the delivery address — swapping it
- * to the real business inbox later is a credentials-only change, no code
- * change needed.
+ * .env.local). GMAIL_USER doubles as the delivery address — swapping either
+ * is a credentials-only change, no code change needed.
  */
 export async function submitContactForm(
   _prevState: ContactFormState,

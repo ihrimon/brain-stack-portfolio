@@ -4,7 +4,7 @@
  * `priority` (team/testimonial/blog/project images). Next's built-in
  * blur-generation only works for local static imports — every image in
  * this app is a runtime string (local `/images/...` path or a remote
- * Sheets-supplied URL), so it can't be auto-generated. A flat placeholder
+ * URL), so it can't be auto-generated. A flat placeholder
  * matching the site's dark surfaces (`neutral-900`, #18181b) is a
  * deliberately simple stand-in: it avoids a jarring flash while the real
  * image loads without needing a per-image generated placeholder.
