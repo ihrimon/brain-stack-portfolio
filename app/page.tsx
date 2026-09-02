@@ -25,6 +25,13 @@ import { projectsData } from "@/lib/data/projects"
 import { generatePageMetadata } from "@/lib/metadata"
 import { generateWebPageSchema } from "@/lib/structured-data"
 
+// All content is imported directly from lib/data/*.ts (no fetch, no ISR) —
+// `force-static` makes that a build-time guarantee rather than an implicit
+// side effect of "nothing dynamic happens to be used yet": if a dynamic API
+// (cookies, headers, a per-request fetch) is ever accidentally introduced,
+// the build fails here instead of silently making the route dynamic.
+export const dynamic = "force-static"
+
 export const metadata = generatePageMetadata("home")
 
 export default function HomePage() {

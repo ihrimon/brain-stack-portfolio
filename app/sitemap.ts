@@ -18,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
     url: `${siteConfig.url}/projects/${project.slug}`,
+    // `date` is a bare year ("2024") on most entries, or null on a few —
+    // `new Date("2024")` parses fine; omit `lastModified` entirely when
+    // there's nothing to parse rather than falling back to `new Date()`
+    // (which would incorrectly claim every undated project was just
+    // modified today, on every build).
+    ...(project.date ? { lastModified: new Date(project.date) } : {}),
     changeFrequency: "monthly",
     priority: 0.6,
   }))

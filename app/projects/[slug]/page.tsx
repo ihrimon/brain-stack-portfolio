@@ -10,6 +10,10 @@ interface ProjectPageProps {
   params: Promise<{ slug: string }>
 }
 
+// See app/page.tsx for why this is explicit rather than implicit — same
+// reasoning applies here alongside generateStaticParams below.
+export const dynamic = "force-static"
+
 export function generateStaticParams() {
   return projectsData.projects.map((project) => ({ slug: project.slug }))
 }

@@ -14,6 +14,9 @@ import {
 import { generatePageMetadata } from "@/lib/metadata"
 import { generateWebPageSchema } from "@/lib/structured-data"
 
+// See app/page.tsx for why this is explicit rather than implicit.
+export const dynamic = "force-static"
+
 export const metadata = generatePageMetadata("services")
 
 export default function ServicesPage() {

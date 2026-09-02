@@ -10,6 +10,10 @@ interface BlogPostPageProps {
   params: Promise<{ slug: string }>
 }
 
+// See app/page.tsx for why this is explicit rather than implicit — same
+// reasoning applies here alongside generateStaticParams below.
+export const dynamic = "force-static"
+
 export function generateStaticParams() {
   return blogsData.posts.map((post) => ({ slug: post.slug }))
 }

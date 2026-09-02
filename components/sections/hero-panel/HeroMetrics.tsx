@@ -1,6 +1,6 @@
 "use client"
 
-import type { HeroMetricsData } from "@/lib/data/hero-panel"
+import type { HeroMetricsData } from "@/lib/data/hero"
 import { cn } from "@/lib/utils/cn"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
