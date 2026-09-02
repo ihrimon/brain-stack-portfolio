@@ -31,6 +31,12 @@ export function ProjectInfo({
     >
       <div className="flex flex-col items-start gap-3 lg:flex-row lg:items-end lg:justify-between lg:gap-4">
         <div className="min-w-0">
+          <div className="mb-2 flex flex-wrap items-center gap-2">
+            <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-white/60 uppercase">
+              {category}
+            </span>
+            {year && <span className="text-xs text-white/40">{year}</span>}
+          </div>
           <h3 className="line-clamp-2 text-base font-medium text-white/85 sm:text-xl lg:text-2xl">
             {label}
           </h3>

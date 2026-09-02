@@ -256,7 +256,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                     {project.tools.map((tool) => (
                       <span
                         key={tool}
-                        className="rounded-full border border-neutral-200 px-3 py-1 text-xs font-medium text-neutral-600 dark:border-white/10 dark:text-white/70"
+                        className="rounded-full border border-neutral-200 px-3 py-1 text-xs font-medium text-neutral-600"
                       >
                         {tool}
                       </span>
@@ -345,7 +345,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
               {caseStudy.developmentProcess.map((stage, index) => (
                 <div
                   key={stage}
-                  className="flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium dark:border-white/10"
+                  className="flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium"
                 >
                   <span className="text-xs text-neutral-400">
                     {String(index + 1).padStart(2, "0")}
@@ -428,7 +428,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                     {(Object.keys(caseStudy.metrics) as Array<keyof ProjectMetrics>).map((key) => (
                       <div
                         key={key}
-                        className="rounded-2xl border border-neutral-200 p-5 dark:border-white/10"
+                        className="rounded-2xl border border-neutral-200 p-5"
                       >
                         <span className="text-2xl font-semibold">{caseStudy.metrics[key]}</span>
                         <p className="mt-1 text-xs tracking-widest text-neutral-400 uppercase">
@@ -581,7 +581,7 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                 <Link
                   key={item.slug}
                   href={`/projects/${item.slug}`}
-                  className="group/related block overflow-hidden rounded-2xl border border-neutral-200 dark:border-white/10"
+                  className="group/related block overflow-hidden rounded-2xl border border-neutral-200"
                   data-cursor="magnetic"
                 >
                   <div className="relative aspect-16/9 overflow-hidden">

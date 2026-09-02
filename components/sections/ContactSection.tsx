@@ -24,7 +24,7 @@ export default function ContactSection() {
       className="bg-brand-dark pt-32 pb-12 sm:pt-30"
     >
       <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="flex items-end justify-between">
+        <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
           <h2
             ref={titleRef}
             className="mt-8 max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-6xl"
@@ -34,7 +34,7 @@ export default function ContactSection() {
 
           <p
             ref={descRef}
-            className="mt-6 max-w-xl text-2xl leading-relaxed text-white/70"
+            className="max-w-xl text-xl leading-relaxed text-white/70 sm:text-2xl"
           >
             Tell us what you&apos;re building and who it&apos;s for. We work
             best with founders and businesses in fintech, healthcare, SaaS,

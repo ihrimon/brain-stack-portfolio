@@ -2,18 +2,15 @@
 
 import { ColorPaletteSwitcher } from "@/components/common/ColorPaletteSwitcher"
 import { Logo } from "@/components/common/Logo"
-import { ThemeToggle } from "@/components/common/ThemeToggle"
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
 } from "@/components/ui/drawer"
-import { contactData } from "@/lib/constants/contact"
 import { navigationData } from "@/lib/constants/navigation"
 import { cn } from "@/lib/utils/cn"
-import { ArrowUpRight, Mail, MapPin, Phone, X } from "lucide-react"
+import { ArrowUpRight, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -94,13 +91,6 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
                 })}
               </ul>
             </nav>
-
-            {/* <section className="border-t border-white/10 pt-6">
-              <h3 className="mb-3 text-xs font-semibold tracking-wider text-white/50 uppercase">
-                Appearance
-              </h3>
-              <ThemeToggle />
-            </section> */}
 
             <section>
               <h3 className="mb-3 text-xs font-semibold tracking-wider text-white/50 uppercase">

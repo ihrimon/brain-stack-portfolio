@@ -1,25 +1,27 @@
 "use client"
 
+import { FieldError, fieldClassName } from "@/components/shared/form-field"
+import { submitContactForm, type ContactFormState } from "@/lib/actions/contact"
 import { contactData } from "@/lib/constants/contact"
 import type { AboutInquiryData } from "@/lib/data/about-page"
 import { ArrowUpRight, ChevronDown } from "lucide-react"
-import { useState, type FormEvent } from "react"
+import { useActionState, useEffect, useRef } from "react"
 
-const fieldClassName =
-  "w-full border-b border-white/15 bg-transparent py-3 text-white placeholder:text-white/30 outline-none transition-colors duration-300 focus:border-white/50"
+const initialState: ContactFormState = { status: "idle" }
 
 interface ProjectInquiryProps {
   inquiry: AboutInquiryData
 }
 
 export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
-  const [submitted, setSubmitted] = useState(false)
+  const [state, formAction, isPending] = useActionState(submitContactForm, initialState)
+  const formRef = useRef<HTMLFormElement>(null)
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setSubmitted(true)
-    event.currentTarget.reset()
-  }
+  useEffect(() => {
+    if (state.status === "success") {
+      formRef.current?.reset()
+    }
+  }, [state.status])
 
   return (
     <section className="bg-brand-dark py-20 sm:py-28">
@@ -41,7 +43,7 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
               <div className="mt-6 space-y-1 text-white/50">
                 <a
                   href={`mailto:${contactData.email}`}
-                  className="block hover:text-white"
+                  className="block wrap-break-word hover:text-white"
                 >
                   {contactData.email}
                 </a>
@@ -72,7 +74,9 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
           </div>
 
           <form
-            onSubmit={handleSubmit}
+            ref={formRef}
+            action={formAction}
+            noValidate
             className="rounded-3xl bg-white/5 p-8 sm:p-10"
           >
             <div>
@@ -84,8 +88,10 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
                 type="text"
                 name="name"
                 placeholder="Your full name"
+                aria-invalid={Boolean(state.fieldErrors?.name)}
                 className={fieldClassName}
               />
+              <FieldError message={state.fieldErrors?.name} />
             </div>
 
             <div className="mt-8 grid gap-8 sm:grid-cols-2">
@@ -98,8 +104,10 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
                   type="text"
                   name="company"
                   placeholder="Ex. Tesla Inc"
+                  aria-invalid={Boolean(state.fieldErrors?.company)}
                   className={fieldClassName}
                 />
+                <FieldError message={state.fieldErrors?.company} />
               </div>
 
               <div>
@@ -111,8 +119,10 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
                   type="email"
                   name="email"
                   placeholder="your@example.com"
+                  aria-invalid={Boolean(state.fieldErrors?.email)}
                   className={fieldClassName}
                 />
+                <FieldError message={state.fieldErrors?.email} />
               </div>
             </div>
 
@@ -124,7 +134,7 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
                 <div className="relative">
                   <select
                     required
-                    name="service"
+                    name="services"
                     defaultValue=""
                     className={`${fieldClassName} appearance-none pr-8`}
                   >
@@ -183,22 +193,35 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
                 name="message"
                 rows={3}
                 placeholder="Tell us more about your idea"
+                aria-invalid={Boolean(state.fieldErrors?.message)}
                 className={`${fieldClassName} resize-none`}
               />
+              <FieldError message={state.fieldErrors?.message} />
             </div>
 
             <button
               type="submit"
+              disabled={isPending}
               data-cursor="magnetic"
-              className="mt-10 w-full cursor-pointer rounded-full bg-white py-4 text-sm font-semibold tracking-widest text-black uppercase transition-colors duration-300 hover:bg-white/90"
+              className="mt-10 w-full cursor-pointer rounded-full bg-white py-4 text-sm font-semibold tracking-widest text-black uppercase transition-colors duration-300 hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {submitted ? "Message Sent" : "Send Inquiry"}
+              {isPending
+                ? "Sending..."
+                : state.status === "success"
+                  ? "Message Sent"
+                  : "Send Inquiry"}
             </button>
 
-            {submitted && (
+            {state.status === "success" && (
               <p className="mt-4 text-center text-sm text-white/50">
                 Thanks for reaching out — we&apos;ll get back to you within one
                 business day.
+              </p>
+            )}
+
+            {state.status === "error" && state.message && (
+              <p role="alert" className="mt-4 text-center text-sm text-red-400">
+                {state.message}
               </p>
             )}
           </form>

@@ -5,5 +5,3 @@ export const colorPalettes = [
   { name: "Orange", primary: "#ea580c", secondary: "#f97316", accent: "#fb923c" },
   { name: "Rose", primary: "#e11d48", secondary: "#f43f5e", accent: "#fb7185" },
 ] as const
-
-export type ColorPalette = (typeof colorPalettes)[number]

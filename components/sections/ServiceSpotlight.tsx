@@ -13,7 +13,7 @@ interface ServiceSpotlightProps {
 export default function ServiceSpotlight({ spotlight }: ServiceSpotlightProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
-  const [index] = useState(0)
+  const [index, setIndex] = useState(0)
   const current = spotlight[index]
 
   useGSAP(
@@ -36,7 +36,32 @@ export default function ServiceSpotlight({ spotlight }: ServiceSpotlightProps) {
         <h1 className="max-w-3xl text-4xl leading-[0.95] font-medium tracking-tight text-white uppercase sm:text-6xl md:text-6xl">
           {current.title}
         </h1>
-        <div className="mt-16 border-t border-white/10 sm:mt-20" />
+
+        <div
+          role="tablist"
+          aria-label="Service spotlight"
+          className="mt-8 flex flex-wrap gap-3"
+        >
+          {spotlight.map((item, itemIndex) => (
+            <button
+              key={item.title}
+              type="button"
+              role="tab"
+              aria-selected={itemIndex === index}
+              onClick={() => setIndex(itemIndex)}
+              data-cursor="magnetic"
+              className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-300 ${
+                itemIndex === index
+                  ? "border-white bg-white text-black"
+                  : "border-white/20 text-white/70 hover:border-white/40 hover:text-white"
+              }`}
+            >
+              {item.title}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-8 border-t border-white/10 sm:mt-10" />
 
         <div
           ref={contentRef}

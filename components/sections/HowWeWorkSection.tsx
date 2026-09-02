@@ -206,6 +206,12 @@ export default function HowWeWorkSection({ data }: HowWeWorkSectionProps) {
                     </span>
                   </div>
 
+                  {item.duration && (
+                    <p className="mt-3 text-xs font-medium tracking-widest text-white/40 uppercase">
+                      {item.duration}
+                    </p>
+                  )}
+
                   <p className="mt-4 text-sm leading-relaxed text-white/60 sm:text-base">
                     {item.description}
                   </p>

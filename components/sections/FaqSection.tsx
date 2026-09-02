@@ -1,6 +1,6 @@
 "use client"
 
-import { SectionBadge } from "@/components/common/SectionBadge"
+import { HeadingSection } from "@/components/common/HeadingSection"
 import "@/lib/animations/gsap-animations"
 import type { FaqData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
@@ -9,7 +9,6 @@ import { AnimatePresence, motion } from "framer-motion"
 import gsap from "gsap"
 import { ChevronDown } from "lucide-react"
 import { useId, useRef, useState } from "react"
-import { HeadingSection } from '../common/HeadingSection'
 
 interface FaqSectionProps {
   data: FaqData

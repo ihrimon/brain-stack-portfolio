@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 /* Registering these as typed custom properties is what lets a CSS
    `transition` on `--x`/`--y` interpolate them smoothly — untyped custom
    properties can only ever jump instantly, no matter what `transition`

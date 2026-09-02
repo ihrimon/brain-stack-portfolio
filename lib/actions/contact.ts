@@ -1,28 +1,20 @@
 "use server"
 
 import { MAX_ATTACHMENT_BYTES } from "@/lib/constants/contact"
+import { siteConfig } from "@/lib/metadata"
+import { formatBytes } from "@/lib/utils/format-bytes"
 import nodemailer from "nodemailer"
 
 export interface ContactFormState {
   status: "idle" | "success" | "error"
   message?: string
-  fieldErrors?: Partial<Record<"name" | "email" | "message" | "attachment", string>>
+  fieldErrors?: Partial<
+    Record<"name" | "email" | "message" | "attachment" | "company", string>
+  >
 }
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
-
-function formatBytes(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`
-  const units = ["KB", "MB", "GB"]
-  let value = bytes / 1024
-  let unitIndex = 0
-  while (value >= 1024 && unitIndex < units.length - 1) {
-    value /= 1024
-    unitIndex++
-  }
-  return `${value.toFixed(1)} ${units[unitIndex]}`
 }
 
 // Lazily created once per warm server instance and reused across
@@ -54,15 +46,17 @@ function escapeHtml(value: string): string {
 function buildEmailHtml(params: {
   name: string
   email: string
+  company: string | null
   budget: string
   services: string
   message: string
   attachmentSummary: string | null
 }): string {
-  const { name, email, budget, services, message, attachmentSummary } = params
+  const { name, email, company, budget, services, message, attachmentSummary } = params
 
   const detailRows = [
     ["Name", name],
+    ...(company ? [["Company", company]] : []),
     ["Email", email],
     ["Budget", budget],
     ["Services", services],
@@ -105,7 +99,7 @@ function buildEmailHtml(params: {
 
         <div style="padding: 16px 28px; background-color: #f8f8fa; border-top: 1px solid #f0f0f3;">
           <p style="margin: 0; font-size: 12px; color: #9a9aa3;">
-            Sent from the contact form at brainstackstudio.netlify.app — reply to this email to respond directly to ${escapeHtml(email)}.
+            Sent from the contact form at ${siteConfig.url.replace(/^https?:\/\//, "")} — reply to this email to respond directly to ${escapeHtml(email)}.
           </p>
         </div>
       </div>
@@ -118,24 +112,15 @@ function buildEmailHtml(params: {
  * (nodemailer), authenticated with GMAIL_USER / GMAIL_APP_PASSWORD (see
  * .env.local). GMAIL_USER doubles as the delivery address — swapping either
  * is a credentials-only change, no code change needed.
+ *
+ * Deliberately no spam protection (honeypot) or rate limiting here — plain
+ * "fill the form, get an email" functionality by design for now. Revisit
+ * when spam becomes an actual problem, not preemptively.
  */
 export async function submitContactForm(
   _prevState: ContactFormState,
   formData: FormData
 ): Promise<ContactFormState> {
-  // Honeypot: real users never see or fill this field (kept off-screen,
-  // out of the tab order, and named/tagged to be ignored by autofill and
-  // password-manager extensions — see the matching input in
-  // ContactForm.tsx). A bot that fills every field on the page will fill
-  // this one too — silently accept without doing anything.
-  const honeypot = String(formData.get("hp_check") ?? "").trim()
-  if (honeypot) {
-    console.log(
-      `[contact] Honeypot field was filled ("${honeypot}") — treating as bot, not delivering.`
-    )
-    return { status: "success" }
-  }
-
   const name = String(formData.get("name") ?? "").trim()
   const email = String(formData.get("email") ?? "").trim()
   const message = String(formData.get("message") ?? "").trim()
@@ -144,19 +129,19 @@ export async function submitContactForm(
   const attachment = formData.get("attachment")
   const hasAttachment = attachment instanceof File && attachment.size > 0
 
-  console.log("[contact] Form submission received:", {
-    name,
-    email,
-    message,
-    budget: budget || null,
-    services,
-    attachment: hasAttachment
-      ? {
-          name: (attachment as File).name,
-          size: formatBytes((attachment as File).size),
-          type: (attachment as File).type || "unknown",
-        }
-      : null,
+  // Only the About page's project-inquiry form submits a "company" field —
+  // the main contact form doesn't collect one. `formData.has` distinguishes
+  // "field wasn't submitted at all" from "field was submitted empty", so
+  // the main contact form's submissions aren't affected by this validation.
+  const companyFieldSubmitted = formData.has("company")
+  const company = String(formData.get("company") ?? "").trim()
+
+  // Deliberately no name/email/message content here — a submission's PII
+  // shouldn't sit in server logs indefinitely. This line just confirms a
+  // submission was received, for debugging delivery failures.
+  console.log("[contact] Form submission received", {
+    hasAttachment,
+    servicesCount: services.length,
   })
 
   const fieldErrors: NonNullable<ContactFormState["fieldErrors"]> = {}
@@ -166,6 +151,9 @@ export async function submitContactForm(
   }
   if (!message || message.length < 10) {
     fieldErrors.message = "Tell us a little more about your project (at least 10 characters)."
+  }
+  if (companyFieldSubmitted && !company) {
+    fieldErrors.company = "Please enter your company name."
   }
   if (hasAttachment && (attachment as File).size > MAX_ATTACHMENT_BYTES) {
     fieldErrors.attachment = `That file is too large — please attach something under ${formatBytes(MAX_ATTACHMENT_BYTES)}.`
@@ -213,6 +201,7 @@ export async function submitContactForm(
       subject: `New project inquiry from ${name}`,
       text: [
         `Name: ${name}`,
+        ...(company ? [`Company: ${company}`] : []),
         `Email: ${email}`,
         `Budget: ${budgetText}`,
         `Services: ${servicesText}`,
@@ -224,6 +213,7 @@ export async function submitContactForm(
       html: buildEmailHtml({
         name,
         email,
+        company: company || null,
         budget: budgetText,
         services: servicesText,
         message,

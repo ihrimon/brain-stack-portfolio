@@ -31,18 +31,6 @@ export interface Testimonial {
 export type IconName = string
 
 /**
- * Standard section intro — badge/title/description recur identically across
- * almost every section file. Section data types can spread/extend this
- * instead of redeclaring the same three fields with slightly different
- * optionality each time.
- */
-export interface SectionHeader {
-  badge?: string
-  title: string
-  description?: string
-}
-
-/**
  * One ordered stage in any "how it works" / "our process" / "our approach"
  * section. Unifies what used to be three incompatible shapes:
  * aboutApproachData's `{title, items}`, serviceProcessData's
@@ -60,20 +48,6 @@ export interface ProcessStep {
   /** Short timeframe badge, e.g. "1-2 Weeks". Timeline-diagram usages only
    *  (e.g. home's processData) — most ProcessStep consumers leave this unset. */
   duration?: string
-}
-
-/**
- * One card in any feature/benefit grid (e.g. whyChooseUsData). One shape,
- * optional fields let each usage populate only what it needs.
- */
-export interface FeatureCard {
-  icon?: IconName
-  image?: string
-  title: string
-  description?: string
-  items?: string[]
-  metric?: string
-  metricLabel?: string
 }
 
 /**
@@ -107,10 +81,4 @@ export interface ServiceOffering {
   buttonHref?: string
   featured?: boolean
   order?: number
-}
-
-/** A single question/answer pair, used by the homepage FAQ section. */
-export interface FAQItem {
-  question: string
-  answer: string
 }

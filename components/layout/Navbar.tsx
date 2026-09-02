@@ -61,22 +61,20 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <ul
               className={cn(
-                "hidden h-14 items-center gap-1 rounded-full bg-transparent px-4 py-2 transition-all duration-500 ease-out lg:flex dark:border-white/15",
+                "hidden h-14 items-center gap-1 rounded-full bg-transparent px-4 py-2 transition-all duration-500 ease-out lg:flex",
                 scrolledPastHero
                   ? "pointer-events-none origin-right scale-50 opacity-0"
                   : "origin-right scale-100 opacity-100"
               )}
-              role="menubar"
-              aria-label="Main navigation menu"
+              aria-label="Main navigation"
               aria-hidden={scrolledPastHero}
             >
               {primaryNavigationData.map((item) => {
                 const isActive = pathname.startsWith(item.href)
                 return (
-                  <li key={item.name} role="none">
+                  <li key={item.name}>
                     <Link
                       href={item.href}
-                      role="menuitem"
                       className={cn(
                         "group block rounded-full px-3 py-2 font-semibold text-lg transition-colors duration-300",
                         isActive
@@ -108,7 +106,7 @@ export function Navbar() {
               className={cn(
                 "group flex size-14 shrink-0 cursor-pointer flex-col items-center justify-center gap-1.5 p-2 rounded-full transition-colors duration-300",
                 scrolledPastHero
-                  ? "border border-white/15 bg-surface-dark/90 backdrop-blur dark:bg-white/5 hover:dark:bg-white/10"
+                  ? "border border-white/15 bg-surface-dark/90 backdrop-blur"
                   : "bg-transparent"
               )}
               aria-label="Open menu"

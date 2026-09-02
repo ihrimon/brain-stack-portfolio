@@ -13,9 +13,11 @@ The official marketing site for **Brain Stack**, a full-stack software studio bu
 
 ## Getting started
 
+This project uses **pnpm** exclusively — `pnpm-lock.yaml` is the source of truth for dependency versions; don't run `npm install` (it would create a second, conflicting lockfile).
+
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 The site runs at `http://localhost:3000` immediately — no environment setup is required to start developing. Every page's content lives in `lib/data/*.ts`.
@@ -24,12 +26,12 @@ The site runs at `http://localhost:3000` immediately — no environment setup is
 
 | Command | Does |
 |---|---|
-| `npm run dev` | Start the dev server (Turbopack) |
-| `npm run build` | Production build |
-| `npm run start` | Serve a production build (`build` first) |
-| `npm run lint` | ESLint |
-| `npm run format` | Prettier, writes in place |
-| `npm run typecheck` | `tsc --noEmit` |
+| `pnpm dev` | Start the dev server (Turbopack) |
+| `pnpm build` | Production build |
+| `pnpm start` | Serve a production build (`build` first) |
+| `pnpm lint` | ESLint |
+| `pnpm format` | Prettier, writes in place |
+| `pnpm typecheck` | `tsc --noEmit` |
 
 ## Project structure
 
@@ -47,25 +49,6 @@ Full folder-by-folder review: [`docs/folder-structure.md`](docs/folder-structure
 ## Content
 
 Every page's content (Home, About, Services, Blog, Projects) is authored directly in `lib/data/*.ts` — no external CMS or spreadsheet integration is involved. Edit the relevant file and the change is live on the next request (ISR, `revalidate = 300`).
-
-## Documentation
-
-This project is documented in depth under [`docs/`](docs/):
-
-| Document | Covers |
-|---|---|
-| [`project-overview.md`](docs/project-overview.md) | Request-to-pixels flow, the "add a new page" pattern — start here |
-| [`folder-structure.md`](docs/folder-structure.md) | Every folder, why it exists, what belongs where |
-| [`coding-guidelines.md`](docs/coding-guidelines.md) | Naming, imports, the data-layer schema convention |
-| [`component-guidelines.md`](docs/component-guidelines.md) | Where a new component goes, the standard section template, when (not) to extract a shared component |
-| [`rendering-strategy.md`](docs/rendering-strategy.md) | SSG/ISR decisions per route, and why |
-| [`seo-strategy.md`](docs/seo-strategy.md) | Metadata, sitemap, structured data |
-| [`performance-guide.md`](docs/performance-guide.md) | Images, bundle size, error handling, accessibility |
-| [`deployment-checklist.md`](docs/deployment-checklist.md) | Pre-launch and pre-release checklist |
-| [`maintenance-checklist.md`](docs/maintenance-checklist.md) | Ongoing, recurring maintenance tasks |
-| [`architecture-audit.md`](docs/architecture-audit.md) | Full architecture audit history |
-| [`final-engineering-report.md`](docs/final-engineering-report.md) | Cumulative summary of all engineering phases |
-| [`roadmap.md`](docs/roadmap.md) | What's left, prioritized |
 
 ## License
 

@@ -31,12 +31,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
         className={`${sora.variable} ${inter.variable} bg-background text-foreground antialiased`}
       >
         <JsonLd data={generateGlobalSchema()} />
-        {/* <ThemeProvider> */}
         <Loader />
         <Cursor />
         <ScrollButton />
@@ -48,7 +47,6 @@ export default function RootLayout({
           </div>
         </SmoothScroll>
         <MobileNav />
-        {/* </ThemeProvider> */}
       </body>
     </html>
   )

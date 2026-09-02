@@ -5,12 +5,12 @@ import Link from "next/link"
 interface LogoProps {
   className?: string
   imgSize?: number
-  /**
-   * "auto" swaps images with the `.dark` class via CSS (no client JS/hydration
-   * flicker). Use "on-dark" / "on-light" to pin the mark to a fixed
-   * background regardless of theme (e.g. a footer that's always dark).
-   */
-  variant?: "auto" | "on-dark" | "on-light"
+  /** Which mark to show — pick the one legible against the background this
+   * instance actually renders on ("on-dark" for a dark surface, "on-light"
+   * for a light one). There's no automatic/theme-driven variant: this
+   * codebase has no theme switcher, so every usage renders against one
+   * known, fixed background and should say so explicitly. */
+  variant?: "on-dark" | "on-light"
   /** Pass `false` to render as a plain mark instead of a link to "/". */
   href?: string | false
 }
@@ -18,7 +18,7 @@ interface LogoProps {
 export function Logo({
   className,
   imgSize = 18,
-  variant = "auto",
+  variant = "on-light",
   href = "/",
 }: LogoProps) {
   const mark = (
@@ -29,32 +29,13 @@ export function Logo({
       )}
     >
       BR
-      {variant === "auto" ? (
-        <>
-          <Image
-            src="/logo-dark.png"
-            alt="a"
-            width={imgSize}
-            height={imgSize}
-            className="mx-0.5 inline-block object-contain dark:hidden"
-          />
-          <Image
-            src="/logo-white.png"
-            alt="a"
-            width={imgSize}
-            height={imgSize}
-            className="mx-0.5 hidden object-contain dark:inline-block"
-          />
-        </>
-      ) : (
-        <Image
-          src={variant === "on-dark" ? "/logo-white.png" : "/logo-dark.png"}
-          alt="a"
-          width={imgSize}
-          height={imgSize}
-          className="mx-0.5 inline-block object-contain"
-        />
-      )}
+      <Image
+        src={variant === "on-dark" ? "/logo-white.png" : "/logo-dark.png"}
+        alt=""
+        width={imgSize}
+        height={imgSize}
+        className="mx-0.5 inline-block object-contain"
+      />
       IN STACK
     </span>
   )

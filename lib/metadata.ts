@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { contactData } from "@/lib/constants/contact";
 
 export const siteConfig = {
   name: "Brain Stack",
   description:
     "Brain Stack is a full-stack software studio building web, mobile, and AI-powered products for ambitious teams — from MVP to scale.",
-  url: "https://brainstack.dev",
+  // The actual live production domain (verified 2026-09-02) — "brainstack.dev"
+  // was previously used here but resolves to an unrelated third-party
+  // company's site ("BrainStack Technologies", Sydney), not this one. Update
+  // this single value if/when a custom domain is purchased and connected.
+  url: "https://brainstackstudio.netlify.app",
   ogImage: "https://res.cloudinary.com/dieth2xb3/image/upload/v1755799085/ssimage_bxr8i6.png",
   // Was "/logo.jpeg" — that file doesn't exist in public/. Fixed 2026-07-18
   // while wiring structured data, which needs a real, resolvable logo URL.
@@ -25,7 +28,7 @@ export const siteConfig = {
   authors: [
     {
       name: "Brain Stack",
-      url: "https://brainstack.dev",
+      url: "https://brainstackstudio.netlify.app",
     },
   ],
   creator: "Brain Stack",
@@ -44,7 +47,7 @@ export const siteConfig = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://brainstack.dev",
+    url: "https://brainstackstudio.netlify.app",
     siteName: "Brain Stack",
     title: "Brain Stack - We Build Digital Products People Love",
     description:
@@ -66,11 +69,11 @@ export const siteConfig = {
     images: ["https://res.cloudinary.com/dieth2xb3/image/upload/v1755799085/ssimage_bxr8i6.png"],
     creator: "@brainstack",
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
+  // No `verification` field until a real Search Console verification string
+  // exists — a placeholder value here would ship a bogus
+  // `google-site-verification` meta tag on every page.
   alternates: {
-    canonical: "https://brainstack.dev",
+    canonical: "https://brainstackstudio.netlify.app",
   },
   category: "technology",
 };
@@ -93,7 +96,7 @@ export const pageMetadata = {
       title: "Brain Stack - We Build Digital Products People Love",
       description:
         "Full stack development, mobile apps, AI integration, and SaaS engineering for startups and enterprises. See how Brain Stack ships digital products that scale.",
-      url: "https://brainstack.dev",
+      url: siteConfig.url,
       type: "website",
     },
     twitter: {
@@ -102,7 +105,7 @@ export const pageMetadata = {
         "Full stack development, mobile apps, AI integration, and SaaS engineering for startups and enterprises. See how Brain Stack ships digital products that scale.",
     },
     alternates: {
-      canonical: "https://brainstack.dev",
+      canonical: siteConfig.url,
     },
   },
   about: {
@@ -122,7 +125,7 @@ export const pageMetadata = {
       title: "About Brain Stack - Full Stack & AI Software Studio",
       description:
         "Learn about Brain Stack's mission, process, and the team behind our full stack, mobile, and AI engineering work for clients across the US, UK, and Europe.",
-      url: "https://brainstack.dev/about",
+      url: `${siteConfig.url}/about`,
       type: "website",
     },
     twitter: {
@@ -131,32 +134,8 @@ export const pageMetadata = {
         "Learn about Brain Stack's mission, process, and the team behind our full stack, mobile, and AI engineering work for clients across the US, UK, and Europe.",
     },
     alternates: {
-      canonical: "https://brainstack.dev/about",
+      canonical: `${siteConfig.url}/about`,
     },
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Brain Stack",
-      "description":
-        "Brain Stack is a full-stack software studio building web, mobile, and AI-powered products for ambitious teams — from MVP to scale.",
-      "url": "https://brainstack.dev",
-      "logo": "https://brainstack.dev/logo.png",
-      "foundingDate": "2020",
-      "numberOfEmployees": "10-50",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "US"
-      },
-      "sameAs": contactData.socials.map((social) => social.href),
-      "knowsAbout": [
-        "Full Stack Development",
-        "Mobile App Development",
-        "Artificial Intelligence",
-        "SaaS Engineering",
-        "Cloud & DevOps",
-        "Product Engineering"
-      ]
-    }
   },
   blog: {
     title: "Insights - Brain Stack Blog",
@@ -174,7 +153,7 @@ export const pageMetadata = {
       title: "Insights - Brain Stack Blog",
       description:
         "Engineering notes, product strategy, and AI insights from the Brain Stack team — for founders and product leaders building modern software.",
-      url: "https://brainstack.dev/blog",
+      url: `${siteConfig.url}/blog`,
       type: "website",
     },
     twitter: {
@@ -183,7 +162,7 @@ export const pageMetadata = {
         "Engineering notes, product strategy, and AI insights from the Brain Stack team — for founders and product leaders building modern software.",
     },
     alternates: {
-      canonical: "https://brainstack.dev/blog",
+      canonical: `${siteConfig.url}/blog`,
     },
   },
   services: {
@@ -202,7 +181,7 @@ export const pageMetadata = {
       title: "Services - Brain Stack | Full Stack, Mobile & AI Development",
       description:
         "From branding and UX/UI to full-stack web, mobile, and AI/automation development — see the services Brain Stack delivers for ambitious teams.",
-      url: "https://brainstack.dev/services",
+      url: `${siteConfig.url}/services`,
       type: "website",
     },
     twitter: {
@@ -211,7 +190,7 @@ export const pageMetadata = {
         "From branding and UX/UI to full-stack web, mobile, and AI/automation development — see the services Brain Stack delivers for ambitious teams.",
     },
     alternates: {
-      canonical: "https://brainstack.dev/services",
+      canonical: `${siteConfig.url}/services`,
     },
   },
   projects: {
@@ -229,7 +208,7 @@ export const pageMetadata = {
       title: "Projects - Brain Stack | Case Studies & Portfolio",
       description:
         "SaaS platforms, AI products, marketplaces, and browser extensions — explore the case studies and portfolio work Brain Stack has shipped for clients worldwide.",
-      url: "https://brainstack.dev/projects",
+      url: `${siteConfig.url}/projects`,
       type: "website",
     },
     twitter: {
@@ -238,7 +217,7 @@ export const pageMetadata = {
         "SaaS platforms, AI products, marketplaces, and browser extensions — explore the case studies and portfolio work Brain Stack has shipped for clients worldwide.",
     },
     alternates: {
-      canonical: "https://brainstack.dev/projects",
+      canonical: `${siteConfig.url}/projects`,
     },
   },
   contact: {
@@ -255,7 +234,7 @@ export const pageMetadata = {
       title: "Contact Brain Stack - Start Your Project",
       description:
         "Tell us about your project. Brain Stack responds within one business day with a clear, honest take on scope, timeline, and how we'd approach it.",
-      url: "https://brainstack.dev/contact",
+      url: `${siteConfig.url}/contact`,
       type: "website",
     },
     twitter: {
@@ -264,7 +243,7 @@ export const pageMetadata = {
         "Tell us about your project. Brain Stack responds within one business day with a clear, honest take on scope, timeline, and how we'd approach it.",
     },
     alternates: {
-      canonical: "https://brainstack.dev/contact",
+      canonical: `${siteConfig.url}/contact`,
     },
   },
 };
@@ -292,7 +271,6 @@ export function generatePageMetadata(
     },
     alternates: baseMetadata.alternates,
     robots: siteConfig.robots,
-    verification: siteConfig.verification,
     ...customMetadata,
   };
 }
@@ -304,7 +282,7 @@ export function generateBlogPostMetadata(
   slug: string,
   image?: string
 ): Metadata {
-  const blogUrl = `https://brainstack.dev/blog/${slug}`;
+  const blogUrl = `${siteConfig.url}/blog/${slug}`;
   const ogImage = image || siteConfig.ogImage;
   const fullTitle = `${title} - Brain Stack Blog`;
 
@@ -353,7 +331,7 @@ export function generateProjectMetadata(
   slug: string,
   image?: string
 ): Metadata {
-  const projectUrl = `https://brainstack.dev/projects/${slug}`;
+  const projectUrl = `${siteConfig.url}/projects/${slug}`;
   const ogImage = image || siteConfig.ogImage;
   const fullTitle = `${title} - Brain Stack Projects`;
 
@@ -417,7 +395,6 @@ export const defaultMetadata: Metadata = {
   robots: siteConfig.robots,
   openGraph: siteConfig.openGraph,
   twitter: siteConfig.twitter,
-  verification: siteConfig.verification,
   alternates: siteConfig.alternates,
   category: siteConfig.category,
   icons: {

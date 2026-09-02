@@ -22,7 +22,10 @@ export function ScrollButton() {
   const percentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    let rafId: number | null = null
+
     const updateScrollState = () => {
+      rafId = null
       const scrollTop = window.scrollY
       const scrollable =
         document.documentElement.scrollHeight - window.innerHeight
@@ -32,12 +35,22 @@ export function ScrollButton() {
       setScrolled(scrollTop > window.innerHeight * BACK_TO_TOP_THRESHOLD)
     }
 
+    // Coalesce scroll/resize events to once per animation frame — a bare
+    // listener calling setState on every native scroll event forces a React
+    // re-render per event, and this component is mounted once in the root
+    // layout, so it runs on every page.
+    const requestUpdate = () => {
+      if (rafId !== null) return
+      rafId = requestAnimationFrame(updateScrollState)
+    }
+
     updateScrollState()
-    window.addEventListener("scroll", updateScrollState, { passive: true })
-    window.addEventListener("resize", updateScrollState)
+    window.addEventListener("scroll", requestUpdate, { passive: true })
+    window.addEventListener("resize", requestUpdate)
     return () => {
-      window.removeEventListener("scroll", updateScrollState)
-      window.removeEventListener("resize", updateScrollState)
+      window.removeEventListener("scroll", requestUpdate)
+      window.removeEventListener("resize", requestUpdate)
+      if (rafId !== null) cancelAnimationFrame(rafId)
     }
   }, [])
 
@@ -79,7 +92,7 @@ export function ScrollButton() {
       aria-label={
         scrolled ? "Scroll back to top" : "Scroll down to next section"
       }
-      className="group fixed right-5 bottom-24 z-50 hidden size-14 cursor-pointer items-center justify-center rounded-full bg-surface-dark/90 text-white shadow-lg backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-neutral-800 sm:right-8 lg:flex lg:bottom-8 dark:bg-white/10 dark:hover:bg-white/20"
+      className="group fixed right-5 bottom-24 z-50 hidden size-14 cursor-pointer items-center justify-center rounded-full bg-surface-dark/90 text-white shadow-lg backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-neutral-800 sm:right-8 lg:flex lg:bottom-8"
       data-cursor="magnetic"
     >
       <svg

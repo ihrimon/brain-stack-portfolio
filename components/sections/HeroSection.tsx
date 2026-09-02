@@ -203,14 +203,6 @@ export default function HeroSection() {
             )}
           </h1>
 
-          {/* <SectionDivider
-            top={false}
-            bottom={false}
-            className="mt-12 h-10 sm:mt-16"
-            lineClassName="bg-white/10"
-            iconClassName="text-white/40"
-          /> */}
-
           {/* Hero Stats + CTA section */}
           <div className="mt-12 grid gap-12 pt-8 md:mt-16 lg:grid-cols-[1fr_1px_1.3fr] lg:items-stretch">
             {/* CTA Section */}

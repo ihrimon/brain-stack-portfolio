@@ -610,18 +610,6 @@ export const projectsData = {
   ] satisfies Project[],
 } as const
 
-/** Home-page "featured projects" teaser (CaseStudiesSection). Distinct copy from projectsData's own badge/title/description, which drives the marquee + /projects listing. */
-export const projectsShowcaseData = {
-  badge: "Case Studies",
-  title: "Proven Results Across Every Product Surface",
-  description:
-    "From scalable SaaS platforms and browser extensions to AI-powered CRMs, marketplaces, and booking systems, we design and develop modern digital products that help businesses innovate, automate, and grow with confidence.",
-  stat: {
-    value: "100%",
-    label: "Client Satisfaction Rate",
-  },
-} as const
-
 // Content brief: SECTION 6 — Projects / Portfolio (homepage "Watch Our Work"
 // video banner, shown alongside the ProjectsSection carousel).
 export const projectVideoData = {

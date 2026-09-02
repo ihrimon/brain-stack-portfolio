@@ -22,8 +22,3 @@ export const mobileNavigationData = [
   { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ] as const
-
-export const navigationCta = {
-  label: "Book a Call",
-  href: "/contact",
-} as const
