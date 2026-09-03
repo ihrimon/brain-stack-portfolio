@@ -40,6 +40,9 @@ export function ServiceVisual({ title, index, priority }: ServiceVisualProps) {
           alt={title}
           fill
           priority={priority}
+          // See ProjectsGridSection.tsx for why `fetchPriority` is set
+          // alongside `priority` explicitly on this Next.js version.
+          fetchPriority={priority ? "high" : undefined}
           sizes="(min-width: 1024px) 32vw, 46vw"
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}

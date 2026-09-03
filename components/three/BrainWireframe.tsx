@@ -15,6 +15,7 @@ import {
   type RefObject,
 } from "react"
 import * as THREE from "three"
+import { CanvasErrorBoundary } from "./CanvasErrorBoundary"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -686,25 +687,27 @@ export function BrainWireframe({ className }: BrainWireframeProps) {
         }}
       />
 
-      <Canvas
-        dpr={[1, 1.5]}
-        camera={{ position: [0, 0, 3.4], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
-      >
-        {/* Keying on nodeCount forces a clean remount (fresh random colors/
-            phases/pulse assignments) on the rare occasion the responsive
-            node count actually changes, instead of trying to patch stale
-            per-node state in place. */}
-        <Scene
-          key={nodeCount}
-          positions={positions}
-          segments={segments}
-          pairs={pairs}
-          mouseRef={mouseRef}
-          hoverIntensityRef={hoverIntensityRef}
-          reducedMotion={reducedMotion}
-        />
-      </Canvas>
+      <CanvasErrorBoundary>
+        <Canvas
+          dpr={[1, 1.5]}
+          camera={{ position: [0, 0, 3.4], fov: 45 }}
+          gl={{ antialias: true, alpha: true }}
+        >
+          {/* Keying on nodeCount forces a clean remount (fresh random colors/
+              phases/pulse assignments) on the rare occasion the responsive
+              node count actually changes, instead of trying to patch stale
+              per-node state in place. */}
+          <Scene
+            key={nodeCount}
+            positions={positions}
+            segments={segments}
+            pairs={pairs}
+            mouseRef={mouseRef}
+            hoverIntensityRef={hoverIntensityRef}
+            reducedMotion={reducedMotion}
+          />
+        </Canvas>
+      </CanvasErrorBoundary>
     </div>
   )
 }

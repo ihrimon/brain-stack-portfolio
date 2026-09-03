@@ -98,6 +98,7 @@ export default function ServiceSpotlight({ spotlight }: ServiceSpotlightProps) {
               className="object-cover"
               sizes="(min-width: 1024px) 45vw, 100vw"
               priority
+              fetchPriority="high"
             />
           </div>
         </div>

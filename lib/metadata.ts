@@ -4,11 +4,12 @@ export const siteConfig = {
   name: "Brain Stack",
   description:
     "Brain Stack is a full-stack software studio building web, mobile, and AI-powered products for ambitious teams — from MVP to scale.",
-  // The actual live production domain (verified 2026-09-02) — "brainstack.dev"
-  // was previously used here but resolves to an unrelated third-party
-  // company's site ("BrainStack Technologies", Sydney), not this one. Update
-  // this single value if/when a custom domain is purchased and connected.
-  url: "https://brainstackstudio.netlify.app",
+  // The actual live production domain (confirmed 2026-09-03). Two prior
+  // values were tried and superseded here: "brainstack.dev" resolved to an
+  // unrelated third-party company's site ("BrainStack Technologies",
+  // Sydney); "brainstackstudio.netlify.app" was the Netlify default
+  // subdomain used before this custom domain was connected.
+  url: "https://brainstackstudios.com",
   ogImage: "https://res.cloudinary.com/dieth2xb3/image/upload/v1755799085/ssimage_bxr8i6.png",
   // Was "/logo.jpeg" — that file doesn't exist in public/. Fixed 2026-07-18
   // while wiring structured data, which needs a real, resolvable logo URL.
@@ -28,7 +29,7 @@ export const siteConfig = {
   authors: [
     {
       name: "Brain Stack",
-      url: "https://brainstackstudio.netlify.app",
+      url: "https://brainstackstudios.com",
     },
   ],
   creator: "Brain Stack",
@@ -47,7 +48,7 @@ export const siteConfig = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://brainstackstudio.netlify.app",
+    url: "https://brainstackstudios.com",
     siteName: "Brain Stack",
     title: "Brain Stack - We Build Digital Products People Love",
     description:
@@ -73,7 +74,7 @@ export const siteConfig = {
   // exists — a placeholder value here would ship a bogus
   // `google-site-verification` meta tag on every page.
   alternates: {
-    canonical: "https://brainstackstudio.netlify.app",
+    canonical: "https://brainstackstudios.com",
   },
   category: "technology",
 };

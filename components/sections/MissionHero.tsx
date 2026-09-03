@@ -101,6 +101,7 @@ export default function MissionHero({ data }: MissionHeroProps) {
               alt="Brain Stack"
               fill
               priority
+              fetchPriority="high"
               className="object-cover"
               sizes="(min-width: 1024px) 380px, 100vw"
             />

@@ -2,6 +2,7 @@
 
 import { Canvas } from "@react-three/fiber"
 import { useEffect, useState } from "react"
+import { CanvasErrorBoundary } from "../CanvasErrorBoundary"
 import { MOBILE_BREAKPOINT_PX, TABLET_BREAKPOINT_PX, type Tier } from "./constants"
 import { Scene } from "./Scene"
 
@@ -68,14 +69,16 @@ export function HeroBackground({ className }: HeroBackgroundProps) {
 
   return (
     <div className={className} aria-hidden="true">
-      <Canvas
-        dpr={[1, 1.5]}
-        camera={{ position: [0, 0, 8], fov: 42 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-        frameloop={reducedMotion ? "demand" : "always"}
-      >
-        <Scene key={tier} tier={tier} reducedMotion={reducedMotion} />
-      </Canvas>
+      <CanvasErrorBoundary>
+        <Canvas
+          dpr={[1, 1.5]}
+          camera={{ position: [0, 0, 8], fov: 42 }}
+          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+          frameloop={reducedMotion ? "demand" : "always"}
+        >
+          <Scene key={tier} tier={tier} reducedMotion={reducedMotion} />
+        </Canvas>
+      </CanvasErrorBoundary>
     </div>
   )
 }

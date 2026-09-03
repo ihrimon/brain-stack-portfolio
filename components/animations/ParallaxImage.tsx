@@ -70,6 +70,9 @@ export function ParallaxImage({
         alt={alt}
         fill
         priority={priority}
+        // See ProjectsGridSection.tsx for why `fetchPriority` is set
+        // alongside `priority` explicitly on this Next.js version.
+        fetchPriority={priority ? "high" : undefined}
         sizes={sizes}
         placeholder={placeholder}
         blurDataURL={blurDataURL}

@@ -120,6 +120,7 @@ export default function AllBlogs({ posts }: AllBlogsProps) {
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(min-width: 1024px) 33vw, 100vw"
                       priority={rowIndex === 0}
+                      fetchPriority={rowIndex === 0 ? "high" : undefined}
                       placeholder={rowIndex === 0 ? undefined : "blur"}
                       blurDataURL={rowIndex === 0 ? undefined : BLUR_DATA_URL}
                     />

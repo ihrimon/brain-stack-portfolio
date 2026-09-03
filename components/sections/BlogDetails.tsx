@@ -132,6 +132,7 @@ export default function BlogDetails({ post, relatedPosts }: BlogDetailsProps) {
             alt={post.title}
             fill
             priority
+            fetchPriority="high"
             className="object-cover"
             sizes="100vw"
           />

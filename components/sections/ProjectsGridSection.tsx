@@ -53,6 +53,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 className="object-cover transition-transform duration-500 group-hover/card:scale-105"
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 priority={index < 3}
+                // Next.js 16 decoupled `fetchPriority` from `priority` —
+                // `priority` alone now only means "preload, don't lazy-load";
+                // the `fetchpriority="high"` resource hint (what actually
+                // speeds up the LCP candidate's download) must be set
+                // explicitly. Verified via Lighthouse (`lcp-discovery-insight`
+                // flagged `priorityHinted: false` without this).
+                fetchPriority={index < 3 ? "high" : undefined}
                 placeholder={index < 3 ? undefined : "blur"}
                 blurDataURL={index < 3 ? undefined : BLUR_DATA_URL}
               />

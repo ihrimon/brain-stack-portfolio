@@ -35,6 +35,9 @@ export function ProjectMedia({
         fill
         quality={100}
         priority={priority}
+        // See ProjectsGridSection.tsx for why `fetchPriority` is set
+        // alongside `priority` explicitly on this Next.js version.
+        fetchPriority={priority ? "high" : undefined}
         sizes="(min-width: 1024px) 640px, (min-width: 640px) 90vw, 100vw"
         placeholder="blur"
         blurDataURL={BLUR_DATA_URL}
