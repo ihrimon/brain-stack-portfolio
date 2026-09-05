@@ -143,45 +143,30 @@ export const teamMembersData = {
     "We're a team of strategic digital marketers working globally with the largest brands, We believe that progress only happens when you refused to play things safe.",
 
   members: [
+    // {
+    //   name: "Jakir Uddin",
+    //   role: "Founder & CTO",
+    //   image: "/images/team/team-1.webp",
+    // },
     {
-      name: "Jakir Uddin",
-      role: "Founder & CTO",
-      image: "/images/team/team-1.webp",
+      name: "Nakib",
+      role: "Senior Laravel Engineer",
+      image: "/images/team/nakib.webp",
     },
     {
-      name: "Samantha Rivera",
-      role: "Marketing Manager",
-      image: "/images/team/team-2.webp",
+      name: "Tofayel",
+      role: "Frontend Lead",
+      image: "/images/team/tofayel.webp",
     },
     {
-      name: "Marcus Chen",
-      role: "Marketing Manager",
-      image: "/images/team/team-3.webp",
+      name: "Akash",
+      role: "Senior Full Stack Engineer",
+      image: "/images/team/akash.webp",
     },
     {
-      name: "Elena Garcia",
-      role: "Marketing Manager",
-      image: "/images/team/team-4.webp",
-    },
-    {
-      name: "Priya Sharma",
-      role: "Product Designer",
-      image: "/images/team/team-5.webp",
-    },
-    {
-      name: "Daniel Kim",
-      role: "Software Engineer",
-      image: "/images/team/team-6.webp",
-    },
-    {
-      name: "Olivia Bennett",
-      role: "UX Researcher",
-      image: "/images/team/team-3.webp",
-    },
-    {
-      name: "Ahmed Hassan",
-      role: "Brand Strategist",
-      image: "/images/team/team-4.webp",
+      name: "Hridoy",
+      role: "Web Developer",
+      image: "/images/team/hridoy.webp",
     },
   ],
 } as const

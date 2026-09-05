@@ -9,8 +9,7 @@ import { cn } from "@/lib/utils/cn"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
-import { ChevronRight, Pause, Play, X } from "lucide-react"
-import Link from "next/link"
+import { Pause, Play, X } from "lucide-react"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -241,15 +240,6 @@ export default function ProjectVideoSection({
               <PrimaryButton href={data.primaryButton.href}>
                 {data.primaryButton.label}
               </PrimaryButton>
-
-              <Link
-                href={data.secondaryButton.href}
-                data-cursor="magnetic"
-                className="group inline-flex items-center gap-1 text-lg font-semibold text-white transition-colors duration-300 hover:text-white/60"
-              >
-                {data.secondaryButton.label}
-                <ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
             </div>
           </div>
 

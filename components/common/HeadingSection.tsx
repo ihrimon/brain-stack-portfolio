@@ -15,20 +15,41 @@ interface HeadingSectionProps {
   /** Forwarded to the underlying `<h2>` so a parent's own GSAP scroll-reveal
    * effect (e.g. `gsap.effects.textRevealOnScroll`) can still target it. */
   titleRef?: Ref<HTMLHeadingElement>
-  /** Optional right-side CTA, e.g. `{ label: "Discover More", href: "/#what-we-do" }`.
-   * Mutually exclusive with `description` — both occupy the same end slot,
-   * `link` takes priority if both are passed. */
+  /** Optional CTA, rendered pinned to the row's end column, bottom-aligned,
+   * e.g. `{ label: "Discover More", href: "/#what-we-do" }`. */
   link?: HeadingSectionLink
-  /** Optional right-side supporting text, rendered in the same end slot as
-   * `link` instead of a button. Uses the same gap as badge-to-title so the
-   * spacing rhythm stays consistent across the whole row. */
+  /** Optional supporting text, rendered in the row's end column, top-aligned
+   * with the badge/title. Only meaningful when `link` isn't also passed —
+   * no current usage combines both. */
   description?: string
   className?: string
 }
 
-/** Shared badge + title (+ optional right-side link or description) row used
- * at the top of every homepage section and reused across layouts.
- * so the same layout doesn't get re-authored per section. */
+/** Shared badge + title (+ optional description or link) row used at the
+ * top of every homepage section and reused across layouts, so the same
+ * layout doesn't get re-authored per section.
+ *
+ * Badge, title, and the end-slot (description or link — whichever the
+ * caller passes) all sit in **one row** at `lg:` and up
+ * (`grid-cols-[auto_1fr_auto]`), badge and title start-aligned together at
+ * the row's top, the end-slot pinned to the far end (`link` additionally
+ * bottom-aligned via its own `self-end`, matching the reference design
+ * where the button sits low against a multi-line title).
+ *
+ * The fix that makes this safe at laptop widths, versus the original
+ * version of this same layout: **title's own grid track is the flexible
+ * `1fr`, not `auto`.** The original had it the other way around — title as
+ * an unconstrained `auto` track free to claim space up to its `max-w`,
+ * while the end-slot was squeezed into whatever was left over. On a
+ * ~1024–1440px laptop screen (a MacBook Air 13" being the reference case
+ * that surfaced this), that left too little room for the end-slot, breaking
+ * the button in WhoWeAreSection and squeezing the paragraph in
+ * FoundersSection. Giving `1fr` to the title instead means it's the one
+ * that shrinks/wraps under width pressure, while the badge and end-slot
+ * keep their natural size and are never squeezed.
+ *
+ * Below `lg:`, this collapses to a single stacked column, in DOM order:
+ * badge, title, then description or link. */
 export function HeadingSection({
   badge,
   title,
@@ -40,24 +61,30 @@ export function HeadingSection({
   return (
     <div
       className={cn(
-        "grid gap-8 lg:grid-cols-[auto_auto_1fr] lg:items-start lg:gap-30",
+        "grid gap-6 lg:grid-cols-[auto_1fr_auto] lg:items-start lg:gap-10",
         className
       )}
     >
-      <SectionBadge>{badge}</SectionBadge>
+      <SectionBadge className="lg:col-start-1">{badge}</SectionBadge>
 
       <h2
         ref={titleRef}
-        className="max-w-3xl text-3xl leading-tight font-medium tracking-tight text-white capitalize sm:text-4xl lg:text-5xl"
+        className="max-w-3xl min-w-0 text-3xl leading-tight font-medium tracking-tight text-white capitalize sm:text-4xl lg:col-start-2 lg:max-w-4xl lg:text-5xl"
       >
         {title}
       </h2>
 
-      {link ? (
+      {description && (
+        <p className="max-w-xl text-base leading-relaxed text-white/60 sm:text-lg lg:col-start-3 lg:shrink-0">
+          {description}
+        </p>
+      )}
+
+      {link && (
         <Link
           href={link.href}
           data-cursor="magnetic"
-          className="group/link inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-primary lg:self-end lg:justify-self-end"
+          className="group/link inline-flex w-fit shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-primary lg:col-start-3 lg:self-end lg:justify-self-end"
         >
           {link.label}
           <Image
@@ -68,12 +95,6 @@ export function HeadingSection({
             className="invert transition-transform duration-300 group-hover/link:translate-x-1"
           />
         </Link>
-      ) : (
-        description && (
-          <p className="max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
-            {description}
-          </p>
-        )
       )}
     </div>
   )

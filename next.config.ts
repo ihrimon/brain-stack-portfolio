@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
         hostname: "i.ibb.co.com",
       },
     ],
+    // Next.js 16 validates `quality` against this allow-list. 75 is the
+    // default used everywhere via next/image's own default; 100 is added
+    // for ProjectMedia.tsx, which deliberately skips compression for
+    // project screenshots.
+    qualities: [75, 100],
   },
   experimental: {
     // Server Actions default to a 1MB request body, far too small for the

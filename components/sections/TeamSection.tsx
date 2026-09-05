@@ -51,7 +51,12 @@ export default function TeamSection({ data }: TeamSectionProps) {
             <PrimaryButton href="/about#team">See All Members</PrimaryButton>
           </div>
 
-          <div className="mx-auto grid w-full max-w-5xl grid-cols-2 overflow-hidden rounded-2xl sm:grid-cols-3 lg:mx-0 lg:ml-auto">
+          {/* 4-up on tablet, but back to 2-up through the laptop range
+              (~1024–1535px, covers a 13" MacBook Air) where this grid shares
+              its row with the text column at `lg:grid-cols-[1fr_1.8fr]`
+              above — 4 photo columns there were too narrow to read. Only
+              wide desktop monitors (`2xl:`, 1536px+) get 4 columns again. */}
+          <div className="mx-auto grid w-full max-w-5xl grid-cols-2 overflow-hidden rounded-2xl sm:grid-cols-4 lg:mx-0 lg:ml-auto lg:grid-cols-2 2xl:grid-cols-4">
             {data.members.slice(0, 6).map((member, index) => (
               <div
                 key={member.name}
