@@ -9,7 +9,7 @@ The official marketing site for **Brain Stack**, a full-stack software studio bu
 - **Styling:** Tailwind CSS v4, shadcn/ui primitives
 - **Animation:** GSAP + `@gsap/react` (scroll reveals, cursor, counters), Lenis (smooth scroll), Framer Motion (a small number of card-reveal animations), React Three Fiber (`three`, dynamically loaded) for the About page's brain visualization
 - **Content:** typed, hand-written data in `lib/data/*.ts` — no external CMS
-- **Deployment target:** any Next.js host (Vercel, etc.)
+- **Deployment target:** Netlify (production: https://brainstackstudios.com)
 
 ## Getting started
 
@@ -21,6 +21,8 @@ pnpm dev
 ```
 
 The site runs at `http://localhost:3000` immediately — no environment setup is required to start developing. Every page's content lives in `lib/data/*.ts`.
+
+To have the contact form actually deliver email locally, copy `.env.example` to `.env.local` and fill in `GMAIL_USER`/`GMAIL_APP_PASSWORD` (see the comments in that file for how to generate a Gmail App Password).
 
 ## Available scripts
 
@@ -39,12 +41,10 @@ The site runs at `http://localhost:3000` immediately — no environment setup is
 app/            # Routes (App Router) — composition only, no business logic
 components/     # UI, grouped by role: sections/ buttons/ common/ animations/ layout/ ui/ three/
 lib/            # Data (lib/data/), utils, constants, the one Server Action
-hooks/          # Custom hooks (currently empty — scaffolding for the next one)
+hooks/          # Custom hooks (e.g. useServicesScrollStack)
 public/         # Images, icons, videos
-docs/           # Full documentation set — start with docs/project-overview.md
+docs/           # Content brief and optimization notes
 ```
-
-Full folder-by-folder review: [`docs/folder-structure.md`](docs/folder-structure.md).
 
 ## Content
 
