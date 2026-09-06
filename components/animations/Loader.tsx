@@ -59,7 +59,7 @@ export function Loader() {
       aria-hidden="true"
     >
       <span className="text-h4 font-semibold tracking-tight text-heading">
-       <Logo />
+        <Logo variant="on-dark" />
       </span>
       <div className="h-px w-40 overflow-hidden bg-border">
         <div

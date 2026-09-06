@@ -115,15 +115,15 @@ export const projectsData = {
       status: null,
       liveUrl: "https://karially.com/",
 
-      thumbnail: "https://i.ibb.co.com/Y4wKKRwC/karially-thumbnail.png",
-      heroImage: "https://i.ibb.co.com/Y4wKKRwC/karially-thumbnail.png",
+      thumbnail: "/images/projects/karially/thumbnail.webp",
+      heroImage: "/images/projects/karially/thumbnail.webp",
       gallery: [
-        "https://i.ibb.co.com/60FvJWzx/karially-1-1.png",
-        "https://i.ibb.co.com/svM22Bv9/karially-2-1.png",
-        "https://i.ibb.co.com/5gHkkw0t/karially-3-1.png",
-        "https://i.ibb.co.com/GNbpnc0/karially-3-2.png",
-        "https://i.ibb.co.com/3yj3nTzm/karially-4-1.png",
-        "https://i.ibb.co.com/My79t1Z6/karially-4-2.png",
+        "/images/projects/karially/gallery-1.webp",
+        "/images/projects/karially/gallery-2.webp",
+        "/images/projects/karially/gallery-3.webp",
+        "/images/projects/karially/gallery-4.webp",
+        "/images/projects/karially/gallery-5.webp",
+        "/images/projects/karially/gallery-6.webp",
       ],
 
       overview:
@@ -170,15 +170,15 @@ export const projectsData = {
       status: null,
       liveUrl: "https://luxeb2b.com/",
 
-      thumbnail: "https://i.ibb.co.com/nswg2vX3/luxeb2b-thumbnail.png",
-      heroImage: "https://i.ibb.co.com/nswg2vX3/luxeb2b-thumbnail.png",
+      thumbnail: "/images/projects/luxeb2b/thumbnail.webp",
+      heroImage: "/images/projects/luxeb2b/thumbnail.webp",
       gallery: [
-        "https://i.ibb.co.com/bVbPKhY/luxeb2b-1-1.png",
-        "https://i.ibb.co.com/Cs7WypV8/luxeb2b-1-2.png",
-        "https://i.ibb.co.com/5gjxMxL5/luxeb2b-2-1.png",
-        "https://i.ibb.co.com/v73h7yN/luxeb2b-3-1.png",
-        "https://i.ibb.co.com/KcZkzp96/luxeb2b-4-1.png",
-        "https://i.ibb.co.com/G4qwmLYx/luxeb2b-6.png",
+        "/images/projects/luxeb2b/gallery-1.webp",
+        "/images/projects/luxeb2b/gallery-2.webp",
+        "/images/projects/luxeb2b/gallery-3.webp",
+        "/images/projects/luxeb2b/gallery-4.webp",
+        "/images/projects/luxeb2b/gallery-5.webp",
+        "/images/projects/luxeb2b/gallery-6.webp",
       ],
 
       overview:
@@ -223,15 +223,15 @@ export const projectsData = {
       status: null,
       liveUrl: "https://achgoldestates.com/",
 
-      thumbnail: "https://i.ibb.co.com/QvdwJKLs/ach-gold-estates-thumbnail.png",
-      heroImage: "https://i.ibb.co.com/QvdwJKLs/ach-gold-estates-thumbnail.png",
+      thumbnail: "/images/projects/ach-gold-estates/thumbnail.webp",
+      heroImage: "/images/projects/ach-gold-estates/thumbnail.webp",
       gallery: [
-        "https://i.ibb.co.com/1f04zW1k/ach-gold-estates-1-1.png",
-        "https://i.ibb.co.com/rGTRfpVL/ach-gold-estates-2-1.png",
-        "https://i.ibb.co.com/ynJPzKn7/ach-gold-estates-3-1.png",
-        "https://i.ibb.co.com/Q7WWmnwz/ach-gold-estates-4-1.png",
-        "https://i.ibb.co.com/KM3VHV7/ach-gold-estates-5-1.png",
-        "https://i.ibb.co.com/Zzp43M2X/ach-gold-estates-6-1.png",
+        "/images/projects/ach-gold-estates/gallery-1.webp",
+        "/images/projects/ach-gold-estates/gallery-2.webp",
+        "/images/projects/ach-gold-estates/gallery-3.webp",
+        "/images/projects/ach-gold-estates/gallery-4.webp",
+        "/images/projects/ach-gold-estates/gallery-5.webp",
+        "/images/projects/ach-gold-estates/gallery-6.webp",
       ],
 
       overview:
@@ -525,15 +525,15 @@ export const projectsData = {
       status: null,
       liveUrl: "https://bigfish-omega.vercel.app/",
 
-      thumbnail: "https://i.ibb.co.com/KpqvTX5R/big-fish-thumbnail.png",
-      heroImage: "https://i.ibb.co.com/KpqvTX5R/big-fish-thumbnail.png",
+      thumbnail: "/images/projects/big-fish/thumbnail.webp",
+      heroImage: "/images/projects/big-fish/thumbnail.webp",
       gallery: [
-        "https://i.ibb.co.com/Q358mmwq/big-fish-1-1.png",
-        "https://i.ibb.co.com/j9rz2FT7/big-fish-1-2.png",
-        "https://i.ibb.co.com/Mx7r2DyB/big-fish-1-3.png",
-        "https://i.ibb.co.com/mCnLnxwN/big-fish-1-4.png",
-        "https://i.ibb.co.com/1tpN2GHj/big-fish-1-5.png",
-        "https://i.ibb.co.com/RTvb5dhj/big-fish-6.png",
+        "/images/projects/big-fish/gallery-1.webp",
+        "/images/projects/big-fish/gallery-2.webp",
+        "/images/projects/big-fish/gallery-3.webp",
+        "/images/projects/big-fish/gallery-4.webp",
+        "/images/projects/big-fish/gallery-5.webp",
+        "/images/projects/big-fish/gallery-6.webp",
       ],
 
       overview:

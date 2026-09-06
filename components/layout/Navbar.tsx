@@ -77,9 +77,15 @@ export function Navbar() {
                       href={item.href}
                       className={cn(
                         "group block rounded-full px-3 py-2 font-semibold text-lg transition-colors duration-300",
+                        // Inverted pill (light bg, dark text) to stand out
+                        // against the surrounding dark nav — `bg-foreground
+                        // text-background` rather than the more obvious
+                        // `bg-background text-foreground`, since this site's
+                        // tokens are dark-by-default (`--foreground` is the
+                        // light color, `--background` the dark one).
                         isActive
-                          ? "bg-background text-foreground"
-                          : "text-white/80 hover:bg-background hover:text-foreground"
+                          ? "bg-foreground text-background"
+                          : "text-white/80 hover:bg-foreground hover:text-background"
                       )}
                       data-cursor="magnetic"
                     >

@@ -19,12 +19,22 @@
   initial-value: 50%;
 }
 
+/* This site has no theme switcher — it's always dark (the former
+   next-themes toggle was removed). These tokens used to be split between a
+   light-mode `:root` and a `.dark` override that only applied once a `.dark`
+   class landed on `<html>`, which nothing does anymore — so `:root` was
+   silently serving the *light* palette everywhere (e.g. Loader.tsx's
+   `bg-background` rendering white on first paint) while most sections
+   looked dark only because they hardcode `bg-brand-dark`/`bg-surface-dark`
+   directly instead of going through these tokens. `:root` now carries the
+   dark palette directly as the only palette, so every consumer of
+   `bg-background`/`text-heading`/etc. is dark-consistent by default. */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -39,68 +49,6 @@
      everywhere; centralized here so it can be swapped in one place. */
   --surface-dark: #161616;
 
-  --background: #ffffff;
-  --foreground: #111111;
-  --card: #ffffff;
-  --card-foreground: #111111;
-  --popover: #ffffff;
-  --popover-foreground: #111111;
-  --primary: var(--brand-primary);
-  --primary-hover: color-mix(in oklch, var(--brand-primary) 85%, black 15%);
-  --primary-foreground: #ffffff;
-  --secondary: var(--brand-secondary);
-  --secondary-foreground: #ffffff;
-  --muted: oklch(0.967 0.001 286.375); /* neutral-100 */
-  --muted-foreground: oklch(0.552 0.014 285.938); /* neutral-500 */
-  --accent: var(--brand-accent);
-  --accent-foreground: var(--brand-dark);
-  --destructive: oklch(0.6368 0.2078 25.3313);
-  --destructive-foreground: oklch(0.9851 0 0);
-  --border: oklch(0.92 0.004 286.32); /* neutral-200 */
-  --input: oklch(0.92 0.004 286.32);
-  --ring: var(--brand-primary);
-  --chart-1: var(--brand-primary);
-  --chart-2: var(--brand-secondary);
-  --chart-3: var(--brand-accent);
-  --chart-4: oklch(0.7049 0.1867 47.6044);
-  --chart-5: oklch(0.5771 0.2152 27.325);
-  --sidebar: #ffffff;
-  --sidebar-foreground: #111111;
-  --sidebar-primary: var(--brand-primary);
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: #111111;
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: var(--brand-primary);
-  --font-sans: var(--font-body);
-  --font-heading: var(--font-heading);
-  --font-mono: var(--font-body);
-  --radius: 1rem;
-  --shadow-2xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
-  --shadow-xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
-  --shadow-sm:
-    0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow:
-    0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow-md:
-    0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 2px 4px -1px hsl(0 0% 0% / 0.1);
-  --shadow-lg:
-    0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 4px 6px -1px hsl(0 0% 0% / 0.1);
-  --shadow-xl:
-    0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 8px 10px -1px hsl(0 0% 0% / 0.1);
-  --shadow-2xl: 0px 2px 4px 0px hsl(0 0% 0% / 0.25);
-  --tracking-normal: 0rem;
-  --spacing: 0.25rem;
-
-  /* CUSTOME */
-  --text-heading: var(--brand-dark);
-  --text-label: oklch(0.552 0.014 285.938); /* neutral-500 */
-  --text-tag: var(--brand-primary);
-  --text-tag-bg: color-mix(in oklch, var(--brand-primary) 10%, white 90%);
-}
-
-.dark {
-  --brand-dark: #0b0b0f;
   --background: var(--brand-dark);
   --foreground: #ffffff;
   --card: oklch(0.19 0.006 285.9);
@@ -108,6 +56,7 @@
   --popover: oklch(0.19 0.006 285.9);
   --popover-foreground: #ffffff;
   --primary: var(--brand-primary);
+  --primary-hover: color-mix(in oklch, var(--brand-primary) 85%, black 15%);
   --primary-foreground: #ffffff;
   --secondary: var(--brand-secondary);
   --secondary-foreground: #ffffff;
@@ -136,10 +85,6 @@
   --font-sans: var(--font-body);
   --font-heading: var(--font-heading);
   --font-mono: var(--font-body);
-  --text-heading: #ffffff;
-  --text-label: oklch(0.712 0.013 286.067);
-  --text-tag: var(--brand-accent);
-  --text-tag-bg: color-mix(in oklch, var(--brand-accent) 14%, var(--brand-dark) 86%);
   --radius: 1rem;
   --shadow-2xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
   --shadow-xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
@@ -154,6 +99,14 @@
   --shadow-xl:
     0px 2px 4px 0px hsl(0 0% 0% / 0.1), 0px 8px 10px -1px hsl(0 0% 0% / 0.1);
   --shadow-2xl: 0px 2px 4px 0px hsl(0 0% 0% / 0.25);
+  --tracking-normal: 0rem;
+  --spacing: 0.25rem;
+
+  /* CUSTOME */
+  --text-heading: #ffffff;
+  --text-label: oklch(0.712 0.013 286.067);
+  --text-tag: var(--brand-accent);
+  --text-tag-bg: color-mix(in oklch, var(--brand-accent) 14%, var(--brand-dark) 86%);
 }
 
 @theme inline {

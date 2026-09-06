@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "res.cloudinary.com",
       },
-      {
-        protocol: "https",
-        hostname: "i.ibb.co.com",
-      },
     ],
     // Next.js 16 validates `quality` against this allow-list. 75 is the
     // default used everywhere via next/image's own default; 100 is added

@@ -16,8 +16,9 @@ const CHEVRONS_PER_CONNECTOR = 3
 
 /** "Design → Develop → Automate", where each arrow is a small track of
  * chevrons endlessly flowing left-to-right — reads as data moving through
- * a pipeline rather than a static separator. Hovering the row both widens
- * the letter-spacing and draws in an underline. */
+ * a pipeline rather than a static separator. Hovering the row draws in an
+ * underline (a letter-spacing widen on hover was removed — it visibly
+ * pushed the text rightward instead of reading as a subtle hover cue). */
 export function HeroTagline({ data, className }: HeroTaglineProps) {
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -58,7 +59,7 @@ export function HeroTagline({ data, className }: HeroTaglineProps) {
     <div
       ref={containerRef}
       className={cn(
-        "group relative inline-flex w-fit max-w-full flex-wrap items-center gap-y-2 text-xs font-semibold tracking-wide text-white/70 uppercase transition-[letter-spacing] duration-500 hover:tracking-[0.25em] sm:text-sm sm:tracking-widest md:text-base",
+        "group relative inline-flex w-fit max-w-full flex-wrap items-center gap-y-2 text-xs font-semibold tracking-wide text-white/70 uppercase sm:text-sm sm:tracking-widest md:text-base",
         className
       )}
     >

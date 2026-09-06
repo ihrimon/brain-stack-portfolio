@@ -24,7 +24,7 @@ export function ProjectCard({ item, priority }: ProjectCardProps) {
   return (
     <div
       data-project-card
-      className="group relative flex aspect-3.5/4 w-full flex-col overflow-hidden rounded-lg bg-surface-dark shadow-2xl sm:aspect-4/3.5 sm:bg-card/55 sm:backdrop-blur-lg"
+      className="group relative flex aspect-3.5/4 w-full flex-col overflow-hidden rounded-lg bg-surface-dark shadow-2xl sm:aspect-4/3.5"
     >
       {/* `group/media`: scopes "Explore Project" to hovering the image
           itself — separate from the card-wide `group` above. */}
