@@ -30,7 +30,8 @@ export const contactData = {
 } as const
 
 // Shared between ContactForm.tsx (client-side pre-check) and
-// lib/actions/contact.ts (server-side enforcement) — kept comfortably
-// under Gmail's ~25MB post-send attachment cap even after MIME base64
-// encoding inflates the raw file by roughly a third.
-export const MAX_ATTACHMENT_BYTES = 15 * 1024 * 1024
+// lib/actions/contact.ts (server-side enforcement). Capped by Vercel's
+// hard 4.5MB request-body limit for serverless functions (not configurable),
+// which the whole multipart form — file plus text fields — must fit inside.
+// 4MB leaves headroom for those fields and the multipart boundaries.
+export const MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024

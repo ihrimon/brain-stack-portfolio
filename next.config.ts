@@ -17,10 +17,12 @@ const nextConfig: NextConfig = {
   experimental: {
     // Server Actions default to a 1MB request body, far too small for the
     // contact form's file attachment (photos, video, audio, PDFs, docs).
-    // Kept above lib/actions/contact.ts's MAX_ATTACHMENT_BYTES so form
-    // fields + multipart overhead never get clipped right at the boundary.
+    // Kept above lib/constants/contact.ts's MAX_ATTACHMENT_BYTES so form
+    // fields + multipart overhead never get clipped right at the boundary,
+    // and at Vercel's 4.5MB function body cap — anything larger is rejected
+    // by the platform before it reaches Next.js anyway.
     serverActions: {
-      bodySizeLimit: "20mb",
+      bodySizeLimit: "4.5mb",
     },
   },
   async headers() {
