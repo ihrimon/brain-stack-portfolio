@@ -90,24 +90,31 @@ export function useServicesScrollStack({
 
           const distance = SCROLL_PER_ITEM_PX * (itemCount - 1)
 
+          // Read layout once per refresh rather than on every scroll frame,
+          // and only push a React state update when the active service
+          // actually changes — both used to run on every onUpdate tick.
+          let slideHeight = win.clientHeight
+          let activeIndex = -1
+          const setTrackY = gsap.quickSetter(track, "y", "px")
+
+          // No `anticipatePin`: it's meant for native scroll and, combined
+          // with Lenis's own smoothing, made the pin visibly jump as it
+          // engaged and released.
           const trigger = ScrollTrigger.create({
             trigger: pin,
             start: "top top",
             end: `+=${distance}`,
             pin: true,
-            // Pre-applies the pin's positioning a touch before the trigger
-            // point instead of snapping to it exactly on "top top" — without
-            // this, engaging and releasing the pin each read as a sudden
-            // jump (the section abruptly leaping into place, then dropping
-            // back into normal flow the instant the scroll ends).
-            anticipatePin: 1,
-            scrub: 1,
+            onRefresh: () => {
+              slideHeight = win.clientHeight
+            },
             onUpdate: (self) => {
-              const slideHeight = win.clientHeight
-              gsap.set(track, {
-                y: -self.progress * (itemCount - 1) * slideHeight,
-              })
-              onIndexChange(Math.round(self.progress * (itemCount - 1)))
+              setTrackY(-self.progress * (itemCount - 1) * slideHeight)
+              const nextIndex = Math.round(self.progress * (itemCount - 1))
+              if (nextIndex !== activeIndex) {
+                activeIndex = nextIndex
+                onIndexChange(nextIndex)
+              }
             },
           })
 

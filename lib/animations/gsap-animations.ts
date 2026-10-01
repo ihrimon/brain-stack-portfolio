@@ -197,11 +197,20 @@ interface TextRevealOnScrollConfig {
 gsap.registerEffect({
   name: "textRevealOnScroll",
   effect: (targets: gsap.TweenTarget, config: TextRevealOnScrollConfig) => {
-    const elements = gsap.utils.toArray<HTMLElement>(targets);
+    // Callers pass refs that may be null (e.g. an optional description that
+    // wasn't rendered) or elements with no text — skip those so GSAP doesn't
+    // warn about missing targets.
+    const elements = gsap.utils
+      .toArray<HTMLElement | null>(targets)
+      .filter((el): el is HTMLElement => !!el && !!el.textContent?.trim());
     const triggers: ScrollTrigger[] = [];
 
     elements.forEach((el) => {
       const split = SplitText.create(el, { type: "words" });
+      if (!split.words.length) {
+        split.revert();
+        return;
+      }
       gsap.set(split.words, { opacity: config.mutedOpacity });
 
       const tween = gsap.to(split.words, {

@@ -1,8 +1,9 @@
 "use client"
 
-import { Canvas } from "@react-three/fiber"
-import { useEffect, useState } from "react"
+import { Canvas, useThree } from "@react-three/fiber"
+import { useEffect, useRef, useState } from "react"
 import { CanvasErrorBoundary } from "../CanvasErrorBoundary"
+import "../silence-clock-deprecation"
 import { MOBILE_BREAKPOINT_PX, TABLET_BREAKPOINT_PX, type Tier } from "./constants"
 import { Scene } from "./Scene"
 
@@ -15,6 +16,17 @@ function resolveTier(): Tier {
     return "tablet"
   }
   return "desktop"
+}
+
+/** In `demand` mode nothing re-renders on its own, so after resuming from
+ * `never` (scrolled back into view) request one frame explicitly — otherwise
+ * the canvas would stay blank for reduced-motion visitors. */
+function InvalidateOnResume({ active }: { active: boolean }) {
+  const invalidate = useThree((state) => state.invalidate)
+  useEffect(() => {
+    if (active) invalidate()
+  }, [active, invalidate])
+  return null
 }
 
 interface HeroBackgroundProps {
@@ -36,7 +48,13 @@ interface HeroBackgroundProps {
  * three.js out of the server bundle.
  */
 export function HeroBackground({ className }: HeroBackgroundProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
   const [tier, setTier] = useState<Tier>(() => resolveTier())
+  // Both the hero and the CTA mount this scene, and an `always` frameloop
+  // keeps rendering (transmission + bloom) even while scrolled far away —
+  // that GPU load is what made scrolling through every other section stutter.
+  // Pausing the loop while off-screen leaves at most one scene rendering.
+  const [isVisible, setIsVisible] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(() =>
     typeof window === "undefined"
       ? false
@@ -67,15 +85,32 @@ export function HeroBackground({ className }: HeroBackgroundProps) {
     }
   }, [])
 
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    // A small margin resumes rendering just before the canvas scrolls in,
+    // so it never appears frozen on its first visible frame.
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { rootMargin: "100px 0px" }
+    )
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [])
+
+  const frameloop = !isVisible ? "never" : reducedMotion ? "demand" : "always"
+
   return (
-    <div className={className} aria-hidden="true">
+    <div ref={containerRef} className={className} aria-hidden="true">
       <CanvasErrorBoundary>
         <Canvas
           dpr={[1, 1.5]}
           camera={{ position: [0, 0, 8], fov: 42 }}
           gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-          frameloop={reducedMotion ? "demand" : "always"}
+          frameloop={frameloop}
         >
+          <InvalidateOnResume active={isVisible} />
           <Scene key={tier} tier={tier} reducedMotion={reducedMotion} />
         </Canvas>
       </CanvasErrorBoundary>

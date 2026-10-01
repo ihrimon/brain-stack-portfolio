@@ -119,7 +119,9 @@ export default function HeroSection() {
               trigger: sharedBackground,
               start: "top top",
               end: "bottom bottom",
-              scrub: 0.6,
+              // Lenis already smooths the scroll position — a numeric scrub
+              // would add a second layer of lag on top of it.
+              scrub: true,
             },
           }
         )

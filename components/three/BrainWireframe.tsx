@@ -16,6 +16,7 @@ import {
 } from "react"
 import * as THREE from "three"
 import { CanvasErrorBoundary } from "./CanvasErrorBoundary"
+import "./silence-clock-deprecation"
 
 gsap.registerPlugin(ScrollTrigger)
 

@@ -58,7 +58,9 @@ export default function CTASection({ data }: CTASectionProps) {
               trigger: sectionRef.current,
               start: "top bottom",
               end: "bottom top",
-              scrub: 0.6,
+              // Lenis already smooths the scroll position — a numeric scrub
+              // would add a second layer of lag on top of it.
+              scrub: true,
             },
           }
         )

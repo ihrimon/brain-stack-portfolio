@@ -112,7 +112,7 @@ export function Navbar() {
               className={cn(
                 "group flex size-14 shrink-0 cursor-pointer flex-col items-center justify-center gap-1.5 p-2 rounded-full transition-colors duration-300",
                 scrolledPastHero
-                  ? "border border-white/15 bg-surface-dark/90 backdrop-blur"
+                  ? "border border-white/15 bg-surface-dark/90"
                   : "bg-transparent"
               )}
               aria-label="Open menu"

@@ -20,9 +20,12 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
 
     if (prefersReducedMotion) return
 
+    // `lerp` (frame-rate-independent damping) instead of `duration`/`easing`:
+    // a fixed 1.2s ease restarted on every wheel tick, so scrolling kept
+    // drifting long after the wheel stopped and felt like it was dragging
+    // between sections. Scrubbed ScrollTriggers stacked their own lag on top.
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.12,
       smoothWheel: true,
     })
 
