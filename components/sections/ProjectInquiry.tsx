@@ -1,6 +1,6 @@
 "use client"
 
-import { FieldError, fieldClassName } from "@/components/shared/form-field"
+import { FieldError, fieldClassName, labelClassName } from "@/components/shared/form-field"
 import { submitContactForm, type ContactFormState } from "@/lib/actions/contact"
 import { contactData } from "@/lib/constants/contact"
 import type { AboutInquiryData } from "@/lib/data/about-page"
@@ -24,32 +24,32 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
   }, [state.status])
 
   return (
-    <section className="bg-brand-dark py-20 sm:py-28">
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-12">
+    <section className="py-20 sm:py-28">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
+        <div className="grid gap-16 border-t border-line pt-10 lg:grid-cols-2 lg:gap-12">
           <div className="flex flex-col justify-between">
-            <h2 className="max-w-lg text-4xl leading-tight font-semibold tracking-tight text-white sm:text-5xl">
+            <h2 className="max-w-lg heading-section text-ink">
               {inquiry.title}
             </h2>
 
             <div className="mt-16 lg:mt-0">
-              <p className="text-sm font-semibold tracking-widest text-white uppercase">
+              <p className="font-mono text-[11px] tracking-wider text-ink-2 uppercase">
                 Our Office
               </p>
-              <p className="mt-2 text-white/50">
+              <p className="mt-2 text-ink">
                 {contactData.address.line1}
               </p>
 
-              <div className="mt-6 space-y-1 text-white/50">
+              <div className="mt-6 space-y-1 text-ink">
                 <a
                   href={`mailto:${contactData.email}`}
-                  className="block wrap-break-word hover:text-white"
+                  className="block wrap-break-word hover:text-signal-text"
                 >
                   {contactData.email}
                 </a>
                 <a
                   href={`tel:${contactData.phone.replace(/[^+\d]/g, "")}`}
-                  className="block hover:text-white"
+                  className="block hover:text-signal-text"
                 >
                   {contactData.phone}
                 </a>
@@ -63,7 +63,7 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
                     target="_blank"
                     rel="me noopener noreferrer"
                     data-cursor="magnetic"
-                    className="flex items-center gap-1 text-sm font-semibold tracking-widest text-white uppercase transition-colors duration-300 hover:text-white/60"
+                    className="flex items-center gap-1 font-mono text-[11px] tracking-wider text-ink uppercase transition-colors duration-300 hover:text-signal-text"
                   >
                     {social.label}
                     <ArrowUpRight className="size-3.5" />
@@ -77,15 +77,16 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
             ref={formRef}
             action={formAction}
             noValidate
-            className="rounded-3xl bg-white/5 p-8 sm:p-10"
+            className="rounded-3xl border border-line bg-paper-2 p-6 sm:p-10"
           >
             <div>
-              <label className="text-xs font-semibold tracking-widest text-white uppercase">
-                Full Name <span className="text-white/40">*</span>
+              <label htmlFor="inquiry-name" className={labelClassName}>
+                Full Name <span className="text-signal-text">*</span>
               </label>
               <input
                 required
                 type="text"
+                id="inquiry-name"
                 name="name"
                 placeholder="Your full name"
                 aria-invalid={Boolean(state.fieldErrors?.name)}
@@ -96,12 +97,13 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
 
             <div className="mt-8 grid gap-8 sm:grid-cols-2">
               <div>
-                <label className="text-xs font-semibold tracking-widest text-white uppercase">
-                  Company Name <span className="text-white/40">*</span>
+                <label htmlFor="inquiry-company" className={labelClassName}>
+                  Company Name <span className="text-signal-text">*</span>
                 </label>
                 <input
                   required
                   type="text"
+                  id="inquiry-company"
                   name="company"
                   placeholder="Ex. Tesla Inc"
                   aria-invalid={Boolean(state.fieldErrors?.company)}
@@ -111,12 +113,13 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
               </div>
 
               <div>
-                <label className="text-xs font-semibold tracking-widest text-white uppercase">
-                  Email <span className="text-white/40">*</span>
+                <label htmlFor="inquiry-email" className={labelClassName}>
+                  Email <span className="text-signal-text">*</span>
                 </label>
                 <input
                   required
                   type="email"
+                  id="inquiry-email"
                   name="email"
                   placeholder="your@example.com"
                   aria-invalid={Boolean(state.fieldErrors?.email)}
@@ -128,12 +131,13 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
 
             <div className="mt-8 grid gap-8 sm:grid-cols-2">
               <div>
-                <label className="text-xs font-semibold tracking-widest text-white uppercase">
-                  Service Required <span className="text-white/40">*</span>
+                <label htmlFor="inquiry-services" className={labelClassName}>
+                  Service Required <span className="text-signal-text">*</span>
                 </label>
                 <div className="relative">
                   <select
                     required
+                    id="inquiry-services"
                     name="services"
                     defaultValue=""
                     className={`${fieldClassName} appearance-none pr-8`}
@@ -151,17 +155,18 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="pointer-events-none absolute top-1/2 right-0 size-4 -translate-y-1/2 text-white/40" />
+                  <ChevronDown className="pointer-events-none absolute top-1/2 right-0 size-4 -translate-y-1/2 text-ink-2" />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-semibold tracking-widest text-white uppercase">
-                  Project Budget <span className="text-white/40">*</span>
+                <label htmlFor="inquiry-budget" className={labelClassName}>
+                  Project Budget <span className="text-signal-text">*</span>
                 </label>
                 <div className="relative">
                   <select
                     required
+                    id="inquiry-budget"
                     name="budget"
                     defaultValue=""
                     className={`${fieldClassName} appearance-none pr-8`}
@@ -179,17 +184,18 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="pointer-events-none absolute top-1/2 right-0 size-4 -translate-y-1/2 text-white/40" />
+                  <ChevronDown className="pointer-events-none absolute top-1/2 right-0 size-4 -translate-y-1/2 text-ink-2" />
                 </div>
               </div>
             </div>
 
             <div className="mt-8">
-              <label className="text-xs font-semibold tracking-widest text-white uppercase">
-                Message <span className="text-white/40">*</span>
+              <label htmlFor="inquiry-message" className={labelClassName}>
+                Message <span className="text-signal-text">*</span>
               </label>
               <textarea
                 required
+                id="inquiry-message"
                 name="message"
                 rows={3}
                 placeholder="Tell us more about your idea"
@@ -203,7 +209,7 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
               type="submit"
               disabled={isPending}
               data-cursor="magnetic"
-              className="mt-10 w-full cursor-pointer rounded-full bg-white py-4 text-sm font-semibold tracking-widest text-black uppercase transition-colors duration-300 hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-10 w-full cursor-pointer rounded-full bg-signal py-4 text-sm font-semibold tracking-widest text-signal-ink uppercase transition-colors duration-300 hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isPending
                 ? "Sending..."
@@ -213,7 +219,7 @@ export default function ProjectInquiry({ inquiry }: ProjectInquiryProps) {
             </button>
 
             {state.status === "success" && (
-              <p className="mt-4 text-center text-sm text-white/50">
+              <p className="mt-4 text-center text-sm text-ink-2">
                 Thanks for reaching out — we&apos;ll get back to you within one
                 business day.
               </p>

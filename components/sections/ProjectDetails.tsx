@@ -1,10 +1,11 @@
 import { ParallaxImage } from "@/components/animations/ParallaxImage"
 import { PrimaryButton } from "@/components/buttons/PrimaryButton"
-import { SectionBadge } from "@/components/common/SectionBadge"
+import { ProjectTile } from "@/components/projects/ProjectTile"
 import type { CaseStudyProject, Project, ProjectMetrics } from "@/lib/data/projects"
+import { cn } from "@/lib/utils/cn"
 import { BLUR_DATA_URL } from "@/lib/utils/image-placeholder"
 import Image from "next/image"
-import Link from "next/link"
+import type { ReactNode } from "react"
 
 interface ProjectDetailsProps {
   project: Project
@@ -17,6 +18,72 @@ const metricLabels: Record<keyof ProjectMetrics, string> = {
   accessibility: "Accessibility",
   bestPractices: "Best Practices",
 }
+
+// ---- Editorial building blocks (co.design-style) ---------------------------
+
+// Gutters are margins (not padding) so section hairlines stop at the
+// content edge instead of running to the viewport edge.
+// Same 1232px content width as `max-w-site` + padding elsewhere.
+const container = "mx-4 max-w-[calc(var(--container-site)-3rem)] lg:mx-6 min-[1280px]:mx-auto"
+const monoLabel = "font-mono text-[11px] tracking-wider text-ink-2 uppercase"
+
+/** A hairline-topped 12-column row: mono label on the left, content right. */
+function Chapter({
+  label,
+  children,
+  as: Label = "h2",
+}: {
+  label: string
+  children: ReactNode
+  as?: "h2" | "span"
+}) {
+  return (
+    <section className="py-16 sm:py-24">
+      <div className={cn(container, "grid gap-8 border-t border-line pt-8 lg:grid-cols-12 lg:gap-8")}>
+        <Label className={cn(monoLabel, "lg:col-span-3")}>{label}</Label>
+        <div className="lg:col-span-8 lg:col-start-5">{children}</div>
+      </div>
+    </section>
+  )
+}
+
+function BulletList({ items, className }: { items: readonly string[]; className?: string }) {
+  return (
+    <ul className={cn("divide-y divide-line border-y border-line", className)}>
+      {items.map((item) => (
+        <li key={item} className="flex gap-4 py-4 text-base leading-relaxed text-ink-2">
+          <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-signal" />
+          {item}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function NumberedList({ items }: { items: readonly string[] }) {
+  return (
+    <ol className="divide-y divide-line border-y border-line">
+      {items.map((item, index) => (
+        <li key={item} className="grid grid-cols-[3rem_1fr] gap-4 py-5 text-base leading-relaxed text-ink">
+          <span className="font-mono text-[11px] tracking-wider text-ink-2">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          {item}
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+function Chip({ children }: { children: ReactNode }) {
+  return (
+    <span className="rounded-full border border-line px-3 py-1.5 font-mono text-[11px] tracking-wide text-ink-2">
+      {children}
+    </span>
+  )
+}
+
+// ---------------------------------------------------------------------------
 
 export default function ProjectDetails({ project, related }: ProjectDetailsProps) {
   // Deep-dive sections below only exist on full case studies — narrowing
@@ -37,423 +104,270 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
 
   return (
     <>
-      <section className="bg-brand-dark pt-32 pb-20 sm:pt-40 sm:pb-28">
-        <div className="mx-auto max-w-400 px-5 sm:px-8">
-          <div className="flex flex-wrap items-center justify-between gap-6">
-            <SectionBadge>{project.category}</SectionBadge>
-
+      {/* ---- Hero ---------------------------------------------------- */}
+      <section className="pt-28 pb-16 sm:pt-36 sm:pb-20">
+        <div className={container}>
+          <div className="flex flex-wrap items-center justify-between gap-6 border-b border-line pb-4">
+            <span className={monoLabel}>[ {project.category} ]</span>
             {project.liveUrl && (
               <PrimaryButton href={project.liveUrl}>Visit Live Site</PrimaryButton>
             )}
           </div>
 
-          <h1 className="mt-8 max-w-6xl text-4xl leading-[0.95] font-semibold tracking-tight text-white sm:text-6xl md:text-[76px]">
+          <h1 className="rise-up mt-12 max-w-[9.4em] text-[clamp(3rem,8vw,8.5rem)] leading-[0.92] font-medium tracking-[-0.05em] text-ink sm:mt-16">
             {project.title}
           </h1>
 
-          <div className="mt-16 grid gap-10 sm:mt-24 lg:grid-cols-2 lg:gap-50">
-            <div className="divide-y divide-white/10 border-t border-white/10">
+          <div className="mt-16 grid gap-12 sm:mt-24 lg:grid-cols-12 lg:gap-8">
+            <dl className="border-t border-line lg:col-span-5">
               {detailRows.map((row) => (
                 <div
                   key={row.label}
-                  className="grid grid-cols-[110px_1fr] gap-4 py-5 sm:grid-cols-[140px_1fr]"
+                  className="grid grid-cols-[7rem_1fr] gap-4 border-b border-line py-4 sm:grid-cols-[9rem_1fr]"
                 >
-                  <span className="text-sm text-white/50">{row.label}</span>
-                  <span className="text-sm font-semibold text-white sm:text-base">
-                    {row.value}
-                  </span>
+                  <dt className={monoLabel}>{row.label}</dt>
+                  <dd className="text-sm font-medium text-ink sm:text-base">{row.value}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
 
-            <p className="max-w-xl text-2xl leading-relaxed text-white/60">
-              {project.overview}
-            </p>
+            <div className="lg:col-span-6 lg:col-start-7">
+              <p className="text-2xl leading-snug tracking-tight text-ink sm:text-3xl">
+                {project.overview}
+              </p>
+
+              {project.technologies.length > 0 && (
+                <div className="mt-10 flex flex-wrap gap-2">
+                  {project.technologies.map((tech) => (
+                    <Chip key={tech}>{tech}</Chip>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-
-          {project.technologies.length > 0 && (
-            <div className="mt-10 flex flex-wrap gap-3">
-              {project.technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white sm:text-sm"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </section>
 
-      <section className="bg-brand-dark pb-20 sm:pb-28">
+      {/* ---- Cover --------------------------------------------------- */}
+      <section className="px-4 lg:px-6">
         <ParallaxImage
           src={project.heroImage}
           alt={project.title}
           priority
           sizes="100vw"
-          wrapperClassName="aspect-[16/7] w-full max-w-full bg-surface-dark"
+          wrapperClassName="mx-auto aspect-[16/9] w-full max-w-[calc(var(--container-site)-3rem)] overflow-hidden rounded-3xl bg-paper-2 lg:aspect-[16/8]"
         />
       </section>
 
+      {/* ---- Challenge ----------------------------------------------- */}
       {project.challenge && (
-        <section className="py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <div className="grid gap-6 lg:grid-cols-[200px_1fr] lg:gap-12">
-              <span className="text-xs font-medium tracking-widest uppercase">
-                The Challenge
-              </span>
+        <Chapter label="The Challenge" as="span">
+          {project.challenge.title && (
+            <p className="max-w-4xl text-2xl leading-tight font-medium tracking-tight text-ink sm:text-4xl">
+              {project.challenge.title}
+            </p>
+          )}
 
-              <div>
-                {project.challenge.title && (
-                  <p className="max-w-4xl text-2xl leading-snug font-medium text-neutral-400 sm:text-4xl">
-                    {project.challenge.title}
-                  </p>
-                )}
+          <p
+            className={cn(
+              "max-w-3xl leading-relaxed text-ink-2",
+              project.challenge.title ? "mt-6 text-lg" : "text-2xl leading-snug tracking-tight text-ink sm:text-3xl"
+            )}
+          >
+            {project.challenge.description}
+          </p>
 
-                <p className="mt-6 max-w-3xl text-base leading-relaxed text-neutral-500 sm:text-lg">
-                  {project.challenge.description}
-                </p>
-
-                {(project.challenge.painPoints.length > 0 ||
-                  project.challenge.businessImpact.length > 0) && (
-                  <div className="mt-10 grid gap-10 sm:grid-cols-2">
-                    {project.challenge.painPoints.length > 0 && (
-                      <div>
-                        <h3 className="text-sm font-semibold tracking-widest uppercase">
-                          Pain Points
-                        </h3>
-                        <ul className="mt-4 space-y-3">
-                          {project.challenge.painPoints.map((point) => (
-                            <li
-                              key={point}
-                              className="flex gap-3 text-base leading-relaxed text-neutral-500"
-                            >
-                              <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-neutral-400" />
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {project.challenge.businessImpact.length > 0 && (
-                      <div>
-                        <h3 className="text-sm font-semibold tracking-widest uppercase">
-                          Business Impact
-                        </h3>
-                        <ul className="mt-4 space-y-3">
-                          {project.challenge.businessImpact.map((impact) => (
-                            <li
-                              key={impact}
-                              className="flex gap-3 text-base leading-relaxed text-neutral-500"
-                            >
-                              <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-neutral-400" />
-                              {impact}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
+          {(project.challenge.painPoints.length > 0 ||
+            project.challenge.businessImpact.length > 0) && (
+            <div className="mt-12 grid gap-10 sm:grid-cols-2">
+              {project.challenge.painPoints.length > 0 && (
+                <div>
+                  <h3 className={cn(monoLabel, "mb-4")}>Pain Points</h3>
+                  <BulletList items={project.challenge.painPoints} />
+                </div>
+              )}
+              {project.challenge.businessImpact.length > 0 && (
+                <div>
+                  <h3 className={cn(monoLabel, "mb-4")}>Business Impact</h3>
+                  <BulletList items={project.challenge.businessImpact} />
+                </div>
+              )}
             </div>
-          </div>
-        </section>
+          )}
+        </Chapter>
       )}
 
       {caseStudy && caseStudy.goals.length > 0 && (
-        <section className="bg-brand-dark py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <div className="grid gap-10 lg:grid-cols-[200px_1fr] lg:gap-12">
-              <h2 className="text-xs font-medium tracking-widest text-white/60 uppercase">
-                Project Goals
-              </h2>
-
-              <ul className="grid gap-4 sm:grid-cols-2">
-                {caseStudy.goals.map((goal, index) => (
-                  <li
-                    key={goal}
-                    className="flex gap-4 rounded-2xl border border-white/10 p-5 text-base leading-relaxed text-white/70"
-                  >
-                    <span className="text-sm font-semibold text-white/30">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    {goal}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+        <Chapter label="Project Goals">
+          <NumberedList items={caseStudy.goals} />
+        </Chapter>
       )}
 
-      <section className="py-20 sm:py-28">
-        <div className="mx-auto max-w-400 px-5 sm:px-8">
-          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-            <h2 className="max-w-md text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
-              {project.solution.title}
-            </h2>
+      {/* ---- Solution ------------------------------------------------ */}
+      <section className="py-16 sm:py-24">
+        <div className={cn(container, "grid gap-10 border-t border-line pt-8 lg:grid-cols-12 lg:gap-8")}>
+          <h2 className="max-w-xl text-3xl leading-tight font-medium tracking-tight text-ink sm:text-4xl lg:col-span-6">
+            {project.solution.title}
+          </h2>
 
-            <div className="max-w-xl">
-              <p className="text-base leading-relaxed text-neutral-500">
-                {project.solution.description}
-              </p>
+          <div className="lg:col-span-5 lg:col-start-8">
+            <p className="text-lg leading-relaxed text-ink-2">{project.solution.description}</p>
 
-              <ul className="mt-6 space-y-2">
-                {project.solution.highlights.map((highlight) => (
-                  <li key={highlight} className="text-base">
-                    + {highlight}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul className="mt-8 divide-y divide-line border-y border-line">
+              {project.solution.highlights.map((highlight) => (
+                <li key={highlight} className="py-3.5 text-base text-ink">
+                  <span className="text-signal-text">+</span> {highlight}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
       {caseStudy && caseStudy.workflow.length > 0 && (
-        <section className="bg-brand-dark py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <h2 className="max-w-2xl text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl">
-              How We Built It
-            </h2>
-
-            <div className="mt-12 divide-y divide-white/10 border-t border-white/10">
-              {caseStudy.workflow.map((step, index) => (
-                <div
-                  key={step.title}
-                  className="grid gap-4 py-8 sm:grid-cols-[100px_1fr] sm:gap-8"
-                >
-                  <span className="text-sm font-semibold text-white/30">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <div>
-                    <h3 className="text-lg font-semibold text-white sm:text-xl">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 max-w-2xl text-base leading-relaxed text-white/60">
-                      {step.description}
-                    </p>
-                  </div>
+        <Chapter label="How We Built It">
+          <ol className="divide-y divide-line border-y border-line">
+            {caseStudy.workflow.map((step, index) => (
+              <li key={step.title} className="grid gap-3 py-8 sm:grid-cols-[4rem_1fr] sm:gap-6">
+                <span className="font-mono text-[11px] tracking-wider text-ink-2">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="text-xl font-medium tracking-tight text-ink">{step.title}</h3>
+                  <p className="mt-2 max-w-2xl text-base leading-relaxed text-ink-2">
+                    {step.description}
+                  </p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
+              </li>
+            ))}
+          </ol>
+        </Chapter>
       )}
 
       {(project.tools.length > 0 || (caseStudy?.architecture.length ?? 0) > 0) && (
-        <section className="py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <div className="grid gap-10 lg:grid-cols-3 lg:gap-12">
-              {project.tools.length > 0 && (
-                <div>
-                  <h3 className="text-sm font-semibold tracking-widest uppercase">Tools</h3>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {project.tools.map((tool) => (
-                      <span
-                        key={tool}
-                        className="rounded-full border border-neutral-200 px-3 py-1 text-xs font-medium text-neutral-600"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
+        <section className="py-16 sm:py-24">
+          <div className={cn(container, "grid gap-12 border-t border-line pt-8 lg:grid-cols-12 lg:gap-8")}>
+            {project.tools.length > 0 && (
+              <div className="lg:col-span-4">
+                <h3 className={cn(monoLabel, "mb-5")}>Tools</h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.tools.map((tool) => (
+                    <Chip key={tool}>{tool}</Chip>
+                  ))}
                 </div>
-              )}
+              </div>
+            )}
 
-              {caseStudy && caseStudy.architecture.length > 0 && (
-                <div>
-                  <h3 className="text-sm font-semibold tracking-widest uppercase">
-                    Architecture
-                  </h3>
-                  <ul className="mt-5 space-y-2">
-                    {caseStudy.architecture.map((item) => (
-                      <li
-                        key={item}
-                        className="flex gap-2 text-sm leading-relaxed text-neutral-500"
-                      >
-                        <span className="mt-2 size-1 shrink-0 rounded-full bg-neutral-400" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+            {caseStudy && caseStudy.architecture.length > 0 && (
+              <div className="lg:col-span-7 lg:col-start-6">
+                <h3 className={cn(monoLabel, "mb-5")}>Architecture</h3>
+                <BulletList items={caseStudy.architecture} />
+              </div>
+            )}
           </div>
         </section>
       )}
 
       {caseStudy && (caseStudy.features.length > 0 || caseStudy.uiHighlights.length > 0) && (
-        <section className="bg-brand-dark py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              {caseStudy.features.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-medium tracking-tight text-white sm:text-3xl">
-                    Key Features
-                  </h2>
-                  <ul className="mt-6 space-y-3">
-                    {caseStudy.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-center gap-3 text-base text-white/70"
-                      >
-                        <span className="size-1.5 shrink-0 rounded-full bg-white/40" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {caseStudy.uiHighlights.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-medium tracking-tight text-white sm:text-3xl">
-                    UI Highlights
-                  </h2>
-                  <ul className="mt-6 space-y-3">
-                    {caseStudy.uiHighlights.map((highlight) => (
-                      <li
-                        key={highlight}
-                        className="flex items-center gap-3 text-base text-white/70"
-                      >
-                        <span className="size-1.5 shrink-0 rounded-full bg-white/40" />
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+        <section className="py-16 sm:py-24">
+          <div className={cn(container, "grid gap-12 border-t border-line pt-8 lg:grid-cols-2 lg:gap-16")}>
+            {caseStudy.features.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-medium tracking-tight text-ink sm:text-3xl">Key Features</h2>
+                <BulletList items={caseStudy.features} className="mt-6" />
+              </div>
+            )}
+            {caseStudy.uiHighlights.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-medium tracking-tight text-ink sm:text-3xl">UI Highlights</h2>
+                <BulletList items={caseStudy.uiHighlights} className="mt-6" />
+              </div>
+            )}
           </div>
         </section>
       )}
 
       {caseStudy && caseStudy.developmentProcess.length > 0 && (
-        <section className="py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
-              Development Process
-            </h2>
-
-            <div className="mt-10 flex flex-wrap gap-3">
-              {caseStudy.developmentProcess.map((stage, index) => (
-                <div
-                  key={stage}
-                  className="flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium"
-                >
-                  <span className="text-xs text-neutral-400">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  {stage}
-                </div>
-              ))}
-            </div>
+        <Chapter label="Development Process">
+          <div className="flex flex-wrap gap-2">
+            {caseStudy.developmentProcess.map((stage, index) => (
+              <span
+                key={stage}
+                className="flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-medium text-ink"
+              >
+                <span className="font-mono text-[11px] text-ink-2">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {stage}
+              </span>
+            ))}
           </div>
-        </section>
+        </Chapter>
       )}
 
       {caseStudy &&
         (caseStudy.challengesFaced.length > 0 || caseStudy.solutionsImplemented.length > 0) && (
-        <section className="bg-brand-dark py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <h2 className="text-2xl font-medium tracking-tight text-white sm:text-3xl">
-              Engineering Challenges & Fixes
-            </h2>
-
-            <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16">
+          <Chapter label="Engineering Challenges & Fixes">
+            <div className="grid gap-10 sm:grid-cols-2">
               {caseStudy.challengesFaced.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-semibold tracking-widest text-white/50 uppercase">
-                    Challenges Faced
-                  </h3>
-                  <ul className="mt-5 space-y-4">
-                    {caseStudy.challengesFaced.map((challenge) => (
-                      <li key={challenge} className="text-base leading-relaxed text-white/70">
-                        {challenge}
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className={cn(monoLabel, "mb-4")}>Challenges Faced</h3>
+                  <BulletList items={caseStudy.challengesFaced} />
                 </div>
               )}
-
               {caseStudy.solutionsImplemented.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-semibold tracking-widest text-white/50 uppercase">
-                    Solutions Implemented
-                  </h3>
-                  <ul className="mt-5 space-y-4">
-                    {caseStudy.solutionsImplemented.map((solution) => (
-                      <li key={solution} className="text-base leading-relaxed text-white/70">
-                        {solution}
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className={cn(monoLabel, "mb-4")}>Solutions Implemented</h3>
+                  <BulletList items={caseStudy.solutionsImplemented} />
                 </div>
               )}
             </div>
-          </div>
-        </section>
-      )}
+          </Chapter>
+        )}
 
       {caseStudy && (caseStudy.results.length > 0 || caseStudy.metrics) && (
-        <section className="py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <div className="grid gap-16 lg:grid-cols-2">
-              {caseStudy.results.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">Results</h2>
-                  <ul className="mt-6 space-y-3">
-                    {caseStudy.results.map((result) => (
-                      <li key={result} className="flex gap-3 text-base leading-relaxed">
-                        <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-neutral-400" />
-                        {result}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+        <section className="py-16 sm:py-24">
+          <div className={cn(container, "grid gap-16 border-t border-line pt-8 lg:grid-cols-2")}>
+            {caseStudy.results.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-medium tracking-tight text-ink sm:text-3xl">Results</h2>
+                <BulletList items={caseStudy.results} className="mt-6" />
+              </div>
+            )}
 
-              {caseStudy.metrics && (
-                <div>
-                  <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
-                    Quality Metrics
-                  </h2>
-                  <div className="mt-6 grid grid-cols-2 gap-4">
-                    {(Object.keys(caseStudy.metrics) as Array<keyof ProjectMetrics>).map((key) => (
-                      <div
-                        key={key}
-                        className="rounded-2xl border border-neutral-200 p-5"
-                      >
-                        <span className="text-2xl font-semibold">{caseStudy.metrics[key]}</span>
-                        <p className="mt-1 text-xs tracking-widest text-neutral-400 uppercase">
-                          {metricLabels[key]}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+            {caseStudy.metrics && (
+              <div>
+                <h2 className="text-2xl font-medium tracking-tight text-ink sm:text-3xl">
+                  Quality Metrics
+                </h2>
+                <dl className="mt-6 grid grid-cols-2 border-t border-l border-line">
+                  {(Object.keys(caseStudy.metrics) as Array<keyof ProjectMetrics>).map((key) => (
+                    <div key={key} className="border-r border-b border-line p-6">
+                      <dd className="text-4xl font-medium tracking-tight text-ink tabular-nums">
+                        {caseStudy.metrics[key]}
+                      </dd>
+                      <dt className={cn(monoLabel, "mt-2")}>{metricLabels[key]}</dt>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            )}
           </div>
         </section>
       )}
 
       {caseStudy && caseStudy.testimonial && (
-        <section className="bg-brand-dark py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <p className="text-2xl leading-relaxed text-white sm:text-3xl">
-                &ldquo;{caseStudy.testimonial.quote}&rdquo;
-              </p>
+        <section className="py-20 sm:py-32">
+          <div className={cn(container, "border-t border-line pt-16")}>
+            <figure className="mx-auto max-w-4xl text-center">
+              <blockquote className="text-3xl leading-snug font-medium tracking-tight text-ink sm:text-4xl">
+                <span className="text-signal">&ldquo;</span>
+                {caseStudy.testimonial.quote}
+                <span className="text-signal">&rdquo;</span>
+              </blockquote>
 
-              <div className="mt-8 flex items-center justify-center gap-4">
-                <div className="relative size-12 overflow-hidden rounded-full bg-neutral-800">
+              <figcaption className="mt-10 flex items-center justify-center gap-4">
+                <div className="relative size-12 overflow-hidden rounded-full bg-paper-2">
                   {caseStudy.testimonial.image && (
                     <Image
                       src={caseStudy.testimonial.image}
@@ -466,142 +380,99 @@ export default function ProjectDetails({ project, related }: ProjectDetailsProps
                     />
                   )}
                 </div>
-
                 <div className="text-left">
-                  <p className="text-sm font-semibold text-white">
-                    {caseStudy.testimonial.name}
-                  </p>
-                  <p className="text-xs text-white/50">
+                  <p className="text-sm font-semibold text-ink">{caseStudy.testimonial.name}</p>
+                  <p className="text-xs text-ink-2">
                     {caseStudy.testimonial.role}
                     {caseStudy.testimonial.company ? `, ${caseStudy.testimonial.company}` : ""}
                   </p>
                 </div>
-              </div>
-            </div>
+              </figcaption>
+            </figure>
           </div>
         </section>
       )}
 
       {caseStudy && (caseStudy.lessonsLearned.length > 0 || caseStudy.nextSteps.length > 0) && (
-        <section className="py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              {caseStudy.lessonsLearned.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
-                    Lessons Learned
-                  </h2>
-                  <ul className="mt-6 space-y-3">
-                    {caseStudy.lessonsLearned.map((lesson) => (
-                      <li key={lesson} className="text-base leading-relaxed text-neutral-500">
-                        {lesson}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {caseStudy.nextSteps.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">Next Steps</h2>
-                  <ul className="mt-6 space-y-3">
-                    {caseStudy.nextSteps.map((step) => (
-                      <li key={step} className="text-base leading-relaxed text-neutral-500">
-                        {step}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+        <section className="py-16 sm:py-24">
+          <div className={cn(container, "grid gap-12 border-t border-line pt-8 lg:grid-cols-2 lg:gap-16")}>
+            {caseStudy.lessonsLearned.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-medium tracking-tight text-ink sm:text-3xl">Lessons Learned</h2>
+                <BulletList items={caseStudy.lessonsLearned} className="mt-6" />
+              </div>
+            )}
+            {caseStudy.nextSteps.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-medium tracking-tight text-ink sm:text-3xl">Next Steps</h2>
+                <BulletList items={caseStudy.nextSteps} className="mt-6" />
+              </div>
+            )}
           </div>
         </section>
       )}
 
-      <section className="bg-brand-dark pb-20 sm:pb-28">
-        <div className="mb-8 grid grid-cols-1 gap-8 lg:h-160 lg:grid-cols-12 lg:grid-rows-2">
-          <ParallaxImage
-            src={primaryImage}
-            alt={`${project.title} showcase 1`}
-            sizes="(min-width: 1024px) 58vw, 100vw"
-            placeholder="blur"
-            blurDataURL={BLUR_DATA_URL}
-            wrapperClassName="aspect-4/3 w-full max-w-full bg-surface-dark lg:aspect-auto lg:col-span-7 lg:row-span-2"
-          />
-
-          <ParallaxImage
-            src={secondaryImage}
-            alt={`${project.title} showcase 2`}
-            sizes="(min-width: 1024px) 42vw, 100vw"
-            placeholder="blur"
-            blurDataURL={BLUR_DATA_URL}
-            wrapperClassName="aspect-4/3 w-full max-w-full bg-surface-dark lg:aspect-auto lg:col-span-5"
-          />
-
-          <ParallaxImage
-            src={tertiaryImage}
-            alt={`${project.title} showcase 3`}
-            sizes="(min-width: 1024px) 42vw, 100vw"
-            placeholder="blur"
-            blurDataURL={BLUR_DATA_URL}
-            wrapperClassName="aspect-4/3 w-full max-w-full bg-surface-dark lg:aspect-auto lg:col-span-5"
-          />
+      {/* ---- Gallery: an editorial spread ---------------------------- */}
+      <section className="pt-8 pb-20 sm:pb-28">
+        <div className={cn(container, "grid gap-4 sm:gap-6 lg:grid-cols-12")}>
+          {primaryImage && (
+            <ParallaxImage
+              src={primaryImage}
+              alt={`${project.title} showcase 1`}
+              sizes="(min-width: 1024px) 90vw, 100vw"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
+              wrapperClassName="aspect-[16/9] w-full overflow-hidden rounded-3xl bg-paper-2 lg:col-span-12"
+            />
+          )}
+          {secondaryImage && (
+            <ParallaxImage
+              src={secondaryImage}
+              alt={`${project.title} showcase 2`}
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
+              wrapperClassName="aspect-4/3 w-full overflow-hidden rounded-3xl bg-paper-2 lg:col-span-7"
+            />
+          )}
+          {tertiaryImage && (
+            <ParallaxImage
+              src={tertiaryImage}
+              alt={`${project.title} showcase 3`}
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
+              wrapperClassName="aspect-4/3 w-full overflow-hidden rounded-3xl bg-paper-2 lg:col-span-5 lg:aspect-auto"
+            />
+          )}
+          {restImages.map((image, index) => (
+            <ParallaxImage
+              key={image + index}
+              src={image}
+              alt={`${project.title} showcase ${index + 4}`}
+              sizes="(min-width: 1024px) 30vw, 100vw"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
+              wrapperClassName="aspect-4/3 w-full overflow-hidden rounded-3xl bg-paper-2 lg:col-span-4"
+            />
+          ))}
         </div>
-
-        {restImages.length > 0 && (
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {restImages.map((image, index) => (
-              <ParallaxImage
-                key={image + index}
-                src={image}
-                alt={`${project.title} showcase ${index + 4}`}
-                sizes="(min-width: 1024px) 33vw, 100vw"
-                placeholder="blur"
-                blurDataURL={BLUR_DATA_URL}
-                wrapperClassName="aspect-4/3 w-full max-w-full bg-surface-dark"
-              />
-            ))}
-          </div>
-        )}
       </section>
 
+      {/* ---- More projects ------------------------------------------- */}
       {related.length > 0 && (
         <section className="py-20 sm:py-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
-            <div className="flex flex-wrap items-end justify-between gap-8">
-              <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
+          <div className={container}>
+            <div className="flex flex-wrap items-end justify-between gap-8 border-t border-line pt-8">
+              <h2 className="heading-section text-ink">
                 More Projects
               </h2>
-
               <PrimaryButton href="/projects">View All Projects</PrimaryButton>
             </div>
 
-            <div className="mt-10 grid gap-8 sm:grid-cols-2">
+            <div className="mt-12 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:gap-x-12">
               {related.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/projects/${item.slug}`}
-                  className="group/related block overflow-hidden rounded-2xl border border-neutral-200"
-                  data-cursor="magnetic"
-                >
-                  <div className="relative aspect-16/9 overflow-hidden">
-                    <Image
-                      src={item.thumbnail}
-                      alt={item.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover/related:scale-105"
-                      sizes="(min-width: 640px) 50vw, 100vw"
-                      placeholder="blur"
-                      blurDataURL={BLUR_DATA_URL}
-                    />
-                  </div>
-                  <div className="p-6">
-                    <span className="text-xs font-medium tracking-widest text-neutral-400 uppercase">
-                      {item.category}
-                    </span>
-                    <h3 className="mt-2 text-xl font-medium">{item.title}</h3>
-                  </div>
-                </Link>
+                <ProjectTile key={item.slug} project={item} />
               ))}
             </div>
           </div>

@@ -4,25 +4,25 @@ import type { ReactNode } from "react"
 interface SectionBadgeProps {
   children: ReactNode
   variant?: "pill" | "label"
+  /** Kept for API compatibility; the label variant no longer draws a marker. */
   dot?: boolean
   className?: string
 }
 
-export function SectionBadge({
-  children,
-  variant = "pill",
-  dot = false,
-  className,
-}: SectionBadgeProps) {
+/** The site's mono "system" label (x.ai-style). `pill` sits in a hairline
+ * capsule whose border carries a small signal-colored light that orbits
+ * around it (`.badge-border` in globals.css); `label` is the bare text.
+ * `self-start` keeps it badge-sized when it sits in a grid/flex row next to
+ * a tall heading, instead of stretching to the row's height. */
+export function SectionBadge({ children, variant = "pill", className }: SectionBadgeProps) {
   if (variant === "label") {
     return (
       <div
         className={cn(
-          "flex items-center gap-2 text-xs font-medium tracking-widest text-white/60 uppercase",
+          "flex items-center self-start font-mono text-[11px] tracking-wider text-ink-2 uppercase",
           className
         )}
       >
-        {dot && <span className="size-1.5 rounded-full bg-white" />}
         {children}
       </div>
     )
@@ -31,7 +31,7 @@ export function SectionBadge({
   return (
     <span
       className={cn(
-        "w-fit rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white sm:text-sm",
+        "badge-border inline-flex w-fit items-center self-start rounded-full bg-ink/[0.03] px-4 py-1.5 font-mono text-[11px] tracking-wider whitespace-nowrap text-ink uppercase",
         className
       )}
     >

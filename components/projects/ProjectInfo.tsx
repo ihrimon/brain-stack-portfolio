@@ -1,64 +1,47 @@
 import { cn } from "@/lib/utils/cn"
-import Image from "next/image"
+import { ArrowUpRight } from "lucide-react"
 import Link from "next/link"
 
 interface ProjectInfoProps {
   label: string
-  year: string | null
-  category: string
   slug: string
   className?: string
 }
 
-/** Dumb bottom info bar for a stacked project card — title, year, category
- * pill, and a "View Case Study" link to the internal case-study page.
- * Distinct from "Explore Project" in ProjectCard.tsx, which only appears on
- * hovering the image and goes to the live project URL — this one lives
- * here, in the content area, and is its own destination. */
-export function ProjectInfo({
-  label,
-  year,
-  category,
-  slug,
-  className,
-}: ProjectInfoProps) {
+/** Drops the trailing domain from a "Name · Type · domain.com" label —
+ * the card's media already links to the live site. */
+function displayTitle(label: string) {
+  return label
+    .split(" · ")
+    .filter((part) => !/^[\w-]+(\.[\w-]+)+$/.test(part.trim()))
+    .join(" · ")
+}
+
+/** Info row under a project card — title and a "View Case Study" link to
+ * the internal case-study page. Distinct from the card's media link
+ * (ProjectCard.tsx), which goes to the live project URL. */
+export function ProjectInfo({ label, slug, className }: ProjectInfoProps) {
   return (
     <div
       className={cn(
-        "absolute inset-x-0 bottom-0 z-10 flex min-h-32 flex-col gap-3 border-2 border-neutral-900 bg-surface-dark p-4 sm:relative sm:min-h-32 sm:gap-4 sm:p-6 lg:p-8",
+        "flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-8",
         className
       )}
     >
-      <div className="flex flex-col items-start gap-3 lg:flex-row lg:items-end lg:justify-between lg:gap-4">
-        <div className="min-w-0">
-          <div className="mb-2 flex flex-wrap items-center gap-2">
-            <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-white/60 uppercase">
-              {category}
-            </span>
-            {year && <span className="text-xs text-white/40">{year}</span>}
-          </div>
-          <h3 className="line-clamp-2 text-base font-medium text-white/85 sm:text-xl lg:text-2xl">
-            {label}
-          </h3>
-        </div>
+      <h3 className="min-w-0 line-clamp-2 text-lg leading-snug font-medium tracking-tight text-ink sm:text-xl">
+        {displayTitle(label)}
+      </h3>
 
-        <Link
-          href={`/projects/${slug}`}
-          data-cursor="magnetic"
-          className="relative z-10 inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/5 py-1 pr-1 pl-3 text-[11px] font-medium whitespace-nowrap text-white backdrop-blur-sm transition-colors duration-300 hover:border-primary hover:bg-primary sm:gap-2 sm:py-1.5 sm:pr-1.5 sm:pl-5 sm:text-xs lg:text-sm"
-        >
+      <Link
+        href={`/projects/${slug}`}
+        className="group inline-flex shrink-0 items-center gap-1.5 text-sm font-medium whitespace-nowrap text-ink"
+      >
+        <span className="relative">
           View Case Study
-          <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-white sm:size-7">
-            <Image
-              src="/icons/arrow-right.svg"
-              alt=""
-              width={10}
-              height={10}
-              className="sm:h-3 sm:w-3"
-            />
-          </span>
-        </Link>
-      </div>
+          <span className="absolute inset-x-0 -bottom-1 h-px bg-ink/30 transition-colors duration-500 ease-premium group-hover:bg-signal" />
+        </span>
+        <ArrowUpRight className="size-4 transition-transform duration-500 ease-premium group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-signal" />
+      </Link>
     </div>
   )
 }

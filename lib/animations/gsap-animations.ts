@@ -186,14 +186,33 @@ interface TextRevealOnScrollConfig {
   start?: string;
   end?: string;
   scrub?: number | boolean;
-  mutedOpacity?: number;
   stagger?: number;
+  mutedOpacity?: number;
 }
 
-// Splits each target into words that start muted and reveal (opacity ->
-// full) word-by-word as the element is scrolled through, rather than
-// fading in all at once. Used to keep every section's title/description
-// reveal feeling consistent across the site.
+/** Resolves the theme's secondary-text color (`--ink-2`) as an rgb() string
+ * in `el`'s context, so it compares cleanly against computed colors. */
+function mutedColorFor(el: HTMLElement) {
+  const probe = document.createElement("span");
+  probe.style.color = "var(--ink-2)";
+  el.appendChild(probe);
+  const color = getComputedStyle(probe).color;
+  probe.remove();
+  return color;
+}
+
+// Splits each target into words that start dimmed and reveal word-by-word to
+// full opacity as the element is scrolled through, rather than fading in
+// all at once. Used to keep every section's title/description reveal
+// feeling consistent across the site.
+//
+// The muted opacity (0.55) is chosen so primary-ink text still clears WCAG
+// contrast before it's revealed, in both themes. Secondary text (`--ink-2`)
+// would drop below that when dimmed, so it's left as-is. Opacity (not a
+// color tween) keeps the effect correct across live light/dark switches.
+// `aria: "none"` stops SplitText adding an aria-label to the (role-less)
+// container, which isn't a valid place for one — the words are
+// plain text nodes, so assistive tech still reads them naturally.
 gsap.registerEffect({
   name: "textRevealOnScroll",
   effect: (targets: gsap.TweenTarget, config: TextRevealOnScrollConfig) => {
@@ -206,7 +225,11 @@ gsap.registerEffect({
     const triggers: ScrollTrigger[] = [];
 
     elements.forEach((el) => {
-      const split = SplitText.create(el, { type: "words" });
+      const fullColor = getComputedStyle(el).color;
+      const mutedColor = mutedColorFor(el);
+      if (fullColor === mutedColor) return;
+
+      const split = SplitText.create(el, { type: "words", aria: "none" });
       if (!split.words.length) {
         split.revert();
         return;
@@ -234,7 +257,7 @@ gsap.registerEffect({
     start: "top 85%",
     end: "bottom 55%",
     scrub: 0.5,
-    mutedOpacity: 0.25,
+    mutedOpacity: 0.55,
     stagger: 0.05,
   },
 });

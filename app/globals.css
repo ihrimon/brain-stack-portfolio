@@ -19,72 +19,214 @@
   initial-value: 50%;
 }
 
-/* This site has no theme switcher — it's always dark (the former
-   next-themes toggle was removed). These tokens used to be split between a
-   light-mode `:root` and a `.dark` override that only applied once a `.dark`
-   class landed on `<html>`, which nothing does anymore — so `:root` was
-   silently serving the *light* palette everywhere (e.g. Loader.tsx's
-   `bg-background` rendering white on first paint) while most sections
-   looked dark only because they hardcode `bg-brand-dark`/`bg-surface-dark`
-   directly instead of going through these tokens. `:root` now carries the
-   dark palette directly as the only palette, so every consumer of
-   `bg-background`/`text-heading`/etc. is dark-consistent by default. */
+/* ===== THEMES =====
+   `<html data-theme="dark|light">` (set before first paint by the init
+   script in app/layout.tsx, see lib/theme/) picks the token set below.
+
+   Monochrome base + one signal color. The neutrals come from x.ai
+   (near-black #0A0A0A), co.design (ink #121212; light theme on pure white) and
+   Cuberto (black and white). The only hue is `--signal` (#2F5BFF, electric
+   blue): CTAs, the cursor, active states and the one emphasized word.
+   Keep it to a small share of the screen and never use it as a section
+   background. Text on a signal fill is always `--signal-ink` (white), which
+   stays readable in both themes. `--destructive` is kept for form errors.
+
+   Semantic tokens (prefer these in new code):
+     - `paper` / `paper-2` → page / raised surface
+     - `ink` / `ink-2`     → primary / secondary text
+     - `line`              → hairline borders and dividers
+     - `signal`            → the single accent color
+
+   Legacy: most existing components were written dark-first and spell that
+   out directly (`text-white/60`, `bg-brand-dark`, `border-white/10` …).
+   Tailwind v4 emits `text-white` as `color: var(--color-white)`, so light
+   mode re-points those variables — "white" means ink, "black" means paper,
+   and the neutral scale is mirrored (50 ↔ 950). Anything that must stay
+   literally white or black in both modes uses `static-white` /
+   `static-black`. New code should use the semantic tokens instead.
+
+   Any element can opt back into the dark tokens with `data-theme="dark"` —
+   used for the hero/CTA, whose WebGL scene is dark in both modes. That's
+   why the dark block also matches `[data-theme="dark"]`, not only `:root`. */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: dark;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Brain Stack brand palette */
-  --brand-primary: #5b5fff;
-  --brand-secondary: #8b5cf6;
-  --brand-accent: #22d3ee;
-  --brand-dark: #0b0b0f;
-  /* Dark section/card surface — was hardcoded as Tailwind's `neutral-900`
-     everywhere; centralized here so it can be swapped in one place. */
-  --surface-dark: #161616;
+}
 
-  --background: var(--brand-dark);
-  --foreground: #ffffff;
-  --card: oklch(0.19 0.006 285.9);
-  --card-foreground: #ffffff;
-  --popover: oklch(0.19 0.006 285.9);
-  --popover-foreground: #ffffff;
-  --primary: var(--brand-primary);
-  --primary-hover: color-mix(in oklch, var(--brand-primary) 85%, black 15%);
-  --primary-foreground: #ffffff;
-  --secondary: var(--brand-secondary);
-  --secondary-foreground: #ffffff;
-  --muted: oklch(0.274 0.006 286.033); /* neutral-800 */
-  --muted-foreground: oklch(0.712 0.013 286.067); /* neutral-400 */
-  --accent: var(--brand-accent);
-  --accent-foreground: var(--brand-dark);
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Semantic monochrome tokens */
+  --paper: #0a0a0a;
+  --paper-2: #141414;
+  --ink: #f1eeeb;
+  --ink-2: #8f8c88;
+  --line: color-mix(in oklch, var(--ink) 10%, transparent);
+  --signal: #2f5bff;
+  --signal-ink: #ffffff;
+  /* Small text in the signal hue: lighter on dark so it clears 4.5:1. */
+  --signal-text: #7b97ff;
+
+  /* Legacy names, kept so existing utilities resolve. */
+  --brand-dark: var(--paper);
+  --surface-dark: var(--paper-2);
+  --brand-primary: var(--signal);
+  --brand-secondary: var(--ink-2);
+  --brand-accent: var(--signal);
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-neutral-50: oklch(98.5% 0 0);
+  --color-neutral-100: oklch(97% 0 0);
+  --color-neutral-200: oklch(92.2% 0 0);
+  --color-neutral-300: oklch(87% 0 0);
+  --color-neutral-400: oklch(70.8% 0 0);
+  --color-neutral-500: oklch(55.6% 0 0);
+  --color-neutral-600: oklch(43.9% 0 0);
+  --color-neutral-700: oklch(37.1% 0 0);
+  --color-neutral-800: oklch(26.9% 0 0);
+  --color-neutral-900: oklch(20.5% 0 0);
+  --color-neutral-950: oklch(14.5% 0 0);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper-2);
+  --card-foreground: var(--ink);
+  --popover: var(--paper-2);
+  --popover-foreground: var(--ink);
+  --primary: var(--signal);
+  --primary-hover: color-mix(in oklch, var(--signal) 88%, black 12%);
+  --primary-foreground: var(--signal-ink);
+  --secondary: var(--ink-2);
+  --secondary-foreground: var(--paper);
+  --muted: #1c1c1c;
+  --muted-foreground: var(--ink-2);
+  --accent: var(--signal);
+  --accent-foreground: var(--signal-ink);
   --destructive: oklch(0.3958 0.1331 25.723);
   --destructive-foreground: oklch(0.9851 0 0);
-  --border: oklch(0.274 0.006 286.033);
-  --input: oklch(0.274 0.006 286.033);
-  --ring: var(--brand-primary);
-  --chart-1: var(--brand-primary);
-  --chart-2: var(--brand-secondary);
-  --chart-3: var(--brand-accent);
-  --chart-4: oklch(0.7049 0.1867 47.6044);
-  --chart-5: oklch(0.5771 0.2152 27.325);
-  --sidebar: var(--brand-dark);
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: var(--brand-primary);
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: oklch(0.274 0.006 286.033);
-  --sidebar-ring: var(--brand-primary);
-  --font-sans: var(--font-body);
-  --font-heading: var(--font-heading);
-  --font-mono: var(--font-body);
+  --border: #262626;
+  --input: #262626;
+  --ring: var(--signal);
+  --chart-1: var(--signal);
+  --chart-2: oklch(75% 0 0);
+  --chart-3: oklch(60% 0 0);
+  --chart-4: oklch(45% 0 0);
+  --chart-5: oklch(32% 0 0);
+  --sidebar: var(--paper);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--signal);
+  --sidebar-primary-foreground: var(--signal-ink);
+  --sidebar-accent: #1c1c1c;
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: #262626;
+  --sidebar-ring: var(--signal);
+
+  --text-heading: var(--ink);
+  --text-label: var(--ink-2);
+  --text-tag: var(--signal);
+  --text-tag-bg: color-mix(in oklch, var(--signal) 12%, var(--paper) 88%);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Pure white paper + neutral grays (no warm tint) */
+  --paper: #ffffff;
+  --paper-2: #f5f5f7;
+  --ink: #121212;
+  --ink-2: #64646b;
+  --line: color-mix(in oklch, var(--ink) 12%, transparent);
+  --signal: #2f5bff;
+  --signal-ink: #ffffff;
+  /* Small text in the signal hue: deeper on light so it clears 4.5:1. */
+  --signal-text: #2447e0;
+
+  --brand-dark: var(--paper);
+  --surface-dark: var(--paper-2);
+  --brand-primary: var(--signal);
+  --brand-secondary: var(--ink-2);
+  --brand-accent: var(--signal);
+
+  /* Ink / paper swap — see the THEMES note above. */
+  --color-white: #121212;
+  --color-black: #ffffff;
+  --color-neutral-50: oklch(14.5% 0 0);
+  --color-neutral-100: oklch(20.5% 0 0);
+  --color-neutral-200: oklch(26.9% 0 0);
+  --color-neutral-300: oklch(37.1% 0 0);
+  --color-neutral-400: oklch(43.9% 0 0);
+  --color-neutral-500: oklch(55.6% 0 0);
+  --color-neutral-600: oklch(70.8% 0 0);
+  --color-neutral-700: oklch(87% 0 0);
+  --color-neutral-800: oklch(92.2% 0 0);
+  --color-neutral-900: oklch(97% 0 0);
+  --color-neutral-950: oklch(98.5% 0 0);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper-2);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--signal);
+  --primary-hover: color-mix(in oklch, var(--signal) 88%, black 12%);
+  --primary-foreground: var(--signal-ink);
+  --secondary: var(--ink-2);
+  --secondary-foreground: var(--paper);
+  --muted: #ececef;
+  --muted-foreground: var(--ink-2);
+  --accent: var(--signal);
+  --accent-foreground: var(--signal-ink);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.9851 0 0);
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: var(--signal);
+  --chart-1: var(--signal);
+  --chart-2: oklch(35% 0 0);
+  --chart-3: oklch(50% 0 0);
+  --chart-4: oklch(65% 0 0);
+  --chart-5: oklch(80% 0 0);
+  --sidebar: var(--paper);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--signal);
+  --sidebar-primary-foreground: var(--signal-ink);
+  --sidebar-accent: #ececef;
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: var(--signal);
+
+  --text-heading: var(--ink);
+  --text-label: var(--ink-2);
+  --text-tag: var(--signal);
+  --text-tag-bg: color-mix(in oklch, var(--signal) 12%, var(--paper) 88%);
+}
+
+/* Theme-independent tokens. Kept out of the themed blocks above: those are
+   re-declared on every `data-theme="dark"` island. The next/font variables
+   (`--font-geist`, `--font-geist-mono`) are set on <html> in app/layout.tsx,
+   so they already resolve here at :root. */
+:root {
+  --font-sans: var(--font-geist);
+  --font-heading: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+
+  /* Motion scale — one easing curve and one duration scale everywhere
+     (mirrored for JS in lib/animations/motion.ts). */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-xs: 150ms;
+  --duration-sm: 300ms;
+  --duration-md: 500ms;
+  --duration-lg: 700ms;
+  --duration-xl: 1000ms;
   --radius: 1rem;
   --shadow-2xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
   --shadow-xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
@@ -101,18 +243,29 @@
   --shadow-2xl: 0px 2px 4px 0px hsl(0 0% 0% / 0.25);
   --tracking-normal: 0rem;
   --spacing: 0.25rem;
-
-  /* CUSTOME */
-  --text-heading: #ffffff;
-  --text-label: oklch(0.712 0.013 286.067);
-  --text-tag: var(--brand-accent);
-  --text-tag-bg: color-mix(in oklch, var(--brand-accent) 14%, var(--brand-dark) 86%);
 }
 
+/* `dark:` / `light:` follow the nearest `data-theme`, so a forced-dark
+   island inside a light page counts as dark (islands are only ever dark). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *):not(:where([data-theme="dark"], [data-theme="dark"] *)));
+
 @theme inline {
-  --font-sans: var(--font-body);
-  --font-heading: var(--font-heading);
-  --font-mono: var(--font-body);
+  /* Site content width — every page container uses `max-w-site`.
+     Change it here to resize the whole layout. */
+  --container-site: 80rem; /* 1280px incl. padding — matches x.ai (xl:max-w-7xl, px-4 lg:px-6) */
+  --font-sans: var(--font-geist);
+  --font-heading: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-signal: var(--signal);
+  --color-signal-ink: var(--signal-ink);
+  --color-signal-text: var(--signal-text);
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -151,6 +304,9 @@
   --color-brand-accent: var(--brand-accent);
   --color-brand-dark: var(--brand-dark);
   --color-surface-dark: var(--surface-dark);
+  /* Literal white/black in every theme — `white`/`black` swap in light mode. */
+  --color-static-white: #ffffff;
+  --color-static-black: #000000;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -309,6 +465,135 @@ body {
   font-family: var(--font-sans);
 }
 
+::selection {
+  background: var(--signal);
+  color: var(--signal-ink);
+}
+
+/* ===== PAGE TRANSITIONS =====
+   Driven by the <ViewTransition> in app/template.tsx. The old page leaves
+   quickly (fade + slight lift) so it doesn't compete; the new one arrives
+   a beat later and slower, rising into place. The root snapshot (navbar,
+   footer) is frozen so only the content visibly moves. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-old(.page-exit) {
+  animation: page-out 220ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(.page-enter) {
+  animation: page-in var(--duration-lg) var(--ease-premium) 140ms both;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ===== ENTRANCE MOTION (CSS-only) =====
+   Plays on first paint with no JS: each element sets `--i` for its stagger
+   slot. `.rise-word` is meant to sit inside an `overflow-hidden` mask so
+   the word slides up out of it; `.rise-fade` is a short fade-up for
+   supporting content. Reduced-motion visitors get the final state. */
+@keyframes rise-word {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes rise-fade {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Story-style progress bar for ProjectMedia's hover reel. */
+@keyframes frame-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Kept short and undelayed: the hero headline is the page's LCP element,
+   and LCP only lands once its words have risen into view. */
+.rise-word {
+  display: inline-block;
+  animation: rise-word var(--duration-lg) var(--ease-premium) both;
+  animation-delay: calc(var(--i, 0) * 30ms);
+}
+
+.rise-fade {
+  animation: rise-fade var(--duration-lg) var(--ease-premium) both;
+  animation-delay: calc(var(--i, 0) * 45ms + 260ms);
+}
+
+/* Transform-only rise for LCP-sized text (big headings, the hero copy):
+   never starts invisible, so it can be painted — and counted as LCP —
+   on the very first frame. */
+@keyframes rise-up {
+  from {
+    transform: translateY(18px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.rise-up {
+  animation: rise-up var(--duration-lg) var(--ease-premium) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+.animate-caret {
+  animation: caret 1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-word,
+  .rise-fade,
+  .rise-up,
+  .animate-caret {
+    animation: none;
+  }
+}
+
 @layer components {
   /* ===== HEADINGS ===== */
   .text-h1 {
@@ -348,15 +633,6 @@ body {
   .leading-responsive {
     line-height: 1.4;
   }
-
-  .bg-brain-stack {
-  background: linear-gradient(
-    to bottom,
-    #c3b6db 0%,
-    #ffffff 50%,
-    #c3b6db 100%
-  );
-}
 
 .container-custom {
   width: 100%;
@@ -495,7 +771,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 /* ===== FANCY SCROLLBAR ===== */
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--brand-primary) transparent;
+  scrollbar-color: var(--ink-2) transparent;
 }
 
 ::-webkit-scrollbar {
@@ -508,25 +784,214 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-image: linear-gradient(
-    180deg,
-    var(--brand-primary) 0%,
-    var(--brand-secondary) 100%
-  );
+  background: var(--ink-2);
   border-radius: 999px;
   border: 1px solid var(--background);
   background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-image: linear-gradient(
-    180deg,
-    var(--brand-secondary) 0%,
-    var(--brand-accent) 100%
-  );
+  background: var(--signal);
   background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+/* ===== SECTION HEADINGS =====
+   One size for every in-page section title (the hero headline is the only
+   thing allowed to be bigger). Kept deliberately restrained — big enough to
+   lead, small enough not to shout on every scroll. */
+@utility heading-section {
+  /* 36px at 1440px wide, 42px from 1727px up, never under 24px. */
+  font-size: clamp(1.5rem, calc(0.3684rem + 2.0906vw), 2.625rem);
+  line-height: 1.06;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+/* ===== BADGE BORDER =====
+   A hairline capsule with a short signal-colored light orbiting along its
+   border. The light is a conic gradient masked down to a 1px ring; the
+   angle is a registered custom property so it can animate smoothly. */
+@property --badge-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes badge-orbit {
+  to {
+    --badge-angle: 360deg;
+  }
+}
+
+.badge-border {
+  position: relative;
+  border: 1px solid var(--line);
+}
+
+.badge-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--badge-angle),
+    transparent 0deg,
+    transparent 230deg,
+    color-mix(in oklch, var(--signal) 40%, transparent) 290deg,
+    var(--signal) 340deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: badge-orbit 3.6s linear infinite;
+  /* Paused unless on screen — see components/common/BadgeInView.tsx. */
+  animation-play-state: paused;
+}
+
+.badge-border[data-inview]::before {
+  animation-play-state: running;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge-border::before {
+    animation: none;
+  }
+}
+
+/* ===== HERO PEN UNDERLINE =====
+   The path uses pathLength="1", so a dash of 1 offset by 1 hides the stroke;
+   animating the offset to 0 draws it in, first character to last. See
+   HeroTitle.tsx. */
+@keyframes pen-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.pen-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pen-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) var(--draw-delay, 0ms) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pen-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* The pencil riding the pen underline: travels left → right in step with
+   `.pen-draw` (same duration, easing and delay), then stays resting at the
+   end of the line, slightly lifted, until the headline changes. */
+@keyframes pen-ride {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes pen-settle {
+  0% {
+    opacity: 0;
+    transform: translate(-8%, 0) rotate(0deg);
+  }
+  12%,
+  70% {
+    opacity: 1;
+    transform: translate(-8%, 0) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(4%, -18%) rotate(-8deg);
+  }
+}
+
+.pen-ride {
+  left: 0%;
+  opacity: 0;
+  animation:
+    pen-ride 0.9s cubic-bezier(0.65, 0, 0.35, 1) var(--draw-delay, 0ms) forwards,
+    pen-settle 1.3s ease-out var(--draw-delay, 0ms) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pen-ride {
+    animation: none;
+    left: 100%;
+    opacity: 1;
+    transform: translate(4%, -18%) rotate(-8deg);
+  }
+}
+
+/* ===== WHAT WE DO (ServiceAccordion) =====
+   Emblem rings turn slowly; deliverable chips pop in one by one when a row
+   opens. */
+@keyframes service-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.service-ring-cw {
+  animation: service-spin 28s linear infinite;
+}
+
+.service-ring-ccw {
+  animation: service-spin 22s linear infinite reverse;
+}
+
+.service-ring-cw-slow {
+  animation: service-spin 12s linear infinite;
+}
+
+@keyframes service-chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+}
+
+.service-chip {
+  animation: service-chip-in 0.6s var(--ease-premium) both;
+  animation-delay: calc(var(--k, 0) * 55ms + 180ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-ring-cw,
+  .service-ring-ccw,
+  .service-ring-cw-slow,
+  .service-chip {
+    animation: none;
+  }
+}
+
+/* Footer bottom bar: rises from below over the wordmark's lowest third as
+   the page reaches its end. Static (already overlapping) where scroll-driven
+   animations aren't supported or motion is reduced. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .footer-rise {
+      animation: footer-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+@keyframes footer-rise {
+  from {
+    translate: 0 100%;
+  }
 }

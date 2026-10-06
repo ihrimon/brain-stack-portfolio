@@ -5,18 +5,17 @@ import "@/lib/animations/gsap-animations"
 import type { FaqData } from "@/lib/data/home-page"
 import { cn } from "@/lib/utils/cn"
 import { useGSAP } from "@gsap/react"
-import { AnimatePresence, motion } from "framer-motion"
 import gsap from "gsap"
-import { ChevronDown } from "lucide-react"
 import { useId, useRef, useState } from "react"
 
 interface FaqSectionProps {
   data: FaqData
 }
 
-/** Single-open accordion — hand-rolled with framer-motion (already a project
- * dependency) rather than adding @radix-ui/react-accordion, per the "no new
- * dependencies" constraint on this content sprint. */
+/** Single-open accordion with no animation library: the panel's height
+ * animates by transitioning its grid row from `0fr` to `1fr` (plain CSS),
+ * and the plus icon turns into a minus. Closed panels are `inert`, so their
+ * content is skipped by keyboard and assistive tech while collapsed. */
 export default function FaqSection({ data }: FaqSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -31,67 +30,88 @@ export default function FaqSection({ data }: FaqSectionProps) {
   )
 
   return (
-    <section
-      id="faq"
-      ref={sectionRef}
-      className="relative z-10 py-20 sm:py-28 bg-surface-dark"
-    >
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <HeadingSection badge={data.badge} title={data.title} />
+    <section id="faq" ref={sectionRef} className="relative z-10 py-20 sm:py-28">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
+        <HeadingSection badge={data.badge} title={data.title} titleRef={titleRef} />
 
-        <div className="mt-12 divide-y divide-white/10 border-t border-b border-white/10 max-w-6xl mx-auto">
-          {data.items.map((item, index) => {
-            const isOpen = index === openIndex
-            const buttonId = `${idPrefix}-faq-button-${index}`
-            const panelId = `${idPrefix}-faq-panel-${index}`
+        {/* Centered column: questions and answers sit in the middle of the page. */}
+        <div className="mx-auto mt-16 max-w-4xl">
+          <div className="divide-y divide-line border-y border-line">
+            {data.items.map((item, index) => {
+              const isOpen = index === openIndex
+              const buttonId = `${idPrefix}-faq-button-${index}`
+              const panelId = `${idPrefix}-faq-panel-${index}`
 
-            return (
-              <div key={item.question}>
-                <h3>
-                  <button
-                    type="button"
-                    id={buttonId}
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="flex w-full cursor-pointer items-center justify-between gap-6 py-6 text-left"
-                    data-cursor="magnetic"
-                  >
-                    <span className="text-lg font-medium text-white sm:text-xl">
-                      {item.question}
-                    </span>
-
-                    <ChevronDown
-                      aria-hidden="true"
-                      className={cn(
-                        "size-5 shrink-0 text-white/50 transition-transform duration-300",
-                        isOpen && "rotate-180 text-white"
-                      )}
-                    />
-                  </button>
-                </h3>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={panelId}
-                      role="region"
-                      aria-labelledby={buttonId}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                      className="overflow-hidden"
+              return (
+                <div key={item.question}>
+                  <h3>
+                    <button
+                      type="button"
+                      id={buttonId}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      onClick={() => setOpenIndex(isOpen ? null : index)}
+                      data-cursor="magnetic"
+                      className="group grid w-full cursor-pointer grid-cols-[2.5rem_1fr_auto] items-center gap-4 py-6 text-left sm:grid-cols-[4rem_1fr_auto] sm:py-7"
                     >
-                      <p className="max-w-3xl pb-6 leading-relaxed text-white/70">
+                      <span
+                        className={cn(
+                          "font-mono text-[11px] tracking-wider transition-colors duration-300",
+                          isOpen ? "text-signal-text" : "text-ink-2"
+                        )}
+                      >
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+
+                      <span
+                        className={cn(
+                          "text-lg font-medium tracking-tight transition-colors duration-300 sm:text-xl",
+                          isOpen ? "text-ink" : "text-ink/80 group-hover:text-ink"
+                        )}
+                      >
+                        {item.question}
+                      </span>
+
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          "relative flex size-10 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
+                          isOpen
+                            ? "border-signal bg-signal text-signal-ink"
+                            : "border-line text-ink group-hover:border-ink"
+                        )}
+                      >
+                        <span className="absolute h-px w-3.5 bg-current" />
+                        <span
+                          className={cn(
+                            "absolute h-3.5 w-px bg-current transition-transform duration-500 ease-premium",
+                            isOpen && "rotate-90 scale-y-0"
+                          )}
+                        />
+                      </span>
+                    </button>
+                  </h3>
+
+                  <div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={buttonId}
+                    inert={!isOpen}
+                    className={cn(
+                      "grid transition-[grid-template-rows,opacity] duration-500 ease-premium",
+                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    )}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="max-w-3xl pb-8 pl-[calc(2.5rem+1rem)] text-base leading-relaxed text-ink-2 sm:pl-[calc(4rem+1rem)] sm:text-lg">
                         {item.answer}
                       </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            )
-          })}
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>

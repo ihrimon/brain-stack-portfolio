@@ -26,42 +26,41 @@ export default function ServiceProcessTimeline({ process }: ServiceProcessTimeli
   )
 
   return (
-    <section ref={sectionRef} className="bg-brand-dark py-20 sm:py-28">
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <SectionBadge variant="label" className="mb-12">
-          {process.badge}
-        </SectionBadge>
-        <h2
-          ref={titleRef}
-          className="mt-8 max-w-4xl text-3xl leading-tight font-medium tracking-tight text-white uppercase sm:text-4xl md:text-5xl"
-        >
-          {process.title}
-        </h2>
+    <section ref={sectionRef} className="py-20 sm:py-28">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
+        <div className="grid gap-6 border-t border-line pt-8 lg:grid-cols-12 lg:gap-8">
+          <SectionBadge variant="label" dot className="lg:col-span-3">
+            {process.badge}
+          </SectionBadge>
+          <h2
+            ref={titleRef}
+            className="max-w-4xl heading-section text-ink uppercase lg:col-span-9"
+          >
+            {process.title}
+          </h2>
+        </div>
 
-        <div
-          data-steps
-          className="mt-16 border-b border-dashed border-white/15 sm:mt-20"
-        >
+        {/* Indented to the title's column on desktop, so the steps read as
+            the title's own list rather than a separate block. */}
+        <ol data-steps className="mt-16 border-b border-line sm:mt-20 lg:ml-[25%]">
           {process.items.map((step, index) => (
-            <div
+            <li
               key={step.title}
               data-step
-              className="grid gap-4 border-t border-dashed border-white/15 py-8 sm:grid-cols-[80px_1fr_1fr] sm:gap-8 sm:py-10"
+              className="group grid gap-4 border-t border-line py-8 sm:grid-cols-[5rem_1fr_1fr] sm:gap-8 sm:py-10"
             >
-              <span className="text-sm text-white/40 tabular-nums">
+              <span className="font-mono text-[11px] tracking-wider text-ink-2 tabular-nums transition-colors duration-300 group-hover:text-signal-text">
                 [{String(index + 1).padStart(2, "0")}]
               </span>
-
-              <h3 className="text-2xl leading-tight font-medium text-white sm:text-3xl">
+              <h3 className="text-2xl leading-tight font-medium tracking-tight text-ink sm:text-3xl">
                 {step.title}
               </h3>
-
-              <p className="max-w-md text-sm leading-relaxed text-white/50 sm:text-base">
+              <p className="max-w-md text-sm leading-relaxed text-ink-2 sm:text-base">
                 {step.description}
               </p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   )

@@ -1,7 +1,7 @@
 "use client"
 
-import { ColorPaletteSwitcher } from "@/components/common/ColorPaletteSwitcher"
 import { Logo } from "@/components/common/Logo"
+import { ThemeModeSwitcher } from "@/components/common/ThemeModeSwitcher"
 import {
   Drawer,
   DrawerClose,
@@ -27,7 +27,7 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
       <DrawerContent className="rounded-none! bg-surface-dark! before:bg-surface-dark! before:border-white/10 p-0 text-white">
         <div className="flex h-full flex-col overflow-y-auto p-6 text-white">
           <DrawerHeader className="flex flex-row items-center justify-between border-b border-white/10 px-0 pb-4">
-            <Logo href={false} className="text-white" variant="on-dark" />
+            <Logo href={false} className="text-white" />
             <DrawerClose asChild>
               <button
                 type="button"
@@ -55,7 +55,6 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
                         onClick={() => onOpenChange(false)}
                         aria-current={isActive ? "page" : undefined}
                         className="group flex items-center justify-between gap-4 py-4"
-                        data-cursor="magnetic"
                       >
                         <span className="flex items-baseline gap-3">
                           <span
@@ -94,9 +93,9 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
 
             <section>
               <h3 className="mb-3 text-xs font-semibold tracking-wider text-white/50 uppercase">
-                Theme Color
+                Theme Mode
               </h3>
-              <ColorPaletteSwitcher />
+              <ThemeModeSwitcher />
             </section>
           </div>
 
@@ -111,10 +110,10 @@ export function SettingsDrawer({ open, onOpenChange }: SettingsDrawerProps) {
                   href={social.href}
                   target="_blank"
                   rel="me noopener noreferrer"
-                  aria-label={`Follow us on ${social.label}`}
                   className="flex size-9 items-center justify-center rounded-full bg-white/10 text-xs font-semibold text-white hover:bg-accent hover:text-accent-foreground"
                 >
-                  {social.glyph}
+                  <span aria-hidden="true">{social.glyph}</span>
+                  <span className="sr-only">Follow us on {social.label}</span>
                 </a>
               ))}
             </div>

@@ -47,7 +47,7 @@ export function StatusPage({
         {watermark}
       </span>
 
-      <div className="relative mx-auto flex max-w-400 flex-col items-center px-5 text-center sm:px-8">
+      <div className="relative mx-auto flex max-w-site flex-col items-center px-4 text-center lg:px-6">
         <div data-reveal>
           <SectionBadge>{badge}</SectionBadge>
         </div>

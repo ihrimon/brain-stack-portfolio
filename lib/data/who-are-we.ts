@@ -4,7 +4,7 @@ import type { ButtonLink, Stat } from "./shared-types"
 export const whoWeAreData = {
   badge: "Who We Are",
 
-  title: "A focused studio that builds products people actually use.",
+  title: "A focused studio that builds\nproducts people actually use",
 
   description: [
     "Brain Stack is a small, senior team — two founders and a network of specialist engineers — working with ambitious founders and businesses across the US, UK, and Europe.",

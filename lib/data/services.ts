@@ -1,12 +1,15 @@
-import type { IconName, ServiceOffering } from "./shared-types"
+import type { ServiceOffering } from "./shared-types"
 
 // Content brief: SECTION 5 — Services (homepage "What We Do" section).
 // Distinct from lib/data/service-page.ts, which backs the dedicated
 // /services page.
+//
+// Only the fields ServiceAccordion.tsx renders are set here (number, title,
+// `items`, button). Each service's icon is mapped by `slug` in that component.
 export const servicesData = {
   badge: "What We Do",
 
-  title: "Everything you need to build and launch a digital product.",
+  title: "Everything you need to build and\nlaunch a digital product.",
 
   description:
     "Mobile apps, web platforms, AI tools, and everything in between — designed and built end to end by a senior team that has shipped live products across fintech, healthcare, e-commerce, and SaaS. We're the right fit if your product handles sensitive data, financial transactions, or operates in a regulated industry.",
@@ -14,56 +17,31 @@ export const servicesData = {
   items: [
     {
       id: "01",
-      slug: "branding",
-      icon: "Palette" as IconName,
-      title: "Branding",
-      image: "/images/services/services-1.png",
-      shortDescription:
-        "Identity systems that make ambitious products instantly recognizable.",
-      fullDescription:
-        "We shape how a product looks, sounds and feels — logo, color, typography and voice — into a system your team can apply consistently from a landing page to a pitch deck, so the brand never outgrows the business.",
-      technologies: ["Figma", "Brand Systems", "Motion Design"],
+      slug: "app-design-development",
+      title: "App Design & Development",
       items: [
-        "Brand Strategy",
-        "Naming & Positioning",
-        "Logo & Identity",
-        "Brand Messaging",
-        "Visual Guidelines",
-        "Design Systems",
-      ],
-      features: [
-        "Visual identity design",
-        "Brand guideline docs",
-        "Design system foundations",
+        "User Research",
+        "UI/UX Design",
+        "iOS & Android Apps",
+        "Cross-Platform Solutions",
+        "Interactive Prototypes",
+        "App Store Launch",
       ],
       buttonLabel: "Explore Service",
       buttonHref: "/services",
-      featured: true,
       order: 1,
     },
     {
       id: "02",
-      slug: "mobile-design",
-      icon: "Smartphone" as IconName,
-      title: "Mobile Design",
-      image: "/images/services/services-2.png",
-      shortDescription:
-        "Native-feeling app experiences designed for iOS and Android.",
-      fullDescription:
-        "We design mobile products from wireframe to pixel-perfect UI, balancing platform conventions with your brand, so the app feels considered on every screen size and OS version.",
-      technologies: ["Figma", "iOS HIG", "Material Design"],
+      slug: "web-design-development",
+      title: "Web Design & Development",
       items: [
-        "UX Research & Flows",
-        "UI Design",
-        "iOS & Android Apps",
-        "Interactive Prototypes",
-        "Design Systems",
-        "App Store Assets",
-      ],
-      features: [
-        "UX research & flows",
-        "High-fidelity UI kits",
-        "Interactive prototypes",
+        "Custom Web Design",
+        "Frontend & Backend Engineering",
+        "E-Commerce Solutions",
+        "API Integration",
+        "Performance & Security",
+        "Cloud Hosting",
       ],
       buttonLabel: "Explore Service",
       buttonHref: "/services",
@@ -71,27 +49,15 @@ export const servicesData = {
     },
     {
       id: "03",
-      slug: "digital-marketing",
-      icon: "Megaphone" as IconName,
-      title: "Digital Marketing",
-      image: "/images/services/services-3.png",
-      shortDescription:
-        "Growth strategy and campaigns that turn traffic into customers.",
-      fullDescription:
-        "We plan and run the campaigns that get a product in front of the right audience — SEO, paid, content and lifecycle marketing — tied back to the metrics that actually move the business.",
-      technologies: ["SEO", "Paid Media", "Analytics"],
+      slug: "ai-autonomous-agents",
+      title: "AI & Autonomous Agent Development",
       items: [
-        "SEO & Content Strategy",
-        "Paid Media",
-        "Social Media Marketing",
-        "Email & Lifecycle",
-        "Analytics & Reporting",
-        "Conversion Optimization",
-      ],
-      features: [
-        "Growth strategy",
-        "Campaign management",
-        "Performance reporting",
+        "Custom AI Solutions",
+        "LLM Integration",
+        "Autonomous AI Agents",
+        "Workflow Automation",
+        "Smart Chatbots",
+        "Predictive Analytics",
       ],
       buttonLabel: "Explore Service",
       buttonHref: "/services",
@@ -99,27 +65,15 @@ export const servicesData = {
     },
     {
       id: "04",
-      slug: "brand-guideline",
-      icon: "BookOpen" as IconName,
-      title: "Brand Guideline",
-      image: "/images/services/services-4.png",
-      shortDescription:
-        "Documented systems that keep every team on-brand at scale.",
-      fullDescription:
-        "We turn a brand identity into a living reference — logo usage, color, type, imagery and tone — so designers, marketers and partners can all build on it without drifting off-brand.",
-      technologies: ["Notion", "Figma", "Style Guides"],
+      slug: "rapid-mvp-development",
+      title: "Rapid MVP Development",
       items: [
-        "Logo Usage Rules",
-        "Color & Typography",
-        "Voice & Tone",
-        "Asset Libraries",
-        "Style Guide Docs",
-        "Team Onboarding",
-      ],
-      features: [
-        "Usage documentation",
-        "Asset libraries",
-        "Team onboarding",
+        "Idea Validation",
+        "Product Architecture",
+        "Fast Prototyping",
+        "Core Feature Build",
+        "Scalable Codebase",
+        "Launch in Weeks",
       ],
       buttonLabel: "Explore Service",
       buttonHref: "/services",
@@ -127,31 +81,34 @@ export const servicesData = {
     },
     {
       id: "05",
-      slug: "web-development",
-      icon: "Code2" as IconName,
-      title: "Web Development",
-      image: "/images/services/services-5.png",
-      shortDescription:
-        "Fast, scalable web products built with modern engineering.",
-      fullDescription:
-        "We build and ship production web applications — from marketing sites to complex SaaS platforms — with the performance, accessibility and architecture to grow with the business.",
-      technologies: ["Next.js", "TypeScript", "Cloud Infrastructure"],
+      slug: "enterprise-pos-erp-saas",
+      title: "Enterprise POS, ERP & SaaS Solutions",
       items: [
-        "Frontend Development",
-        "Backend Development",
-        "Full-Stack Solutions",
-        "API Integration",
-        "Cloud Infrastructure",
-        "Performance Optimization",
-      ],
-      features: [
-        "Full-stack development",
-        "API & cloud architecture",
-        "Performance optimization",
+        "Custom ERP Systems",
+        "Retail & POS Software",
+        "Multi-Tenant SaaS Systems",
+        "Secure Cloud Infrastructure",
+        "Workflow Optimization",
+        "Enterprise Security",
       ],
       buttonLabel: "Explore Service",
       buttonHref: "/services",
       order: 5,
+    },
+    {
+      id: "06",
+      slug: "business-operations-management",
+      title: "Dedicated Business Operations & Management",
+      items: [
+        "24/7 Project Monitoring",
+        "Real-Time Progress Updates",
+        "Dedicated Account Manager",
+        "Direct Founder Access",
+        "Post-Launch Maintenance & Support",
+      ],
+      buttonLabel: "Explore Service",
+      buttonHref: "/services",
+      order: 6,
     },
   ] satisfies ServiceOffering[],
 } as const

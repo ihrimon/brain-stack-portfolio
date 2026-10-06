@@ -1,226 +1,116 @@
-"use client"
+import { LazyBrain3D } from "@/components/animations/LazyBrain3D"
+// CTA buttons are commented out below — restore these imports with them.
+// import { PrimaryButton } from "@/components/buttons/PrimaryButton"
+// import { ArrowUpRight } from "lucide-react"
+// import Link from "next/link"
+import { HeroTitle } from "@/components/sections/hero/HeroTitle"
+import { ServiceTerminal } from "@/components/sections/hero/ServiceTerminal"
+import { heroBannerData, heroMetrics } from "@/lib/data/hero"
+import { servicesData } from "@/lib/data/services"
+import { cn } from "@/lib/utils/cn"
+import type { CSSProperties } from "react"
 
-import { PrimaryButton } from "@/components/buttons/PrimaryButton"
-import { HeroStatsSection } from "@/components/sections/hero-panel/HeroStatsSection"
-import "@/lib/animations/gsap-animations"
-import { heroBannerData } from "@/lib/data/hero"
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
-import { ChevronRight } from "lucide-react"
-import dynamic from "next/dynamic"
-import Link from "next/link"
-import { useEffect, useRef, useState, type ReactNode } from "react"
+/** Staggered entrance slot, consumed by the `.rise-*` classes in globals.css. */
+const delay = (i: number) => ({ "--i": i }) as CSSProperties
 
-const TITLE_ROTATION_INTERVAL_MS = 5000
-
-/** Renders `title` with its `highlight` substring picked out in italic
- * accent color, matching the reference layout's single-word emphasis.
- * Matches case-insensitively so `highlight` doesn't need to exactly mirror
- * the casing used inside `title`. */
-function renderTitle(title: string, highlight: string): ReactNode {
-  const index = title.toLowerCase().indexOf(highlight.toLowerCase())
-  if (index === -1) return title
-
-  return (
-    <>
-      {title.slice(0, index)}
-      <em className="text-primary">
-        {title.slice(index, index + highlight.length)}
-      </em>
-      {title.slice(index + highlight.length)}
-    </>
-  )
-}
-
-// three.js + React Three Fiber are a heavy dependency for a purely
-// decorative, aria-hidden background — loading it client-only keeps it out
-// of this page's server-rendered bundle entirely. No loading fallback
-// needed: the sticky wrapper below already paints the same dark gradient as
-// a plain CSS background, so there's nothing for a fallback to prevent
-// layout shift or a color flash for.
-const HeroBackground = dynamic(
-  () =>
-    import("@/components/three/hero-background/HeroBackground").then(
-      (mod) => mod.HeroBackground
-    ),
-  { ssr: false }
-)
+// Supporting content starts rising once the headline has mostly landed.
+const AFTER_TITLE = 9
 
 export default function HeroSection() {
-  const contentRef = useRef<HTMLDivElement>(null)
-  const stickyRef = useRef<HTMLDivElement>(null)
-  const backgroundRef = useRef<HTMLDivElement>(null)
-  const titleRef = useRef<HTMLHeadingElement>(null)
-
-  const [titleIndex, setTitleIndex] = useState(0)
-  const [reducedMotion, setReducedMotion] = useState(() =>
-    typeof window === "undefined"
-      ? false
-      : window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  )
-
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const handleChange = (event: MediaQueryListEvent) =>
-      setReducedMotion(event.matches)
-    query.addEventListener("change", handleChange)
-    return () => query.removeEventListener("change", handleChange)
-  }, [])
-
-  useEffect(() => {
-    if (reducedMotion || heroBannerData.title.length <= 1) return
-    const id = window.setInterval(() => {
-      setTitleIndex((current) => (current + 1) % heroBannerData.title.length)
-    }, TITLE_ROTATION_INTERVAL_MS)
-    return () => window.clearInterval(id)
-  }, [reducedMotion])
-
-  const ctaRow = (
-    <div className="pointer-events-auto flex flex-wrap items-center gap-x-8 gap-y-4">
-      <PrimaryButton href={heroBannerData.button.href}>
-        {heroBannerData.button.label}
-      </PrimaryButton>
-
-      <Link
-        href={heroBannerData.secondaryButton.href}
-        data-cursor="magnetic"
-        className="group hidden items-center gap-1 text-sm font-semibold tracking-wide text-white uppercase underline decoration-white/30 underline-offset-4 transition-colors duration-300 hover:text-white/60 lg:inline-flex"
-      >
-        {heroBannerData.secondaryButton.label}
-        <ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-      </Link>
-    </div>
-  )
-
-  useGSAP(
-    () => {
-      // `stickyRef`'s parent is the `relative` wrapper in app/page.tsx that
-      // holds both Hero and About — it's what the sticky background pins
-      // against for their combined height. Scrubbing the background
-      // wrapper's own transform across that same range (instead of moving
-      // the sticky layer itself) is what reads as parallax while the pin
-      // stays pure CSS, with no JS-driven pin/unpin to jitter. This is a
-      // plain CSS transform on a wrapper div — independent of, and layered
-      // on top of, the WebGL scene's own subtle cursor-driven motion.
-      const sharedBackground = stickyRef.current?.parentElement
-      if (!sharedBackground || !backgroundRef.current) return
-
-      const mm = gsap.matchMedia()
-
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const tween = gsap.fromTo(
-          backgroundRef.current,
-          { yPercent: -6 },
-          {
-            yPercent: 6,
-            ease: "none",
-            force3D: true,
-            scrollTrigger: {
-              trigger: sharedBackground,
-              start: "top top",
-              end: "bottom bottom",
-              // Lenis already smooths the scroll position — a numeric scrub
-              // would add a second layer of lag on top of it.
-              scrub: true,
-            },
-          }
-        )
-
-        return () => {
-          tween.scrollTrigger?.kill()
-        }
-      })
-
-      return () => mm.revert()
-    },
-    { scope: contentRef }
-  )
-
-  // Crossfades the headline into view — runs on mount (titleIndex starts at
-  // 0) and again every time it advances. Deliberately a plain opacity/blur
-  // tween on the whole h1 rather than a per-word SplitText effect: SplitText
-  // destroys and rebuilds the element's text nodes, which desyncs React's
-  // fiber tree from the live DOM and silently breaks later text updates.
-  useGSAP(
-    () => {
-      if (!titleRef.current) return
-
-      const mm = gsap.matchMedia()
-
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const tween = gsap.fromTo(
-          titleRef.current,
-          { autoAlpha: 0, y: 10, filter: "blur(6px)" },
-          {
-            autoAlpha: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.7,
-            ease: "power2.out",
-          }
-        )
-
-        return () => tween.kill()
-      })
-
-      return () => mm.revert()
-    },
-    { dependencies: [titleIndex], scope: titleRef }
-  )
-
   return (
-    <>
-      <div
-        ref={stickyRef}
-        className="sticky top-0 z-0 h-screen w-full overflow-hidden"
-        style={{
-          // Retuned to sit on the blobs' own base color (`#0c0d13` in
-          // hero-background/constants.ts) rather than a separately-chosen
-          // navy — that's what lets the blobs blend into the backdrop at
-          // their edges instead of reading as a visibly different tone.
-          background:
-            "linear-gradient(180deg, #060710 0%, #0c0d13 50%, #0a0b12 100%)",
-        }}
-      >
-        <div
-          ref={backgroundRef}
-          className="absolute inset-0 h-full w-full scale-[1.15] will-change-transform"
-        >
-          <HeroBackground className="absolute inset-0 h-full w-full" />
+    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden">
+      {/* Backdrop: a soft pool of the signal color plus a real 3D brain
+          (holographic point cloud) that turns toward the pointer anywhere
+          over the hero. Kept at a moderate opacity and edge-faded so the
+          centered copy always reads. It loads only once the page is idle,
+          so it never competes with the headline's LCP or hydration. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute top-[-40%] left-1/2 size-[75vw] max-w-300 -translate-x-1/2 rounded-full bg-signal/15 blur-[120px] light:bg-signal/8" />
+        {/* Exactly one screen tall, so the brain sits at the center of the
+            first viewport. The whole brain stays visible; only a band
+            behind the paragraph is dimmed so the copy stays crisp. */}
+        <div className="absolute top-0 left-1/2 h-svh w-[min(120vw,1400px)] -translate-x-1/2 opacity-80 mask-[linear-gradient(to_bottom,black_25%,rgb(0_0_0/0.3)_30%,rgb(0_0_0/0.3)_46%,black_52%)] light:opacity-90">
+          <LazyBrain3D className="mask-[radial-gradient(ellipse_55%_60%_at_50%_50%,black_45%,transparent_85%)]" />
         </div>
       </div>
 
-      <div
-        ref={contentRef}
-        className="pointer-events-none relative z-10 mt-[-100vh] flex min-h-screen w-full flex-col"
-      >
-        <div className="mx-auto mt-20 flex w-full max-w-400 flex-1 flex-col justify-center px-4 py-32 sm:px-8">
-          <h1
-            ref={titleRef}
-            className="max-w-5xl text-5xl leading-[1.05] font-semibold tracking-tight text-white capitalize lg:text-[90px]"
+      <div className="mx-auto w-full max-w-site px-4 lg:px-6">
+        {/* Centered stack — headline → paragraph → service terminal — sized
+            to fit the first viewport and centered within it. */}
+        <div className="flex min-h-svh flex-col items-center justify-center pt-[clamp(5rem,11vh,7rem)] pb-[clamp(1rem,3vh,2rem)] text-center">
+          <HeroTitle
+            titles={heroBannerData.title}
+            highlights={heroBannerData.highlight}
+            className="max-w-[12em] text-[clamp(2.5rem,min(4.6vw,7.5vh),5rem)] leading-[0.98] font-medium tracking-[-0.045em] text-ink capitalize"
+          />
+
+          {/* rise-up (not rise-fade): on phones this paragraph is the LCP
+              element, so it must be visible from the first frame. */}
+          <p
+            className="rise-up mt-[clamp(1rem,2.5vh,1.75rem)] max-w-2xl text-lg leading-relaxed text-ink/80 sm:text-xl [@media(max-height:820px)]:sm:text-lg"
+            style={delay(AFTER_TITLE)}
           >
-            {renderTitle(
-              heroBannerData.title[titleIndex],
-              heroBannerData.highlight[titleIndex]
-            )}
-          </h1>
+            {heroBannerData.description}
+          </p>
 
-          {/* Hero Stats + CTA section */}
-          <div className="mt-12 grid gap-12 pt-8 md:mt-16 lg:grid-cols-[1fr_1px_1.3fr] lg:items-stretch">
-            {/* CTA Section */}
-            <div className="order-1 flex flex-col items-start gap-8 lg:order-0">
-              <p className="text-lg leading-relaxed text-white/70 sm:text-[22px]">
-                {heroBannerData.description}
-              </p>
-              {ctaRow}
-            </div>
-
-            <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
-
-            <HeroStatsSection className="pointer-events-auto order-2 lg:order-0" />
+          {/* CTA buttons — temporarily commented out.
+          <div
+            className="rise-fade mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4"
+            style={delay(AFTER_TITLE + 1)}
+          >
+            <PrimaryButton href={heroBannerData.button.href}>
+              {heroBannerData.button.label}
+            </PrimaryButton>
+            <Link
+              href={heroBannerData.secondaryButton.href}
+              data-cursor="magnetic"
+              className="group inline-flex items-center gap-1.5 text-sm font-medium text-ink"
+            >
+              <span className="relative">
+                {heroBannerData.secondaryButton.label}
+                <span className="absolute inset-x-0 -bottom-1 h-px bg-ink/30 transition-colors duration-500 ease-premium group-hover:bg-ink" />
+              </span>
+              <ArrowUpRight className="size-4 transition-transform duration-500 ease-premium group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
           </div>
+          */}
+
+          <ServiceTerminal
+            services={servicesData.items}
+            className="rise-fade mt-[clamp(1.5rem,3.5vh,2.5rem)] w-full max-w-2xl text-left"
+          />
         </div>
+
+        {/* Proof strip */}
+        <dl
+          className="rise-fade grid grid-cols-1 border-t border-line pb-10 sm:grid-cols-3"
+          style={delay(AFTER_TITLE + 2)}
+        >
+          {heroMetrics.map((metric, index) => (
+            <div
+              key={metric.title}
+              className={cn(
+                "flex flex-col gap-2 py-6 sm:py-8",
+                index > 0 && "border-t border-line sm:border-t-0 sm:border-l sm:pl-8"
+              )}
+            >
+              <dt className="font-mono text-xs tracking-wider text-ink-2 uppercase sm:text-sm">
+                {metric.title}
+              </dt>
+              {/* Number and its caption share a vertical center. */}
+              <dd className="flex items-center gap-4">
+                <span className="text-5xl font-medium tracking-tight text-ink tabular-nums">
+                  {metric.value}
+                  <span className="text-signal">{metric.suffix}</span>
+                </span>
+                <span className="max-w-[24ch] text-sm leading-snug text-ink-2 lg:text-base">
+                  {metric.label}
+                </span>
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
-    </>
+    </section>
   )
 }

@@ -36,12 +36,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound()
   }
 
-  const related =
+  const curated =
     project.kind === "case-study"
       ? project.relatedProjects
           .map((relatedSlug) => projects.find((item) => item.slug === relatedSlug))
           .filter((item): item is Project => Boolean(item))
       : []
+
+  // Portfolio entries have no curated list — fall back to the next two
+  // projects (wrapping around), so every page ends on more work instead of
+  // a dead end.
+  const index = projects.indexOf(project)
+  const related =
+    curated.length > 0
+      ? curated
+      : [1, 2]
+          .map((offset) => projects[(index + offset) % projects.length])
+          .filter((item) => item.slug !== project.slug)
 
   return (
     <>

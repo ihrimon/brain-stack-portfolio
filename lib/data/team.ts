@@ -2,7 +2,7 @@
 export const foundersData = {
   badge: "The Team",
 
-  title: "Built by founders, run by founders.",
+  title: "Built by founders\nrun by founders",
 
   description:
     "Two senior builders and a trusted network of specialist contractors. Every project runs through us directly — no account managers, no hand-offs.",
@@ -46,7 +46,7 @@ export const foundersData = {
   ],
 
   footnote:
-    "We work with a trusted network of senior contractors — developers, designers, and AI specialists — brought in for specific project needs.",
+    "We work with a trusted network of senior contractors, developers, designers, and AI specialists — brought in for specific project needs.",
 } as const
 
 export type FoundersData = typeof foundersData

@@ -14,7 +14,7 @@ export function DiagonalPattern({ className }: DiagonalPatternProps) {
       )}
       style={{
         backgroundImage:
-          "repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 14px)",
+          "repeating-linear-gradient(135deg, color-mix(in oklab, var(--color-white) 6%, transparent) 0px, color-mix(in oklab, var(--color-white) 6%, transparent) 1px, transparent 1px, transparent 14px)",
       }}
     />
   )

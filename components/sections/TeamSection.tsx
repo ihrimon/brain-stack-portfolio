@@ -32,7 +32,7 @@ export default function TeamSection({ data }: TeamSectionProps) {
       ref={sectionRef}
       className="overflow-hidden bg-surface-dark py-20 sm:py-28"
     >
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
         <div className="grid gap-16 lg:grid-cols-[1fr_1.8fr] lg:items-center lg:gap-12">
           <div className="flex flex-col items-start gap-6">
             <SectionBadge>{data.badge}</SectionBadge>

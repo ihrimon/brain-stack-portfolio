@@ -88,7 +88,7 @@ export default function AllBlogs({ posts }: AllBlogsProps) {
       ref={sectionRef}
       className="bg-brand-dark pt-32 pb-20 sm:pt-40 sm:pb-28"
     >
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
         <h1 className="max-w-6xl text-4xl leading-tight font-medium tracking-tight text-white uppercase sm:text-5xl md:text-6xl">
           {blogsData.title}
         </h1>

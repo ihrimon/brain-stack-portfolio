@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
     qualities: [75, 100],
   },
   experimental: {
+    // Route navigations trigger React's <ViewTransition> (see app/template.tsx).
+    viewTransition: true,
     // Server Actions default to a 1MB request body, far too small for the
     // contact form's file attachment (photos, video, audio, PDFs, docs).
     // Kept above lib/constants/contact.ts's MAX_ATTACHMENT_BYTES so form
