@@ -112,7 +112,7 @@ export default function BlogDetails({ post, relatedPosts }: BlogDetailsProps) {
   return (
     <>
       <section className="bg-brand-dark pt-32 pb-16 sm:pt-40 sm:pb-20">
-        <div className="mx-auto max-w-400 px-5 sm:px-8">
+        <div className="mx-auto max-w-site px-4 lg:px-6">
           <h1 className="max-w-5xl text-4xl leading-[1.05] font-semibold tracking-tight text-white sm:text-6xl md:text-7xl">
             {post.title}
           </h1>
@@ -140,7 +140,7 @@ export default function BlogDetails({ post, relatedPosts }: BlogDetailsProps) {
       </section>
 
       <section className="bg-brand-dark pb-20 sm:pb-28">
-        <div className="mx-auto max-w-400 px-5 sm:px-8">
+        <div className="mx-auto max-w-site px-4 lg:px-6">
           <div className="mx-auto max-w-4xl space-y-8">
             {post.content.map((block, index) => (
               <ContentBlock key={index} block={block} />
@@ -163,7 +163,7 @@ export default function BlogDetails({ post, relatedPosts }: BlogDetailsProps) {
 
       {relatedPosts.length > 0 && (
         <section className="bg-brand-dark pb-20 sm:pb-28">
-          <div className="mx-auto max-w-400 px-5 sm:px-8">
+          <div className="mx-auto max-w-site px-4 lg:px-6">
             <SectionBadge variant="label" dot>
               Related Posts
             </SectionBadge>

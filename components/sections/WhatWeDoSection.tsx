@@ -1,7 +1,7 @@
 "use client"
 
 import { HeadingSection } from "@/components/common/HeadingSection"
-import { ServicesStack } from "@/components/sections/services/ServicesStack"
+import { ServiceAccordion } from "@/components/sections/services/ServiceAccordion"
 import "@/lib/animations/gsap-animations"
 import type { ServicesData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
@@ -30,14 +30,14 @@ export default function WhatWeDoSection({ data }: WhatWeDoSectionProps) {
     <section
       id="what-we-do"
       ref={sectionRef}
-      className="bg-surface-dark py-20 sm:py-28"
+      className="py-20 sm:py-28"
     >
-      <div className="mx-auto max-w-400 px-4 sm:px-8">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
         <HeadingSection badge={data.badge} title={data.title} titleRef={titleRef} />
       </div>
 
-      <div>
-        <ServicesStack items={data.items} />
+      <div className="mt-14 sm:mt-16">
+        <ServiceAccordion items={data.items} />
       </div>
     </section>
   )

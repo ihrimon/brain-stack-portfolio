@@ -6,7 +6,9 @@ export const heroBannerData = {
   title:
     ["We build digital products that grow your business", "We build websites that AI can't be trusted to build"],
 
-  highlight: ["Business", "Trusted"],
+  // The closing words of each title (exact, case-insensitive substrings),
+  // underlined with the hand-drawn pen stroke.
+  highlight: ["business", "to build"],
 
   description:
     "Secure, production-grade digital products for businesses where failure isn't an option. Fintech, healthcare, SaaS, and regulated industries — built by engineers, not AI generators.",

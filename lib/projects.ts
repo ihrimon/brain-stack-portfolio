@@ -1,6 +1,7 @@
 import type { Project } from "@/lib/data/projects"
 
-export const PROJECTS_STACK_MAX = 8
+// Even, so the homepage's two-column grid never ends on a half-empty row.
+export const PROJECTS_STACK_MAX = 6
 
 export interface ProjectStackItem {
   id: string
@@ -10,6 +11,8 @@ export interface ProjectStackItem {
   category: string
   liveUrl: string | null
   thumbnail: string
+  /** Played as a crossfading hover preview on the card (see ProjectMedia). */
+  gallery: string[]
 }
 
 /**
@@ -30,13 +33,6 @@ export function toProjectStackItems(projects: Project[]): ProjectStackItem[] {
     category: project.category,
     liveUrl: project.liveUrl,
     thumbnail: project.thumbnail,
+    gallery: project.gallery,
   }))
-}
-
-export function chunk<T>(items: T[], size: number): T[][] {
-  const rows: T[][] = []
-  for (let i = 0; i < items.length; i += size) {
-    rows.push(items.slice(i, i + size))
-  }
-  return rows
 }

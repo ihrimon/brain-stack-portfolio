@@ -1,50 +1,46 @@
 "use client"
 
+import { getLenis } from "@/lib/animations/lenis"
 import { cn } from "@/lib/utils/cn"
-import gsap from "gsap"
-import { ArrowDown, ArrowUp } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { ChevronUp } from "lucide-react"
+import { useEffect, useState } from "react"
 
 const BUTTON_SIZE = 56
 const STROKE_WIDTH = 2
 const RADIUS = (BUTTON_SIZE - STROKE_WIDTH) / 2
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS
-const BACK_TO_TOP_THRESHOLD = 0.5
-// Below this, treat progress as "0" so the ring/number don't flicker in from
-// a single pixel of scroll right at the top of the page.
-const SCROLL_START_THRESHOLD = 0.5
-const SWAP_DURATION = 0.35
+/** Shown once the visitor is half a screen down the page. */
+const SHOW_AFTER = 0.5
 
+/** Fired before jumping to the top, so anything holding the scroll (the
+ * services section's step-by-step lock) can let go first. */
+export const SCROLL_TO_TOP_EVENT = "brainstack:scroll-to-top"
+
+/** Back-to-top button: a chevron inside a ring that fills with the page's
+ * scroll progress. Click goes straight to the top. */
 export function ScrollButton() {
-  const [scrolled, setScrolled] = useState(false)
+  const [visible, setVisible] = useState(false)
   const [progress, setProgress] = useState(0)
-  const iconRef = useRef<HTMLDivElement>(null)
-  const percentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let rafId: number | null = null
 
-    const updateScrollState = () => {
+    const update = () => {
       rafId = null
       const scrollTop = window.scrollY
-      const scrollable =
-        document.documentElement.scrollHeight - window.innerHeight
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight
       const pct = scrollable > 0 ? (scrollTop / scrollable) * 100 : 0
-
       setProgress(Math.min(100, Math.max(0, pct)))
-      setScrolled(scrollTop > window.innerHeight * BACK_TO_TOP_THRESHOLD)
+      setVisible(scrollTop > window.innerHeight * SHOW_AFTER)
     }
 
-    // Coalesce scroll/resize events to once per animation frame — a bare
-    // listener calling setState on every native scroll event forces a React
-    // re-render per event, and this component is mounted once in the root
+    // Coalesced to one update per frame: this is mounted once in the root
     // layout, so it runs on every page.
     const requestUpdate = () => {
-      if (rafId !== null) return
-      rafId = requestAnimationFrame(updateScrollState)
+      if (rafId === null) rafId = requestAnimationFrame(update)
     }
 
-    updateScrollState()
+    update()
     window.addEventListener("scroll", requestUpdate, { passive: true })
     window.addEventListener("resize", requestUpdate)
     return () => {
@@ -54,33 +50,11 @@ export function ScrollButton() {
     }
   }, [])
 
-  const isScrolling = progress > SCROLL_START_THRESHOLD
-
-  useEffect(() => {
-    const icon = iconRef.current
-    const percent = percentRef.current
-    if (!icon || !percent) return
-
-    gsap.to(icon, {
-      opacity: isScrolling ? 0 : 1,
-      scale: isScrolling ? 0.5 : 1,
-      duration: SWAP_DURATION,
-      ease: "power2.out",
-    })
-    gsap.to(percent, {
-      opacity: isScrolling ? 1 : 0,
-      scale: isScrolling ? 1 : 0.5,
-      duration: SWAP_DURATION,
-      ease: "power2.out",
-    })
-  }, [isScrolling])
-
-  const handleClick = () => {
-    if (scrolled) {
-      window.scrollTo({ top: 0, behavior: "smooth" })
-    } else {
-      window.scrollBy({ top: window.innerHeight, behavior: "smooth" })
-    }
+  const scrollToTop = () => {
+    window.dispatchEvent(new Event(SCROLL_TO_TOP_EVENT))
+    const lenis = getLenis()
+    if (lenis) lenis.scrollTo(0, { duration: 1.4 })
+    else window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   const dashOffset = CIRCUMFERENCE * (1 - progress / 100)
@@ -88,12 +62,14 @@ export function ScrollButton() {
   return (
     <button
       type="button"
-      onClick={handleClick}
-      aria-label={
-        scrolled ? "Scroll back to top" : "Scroll down to next section"
-      }
-      className="group fixed right-5 bottom-24 z-50 hidden size-14 cursor-pointer items-center justify-center rounded-full bg-surface-dark/90 text-white shadow-lg transition-all duration-300 hover:scale-110 hover:bg-neutral-800 sm:right-8 lg:flex lg:bottom-8"
-      data-cursor="magnetic"
+      onClick={scrollToTop}
+      aria-label="Back to top"
+      tabIndex={visible ? 0 : -1}
+      aria-hidden={!visible}
+      className={cn(
+        "group fixed right-5 bottom-24 z-50 hidden size-14 cursor-pointer items-center justify-center rounded-full bg-surface-dark/90 text-white shadow-lg backdrop-blur transition-[opacity,translate,background-color] duration-500 ease-premium hover:bg-neutral-800 sm:right-8 lg:bottom-8 lg:flex",
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+      )}
     >
       <svg
         className="pointer-events-none absolute inset-0 size-full -rotate-90"
@@ -121,27 +97,11 @@ export function ScrollButton() {
         />
       </svg>
 
-      <div className="relative flex size-full items-center justify-center">
-        <div
-          ref={iconRef}
-          className="absolute flex items-center justify-center"
-        >
-          <span className={cn(!scrolled && "animate-bounce")}>
-            {scrolled ? (
-              <ArrowUp className="size-5 transition-transform duration-300 group-hover:-translate-y-1" />
-            ) : (
-              <ArrowDown className="size-5 transition-transform duration-300 group-hover:translate-y-1" />
-            )}
-          </span>
-        </div>
-
-        <div
-          ref={percentRef}
-          className="absolute text-xs font-semibold opacity-0"
-        >
-          {Math.round(progress)}%
-        </div>
-      </div>
+      <ChevronUp
+        aria-hidden="true"
+        className="relative size-6 transition-transform duration-500 ease-premium group-hover:-translate-y-1"
+        strokeWidth={1.8}
+      />
     </button>
   )
 }

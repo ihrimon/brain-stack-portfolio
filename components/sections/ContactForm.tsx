@@ -71,13 +71,13 @@ export default function ContactForm() {
   }, [state.status])
 
   return (
-    <section className="bg-brand-dark py-20 sm:py-18">
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <div className="grid gap-16 lg:grid-cols-[1fr_360px] lg:gap-12">
-          <div className="min-w-0 max-w-2xl">
+    <section className="pt-8 pb-20 sm:pb-28">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
+        <div className="grid gap-16 lg:grid-cols-12 lg:gap-8">
+          <div className="min-w-0 max-w-2xl lg:col-span-7">
             <SectionBadge>Start a Project</SectionBadge>
 
-            <h2 className="mt-8 text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl">
+            <h2 className="mt-8 heading-section text-ink">
               Tell us what you need
             </h2>
 
@@ -88,7 +88,7 @@ export default function ContactForm() {
               <input type="hidden" name="budget" value={budget ?? ""} />
 
               <div>
-                <p className="text-base text-white/70">
+                <p className="font-mono text-[11px] tracking-wider text-ink-2 uppercase">
                   I&apos;m interested in&hellip;
                 </p>
 
@@ -103,8 +103,8 @@ export default function ContactForm() {
                       className={cn(
                         "cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-300",
                         services.includes(service)
-                          ? "border-white bg-white text-black"
-                          : "border-white/20 text-white/70 hover:border-white/40 hover:text-white"
+                          ? "border-signal bg-signal text-signal-ink"
+                          : "border-line text-ink-2 hover:border-ink hover:text-ink"
                       )}
                     >
                       {service}
@@ -119,6 +119,7 @@ export default function ContactForm() {
                   type="text"
                   name="name"
                   placeholder="Your name"
+                  aria-label="Your name"
                   aria-invalid={Boolean(state.fieldErrors?.name)}
                   className={fieldClassName}
                 />
@@ -131,6 +132,7 @@ export default function ContactForm() {
                   type="email"
                   name="email"
                   placeholder="Email"
+                  aria-label="Email"
                   aria-invalid={Boolean(state.fieldErrors?.email)}
                   className={fieldClassName}
                 />
@@ -143,6 +145,7 @@ export default function ContactForm() {
                   name="message"
                   rows={3}
                   placeholder="Tell us about your project"
+                  aria-label="Tell us about your project"
                   aria-invalid={Boolean(state.fieldErrors?.message)}
                   className={`${fieldClassName} resize-none`}
                 />
@@ -150,7 +153,7 @@ export default function ContactForm() {
               </div>
 
               <div className="mt-12">
-                <p className="text-base text-white/70">Project budget (USD)</p>
+                <p className="font-mono text-[11px] tracking-wider text-ink-2 uppercase">Project budget (USD)</p>
 
                 <div className="mt-4 flex flex-wrap gap-3">
                   {contactData.budgetOptions.map((option) => (
@@ -163,8 +166,8 @@ export default function ContactForm() {
                       className={cn(
                         "cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-300",
                         budget === option
-                          ? "border-white bg-white text-black"
-                          : "border-white/20 text-white/70 hover:border-white/40 hover:text-white"
+                          ? "border-signal bg-signal text-signal-ink"
+                          : "border-line text-ink-2 hover:border-ink hover:text-ink"
                       )}
                     >
                       {option}
@@ -180,6 +183,7 @@ export default function ContactForm() {
                   ref={fileInputRef}
                   type="file"
                   name="attachment"
+                  aria-label="Add attachment"
                   className="sr-only"
                   onChange={(event) =>
                     handleAttachmentChange(event.target.files?.[0] ?? null)
@@ -191,7 +195,7 @@ export default function ContactForm() {
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
                     data-cursor="magnetic"
-                    className="inline-flex cursor-pointer items-center gap-2 border-b border-white/40 pb-0.5 text-sm font-semibold text-white transition-colors duration-300 hover:border-white/70"
+                    className="inline-flex cursor-pointer items-center gap-2 border-b border-ink/40 pb-0.5 text-sm font-medium text-ink transition-colors duration-300 hover:border-signal hover:text-signal-text"
                   >
                     <Paperclip className="size-4" />
                     {attachment
@@ -205,14 +209,14 @@ export default function ContactForm() {
                       onClick={clearAttachment}
                       aria-label="Remove attachment"
                       data-cursor="magnetic"
-                      className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white/60 transition-colors duration-300 hover:bg-white/20 hover:text-white"
+                      className="flex size-6 cursor-pointer items-center justify-center rounded-full bg-ink/10 text-ink-2 transition-colors duration-300 hover:bg-ink/20 hover:text-ink"
                     >
                       <X className="size-3.5" />
                     </button>
                   )}
                 </div>
 
-                <p className="mt-2 text-xs text-white/40">
+                <p className="mt-2 font-mono text-[11px] text-ink-2">
                   Any file type, up to {formatBytes(MAX_ATTACHMENT_BYTES)}.
                 </p>
 
@@ -225,13 +229,13 @@ export default function ContactForm() {
                 type="submit"
                 disabled={isPending}
                 data-cursor="magnetic"
-                className="mt-12 cursor-pointer rounded-full border border-white/30 px-8 py-3 text-sm font-medium text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-60"
+                className="mt-12 cursor-pointer rounded-full bg-signal px-9 py-4 text-sm font-semibold tracking-wide text-signal-ink uppercase transition-colors duration-300 hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isPending ? "Sending..." : state.status === "success" ? "Request Sent" : "Send request"}
               </button>
 
               {state.status === "success" && (
-                <p className="mt-4 text-sm text-white/50">
+                <p className="mt-4 text-sm text-ink-2">
                   Thanks for reaching out — we&apos;ll get back to you within
                   one business day.
                 </p>
@@ -245,50 +249,50 @@ export default function ContactForm() {
             </form>
           </div>
 
-          <div className="min-w-0 flex flex-col gap-6">
-            <div className="flex gap-4 rounded-3xl border border-white/10 p-6">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
-                <Mail className="size-5 text-white" />
+          <div className="flex min-w-0 flex-col gap-4 lg:col-span-4 lg:col-start-9">
+            <div className="flex gap-4 rounded-3xl border border-line bg-paper-2 p-6">
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-signal/10">
+                <Mail className="size-5 text-signal" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs tracking-wider text-white/50 uppercase">
+                <p className="font-mono text-[11px] tracking-wider text-ink-2 uppercase">
                   Send Us Mail
                 </p>
                 <a
                   href={`mailto:${contactData.email}`}
-                  className="mt-1 block font-medium wrap-break-word text-white hover:underline"
+                  className="mt-1 block font-medium wrap-break-word text-ink transition-colors duration-300 hover:text-signal-text"
                 >
                   {contactData.email}
                 </a>
               </div>
             </div>
 
-            <div className="flex gap-4 rounded-3xl border border-white/10 p-6">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
-                <Phone className="size-5 text-white" />
+            <div className="flex gap-4 rounded-3xl border border-line bg-paper-2 p-6">
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-signal/10">
+                <Phone className="size-5 text-signal" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs tracking-wider text-white/50 uppercase">
+                <p className="font-mono text-[11px] tracking-wider text-ink-2 uppercase">
                   {contactData.phoneHours}
                 </p>
                 <a
                   href={`tel:${contactData.phone.replace(/[^+\d]/g, "")}`}
-                  className="mt-1 block font-medium wrap-break-word text-white hover:underline"
+                  className="mt-1 block font-medium wrap-break-word text-ink transition-colors duration-300 hover:text-signal-text"
                 >
                   {contactData.phone}
                 </a>
               </div>
             </div>
 
-            <div className="flex gap-4 rounded-3xl border border-white/10 p-6">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
-                <MapPin className="size-5 text-white" />
+            <div className="flex gap-4 rounded-3xl border border-line bg-paper-2 p-6">
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-signal/10">
+                <MapPin className="size-5 text-signal" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs tracking-wider text-white/50 uppercase">
+                <p className="font-mono text-[11px] tracking-wider text-ink-2 uppercase">
                   Visit Office
                 </p>
-                <p className="mt-1 font-medium wrap-break-word text-white">
+                <p className="mt-1 font-medium wrap-break-word text-ink">
                   {contactData.address.line1}
                 </p>
               </div>
@@ -301,11 +305,11 @@ export default function ContactForm() {
                   href={social.href}
                   target="_blank"
                   rel="me noopener noreferrer"
-                  aria-label={`Follow us on ${social.label}`}
-                  className="flex size-11 items-center justify-center rounded-full bg-white/10 text-xs font-bold text-white uppercase transition-colors hover:bg-white/20"
+                  className="flex size-11 items-center justify-center rounded-full border border-line text-xs font-semibold text-ink uppercase transition-colors duration-300 hover:border-signal hover:bg-signal hover:text-signal-ink"
                   data-cursor="magnetic"
                 >
-                  {social.glyph}
+                  <span aria-hidden="true">{social.glyph}</span>
+                  <span className="sr-only">Follow us on {social.label}</span>
                 </a>
               ))}
             </div>

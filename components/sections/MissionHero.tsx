@@ -20,7 +20,7 @@ function renderHighlighted(
 
   return text.split(pattern).map((part, index) =>
     highlights.includes(part) ? (
-      <strong key={index} className="font-semibold text-white">
+      <strong key={index} className="font-medium text-ink">
         {part}
       </strong>
     ) : (
@@ -35,67 +35,63 @@ interface MissionHeroProps {
 
 export default function MissionHero({ data }: MissionHeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const headingRef = useRef<HTMLHeadingElement>(null)
 
   useGSAP(
     () => {
-      gsap.effects.textRevealOnScroll(headingRef.current)
+      // Same staggered fade-up the home hero uses for its supporting copy.
+      const mm = gsap.matchMedia()
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from("[data-mission-reveal]", {
+          autoAlpha: 0,
+          y: 24,
+          duration: 0.9,
+          ease: "expo.out",
+          stagger: 0.08,
+          delay: 0.2,
+        })
+      })
+      return () => mm.revert()
     },
     { scope: sectionRef }
   )
 
   return (
-    <section
-      ref={sectionRef}
-      className="bg-brand-dark pt-32 pb-20 sm:pt-40 sm:pb-28"
-    >
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
-        <h1
-          ref={headingRef}
-          className="text-5xl leading-[0.95] font-medium tracking-tight text-white uppercase sm:text-7xl md:text-6xl"
-        >
+    <section ref={sectionRef} className="pt-28 pb-20 sm:pt-36 sm:pb-28">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
+        <h1 className="rise-up max-w-[9.4em] text-[clamp(3rem,8.5vw,9rem)] leading-[0.9] font-medium tracking-[-0.05em] text-ink uppercase">
           {data.title}
         </h1>
 
-        <div className="mt-12 border-t border-white/10 sm:mt-20" />
-
-        <div className="grid gap-10 pt-16 lg:grid-cols-[1fr_1px_1fr_1px_380px] lg:gap-16">
-          <div>
-            <h2 className="text-xl font-semibold text-white sm:text-2xl">
+        <div className="mt-16 grid gap-12 border-t border-line pt-10 sm:mt-24 lg:grid-cols-12 lg:gap-8">
+          <div data-mission-reveal className="lg:col-span-4">
+            <h2 className="font-mono text-[11px] tracking-wider text-ink-2 uppercase">
               {data.statement.title}
             </h2>
-
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg">
-              {renderHighlighted(
-                data.statement.description,
-                data.statement.highlights
-              )}
+            <p className="mt-6 max-w-lg text-xl leading-snug tracking-tight text-ink-2 sm:text-2xl">
+              {renderHighlighted(data.statement.description, data.statement.highlights)}
             </p>
           </div>
 
-          <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
-
-          <div>
-            <h2 className="text-xl font-semibold text-white sm:text-2xl">
+          <div data-mission-reveal className="lg:col-span-4">
+            <h2 className="font-mono text-[11px] tracking-wider text-ink-2 uppercase">
               {data.pillars.title}
             </h2>
-
-            <ul className="mt-6 space-y-3">
-              {data.pillars.items.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-3 text-base text-white/70 sm:text-lg"
-                >
-                  <span className="size-1.5 shrink-0 rounded-full bg-white/50" />
+            <ol className="mt-6 divide-y divide-line border-y border-line">
+              {data.pillars.items.map((item, index) => (
+                <li key={item} className="flex items-baseline gap-4 py-3.5 text-base text-ink sm:text-lg">
+                  <span className="font-mono text-[11px] text-ink-2">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                   {item}
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
 
-          <div aria-hidden="true" className="hidden bg-white/10 lg:block" />
-
-          <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-surface-dark">
+          <div
+            data-mission-reveal
+            className="relative aspect-4/3 overflow-hidden rounded-3xl bg-paper-2 lg:col-span-4"
+          >
             <Image
               src={data.image}
               alt="Brain Stack"
@@ -103,15 +99,15 @@ export default function MissionHero({ data }: MissionHeroProps) {
               priority
               fetchPriority="high"
               className="object-cover"
-              sizes="(min-width: 1024px) 380px, 100vw"
+              sizes="(min-width: 1024px) 33vw, 100vw"
             />
 
-            <span className="absolute top-4 left-4 flex size-9 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm">
+            <span className="absolute top-4 left-4 flex size-10 items-center justify-center rounded-full bg-signal">
               <Image
                 src="/logo-white.png"
                 alt=""
-                width={16}
-                height={16}
+                width={18}
+                height={18}
                 className="object-contain"
               />
             </span>

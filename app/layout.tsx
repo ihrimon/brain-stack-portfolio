@@ -1,5 +1,5 @@
 import { Cursor } from "@/components/animations/Cursor"
-import { Loader } from "@/components/animations/Loader"
+import { BadgeInView } from "@/components/common/BadgeInView"
 import { JsonLd } from "@/components/common/JsonLd"
 import { ScrollButton } from "@/components/common/ScrollButton"
 import Footer from "@/components/layout/Footer"
@@ -9,17 +9,20 @@ import { SmoothScroll } from "@/components/layout/SmoothScroll"
 import "@/lib/animations/gsap-animations"
 import { defaultMetadata } from "@/lib/metadata"
 import { generateGlobalSchema } from "@/lib/structured-data"
+import { DEFAULT_THEME, themeInitScript } from "@/lib/theme/constants"
 import { Metadata } from "next"
-import { Inter, Sora } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 
-const sora = Sora({
-  variable: "--font-heading",
+// Variables live on <html> (not <body>) so the theme-independent tokens in
+// globals.css can resolve them at :root.
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
 })
 
-const inter = Inter({
-  variable: "--font-body",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 })
 
@@ -31,13 +34,21 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${sora.variable} ${inter.variable} bg-background text-foreground antialiased`}
-      >
+    // The init script rewrites data-theme before hydration, so <html>
+    // legitimately differs from the server markup for returning visitors.
+    <html
+      lang="en"
+      data-theme={DEFAULT_THEME}
+      className={`${geist.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="bg-background text-foreground antialiased">
         <JsonLd data={generateGlobalSchema()} />
-        <Loader />
         <Cursor />
+        <BadgeInView />
         <ScrollButton />
         <SmoothScroll>
           <div className="min-h-screen w-full pb-20 lg:pb-0">

@@ -1,8 +1,8 @@
 import { SectionBadge } from "@/components/common/SectionBadge"
 import { cn } from "@/lib/utils/cn"
-import Image from "next/image"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
-import type { Ref } from "react"
+import { Fragment, type Ref } from "react"
 
 interface HeadingSectionLink {
   label: string
@@ -61,7 +61,7 @@ export function HeadingSection({
   return (
     <div
       className={cn(
-        "grid gap-6 lg:grid-cols-[auto_1fr_auto] lg:items-start lg:gap-10",
+        "grid gap-5 border-t border-line pt-12 sm:gap-6 sm:pt-8 lg:grid-cols-[auto_1fr_auto] lg:items-start lg:gap-10",
         className
       )}
     >
@@ -69,13 +69,25 @@ export function HeadingSection({
 
       <h2
         ref={titleRef}
-        className="max-w-3xl min-w-0 text-3xl leading-tight font-medium tracking-tight text-white capitalize sm:text-4xl lg:col-start-2 lg:max-w-4xl lg:text-5xl"
+        className="max-w-3xl min-w-0 heading-section text-ink capitalize lg:col-start-2 lg:max-w-4xl"
       >
-        {title}
+        {/* A "\n" in the title marks a deliberate line break (sm and up;
+            phones wrap naturally). */}
+        {title.split("\n").map((line, index) => (
+          <Fragment key={index}>
+            {index > 0 && (
+              <>
+                {" "}
+                <br className="hidden sm:block" />
+              </>
+            )}
+            {line}
+          </Fragment>
+        ))}
       </h2>
 
       {description && (
-        <p className="max-w-xl text-base leading-relaxed text-white/60 sm:text-lg lg:col-start-3 lg:shrink-0">
+        <p className="max-w-md text-[15px] leading-relaxed text-ink-2 sm:text-lg lg:col-start-3 lg:shrink-0">
           {description}
         </p>
       )}
@@ -84,15 +96,12 @@ export function HeadingSection({
         <Link
           href={link.href}
           data-cursor="magnetic"
-          className="group/link inline-flex w-fit shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-primary lg:col-start-3 lg:self-end lg:justify-self-end"
+          className="group/link inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors duration-300 hover:border-signal hover:bg-signal hover:text-signal-ink lg:col-start-3 lg:self-end lg:justify-self-end"
         >
           {link.label}
-          <Image
-            src="/icons/arrow-right.svg"
-            alt=""
-            width={16}
-            height={16}
-            className="invert transition-transform duration-300 group-hover/link:translate-x-1"
+          <ArrowRight
+            aria-hidden="true"
+            className="size-4 transition-transform duration-500 ease-premium group-hover/link:translate-x-1"
           />
         </Link>
       )}

@@ -40,7 +40,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
       ref={sectionRef}
       className="bg-brand-dark py-20 sm:py-28"
     >
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
         <HeadingSection
           badge={blogsData.badge}
           title={blogsData.title}

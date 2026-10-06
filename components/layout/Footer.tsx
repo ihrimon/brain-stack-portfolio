@@ -2,119 +2,151 @@ import { Logo } from "@/components/common/Logo"
 import { contactData } from "@/lib/constants/contact"
 import { footerData } from "@/lib/constants/footer"
 import { navigationData } from "@/lib/constants/navigation"
+import { heroTagline } from "@/lib/data/hero"
+import { ArrowUpRight, Code2, Compass, PenTool, Workflow, type LucideIcon } from "lucide-react"
 import Link from "next/link"
+import type { ReactNode } from "react"
+
+const columnLabel = "mb-5 font-mono text-[11px] tracking-wider text-ink-2 uppercase"
+
+/** Footer link: on hover a signal-colored underline draws in from the left
+ * and a signal arrow slides up into place beside the label. Internal routes use next/link;
+ * mailto:/tel: stay plain anchors. */
+function FooterLink({
+  href,
+  children,
+  className,
+}: {
+  href: string
+  children: ReactNode
+  className?: string
+}) {
+  const Tag = href.startsWith("/") ? Link : "a"
+  return (
+    <Tag
+      href={href}
+      className={`group/fl inline-flex items-center gap-1.5 text-[15px] text-ink ${className ?? ""}`}
+    >
+      <span className="relative">
+        {children}
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-signal transition-transform duration-500 ease-premium group-hover/fl:scale-x-100"
+        />
+      </span>
+      <ArrowUpRight
+        aria-hidden="true"
+        className="size-3.5 shrink-0 -translate-x-1 translate-y-1 text-signal opacity-0 transition-[opacity,translate] duration-500 ease-premium group-hover/fl:translate-x-0 group-hover/fl:translate-y-0 group-hover/fl:opacity-100"
+      />
+    </Tag>
+  )
+}
+
+// One icon per step of the Discover → Design → Develop → Automate tagline.
+const stepIcons: Record<(typeof heroTagline)[number], LucideIcon> = {
+  Discover: Compass,
+  Design: PenTool,
+  Develop: Code2,
+  Automate: Workflow,
+}
 
 export default function Footer() {
   return (
+    // Dark in both themes — the footer is the page's closing, fixed anchor.
     <footer
-      className="relative overflow-hidden bg-brand-dark"
       role="contentinfo"
+      data-theme="dark"
+      className="relative overflow-hidden border-t border-line bg-paper text-ink"
     >
-      {/* <Image
-        src="/images/bg-footer.webp"
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover object-top opacity-70"
-        placeholder="blur"
-        blurDataURL={BLUR_DATA_URL}
-      /> */}
-      <div
-        className="absolute inset-0 bg-linear-to-b from-transparent via-brand-dark/50 to-brand-dark"
-        aria-hidden="true"
-      />
-
-      <div className="relative z-10 mx-auto max-w-400 px-5 pt-20 sm:px-8 sm:pt-28">
-        <div className="grid gap-12 lg:grid-cols-[1fr_auto_auto] lg:gap-16">
-          <div className="space-y-8">
-            <h2 className="max-w-md text-4xl leading-[1.05] font-bold tracking-tight text-white uppercase sm:text-5xl">
-              {footerData.heading}
-            </h2>
-
-            <div className="flex items-center gap-3">
-              {contactData.socials.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="me noopener noreferrer"
-                  aria-label={`Follow us on ${social.label}`}
-                  className="flex size-11 items-center justify-center rounded-full bg-white/10 text-xs font-bold text-white uppercase transition-colors hover:bg-white/20"
-                  data-cursor="magnetic"
-                >
-                  {social.glyph}
-                </a>
-              ))}
-            </div>
+      <div className="mx-auto w-full max-w-site px-4 pt-20 lg:px-6 sm:pt-28">
+        <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+          <div className="space-y-8 sm:col-span-2 lg:col-span-5">
+            {/* The process as four stacked lines: icon chip, word, step number.
+                Hover slides the line, fills the chip and draws a signal rule. */}
+            <ol aria-label="How we work" className="max-w-md">
+              {heroTagline.map((step, index) => {
+                const Icon = stepIcons[step]
+                return (
+                  <li
+                    key={step}
+                    className="group relative flex items-center gap-4 border-b border-line py-3 first:pt-0"
+                  >
+                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-signal/10 text-signal transition-colors duration-500 ease-premium group-hover:bg-signal group-hover:text-signal-ink">
+                      <Icon className="size-5" strokeWidth={1.6} aria-hidden="true" />
+                    </span>
+                    <span className="text-3xl leading-none font-medium tracking-[-0.03em] text-ink transition-transform duration-500 ease-premium group-hover:translate-x-1.5 sm:text-4xl">
+                      {step}
+                      <span className="text-signal">.</span>
+                    </span>
+                    <span className="ml-auto font-mono text-[11px] tracking-wider text-ink-2">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-0 -bottom-px h-px origin-left scale-x-0 bg-signal transition-transform duration-700 ease-premium group-hover:scale-x-100"
+                    />
+                  </li>
+                )
+              })}
+            </ol>
           </div>
 
-          <div>
-            <h3 className="mb-6 text-sm font-medium tracking-wider text-white/60 uppercase">
-              Quick Links:
-            </h3>
-            <div className="flex max-w-xs flex-wrap gap-3">
+          <nav aria-label="Footer" className="lg:col-span-3 lg:col-start-7">
+            <p className={columnLabel}>Quick Links:</p>
+            <ul className="space-y-2.5">
               {navigationData.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="rounded-full bg-white/10 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/20"
-                  data-cursor="magnetic"
-                >
-                  {item.name}
-                </Link>
+                <li key={item.name}>
+                  <FooterLink href={item.href}>{item.name}</FooterLink>
+                </li>
               ))}
-            </div>
-          </div>
+            </ul>
+          </nav>
 
-          <div className="space-y-8">
+          <div className="space-y-8 lg:col-span-3 lg:col-start-10">
             <div>
-              <h3 className="mb-3 text-sm font-medium tracking-wider text-white/60 uppercase">
-                Location:
-              </h3>
-              <p className="text-white">
-                {contactData.address.line1}
-              </p>
+              <p className={columnLabel}>Location:</p>
+              <p className="text-[15px] text-ink">{contactData.address.line1}</p>
             </div>
 
             <div>
-              <h3 className="mb-3 text-sm font-medium tracking-wider text-white/60 uppercase">
-                Contact Us:
-              </h3>
-              <p className="text-white">
-                <a
-                  href={`mailto:${contactData.email}`}
-                  className="hover:underline"
-                >
-                  {contactData.email}
-                </a>
-                <br />
-                <a
-                  href={`tel:${contactData.phone.replace(/[^+\d]/g, "")}`}
-                  className="hover:underline"
-                >
-                  {contactData.phone}
-                </a>
-              </p>
+              <p className={columnLabel}>Contact Us:</p>
+              <ul className="space-y-2.5">
+                <li>
+                  <FooterLink href={`mailto:${contactData.email}`} className="break-all">
+                    {contactData.email}
+                  </FooterLink>
+                </li>
+                <li>
+                  <FooterLink href={`tel:${contactData.phone.replace(/[^+\d]/g, "")}`}>
+                    {contactData.phone}
+                  </FooterLink>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="relative z-10 mt-10 overflow-hidden">
-        <p
-          aria-hidden="true"
-          className="bg-linear-to-b from-white/20 to-transparent bg-clip-text px-2 text-[15vw] leading-none font-bold whitespace-nowrap text-transparent select-none"
-        >
-          {footerData.wordmark}
-        </p>
-      </div>
-
-      <div className="relative z-10 max-w-full border-t border-white/10">
-        <div className="mx-auto flex max-w-400 flex-col items-center justify-between gap-4 px-5 py-6 text-xs text-white/40 sm:flex-row sm:px-8">
-          <Logo variant="on-dark" className="text-white" />
-          <p className="text-base">
-            © {new Date().getFullYear()} Brain Stack Studio. All rights reserved.
+        {/* Wordmark, sized to the content width (container units) so it
+            spans the site column edge to edge. It fades over its full visible
+            height, solid at the top to transparent where the bottom bar's
+            hairline sits; kept at low contrast (ink/25) so it reads as a deep,
+            quiet backdrop rather than a highlight; the bar then rises over the lowest ~30%
+            (`footer-rise` in globals.css), so it reads as sinking. */}
+        <div className="@container mt-20 sm:mt-28">
+          <p
+            aria-hidden="true"
+            className="text-center text-[16.6cqw] leading-[0.8] font-semibold tracking-[-0.06em] whitespace-nowrap text-ink/25 select-none mask-[linear-gradient(to_bottom,black,transparent_65%)]"
+          >
+            {footerData.wordmark}
           </p>
+
+          {/* 0.3 × wordmark line box (16.6cqw × 0.8) */}
+          <div className="footer-rise relative -mt-[3.98cqw] flex flex-col items-center justify-between gap-4 border-t border-line bg-paper py-6 sm:flex-row">
+            <Logo className="text-ink" />
+            <p className="font-mono text-[11px] tracking-wider text-ink-2 uppercase">
+              © {new Date().getFullYear()} Brain Stack Studio. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

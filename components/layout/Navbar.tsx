@@ -1,35 +1,70 @@
 "use client"
 
 import { Logo } from "@/components/common/Logo"
-import { SettingsDrawer } from "@/components/layout/SettingsDrawer"
-import { primaryNavigationData } from "@/lib/constants/navigation"
 import { cn } from "@/lib/utils/cn"
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/all"
+import { ArrowUpRight } from "lucide-react"
+import dynamic from "next/dynamic"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
-gsap.registerPlugin(ScrollTrigger)
+// The menu drawer (and vaul behind it) is only needed once someone opens
+// the menu, so it stays out of every page's initial bundle and loads on
+// first open instead.
+const SettingsDrawer = dynamic(
+  () => import("@/components/layout/SettingsDrawer").then((mod) => mod.SettingsDrawer),
+  { ssr: false }
+)
+
+/** Scroll distance before the bar gets its blurred backing. */
+const SOLID_AFTER_PX = 24
+/** Don't hide the bar until the visitor is clearly past the top. */
+const HIDE_AFTER_PX = 320
+/** Movement needed before the scroll direction counts as changed. Lenis
+ * eases out with sub-pixel steps (and repeated identical positions), which
+ * would otherwise flip hide/show every frame at the end of a gesture. */
+const DIRECTION_THRESHOLD_PX = 8
 
 export function Navbar() {
   const pathname = usePathname()
   const [drawerOpen, setDrawerOpen] = useState(false)
-  // Toggled once the visitor scrolls past the Hero's own viewport-height
-  // area, so the logo gets a solid backing and stays legible over whatever
-  // (lighter or busier) content scrolls under the fixed header next.
-  const [scrolledPastHero, setScrolledPastHero] = useState(false)
+  // Mount the drawer on first open, then keep it mounted so its close
+  // animation can play.
+  const [drawerMounted, setDrawerMounted] = useState(false)
+  const [solid, setSolid] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const lastY = useRef(0)
 
-  useGSAP(() => {
-    const trigger = ScrollTrigger.create({
-      start: () => window.innerHeight,
-      onEnter: () => setScrolledPastHero(true),
-      onLeaveBack: () => setScrolledPastHero(false),
-    })
-
-    return () => trigger.kill()
-  })
+  // Hide on scroll down, reveal on scroll up (x.ai / Cuberto pattern). One
+  // passive listener, throttled to a frame; Lenis drives the native window
+  // scroll, so plain `scroll` events fire as usual.
+  useEffect(() => {
+    let frame = 0
+    const onScroll = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        const y = window.scrollY
+        setSolid(y > SOLID_AFTER_PX)
+        if (y <= HIDE_AFTER_PX) {
+          setHidden(false)
+          lastY.current = y
+          return
+        }
+        const delta = y - lastY.current
+        // Only act on real movement; below the threshold keep the current
+        // state and keep accumulating from the last decisive position.
+        if (Math.abs(delta) < DIRECTION_THRESHOLD_PX) return
+        setHidden(delta > 0)
+        lastY.current = y
+      })
+    }
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener("scroll", onScroll)
+    }
+  }, [])
 
   return (
     <>
@@ -41,92 +76,89 @@ export function Navbar() {
       </a>
 
       <header
-        className="fixed inset-x-0 top-0 z-40 w-full bg-transparent"
         role="banner"
+        className={cn(
+          "fixed inset-x-0 top-0 z-40 w-full border-b transition-[transform,background-color,border-color] duration-500 ease-premium",
+          solid
+            ? "border-line bg-paper/75 backdrop-blur-xl"
+            : "border-transparent bg-transparent",
+          hidden && !drawerOpen && "-translate-y-full"
+        )}
       >
         <nav
-          className="mx-auto flex w-full max-w-400 items-center justify-between px-4 py-4 sm:px-8"
-          role="navigation"
           aria-label="Primary navigation"
+          className="mx-auto flex h-18 w-full max-w-site items-center justify-between gap-6 px-4 lg:px-6"
         >
-          <div
-            className={cn(
-              "rounded-[5px] py-1 px-2 transition-colors duration-300",
-              scrolledPastHero ? "bg-surface-dark" : "bg-transparent"
-            )}
-          >
-            <Logo variant="on-dark" className="text-white" />
-          </div>
+          <Logo className="shrink-0 whitespace-nowrap text-ink" />
 
-          <div className="flex items-center gap-3">
-            <ul
-              className={cn(
-                "hidden h-14 items-center gap-1 rounded-full bg-transparent px-4 py-2 transition-all duration-500 ease-out lg:flex",
-                scrolledPastHero
-                  ? "pointer-events-none origin-right scale-50 opacity-0"
-                  : "origin-right scale-100 opacity-100"
-              )}
-              aria-label="Main navigation"
-              aria-hidden={scrolledPastHero}
-            >
-              {primaryNavigationData.map((item) => {
-                const isActive = pathname.startsWith(item.href)
-                return (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "group block rounded-full px-3 py-2 font-semibold text-lg transition-colors duration-300",
-                        // Inverted pill (light bg, dark text) to stand out
-                        // against the surrounding dark nav — `bg-foreground
-                        // text-background` rather than the more obvious
-                        // `bg-background text-foreground`, since this site's
-                        // tokens are dark-by-default (`--foreground` is the
-                        // light color, `--background` the dark one).
-                        isActive
-                          ? "bg-foreground text-background"
-                          : "text-white/80 hover:bg-foreground hover:text-background"
-                      )}
-                      data-cursor="magnetic"
-                    >
-                      <span className="relative inline-flex overflow-hidden">
-                        <span className="block transition-transform duration-300 ease-out group-hover:translate-y-full">
-                          {item.name}
-                        </span>
-                        <span
-                          aria-hidden="true"
-                          className="absolute inset-0 block -translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0"
-                        >
-                          {item.name}
-                        </span>
-                      </span>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
+          {/* No inline link list — the full menu lives in the drawer. The only
+              always-visible action is the "Start A Project" CTA. */}
+          <div className="flex items-center gap-2">
+            <StartProjectButton active={pathname.startsWith("/contact")} />
 
             <button
               type="button"
-              onClick={() => setDrawerOpen(true)}
-              className={cn(
-                "group flex size-14 shrink-0 cursor-pointer flex-col items-center justify-center gap-1.5 p-2 rounded-full transition-colors duration-300",
-                scrolledPastHero
-                  ? "border border-white/15 bg-surface-dark/90"
-                  : "bg-transparent"
-              )}
+              onClick={() => {
+                setDrawerMounted(true)
+                setDrawerOpen(true)
+              }}
+              onPointerEnter={() => {
+                // Warm the chunk on hover so the first open feels instant.
+                void import("@/components/layout/SettingsDrawer")
+              }}
               aria-label="Open menu"
-              data-cursor="magnetic"
+              className="group flex size-11 shrink-0 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-full border border-line transition-colors duration-300 hover:border-ink"
             >
-              <span className="h-0.5 w-9 bg-white transition-all duration-300 group-hover:w-5 group-hover:translate-x-0.5" />
-              <span className="h-0.5 w-9 bg-white transition-all duration-300 group-hover:w-5 group-hover:-translate-x-0.5" />
-              <span className="h-0.5 w-9 bg-white transition-all duration-300 group-hover:w-5 group-hover:translate-x-0.5" />
+              <span className="h-px w-4.5 bg-ink transition-transform duration-500 ease-premium group-hover:translate-y-[3.5px]" />
+              <span className="h-px w-4.5 bg-ink transition-transform duration-500 ease-premium group-hover:-translate-y-[3.5px]" />
             </button>
           </div>
         </nav>
       </header>
 
-      <SettingsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
+      {drawerMounted && (
+        <SettingsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
+      )}
     </>
+  )
+}
+
+/** The bar's single always-visible CTA. Styled like the section badges: a
+ * hairline capsule with a signal light orbiting its border (`.badge-border`
+ * in globals.css). On hover the signal color floods in from the left (same
+ * gesture as PrimaryButton), the label rolls to a second copy and the arrow
+ * turns. */
+function StartProjectButton({ active }: { active: boolean }) {
+  return (
+    <Link
+      href="/contact"
+      aria-current={active ? "page" : undefined}
+      className={cn(
+        "badge-border group relative inline-flex h-10 items-center gap-2 rounded-full px-4 text-[13px] font-medium transition-colors duration-500 sm:h-11 sm:pr-4 sm:pl-5 sm:text-sm",
+        active ? "bg-signal text-signal-ink" : "bg-ink/[0.03] text-ink"
+      )}
+    >
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 origin-left scale-x-0 rounded-full bg-signal transition-transform duration-500 ease-premium group-hover:scale-x-100"
+      />
+
+      <span className="relative inline-flex overflow-hidden whitespace-nowrap">
+        <span className="block transition-transform duration-500 ease-premium group-hover:-translate-y-full">
+          Start A Project
+        </span>
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 block translate-y-full text-signal-ink transition-transform duration-500 ease-premium group-hover:translate-y-0"
+        >
+          Start A Project
+        </span>
+      </span>
+
+      <ArrowUpRight
+        aria-hidden="true"
+        className="relative hidden size-4 transition-[transform,color] duration-500 ease-premium group-hover:rotate-45 group-hover:text-signal-ink sm:block"
+      />
+    </Link>
   )
 }

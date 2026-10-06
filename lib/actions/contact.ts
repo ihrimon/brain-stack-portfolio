@@ -68,7 +68,7 @@ function buildEmailHtml(params: {
       <div style="max-width: 560px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e5e5ea;">
         <div style="background-color: #0b0b0f; padding: 24px 28px;">
           <p style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 700;">Brain Stack Studio</p>
-          <p style="margin: 4px 0 0; color: #22d3ee; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;">
+          <p style="margin: 4px 0 0; color: #2f5bff; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;">
             New project inquiry
           </p>
         </div>

@@ -34,7 +34,7 @@ export default function AboutStats({ stats }: AboutStatsProps) {
             gsap.to(counter, {
               value: target,
               duration: 1.6,
-              ease: "power2.out",
+              ease: "expo.out",
               onUpdate: () => {
                 el.textContent = Math.round(counter.value).toString()
               },
@@ -45,35 +45,32 @@ export default function AboutStats({ stats }: AboutStatsProps) {
 
       // No manual cleanup needed — useGSAP's automatic gsap.context().revert()
       // (scoped to sectionRef) already tears down the ScrollTrigger created
-      // above. A prior version of this called
-      // `ScrollTrigger.getAll().forEach(t => t.kill())`, which kills every
-      // ScrollTrigger on the page, not just this component's own.
+      // above.
     },
     { scope: sectionRef }
   )
 
   return (
-    <section ref={sectionRef} className="w-full bg-brand-dark">
-      <div className="w-full border-y border-white/10">
-        <div className="mx-auto max-w-400 px-5 sm:px-8">
-          <div className="grid grid-cols-2 divide-x divide-y divide-white/10 sm:grid-cols-4 sm:divide-y-0">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="flex flex-col items-center justify-center gap-3 px-6 py-12 text-center sm:py-16"
-              >
-                <p className="text-4xl font-semibold text-white sm:text-5xl">
-                  <span data-stat-value={stat.value}>0</span>
-                  {stat.suffix}
-                </p>
-
-                <p className="text-xs tracking-widest text-white/50 uppercase">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+    <section ref={sectionRef} className="w-full">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
+        <dl className="grid grid-cols-2 border-t border-l border-line sm:grid-cols-4">
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="flex flex-col justify-between gap-10 border-r border-b border-line p-6 sm:p-8"
+            >
+              <dt className="font-mono text-[11px] tracking-wider text-ink-2 uppercase">
+                {stat.label}
+              </dt>
+              <dd className="text-[clamp(2.75rem,5vw,5rem)] leading-none font-medium tracking-[-0.04em] text-ink tabular-nums">
+                {/* Server-rendered at the real value so it's never shown
+                    as 0 without JS; the count-up replays it on scroll. */}
+                <span data-stat-value={stat.value}>{stat.value}</span>
+                <span className="text-signal">{stat.suffix}</span>
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   )

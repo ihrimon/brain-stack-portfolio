@@ -1,25 +1,15 @@
 "use client"
 
 import { HeadingSection } from "@/components/common/HeadingSection"
+import { LazyBrain3D } from "@/components/animations/LazyBrain3D"
 import "@/lib/animations/gsap-animations"
 import type { WhoWeAreData } from "@/lib/data/home-page"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
-import dynamic from "next/dynamic"
 import { useRef } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
-
-// three.js + React Three Fiber are a heavy dependency for a purely
-// decorative, pointer-driven, aria-hidden canvas — loading it client-only
-// keeps it out of this page's server-rendered bundle entirely, matching
-// the same dynamic-import-with-no-fallback approach HeroSection.tsx uses
-// for HeroBackground.
-const BrainWireframe = dynamic(
-  () => import("@/components/three/BrainWireframe").then((mod) => mod.BrainWireframe),
-  { ssr: false }
-)
 
 interface WhoWeAreSectionProps {
   data: WhoWeAreData
@@ -43,9 +33,9 @@ export default function WhoWeAreSection({ data }: WhoWeAreSectionProps) {
     <section
       id="who-we-are"
       ref={sectionRef}
-      className="relative z-10 py-20 sm:py-28 bg-surface-dark"
+      className="relative z-10 py-20 sm:py-28"
     >
-      <div className="mx-auto max-w-400 px-5 sm:px-8">
+      <div className="mx-auto max-w-site px-4 lg:px-6">
         <HeadingSection
           badge={data.badge}
           title={data.title}
@@ -53,10 +43,10 @@ export default function WhoWeAreSection({ data }: WhoWeAreSectionProps) {
           link={{ label: data.button.label, href: data.button.href }}
         />
 
-        <div className="mt-16 grid gap-16 lg:grid-cols-[1.7fr_1fr] lg:items-stretch lg:gap-x-20">
+        <div className="mt-16 grid gap-16 lg:grid-cols-[1.15fr_1fr] lg:items-stretch lg:gap-x-16">
           <div
             ref={descRef}
-            className="max-w-2xl space-y-4 text-lg leading-relaxed text-white/70"
+            className="max-w-2xl space-y-4 text-[15px] leading-relaxed text-ink-2 sm:text-lg"
           >
             {/* `description` is normally an array of paragraphs (see
                 lib/data/home-page.ts) — coerce defensively in case a single
@@ -69,8 +59,15 @@ export default function WhoWeAreSection({ data }: WhoWeAreSectionProps) {
             ))}
           </div>
 
-          <div className="relative mx-auto h-90 w-full max-w-md sm:h-120 lg:mx-0 lg:h-full lg:max-w-none">
-            <BrainWireframe className="absolute inset-0 size-full" />
+          {/* The same real 3D brain as the hero (holographic point cloud,
+              turns toward the pointer anywhere over this section). Loaded
+              lazily, so it costs nothing until the page has settled. */}
+          <div className="relative mx-auto h-80 w-full sm:h-110 lg:mx-0 lg:h-full lg:min-h-110">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-[12%] rounded-full bg-signal/20 blur-[90px] light:bg-signal/10"
+            />
+            <LazyBrain3D delay={300} />
           </div>
         </div>
       </div>
