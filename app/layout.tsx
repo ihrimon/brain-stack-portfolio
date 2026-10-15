@@ -12,7 +12,13 @@ import { generateGlobalSchema } from "@/lib/structured-data"
 import { DEFAULT_THEME, themeInitScript } from "@/lib/theme/constants"
 import { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
+
+// BrainStack AI Receptionist chat widget: the snippet from the dashboard's
+// Settings → Install page. It draws a chat button in the corner.
+const CHAT_WIDGET_SRC = "https://ai-health-receptionist.vercel.app/chatbot.js"
+const CHAT_WIDGET_ID = "cb_dxA0Ntn6sQpSWRWl"
 
 // Variables live on <html> (not <body>) so the theme-independent tokens in
 // globals.css can resolve them at :root.
@@ -58,6 +64,15 @@ export default function RootLayout({
           </div>
         </SmoothScroll>
         <MobileNav />
+        {/* lazyOnload: fetched once the page is idle, so it never slows it
+            down. data-bottom lifts the chat button above MobileNav's bar
+            and ScrollButton (bottom-8, size-14) instead of covering them. */}
+        <Script
+          src={CHAT_WIDGET_SRC}
+          data-chatbot-id={CHAT_WIDGET_ID}
+          data-bottom="96"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   )
