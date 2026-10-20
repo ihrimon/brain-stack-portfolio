@@ -18,7 +18,7 @@ import "./globals.css"
 // BrainStack AI Receptionist chat widget: the snippet from the dashboard's
 // Settings → Install page. It draws a chat button in the corner.
 const CHAT_WIDGET_SRC = "https://ai-health-receptionist.vercel.app/chatbot.js"
-const CHAT_WIDGET_ID = "cb_kwlP6jyDbnwTT1BC"
+const CHAT_WIDGET_ID = "cb_FtA5TfTh80M0I3rf"
 
 // Variables live on <html> (not <body>) so the theme-independent tokens in
 // globals.css can resolve them at :root.
